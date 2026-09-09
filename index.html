@@ -13,28 +13,31 @@
         }
 
         body {
-            background: #f8f9fa;
-            padding: 30px;
+            background: #f0f2f5;
+            padding: 40px 20px;
+            min-height: 100vh;
         }
 
         /* ===== MENU ===== */
         nav {
-            background: #2c3e50;
-            border-radius: 8px;
-            max-width: 700px;
+            background: #1a2332;
+            border-radius: 10px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
 
         nav > ul {
             display: flex;
             list-style: none;
-            gap: 5px;
+            gap: 8px;
+            position: relative;
         }
 
         nav > ul > li {
-            padding: 16px 22px;
-            color: #ecf0f1;
+            padding: 18px 24px;
+            color: #e8edf3;
             cursor: pointer;
             font-weight: 500;
             font-size: 15px;
@@ -45,57 +48,89 @@
         }
 
         nav > ul > li:hover {
-            background: #34495e;
+            background: #2a3a4f;
+        }
+
+        /* Seta indicadora */
+        nav > ul > li::after {
+            content: " ▾";
+            font-size: 12px;
+            opacity: 0.6;
         }
 
         /* ===== SUBMENU ===== */
         .submenu {
             position: absolute;
-            top: 100%;
+            top: calc(100% + 4px);
             left: 0;
-            margin-top: 4px;
-            background: #34495e;
+            background: #2a3a4f;
             min-width: 200px;
-            border-radius: 6px;
+            border-radius: 8px;
             padding: 6px 0;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+            z-index: 100;
             
-            /* Escondido por padrão */
+            /* Escondido */
             display: none;
-            opacity: 0;
-            transition: opacity 0.2s;
         }
 
         /* Quando aberto */
-        .submenu.open {
+        .submenu.ativo {
             display: block;
-            opacity: 1;
+            animation: fadeDown 0.2s ease;
+        }
+
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .submenu a {
             display: block;
-            padding: 10px 20px;
-            color: #ecf0f1;
+            padding: 10px 22px;
+            color: #e8edf3;
             text-decoration: none;
             font-size: 14px;
             transition: background 0.15s, padding-left 0.15s;
+            border-left: 3px solid transparent;
         }
 
         .submenu a:hover {
-            background: #3d566e;
-            padding-left: 26px;
+            background: #3d526b;
+            padding-left: 28px;
+            border-left-color: #5b9bd5;
         }
 
         /* ===== RESPONSIVO ===== */
-        @media (max-width: 600px) {
+        @media (max-width: 640px) {
+            nav {
+                padding: 0 12px;
+            }
             nav > ul {
                 flex-direction: column;
+                gap: 0;
+            }
+            nav > ul > li {
+                padding: 14px 16px;
             }
             .submenu {
                 position: static;
                 box-shadow: none;
-                background: #3d566e;
-                margin-top: 6px;
+                background: #1a2332;
+                margin-top: 4px;
+                border-radius: 4px;
+            }
+            .submenu a {
+                padding-left: 32px;
+            }
+            .submenu a:hover {
+                padding-left: 38px;
             }
         }
     </style>
@@ -104,27 +139,33 @@
 
     <nav>
         <ul>
+            <!-- Produtos -->
             <li data-menu="produtos">
                 Produtos
                 <div class="submenu" id="sub-produtos">
                     <a href="#">Eletrônicos</a>
                     <a href="#">Roupas</a>
                     <a href="#">Livros</a>
+                    <a href="#">Acessórios</a>
                 </div>
             </li>
 
+            <!-- Serviços -->
             <li data-menu="servicos">
                 Serviços
                 <div class="submenu" id="sub-servicos">
                     <a href="#">Consultoria</a>
+                    <a href="#">Manutenção</a>
                     <a href="#">Design</a>
-                    <a href="#">Suporte</a>
+                    <a href="#">Marketing</a>
                 </div>
             </li>
 
+            <!-- Sobre -->
             <li data-menu="sobre">
                 Sobre
                 <div class="submenu" id="sub-sobre">
+                    <a href="#">Nossa história</a>
                     <a href="#">Equipe</a>
                     <a href="#">Contato</a>
                 </div>
@@ -132,50 +173,60 @@
         </ul>
     </nav>
 
+    <!-- Conteúdo só pra teste -->
+    <div style="max-width: 800px; margin: 40px auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
+        <h2 style="color: #1a2332;">Conteúdo da página</h2>
+        <p style="color: #555; margin-top: 10px;">Clique fora do menu para fechar os submenus.</p>
+    </div>
+
     <script>
-        // ===== CÓDIGO LIMPO E DIRETO =====
+        // ===== CONTROLE DOS SUBMENUS =====
         
-        let aberto = null; // Guarda o ID do menu aberto
+        let menuAberto = null;
 
-        // Pega todos os itens do menu
-        const menus = document.querySelectorAll('[data-menu]');
+        // Pega todos os itens que têm submenu
+        const itens = document.querySelectorAll('[data-menu]');
 
-        menus.forEach(item => {
+        itens.forEach(item => {
             const id = item.dataset.menu;
             const sub = document.getElementById(`sub-${id}`);
 
             item.addEventListener('click', function(e) {
                 e.stopPropagation();
 
-                // Se já está aberto, fecha
-                if (aberto === id) {
-                    sub.classList.remove('open');
-                    aberto = null;
+                // Se clicou no mesmo que já está aberto, fecha
+                if (menuAberto === id) {
+                    sub.classList.remove('ativo');
+                    menuAberto = null;
                     return;
                 }
 
-                // Fecha o anterior
-                if (aberto) {
-                    document.getElementById(`sub-${aberto}`).classList.remove('open');
+                // Fecha o que estava aberto
+                if (menuAberto) {
+                    const anterior = document.getElementById(`sub-${menuAberto}`);
+                    if (anterior) anterior.classList.remove('ativo');
                 }
 
                 // Abre o novo
-                sub.classList.add('open');
-                aberto = id;
+                sub.classList.add('ativo');
+                menuAberto = id;
             });
         });
 
-        // Fecha ao clicar fora
-        document.addEventListener('click', () => {
-            if (aberto) {
-                document.getElementById(`sub-${aberto}`).classList.remove('open');
-                aberto = null;
+        // Fecha ao clicar fora do menu
+        document.addEventListener('click', function() {
+            if (menuAberto) {
+                const sub = document.getElementById(`sub-${menuAberto}`);
+                if (sub) sub.classList.remove('ativo');
+                menuAberto = null;
             }
         });
 
         // Impede que clique dentro do submenu feche
         document.querySelectorAll('.submenu').forEach(sub => {
-            sub.addEventListener('click', e => e.stopPropagation());
+            sub.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
         });
     </script>
 
