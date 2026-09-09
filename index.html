@@ -1,580 +1,257 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manual Técnico - Sistemas Automotivos</title>
-    
+    <title>Menu com Submenu - Fecha um ao abrir outro</title>
     <style>
-        /* ==========================================
-           RESET E CONFIGURAÇÕES GERAIS
-        ========================================== */
+        /* ===== RESET E ESTILOS GERAIS ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f4f6f9;
-            display: flex;
-            min-height: 100vh;
+            background: #f0f2f5;
+            padding: 40px;
         }
 
-        /* ==========================================
-           MENU LATERAL (DESKTOP)
-        ========================================== */
-        #menu-lateral {
-            width: 280px;
-            height: 100vh;
-            background: #1a2332;
-            color: #fff;
-            overflow-y: auto;
-            padding: 20px 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            transition: transform 0.3s ease;
+        /* ===== MENU PRINCIPAL ===== */
+        nav {
+            background: #1a1a2e;
+            padding: 0 20px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
-        #menu-lateral::-webkit-scrollbar {
-            width: 6px;
-        }
-        #menu-lateral::-webkit-scrollbar-track {
-            background: #1a2332;
-        }
-        #menu-lateral::-webkit-scrollbar-thumb {
-            background: #4a6580;
-            border-radius: 3px;
-        }
-
-        .titulo-menu {
-            text-align: center;
-            font-size: 20px;
-            padding: 0 20px 20px;
-            border-bottom: 2px solid #2a3a4a;
-            margin-bottom: 15px;
-            color: #ffd700;
-        }
-
-        /* BOTÕES HOME E INÍCIO */
-        .botoes-navegacao {
-            display: flex;
-            gap: 10px;
-            padding: 0 15px;
-            margin-bottom: 20px;
-        }
-
-        .btn-home {
-            flex: 1;
-            background: #2a3a4a;
-            color: #fff;
-            text-decoration: none;
-            padding: 10px;
-            border-radius: 6px;
-            text-align: center;
-            font-size: 14px;
-            transition: background 0.3s;
-        }
-
-        .btn-home:hover {
-            background: #3a4a5a;
-        }
-
-        .btn-topo {
-            flex: 1;
-            background: #2a3a4a;
-            color: #fff;
-            border: none;
-            padding: 10px;
-            border-radius: 6px;
-            text-align: center;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .btn-topo:hover {
-            background: #3a4a5a;
-        }
-
-        /* ITENS DO MENU */
-        .item-menu {
-            margin: 5px 0;
-        }
-
-        .btn-principal {
-            width: 100%;
-            background: transparent;
-            color: #c8d6e5;
-            border: none;
-            padding: 12px 20px;
-            text-align: left;
-            font-size: 15px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background 0.3s, color 0.3s;
-            border-radius: 4px;
-        }
-
-        .btn-principal:hover {
-            background: #2a3a4a;
-            color: #fff;
-        }
-
-        .btn-principal .seta {
-            font-size: 12px;
-            transition: transform 0.3s;
-        }
-
-        /* SUBMENU */
-        .submenu {
+        nav ul {
             list-style: none;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
-            background: #0f1722;
+            display: flex;
+            gap: 0;
+            position: relative;
         }
 
-        .submenu.active {
-            max-height: 600px;
-        }
-
-        .submenu li {
-            padding: 0;
-        }
-
-        .submenu li button {
-            width: 100%;
-            background: transparent;
-            color: #a0b4c8;
-            border: none;
-            padding: 10px 20px 10px 40px;
-            text-align: left;
-            font-size: 14px;
+        /* ===== ITENS DO MENU ===== */
+        nav > ul > li {
+            position: relative;
+            padding: 15px 20px;
             cursor: pointer;
+            color: #e0e0e0;
+            font-weight: 500;
             transition: background 0.3s, color 0.3s;
+            border-radius: 6px;
+        }
+
+        nav > ul > li:hover {
+            background: #16213e;
+            color: #fff;
+        }
+
+        /* Seta indicadora */
+        nav > ul > li::after {
+            content: " ▼";
+            font-size: 11px;
+            opacity: 0.6;
+            margin-left: 4px;
+        }
+
+        /* ===== SUBMENUS (ocultos por padrão) ===== */
+        .submenu {
+            display: none;  /* Começa escondido */
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #16213e;
+            min-width: 200px;
+            border-radius: 8px;
+            padding: 8px 0;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            z-index: 1000;
+            margin-top: 4px;
+        }
+
+        /* Quando o submenu está aberto, ganha a classe 'aberto' */
+        .submenu.aberto {
+            display: block;
+            animation: fadeIn 0.25s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Itens do submenu */
+        .submenu a {
+            display: block;
+            padding: 10px 20px;
+            color: #c8d6e5;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background 0.2s, padding-left 0.2s;
             border-left: 3px solid transparent;
         }
 
-        .submenu li button:hover {
-            background: #1a2a3a;
+        .submenu a:hover {
+            background: #1a2a4a;
             color: #fff;
-            border-left-color: #ffd700;
+            padding-left: 26px;
+            border-left-color: #00d2ff;
         }
 
-        /* ==========================================
-           BARRA SUPERIOR MOBILE
-        ========================================== */
-        .barra-topo-mobile {
-            display: none;
-            background: #1a2332;
-            color: #fff;
-            padding: 15px 20px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 999;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .barra-topo-mobile h2 {
-            font-size: 18px;
-            color: #ffd700;
-        }
-
-        .btn-menu-toggle {
-            background: transparent;
-            border: none;
-            color: #fff;
-            font-size: 28px;
-            cursor: pointer;
-            padding: 0 10px;
-        }
-
-        /* ==========================================
-           OVERLAY (cortina para mobile)
-        ========================================== */
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 998;
-        }
-
-        .overlay.ativo {
-            display: block;
-        }
-
-        /* ==========================================
-           CONTEÚDO PRINCIPAL
-        ========================================== */
-        main {
-            margin-left: 280px;
-            padding: 40px;
-            flex: 1;
-            min-height: 100vh;
-        }
-
-        .caixa-conteudo {
-            background: #fff;
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            max-width: 900px;
-            margin: 0 auto;
-            min-height: 400px;
-        }
-
-        .caixa-conteudo h1 {
-            color: #1a2332;
-            font-size: 28px;
-            margin-bottom: 20px;
-            border-bottom: 3px solid #ffd700;
-            padding-bottom: 10px;
-        }
-
-        .caixa-conteudo p {
-            color: #444;
-            font-size: 16px;
-            line-height: 1.8;
-        }
-
-        /* ==========================================
-           CLASSES DE VISIBILIDADE
-        ========================================== */
-        .mobile-only {
-            display: block;
-        }
-
-        /* ==========================================
-           RESPONSIVIDADE
-        ========================================== */
-        @media (max-width: 768px) {
-            /* Menu lateral escondido por padrão */
-            #menu-lateral {
-                transform: translateX(-100%);
-                width: 85%;
-                max-width: 320px;
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 600px) {
+            nav ul {
+                flex-direction: column;
             }
-
-            #menu-lateral.aberto {
-                transform: translateX(0);
+            .submenu {
+                position: static;
+                box-shadow: none;
+                margin-top: 0;
+                background: #0f1a2e;
             }
-
-            /* Barra superior aparece */
-            .barra-topo-mobile {
-                display: flex;
-            }
-
-            /* Conteúdo principal com margem */
-            main {
-                margin-left: 0;
-                padding: 80px 20px 20px;
-            }
-
-            .caixa-conteudo {
-                padding: 20px;
-            }
-
-            .caixa-conteudo h1 {
-                font-size: 22px;
-            }
-
-            /* Botões de navegação menores */
-            .btn-home,
-            .btn-topo {
-                font-size: 12px;
-                padding: 8px;
-            }
-        }
-
-        @media (min-width: 769px) {
-            .mobile-only {
-                display: none !important;
+            .submenu a {
+                padding-left: 30px;
             }
         }
     </style>
 </head>
-
 <body>
 
-    <!-- ==================================================
-         BARRA SUPERIOR DO CELULAR
-    ================================================== -->
-    <div class="barra-topo-mobile">
-        <h2>Manual Técnico 🛠️</h2>
-        <button class="btn-menu-toggle" id="btn-menu">☰</button>
-    </div>
+    <nav>
+        <ul>
+            <!-- MENU 1 - Produtos -->
+            <li data-menu="produtos">
+                Produtos
+                <div class="submenu" id="sub-produtos">
+                    <a href="#">Eletrônicos</a>
+                    <a href="#">Roupas</a>
+                    <a href="#">Livros</a>
+                    <a href="#">Acessórios</a>
+                </div>
+            </li>
 
-    <!-- ==================================================
-         CORTINA (OVERLAY)
-    ================================================== -->
-    <div class="overlay" id="overlay"></div>
+            <!-- MENU 2 - Serviços -->
+            <li data-menu="servicos">
+                Serviços
+                <div class="submenu" id="sub-servicos">
+                    <a href="#">Consultoria</a>
+                    <a href="#">Manutenção</a>
+                    <a href="#">Design</a>
+                    <a href="#">Marketing</a>
+                </div>
+            </li>
 
-    <!-- ==================================================
-         MENU LATERAL
-    ================================================== -->
-    <nav id="menu-lateral">
-        <h2 class="titulo-menu">Manual Técnico 🛠️</h2>
-
-        <div class="botoes-navegacao">
-            <a href="#" class="btn-home">🏠 Home</a>
-            <button id="btn-topo" class="btn-topo">⬆️ Início</button>
-        </div>
-
-        <!-- SISTEMA ELÉTRICO -->
-        <div class="item-menu">
-            <button class="btn-principal" data-menu="eletrico">
-                <span>⚡ Sistema Elétrico</span>
-                <span class="seta">▼</span>
-            </button>
-            <ul id="eletrico" class="submenu">
-                <li><button data-conteudo="fusiveis">Fusíveis e Lâmpadas</button></li>
-                <li><button data-conteudo="farol">Farol e Seta</button></li>
-            </ul>
-        </div>
-
-        <!-- SISTEMA DE LUBRIFICAÇÃO -->
-        <div class="item-menu">
-            <button class="btn-principal" data-menu="lubrificacao">
-                <span>🛢️ Lubrificação do Motor</span>
-                <span class="seta">▼</span>
-            </button>
-            <ul id="lubrificacao" class="submenu">
-                <li><button data-conteudo="tab_lubrificacao">Tabela de Lubrificação</button></li>
-                <li><button data-conteudo="luz_pressao">Luz e Pressão de Óleo</button></li>
-            </ul>
-        </div>
-
-        <!-- LINHA COMBUSTÍVEL -->
-        <div class="item-menu">
-            <button class="btn-principal" data-menu="combustivel">
-                <span>⛽ Linha de Combustível</span>
-                <span class="seta">▼</span>
-            </button>
-            <ul id="combustivel" class="submenu">
-                <li><button data-conteudo="tanque">Tanque, Filtro, Mangueiras</button></li>
-                <li><button data-conteudo="bomba_eletrica">Bomba Elétrica</button></li>
-                <li><button data-conteudo="bomba_engrenagem">Bomba Engrenagem</button></li>
-                <li><button data-conteudo="valvula_kuv">Válvula KUV</button></li>
-                <li><button data-conteudo="bomba_alta">Bomba Alta Pressão</button></li>
-                <li><button data-conteudo="tubo_rail">Tubo Rail</button></li>
-            </ul>
-        </div>
-
-        <!-- SENSORES E ATUADORES -->
-        <div class="item-menu">
-            <button class="btn-principal" data-menu="sensores">
-                <span>📡 Sensores e Atuadores</span>
-                <span class="seta">▼</span>
-            </button>
-            <ul id="sensores" class="submenu">
-                <li><button data-conteudo="valvula_mprop">Válvula MProp</button></li>
-                <li><button data-conteudo="sensor_rotacao">Sensor Rotação</button></li>
-                <li><button data-conteudo="sensor_fase">Sensor Fase</button></li>
-                <li><button data-conteudo="sensor_pres_adm">Sensor Pres. Adm</button></li>
-                <li><button data-conteudo="pedal_acelerador">Pedal Acelerador</button></li>
-                <li><button data-conteudo="sensor_temp_ecm">Sensor Temp. ECM</button></li>
-                <li><button data-conteudo="modulador_turbina">Modulador Turbina</button></li>
-                <li><button data-conteudo="sensor_pres_rail">Sensor Pres. Rail</button></li>
-                <li><button data-conteudo="bicos_injetores">Bicos Injetores</button></li>
-            </ul>
-        </div>
-
-        <!-- ADMISSÃO E ESCAPE -->
-        <div class="item-menu">
-            <button class="btn-principal" data-menu="admissao">
-                <span>💨 Admissão e Escape</span>
-                <span class="seta">▼</span>
-            </button>
-            <ul id="admissao" class="submenu">
-                <li><button data-conteudo="filtros_mangueiras">Filtros e Mangueiras</button></li>
-                <li><button data-conteudo="turbina">Turbina</button></li>
-            </ul>
-        </div>
-
-        <!-- SISTEMA DE DIREÇÃO -->
-        <div class="item-menu">
-            <button class="btn-principal" data-menu="direcao">
-                <span>🔄 Sistema de Direção</span>
-                <span class="seta">▼</span>
-            </button>
-            <ul id="direcao" class="submenu">
-                <li><button data-conteudo="bomba_direcao">Bomba de Direção</button></li>
-                <li><button data-conteudo="caixa_direcao">Caixa de Direção</button></li>
-                <li><button data-conteudo="oleo_direcao">Óleo de Direção</button></li>
-            </ul>
-        </div>
-
-        <!-- SISTEMA DE ARREFECIMENTO (NOVO) -->
-        <div class="item-menu">
-            <button class="btn-principal" data-menu="arrefecimento">
-                <span>🌡️ Sistema de Arrefecimento</span>
-                <span class="seta">▼</span>
-            </button>
-            <ul id="arrefecimento" class="submenu">
-                <li><button data-conteudo="radiador">Radiador e Ventoinha</button></li>
-                <li><button data-conteudo="termostato">Válvula Termostática</button></li>
-                <li><button data-conteudo="bomba_agua">Bomba d'Água</button></li>
-            </ul>
-        </div>
-
-        <!-- SISTEMAS DE FREIOS (OCULTADO) -->
-        <div class="item-menu" style="display:none;">
-            <button class="btn-principal" data-menu="freios">
-                <span>🛑 Sistemas de Freios</span>
-                <span class="seta">▼</span>
-            </button>
-            <ul id="freios" class="submenu">
-                <li><button data-conteudo="bomba_vacuo">Bomba de Vácuo</button></li>
-                <li><button data-conteudo="freios_traseiros">Freios Traseiros / Mão</button></li>
-            </ul>
-        </div>
-
-        <!-- DIAGNÓSTICO (SÓ MOBILE) -->
-        <div class="item-menu mobile-only">
-            <button class="btn-principal" data-menu="diagnostico">
-                <span>📱 Diagnóstico Rápido</span>
-                <span class="seta">▼</span>
-            </button>
-            <ul id="diagnostico" class="submenu">
-                <li><button data-conteudo="scan_tool">Scanner OBD2</button></li>
-                <li><button data-conteudo="codigos_falha">Códigos de Falha</button></li>
-            </ul>
-        </div>
+            <!-- MENU 3 - Sobre -->
+            <li data-menu="sobre">
+                Sobre
+                <div class="submenu" id="sub-sobre">
+                    <a href="#">Nossa história</a>
+                    <a href="#">Equipe</a>
+                    <a href="#">Contato</a>
+                    <a href="#">Trabalhe conosco</a>
+                </div>
+            </li>
+        </ul>
     </nav>
 
-    <!-- ==================================================
-         CONTEÚDO PRINCIPAL
-    ================================================== -->
-    <main>
-        <div class="caixa-conteudo">
-            <h1 id="titulo-sistema">Bem-vindo ao Manual Técnico</h1>
-            <p id="texto-sistema">Selecione uma categoria e um submenu ao lado para visualizar os dados técnicos e especificações detalhadas de cada componente automotivo.</p>
-        </div>
-    </main>
+    <!-- Conteúdo apenas para teste de clique fora -->
+    <div style="max-width: 800px; margin: 30px auto; padding: 20px; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <h2>Conteúdo da página</h2>
+        <p>Clique em qualquer lugar fora do menu para fechar todos os submenus.</p>
+    </div>
 
-    <!-- ==================================================
-         JAVASCRIPT
-    ================================================== -->
     <script>
-        // ===========================================
-        // BANCO DE DADOS
-        // ===========================================
-        const bancoDeDados = {
-            fusiveis: { titulo: "Fusíveis e Lâmpadas", texto: "Dimensionamento de amperagem para proteção dos circuitos contra curto-circuitos e esquemas de substituição de lâmpadas." },
-            farol: { titulo: "Farol e Seta", texto: "Funcionamento do circuito de iluminação principal e temporização das luzes de direção." },
-            tab_lubrificacao: { titulo: "Tabela de Lubrificação", texto: "Dados de viscosidade (5W30, 10W40), capacidades de cárter e intervalos para troca." },
-            luz_pressao: { titulo: "Luz e Pressão de Óleo", texto: "Sensor de pressão (cebolinha). Acendimento indica queda perigosa na pressão." },
-            tanque: { titulo: "Tanque, Filtro e Mangueiras", texto: "Linha de baixa pressão. Armazenamento, filtragem e linhas flexíveis." },
-            bomba_eletrica: { titulo: "Bomba Elétrica", texto: "Instalada no tanque, fornece fluxo inicial de combustível." },
-            bomba_engrenagem: { titulo: "Bomba de Engrenagem", texto: "Deslocamento positivo para sistemas diesel." },
-            valvula_kuv: { titulo: "Válvula KUV", texto: "Regula excesso de retorno de combustível." },
-            bomba_alta: { titulo: "Bomba de Alta Pressão", texto: "Comprime combustível a níveis extremos (até 2000 bar)." },
-            tubo_rail: { titulo: "Tubo Rail (Flauta)", texto: "Acumulador hidráulico que garante pressão idêntica para todos os bicos." },
-            valvula_mprop: { titulo: "Válvula MProp", texto: "Reguladora de vazão na bomba de alta pressão." },
-            sensor_rotacao: { titulo: "Sensor de Rotação (CKP)", texto: "Monitora velocidade e posição do virabrequim." },
-            sensor_fase: { titulo: "Sensor de Fase (CMP)", texto: "Identifica posição do comando de válvulas." },
-            sensor_pres_adm: { titulo: "Sensor de Pressão de Admissão (MAP)", texto: "Mede pressão no coletor de admissão." },
-            pedal_acelerador: { titulo: "Pedal do Acelerador", texto: "Sensor APP que converte movimento em sinal elétrico." },
-            sensor_temp_ecm: { titulo: "Sensor de Temperatura (ECT)", texto: "Monitora temperatura do líquido de arrefecimento." },
-            modulador_turbina: { titulo: "Modulador da Turbina", texto: "Controla geometria variável ou wastegate." },
-            sensor_pres_rail: { titulo: "Sensor de Pressão do Rail", texto: "Monitora pressão no tubo Rail em tempo real." },
-            bicos_injetores: { titulo: "Bicos Injetores", texto: "Atomizam combustível diretamente nos cilindros." },
-            filtros_mangueiras: { titulo: "Filtros e Mangueiras de Ar", texto: "Filtros de ar e mangueiras de silicone." },
-            turbina: { titulo: "Turbina (Turbocharger)", texto: "Compressor acionado por gases de escape." },
-            bomba_direcao: { titulo: "Bomba de Direção Hidráulica", texto: "Gera pressão para assistir a direção." },
-            caixa_direcao: { titulo: "Caixa de Direção", texto: "Transforma rotação em movimento linear." },
-            oleo_direcao: { titulo: "Óleo de Direção", texto: "Fluído hidráulico específico para direção." },
-            radiador: { titulo: "Radiador e Ventoinha", texto: "Dissipador de calor do líquido de arrefecimento." },
-            termostato: { titulo: "Válvula Termostática", texto: "Controla passagem do líquido para o radiador (85°C a 95°C)." },
-            bomba_agua: { titulo: "Bomba d'Água", texto: "Circula o líquido de arrefecimento pelo motor." },
-            scan_tool: { titulo: "Scanner OBD2", texto: "Ferramenta de diagnóstico para ler códigos de falha." },
-            codigos_falha: { titulo: "Códigos de Falha (DTC)", texto: "Lista de códigos P0XXX, P1XXX, P2XXX." }
-        };
+        (function() {
+            'use strict';
 
-        // ===========================================
-        // ABRIR/FECHAR SUBMENUS
-        // ===========================================
-        document.querySelectorAll('.btn-principal').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const submenuId = this.dataset.menu;
-                const submenu = document.getElementById(submenuId);
-                if (submenu) {
-                    submenu.classList.toggle('active');
-                    const seta = this.querySelector('.seta');
-                    if (seta) {
-                        seta.textContent = submenu.classList.contains('active') ? '▲' : '▼';
-                    }
+            // ===== 1. GUARDA QUAL SUBMENU ESTÁ ABERTO =====
+            let submenuAberto = null;  // Pode ser 'produtos', 'servicos' ou 'sobre'
+
+            // ===== 2. PEGA TODOS OS LI QUE TÊM SUBMENU =====
+            const itensMenu = document.querySelectorAll('nav > ul > li[data-menu]');
+
+            // ===== 3. FUNÇÃO PARA FECHAR UM SUBMENU ESPECÍFICO =====
+            function fecharSubmenu(id) {
+                if (!id) return;
+                const sub = document.getElementById(`sub-${id}`);
+                if (sub) {
+                    sub.classList.remove('aberto');
                 }
-            });
-        });
-
-        // ===========================================
-        // CARREGAR CONTEÚDO
-        // ===========================================
-        document.querySelectorAll('[data-conteudo]').forEach(item => {
-            item.addEventListener('click', function() {
-                const chave = this.dataset.conteudo;
-                const dados = bancoDeDados[chave];
-                if (dados) {
-                    document.getElementById('titulo-sistema').textContent = dados.titulo;
-                    document.getElementById('texto-sistema').textContent = dados.texto;
-                } else {
-                    document.getElementById('titulo-sistema').textContent = "Conteúdo não encontrado";
-                    document.getElementById('texto-sistema').textContent = "Este tópico ainda não possui informações.";
+                // Se o que está aberto for este, limpa a referência
+                if (submenuAberto === id) {
+                    submenuAberto = null;
                 }
-                // Fecha menu mobile
-                document.getElementById('menu-lateral').classList.remove('aberto');
-                document.getElementById('overlay').classList.remove('ativo');
-            });
-        });
-
-        // ===========================================
-        // BOTÃO INÍCIO
-        // ===========================================
-        document.getElementById('btn-topo').addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // ===========================================
-        // MENU MOBILE
-        // ===========================================
-        const btnMenu = document.getElementById('btn-menu');
-        const menuLateral = document.getElementById('menu-lateral');
-        const overlay = document.getElementById('overlay');
-
-        btnMenu.addEventListener('click', function() {
-            menuLateral.classList.toggle('aberto');
-            overlay.classList.toggle('ativo');
-        });
-
-        overlay.addEventListener('click', function() {
-            menuLateral.classList.remove('aberto');
-            overlay.classList.remove('ativo');
-        });
-
-        // Fecha menu ao redimensionar para desktop
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                menuLateral.classList.remove('aberto');
-                overlay.classList.remove('ativo');
             }
-        });
+
+            // ===== 4. FUNÇÃO PARA ABRIR UM SUBMENU =====
+            function abrirSubmenu(id) {
+                // Fecha o que estiver aberto primeiro (se houver)
+                if (submenuAberto && submenuAberto !== id) {
+                    fecharSubmenu(submenuAberto);
+                }
+
+                // Abre o novo
+                const sub = document.getElementById(`sub-${id}`);
+                if (sub) {
+                    sub.classList.add('aberto');
+                    submenuAberto = id;
+                }
+            }
+
+            // ===== 5. FUNÇÃO PARA ALTERNAR (toggle) =====
+            function toggleSubmenu(id) {
+                if (submenuAberto === id) {
+                    // Se já está aberto, fecha
+                    fecharSubmenu(id);
+                } else {
+                    // Senão, abre (e fecha o outro automaticamente)
+                    abrirSubmenu(id);
+                }
+            }
+
+            // ===== 6. ADICIONA EVENTO DE CLICK EM CADA ITEM =====
+            itensMenu.forEach(function(item) {
+                const menuId = item.getAttribute('data-menu');
+
+                item.addEventListener('click', function(event) {
+                    // Impede que o clique se propague para o document
+                    event.stopPropagation();
+
+                    // Alterna o submenu deste item
+                    toggleSubmenu(menuId);
+                });
+            });
+
+            // ===== 7. FECHA TUDO AO CLICAR FORA =====
+            document.addEventListener('click', function() {
+                // Fecha o submenu que estiver aberto
+                if (submenuAberto) {
+                    fecharSubmenu(submenuAberto);
+                }
+            });
+
+            // ===== 8. (OPCIONAL) FECHA AO TECLAR ESC =====
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && submenuAberto) {
+                    fecharSubmenu(submenuAberto);
+                }
+            });
+
+            // ===== 9. IMPEDE QUE CLIQUE DENTRO DO SUBMENU FECHE ELE =====
+            // (O clique no submenu não deve fechar, só clicar fora)
+            document.querySelectorAll('.submenu').forEach(function(sub) {
+                sub.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                });
+            });
+
+        })();
     </script>
 
 </body>
-
 </html>
