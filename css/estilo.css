@@ -1,31 +1,283 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #1a1a1a;
+    color: #f4f4f4;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ==============================
+   TOPO MOBILE
+================================ */
+.barra-topo-mobile {
+    display: none;
+}
+
+.btn-menu-toggle {
+    background: #222;
+    border: 1px solid #ff4500;
+    color: #fff;
+    padding: 8px 12px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* ==============================
+   BOTÃO HOME
+================================ */
+.btn-home {
+    position: fixed;
+    top: 98px;
+    left: 20px;
+    width: 169px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    background: #222;
+    color: #fff;
+    border: 1px solid #ff4500;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    z-index: 2100;
+    transition: .2s;
+}
+
+.btn-home:hover {
+    background: #ff4500;
+    color: #fff;
+}
+
+/* ==============================
+   MENU LATERAL DESKTOP
+================================ */
+nav {
+    width: 390px;
+    flex-shrink: 0;
+    background: #111;
+    padding: 20px;
+    border-right: 3px solid #ff4500;
+    overflow-y: auto;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+}
+
+nav h2 {
+    font-size: 25px;
+    margin-bottom: 20px;
+    color: #ff4500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    border-bottom: 2px solid #222;
+    padding-bottom: 15px;
+}
+
+.item-menu {
+    margin-bottom: 8px;
+}
+
+.btn-principal {
+    width: 100%;
+    text-align: left;
+    background: #222;
+    border: none;
+    color: #fff;
+    padding: 13px 15px;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: .2s;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-principal:hover,
+.btn-principal.ativo {
+    background: #ff4500;
+    color: #fff;
+}
+
+.seta {
+    transition: transform .2s;
+}
+
+.btn-principal.aberto .seta {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    list-style: none;
+    display: none;
+    background: #161616;
+    border-radius: 0 0 5px 5px;
+    padding: 5px 0;
+}
+
+.submenu.aberto {
+    display: block;
+}
+
+.submenu li button {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    color: #bbb;
+    padding: 9px 15px 9px 24px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: .2s;
+    border-left: 2px solid transparent;
+}
+
+.submenu li button:hover,
+.submenu li button.sub-ativo {
+    color: #ff4500;
+    border-left-color: #ff4500;
+    padding-left: 28px;
+    font-weight: bold;
+}
+
+/* ==============================
+   CONTEÚDO
+================================ */
+main {
+    flex: 1;
+    min-width: 0;
+    padding: 48px 52px;
+    background: #1e1e1e;
+}
+
+.caixa-conteudo {
+    background: #262626;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.5);
+    min-height: 450px;
+    border-left: 5px solid #ff4500;
+}
+
+h1 {
+    font-size: 32px;
+    color: #fff;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+}
+
+#categoria-sistema {
+    color: #ff4500;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+}
+
+p {
+    font-size: 18px;
+    color: #ccc;
+    line-height: 1.6;
+}
+
+/* ==============================
+   OVERLAY MOBILE
+================================ */
+.overlay {
+    display: none;
+}
+
+/* ==============================
+   BOTÃO VOLTAR AO INÍCIO
+================================ */
+.btn-inicio {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    width: 46px;
+    height: 46px;
+    border: 1px solid #ff4500;
+    border-radius: 50%;
+    background: #222;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 3000;
+    transition: .2s;
+}
+
+.btn-inicio:hover {
+    background: #ff4500;
+}
+
+/* ==============================
+   CELULAR
+================================ */
 @media (max-width: 768px) {
 
     body {
-        flex-direction: column;
-        padding-top: 60px;
+        display: block;
+        padding-top: 70px;
     }
 
     .barra-topo-mobile {
         display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 70px;
+        padding: 10px 15px;
+        background: #111;
+        border-bottom: 2px solid #ff4500;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 3000;
+    }
+
+    .barra-topo-mobile h2 {
+        color: #ff4500;
+        font-size: 18px;
+        text-transform: uppercase;
+    }
+
+    .btn-home {
+        position: static;
+        width: auto;
+        height: auto;
+        margin: 12px 15px 0;
+        padding: 10px 15px;
+        display: inline-flex;
+        z-index: auto;
     }
 
     nav {
         position: fixed;
         top: 0;
         left: 0;
-
-        width: 280px;
+        width: 290px;
         height: 100vh;
-
-        z-index: 2000;
-
-        transform: translateX(-100%);
-
-        transition: transform 0.3s ease;
-
-        overflow-y: auto;
-
-        background-color: #111;
+        padding: 20px;
+        z-index: 4000;
+        transform: translateX(-105%);
+        transition: transform .3s ease;
+        border-right: 3px solid #ff4500;
+        box-shadow: 5px 0 15px rgba(0,0,0,.6);
     }
 
     nav.menu-visivel {
@@ -33,22 +285,19 @@
     }
 
     nav h2 {
-        display: none;
+        display: block;
+        font-size: 19px;
+        margin-bottom: 20px;
     }
 
     .overlay {
-        display: none;
-
         position: fixed;
-        top: 0;
-        left: 0;
-
+        inset: 0;
         width: 100%;
         height: 100%;
-
-        background: rgba(0,0,0,0.7);
-
-        z-index: 1500;
+        background: rgba(0,0,0,.7);
+        z-index: 3500;
+        display: none;
     }
 
     .overlay.ativo {
@@ -59,30 +308,26 @@
         padding: 15px;
     }
 
-}
+    .caixa-conteudo {
+        padding: 20px;
+        min-height: 300px;
+    }
 
-/* BOTÕES HOME E INÍCIO */
-.botoes-fixos {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    z-index: 3000;
+    h1 {
+        font-size: 24px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    #categoria-sistema {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .btn-inicio {
+        right: 15px;
+        bottom: 15px;
+    }
 }
-.botoes-fixos button {
-    width: 46px;
-    height: 46px;
-    border: 1px solid #ff4500;
-    border-radius: 50%;
-    background: #222;
-    color: #fff;
-    font-size: 22px;
-    cursor: pointer;
-}
-.botoes-fixos button:hover {
-    background: #ff4500;
-}
-#btn-inicio { display: none; }
-#btn-inicio.visivel { display: block; }
