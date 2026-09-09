@@ -1,8 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    // /* ==================================================
-   BANCO DE DADOS
-================================================== */
 
 const bancoDeDados = {
 
