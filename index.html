@@ -83,7 +83,7 @@
             </button>
             <ul id="sensores" class="submenu">
                 <li><button data-conteudo="valvula_mprop">Válvula MProp</button></li>
-                <li><button onclick="window.scrollTo(0,0)" data-conteudo="sensor_rotacao">Sensor Rotação</button></li>
+                <li><button data-conteudo="sensor_rotacao">Sensor Rotação</button></li>
                 <li><button data-conteudo="sensor_fase">Sensor Fase</button></li>
                 <li><button data-conteudo="sensor_pres_adm">Sensor Pres. Adm</button></li>
                 <li><button data-conteudo="pedal_acelerador">Pedal Acelerador</button></li>
@@ -146,7 +146,6 @@
          PROGRAMAÇÃO JAVASCRIPT (Controla a mágica das páginas)
     ================================================== -->
     <script>
-        // Banco de dados com os seus textos
         const bancoDeDados = {
             tab_lubrificacao: { titulo: "Tabela de Lubrificação", texto: "Dados de viscosidade (ex: 5W30, 10W40), capacidades de cárter em litros e intervalos recomendados para troca de óleo e filtros de acordo com a quilometragem do fabricante." },
             luz_pressao: { titulo: "Luz e Pressão de Óleo", texto: "Análise do sensor de pressão (cebolinha). O acendimento da luz no painel indica queda perigosa na pressão de trabalho da bomba, podendo causar o travamento imediato do motor." },
