@@ -25,7 +25,7 @@
     <div class="overlay" id="overlay"></div>
 
     <!-- ==================================================
-         MENU LATERAL
+         MENU LATERAL (REESTRUTURADO)
     ================================================== -->
     <nav id="menu-lateral">
         <h2 class="titulo-menu">Manual Técnico 🛠️</h2>
@@ -35,22 +35,12 @@
             <button id="btn-topo" class="btn-topo">⬆️ Início</button>
         </div>
 
-        <!-- SISTEMA DE LUBRIFICAÇÃO -->
-        <div class="item-menu">
-            <button class="btn-principal" data-menu="lubrificacao">
-                <span>Sistema de Lubrificação</span>
-                <span class="seta">▼</span>
-            </button>
-            <ul id="lubrificacao" class="submenu">
-                <li><button data-conteudo="tab_lubrificacao">Tabela de Lubrificação</button></li>
-                <li><button data-conteudo="luz_pressao">Luz e Pressão</button></li>
-            </ul>
-        </div>
-
-        <!-- SISTEMA ELÉTRICO -->
+        <!-- ==========================================
+             ITEM 1: SISTEMA ELÉTRICO (agora em 1º lugar)
+        ========================================== -->
         <div class="item-menu">
             <button class="btn-principal" data-menu="eletrico">
-                <span>Sistema Elétrico</span>
+                <span>⚡ Sistema Elétrico</span>
                 <span class="seta">▼</span>
             </button>
             <ul id="eletrico" class="submenu">
@@ -59,45 +49,65 @@
             </ul>
         </div>
 
-        <!-- LINHA COMBUSTÍVEL -->
+        <!-- ==========================================
+             ITEM 2: SISTEMA DE LUBRIFICAÇÃO (renomeado)
+        ========================================== -->
         <div class="item-menu">
-            <button class="btn-principal" data-menu="combustivel">
-                <span>Linha Combustível</span>
+            <button class="btn-principal" data-menu="lubrificacao">
+                <span>🛢️ Lubrificação do Motor</span>
                 <span class="seta">▼</span>
             </button>
-            <ul id="combustivel" class="submenu">
-                <li><button data-conteudo="tanque">Tanque, Filtro, Mang.</button></li>
-                <li><button data-conteudo="bomba_eletrica">Bomba Elétrica</button></li>
-                <li><button data-conteudo="bomba_engrenagem">Bomba Engrenagem</button></li>
-                <li><button data-conteudo="valvula_kuv">Válvula KUV</button></li>
-                <li><button data-conteudo="bomba_alta">Bomba Alta Pressão</button></li>
-                <li><button data-conteudo="tubo_rail">Tubo Rail</button></li>
+            <ul id="lubrificacao" class="submenu">
+                <li><button data-conteudo="tab_lubrificacao">Tabela de Lubrificação</button></li>
+                <li><button data-conteudo="luz_pressao">Luz e Pressão de Óleo</button></li>
             </ul>
         </div>
 
-        <!-- SENSORES E ATUADORES -->
+        <!-- ==========================================
+             ITEM 3: LINHA COMBUSTÍVEL (renomeado)
+        ========================================== -->
+        <div class="item-menu">
+            <button class="btn-principal" data-menu="combustivel">
+                <span>⛽ Linha de Combustível</span>
+                <span class="seta">▼</span>
+            </button>
+            <ul id="combustivel" class="submenu">
+                <li><button data-conteudo="tanque">Tanque, Filtro, Mang">ueiras</button></li>
+Ped                <li><button data-conteudo="bomba_eletrica">Bomba Elétrica de Combustível</button></li>
+                <li><button data-conteudo="bomba_engrenagem">Bomba de Engrenagem</button></li>
+                <li><button data-conteudo="valvula_kuv">Válvula KUV</button></li>
+                <li><button data-conteudo="bomba_alta">Bomba de Alta Pressão</button></li>
+                <li><button data-conteudo="tubo_rail">Tubo Rail (Flauta)</button></li>
+            </ul>
+        </div>
+
+        <!-- ==========================================
+             ITEM 4: SENSORES E ATUADORES
+        ========================================== -->
         <div class="item-menu">
             <button class="btn-principal" data-menu="sensores">
-                <span>Sensores e Atuadores</span>
+                <span>📡 Sensores e Atuadores</span>
                 <span class="seta">▼</span>
             </button>
             <ul id="sensores" class="submenu">
                 <li><button data-conteudo="valvula_mprop">Válvula MProp</button></li>
-                <li><button data-conteudo="sensor_rotacao">Sensor Rotação</button></li>
-                <li><button data-conteudo="sensor_fase">Sensor Fase</button></li>
-                <li><button data-conteudo="sensor_pres_adm">Sensor Pres. Adm</button></li>
-                <li><button data-conteudo="pedal_acelerador">Pedal Acelerador</button></li>
-                <li><button data-conteudo="sensor_temp_ecm">Sensor Temp. ECM</button></li>
-                <li><button data-conteudo="modulador_turbina">Modulador Turbina</button></li>
-                <li><button data-conteudo="sensor_pres_rail">Sensor Pres. Rail</button></li>
+                <li><button data-conteudo="sensor_rotacao">Sensor de Rotação (CKP)</button></li>
+                <li><button data-conteudo="sensor_fase">Sensor de Fase (CMP)</button></li>
+                <li><button data-conteudo="sensor_pres_adm">Sensor de Pressão de Admissão (MAP)</button></li>
+al                <li><button data-conteudo=" dopedal_acelerador Acelerador</button></li>
+                <li><button data-conteudo="sensor_temp_ecm">Sensor de Temperatura (ECT)</button></li>
+                <li><button data-conteudo="modulador_turbina">Modulador da Turbina</button></li>
+                <li><button data-conteudo="sensor_pres_rail">Sensor de Pressão do Rail</button></li>
                 <li><button data-conteudo="bicos_injetores">Bicos Injetores</button></li>
             </ul>
         </div>
 
-        <!-- ADMISSÃO E ESCAPE -->
+        <!-- ==========================================
+             ITEM 5: ADMISSÃO E ESCAPE
+        ========================================== -->
         <div class="item-menu">
             <button class="btn-principal" data-menu="admissao">
-                <span>Admissão e Escape</span>
+                <span>💨 Admissão e Escape</span>
                 <span class="seta">▼</span>
             </button>
             <ul id="admissao" class="submenu">
@@ -106,23 +116,43 @@
             </ul>
         </div>
 
-        <!-- SISTEMA DE DIREÇÃO -->
+        <!-- ==========================================
+             ITEM 6: SISTEMA DE DIREÇÃO
+        ========================================== -->
         <div class="item-menu">
             <button class="btn-principal" data-menu="direcao">
-                <span>Sistema de Direção</span>
+                <span>🔄 Sistema de Direção</span>
                 <span class="seta">▼</span>
             </button>
             <ul id="direcao" class="submenu">
-                <li><button data-conteudo="bomba_direcao">Bomba de Direção</button></li>
+                <li><button data-conteudo="bomba_direcao">Bomba de Direção Hidráulica</button></li>
                 <li><button data-conteudo="caixa_direcao">Caixa de Direção</button></li>
                 <li><button data-conteudo="oleo_direcao">Óleo de Direção</button></li>
             </ul>
         </div>
 
-        <!-- SISTEMAS DE FREIOS -->
+        <!-- ==========================================
+             ITEM 7: SISTEMA DE ARREFECIMENTO (NOVO!)
+        ========================================== -->
         <div class="item-menu">
+            <button class="btn-principal" data-menu="arrefecimento">
+                <span>🌡️ Sistema de Arrefecimento</span>
+                <span class="seta">▼</span>
+            </button>
+            <ul id="arrefecimento" class="submenu">
+                <li><button data-conteudo="radiador">Radiador e Ventoinha</button></li>
+                <li><button data-conteudo="termostato">Válvula Termostática</button></li>
+                <li><button data-conteudo="bomba_agua">Bomba d'Água</button></li>
+            </ul>
+        </div>
+
+        <!-- ==========================================
+             ITEM 8: SISTEMAS DE FREIOS (OCULTADO!)
+             style="display:none" → não aparece no menu
+        ========================================== -->
+        <div class="item-menu" style="display:none;">
             <button class="btn-principal" data-menu="freios">
-                <span>Sistemas de Freios</span>
+                <span>🛑 Sistemas de Freios</span>
                 <span class="seta">▼</span>
             </button>
             <ul id="freios" class="submenu">
@@ -130,6 +160,22 @@
                 <li><button data-conteudo="freios_traseiros">Freios Traseiros / Mão</button></li>
             </ul>
         </div>
+
+        <!-- ==========================================
+             ITEM 9: EXEMPLO DE MENU SÓ NO MOBILE
+             (classe "mobile-only" - precisa definir no CSS)
+        ========================================== -->
+        <div class="item-menu mobile-only">
+            <button class="btn-principal" data-menu="diagnostico">
+                <span>📱 Diagnóstico Rápido</span>
+                <span class="seta">▼</span>
+            </button>
+            <ul id="diagnostico" class="submenu">
+                <li><button data-conteudo="scan_tool">Scanner OBD2</button></li>
+                <li><button data-conteudo="codigos_falha">Códigos de Falha</button></li>
+            </ul>
+        </div>
+
     </nav>
 
     <!-- ==================================================
@@ -143,21 +189,135 @@
     </main>
 
     <!-- ==================================================
-         PROGRAMAÇÃO JAVASCRIPT CORRIGIDA
+         PROGRAMAÇÃO JAVASCRIPT (ATUALIZADO)
     ================================================== -->
     <script>
+        // ===========================================
+        // BANCO DE DADOS (com novos itens)
+        // ===========================================
         const bancoDeDados = {
-            tab_lubrificacao: { titulo: "Tabela de Lubrificação", texto: "Dados de viscosidade (ex: 5W30, 10W40), capacidades de cárter em litros e intervalos recomendados para troca de óleo e filtros de acordo com a quilometragem do fabricante." },
-            luz_pressao: { titulo: "Luz e Pressão de Óleo", texto: "Análise do sensor de pressão (cebolinha). O acendimento da luz no painel indica queda perigosa na pressão de trabalho da bomba, podendo causar o travamento imediato do motor." },
+            // Sistema Elétrico
             fusiveis: { titulo: "Fusíveis e Lâmpadas", texto: "Dimensionamento de amperagem para proteção dos circuitos contra curto-circuitos e esquemas de substituição de lâmpadas incandescentes ou LEDs de sinalização." },
             farol: { titulo: "Farol e Seta", texto: "Funcionamento do circuito de iluminação principal (facho alto/baixo), lanternas e temporização das luzes de direção (setas) gerenciadas pelo relé ou central de carroceria." },
+
+            // Lubrificação
+            tab_lubrificacao: { titulo: "Tabela de Lubrificação", texto: "Dados de viscosidade (ex: 5W30, 10W40), capacidades de cárter em litros e intervalos recomendados para troca de óleo e filtros de acordo com a quilometragem do fabricante." },
+            luz_pressao: { titulo: "Luz e Pressão de Óleo", texto: "Análise do sensor de pressão (cebolinha). O acendimento da luz no painel indica queda perigosa na pressão de trabalho da bomba, podendo causar o travamento imediato do motor." },
+
+            // Combustível
             tanque: { titulo: "Tanque, Filtro e Mangueiras", texto: "Componentes da linha de baixa pressão. Armazenamento seguro de combustível, filtragem primária de impurezas e linhas flexíveis resistentes a pressões iniciais." },
-            bomba_eletrica: { titulo: "Bomba Elétrica", texto: "Instalada no tanque, opera fornecendo o fluxo inicial de combustível sob baixa pressão constante para alimentar os sistemas de injeção direta ou indireta." },
+            bomba_eletrica: { titulo: "Bomba Elétrica de Combustível", texto: "Instalada no tanque, opera fornecendo o fluxo inicial de combustível sob baixa pressão constante para alimentar os sistemas de injeção direta ou indireta." },
             bomba_engrenagem: { titulo: "Bomba de Engrenagem", texto: "Dispositivo mecânico de deslocamento positivo utilizado principalmente em sistemas diesel para succionar o combustível através do filtro e alimentar a bomba de alta." },
             valvula_kuv: { titulo: "Válvula KUV", texto: "Válvula de transbordo e segurança responsável por regular o excesso de retorno de combustível, mantendo a estabilidade térmica e hidráulica da linha." },
             bomba_alta: { titulo: "Bomba de Alta Pressão", texto: "Responsável por receber o combustível da linha de baixa e comprimi-lo a níveis extremos (até mais de 2000 bar em sistemas Common Rail) para otimizar a atomização." },
             tubo_rail: { titulo: "Tubo Rail (Flauta)", texto: "Tubo distribuidor de alta pressão que atua como acumulador hidráulico, garantindo que todos os bicos injetores recebam combustível com pressão idêntica e sem oscilações." },
+
+            // Sensores
             valvula_mprop: { titulo: "Válvula MProp", texto: "Válvula reguladora de vazão acoplada na bomba de alta pressão. Controla eletronicamente a quantidade de combustível que será comprimida para o tubo Rail." },
             sensor_rotacao: { titulo: "Sensor de Rotação (CKP)", texto: "Monitora a velocidade e a posição exata da árvore de manivelas (virabrequim), enviando a informação essencial para a ECM sincronizar o momento da injeção e ignição." },
             sensor_fase: { titulo: "Sensor de Fase (CMP)", texto: "Identifica a posição do comando de válvulas, permitindo que a central eletrônica reconheça qual cilindro está em fase de compressão para realizar a injeção sequencial." },
             sensor_pres_adm: { titulo: "Sensor de Pressão de Admissão (MAP)", texto: "Mede a pressão absoluta ou vácuo dentro do coletor de admissão para auxiliar no cálculo do volume de ar que está entrando nos cilindros." },
+            pedal_acelerador: { titulo: "Pedal do Acelerador", texto: "Sensor de posição do pedal (APP) que converte o movimento mecânico em sinal elétrico para a ECM determinar a abertura da borboleta e a quantidade de combustível a ser injetada." },
+            sensor_temp_ecm: { titulo: "Sensor de Temperatura (ECT)", texto: "Monitora a temperatura do líquido de arrefecimento do motor, permitindo ajustes na injeção e no funcionamento da ventoinha." },
+            modulador_turbina: { titulo: "Modulador da Turbina", texto: "Atuador que controla a geometria variável ou wastegate da turbina, regulando a pressão de sobrealimentação conforme a demanda do motor." },
+            sensor_pres_rail: { titulo: "Sensor de Pressão do Rail", texto: "Monitora em tempo real a pressão do combustível no tubo Rail, enviando o sinal para a ECM que ajusta a válvula MProp para manter a pressão ideal." },
+            bicos_injetores: { titulo: "Bicos Injetores", texto: "Componentes eletromagnéticos ou piezoelétricos que atomizam o combustível diretamente nos cilindros. A abertura ocorre em frações de milissegundo controladas pela ECM." },
+
+            // Admissão
+            filtros_mangueiras: { titulo: "Filtros e Mangueiras de Ar", texto: "Elementos filtrantes que retêm partículas sólidas antes da entrada do ar no motor e mangueiras de silicone ou borracha que conduzem o ar até a admissão." },
+            turbina: { titulo: "Turbina (Turbocharger)", texto: "Compressor acionado pelos gases de escape que aumenta a densidade do ar admitido, elevando a potência e eficiência do motor." },
+
+            // Direção
+            bomba_direcao: { titulo: "Bomba de Direção Hidráulica", texto: "Bomba acionada pela correia do motor que gera pressão hidráulica para assistir o esforço na caixa de direção, tornando a condução mais leve." },
+            caixa_direcao: { titulo: "Caixa de Direção", texto: "Mecanismo que transforma o movimento de rotação do volante em movimento linear nas rodas. Pode ser pinhão e cremalheira ou recirculação de esferas." },
+            oleo_direcao: { titulo: "Óleo de Direção", texto: "Fluído hidráulico específico que transmite a pressão da bomba para a caixa. Deve ser trocado conforme a quilometragem para evitar vazamentos e desgaste." },
+
+            // Arrefecimento (NOVO)
+            radiador: { titulo: "Radiador e Ventoinha", texto: "Trocador de calor que dissipa a temperatura do líquido de arrefecimento. A ventoinha elétrica ou mecânica auxilia na refrigeração quando o carro está parado." },
+            termostato: { titulo: "Válvula Termostática", texto: "Controla a passagem do líquido para o radiador, mantendo a temperatura ideal de trabalho (geralmente entre 85°C e 95°C) para eficiência e durabilidade." },
+            bomba_agua: { titulo: "Bomba d'Água", texto: "Responsável por circular o líquido de arrefecimento através do bloco do motor, cabeçote e radiador. Pode ser acionada por correia ou eletricamente." },
+
+            // Diagnóstico (NOVO - só mobile)
+            scan_tool: { titulo: "Scanner OBD2", texto: "Ferramenta de diagnóstico que se conecta à porta OBD2 para ler códigos de falha, dados em tempo real e realizar testes de atuadores." },
+            codigos_falha: { titulo: "Códigos de Falha (DTC)", texto: "Lista dos principais códigos P0XXX, P1XXX, P2XXX que indicam problemas no motor, transmissão, sistema de emissões e outros." }
+        };
+
+        // ===========================================
+        // LÓGICA DO MENU (fechar/abrir submenus)
+        // ===========================================
+        document.querySelectorAll('.btn-principal').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const submenuId = this.dataset.menu;
+                const submenu = document.getElementById(submenuId);
+                if (submenu) {
+                    submenu.classList.toggle('active');
+                    const seta = this.querySelector('.seta');
+                    if (seta) {
+                        seta.textContent = submenu.classList.contains('active') ? '▲' : '▼';
+                    }
+                }
+            });
+        });
+
+        // ===========================================
+        // CARREGAR CONTEÚDO AO CLICAR NO SUBITEM
+        // ===========================================
+        document.querySelectorAll('[data-conteudo]').forEach(item => {
+            item.addEventListener('click', function() {
+                const chave = this.dataset.conteudo;
+                const dados = bancoDeDados[chave];
+                if (dados) {
+                    document.getElementById('titulo-sistema').textContent = dados.titulo;
+                    document.getElementById('texto-sistema').textContent = dados.texto;
+                } else {
+                    document.getElementById('titulo-sistema').textContent = "Conteúdo não encontrado";
+                    document.getElementById('texto-sistema').textContent = "Este tópico ainda não possui informações cadastradas.";
+                }
+                // Fecha menu mobile após clicar
+                document.getElementById('menu-lateral').classList.remove('aberto');
+                document.getElementById('overlay').classList.remove('ativo');
+            });
+        });
+
+        // ===========================================
+        // BOTÃO "INÍCIO" (volta ao topo)
+        // ===========================================
+        document.getElementById('btn-topo').addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ===========================================
+        // MENU MOBILE (toggle com overlay)
+        // ===========================================
+        const btnMenu = document.getElementById('btn-menu');
+        const menuLateral = document.getElementById('menu-lateral');
+        const overlay = document.getElementById('overlay');
+
+        if (btnMenu) {
+            btnMenu.addEventListener('click', function() {
+                menuLateral.classList.toggle('aberto');
+                overlay.classList.toggle('ativo');
+            });
+        }
+
+        if (overlay) {
+            overlay.addEventListener('click', function() {
+                menuLateral.classList.remove('aberto');
+                overlay.classList.remove('ativo');
+            });
+        }
+
+        // ===========================================
+        // FECHA MENU AO REDIMENSIONAR PARA DESKTOP
+        // ===========================================
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                menuLateral.classList.remove('aberto');
+                overlay.classList.remove('ativo');
+            }
+        });
+    </script>
+
+</body>
+
+</html>
