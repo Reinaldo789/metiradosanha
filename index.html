@@ -1,134 +1,152 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manual Técnico - Sistemas Automotivos</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: #1a1a1a; color: #f4f4f4; display: flex; min-height: 100vh; position: relative; }
-        
-        /* 📱 BARRA DO TOPO (Aparece APENAS no Celular) */
-        .barra-topo-mobile { display: none; width: 100%; background-color: #111; padding: 15px; border-bottom: 2px solid #ff4500; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; z-index: 1000; }
-        .barra-topo-mobile h2 { font-size: 18px; color: #ff4500; text-transform: uppercase; }
-        .btn-menu-toggle { background: #222; border: 1px solid #ff4500; color: #fff; padding: 8px 12px; font-size: 20px; cursor: pointer; border-radius: 5px; }
-
-        /* 💻 MENU LATERAL (Estilo Computador) */
-        nav { width: 320px; background-color: #111; padding: 20px; border-right: 3px solid #ff4500; overflow-y: auto; height: 100vh; position: sticky; top: 0; transition: transform 0.3s ease; }
-        nav h2 { font-size: 20px; margin-bottom: 20px; color: #ff4500; text-transform: uppercase; letter-spacing: 1px; text-align: center; border-bottom: 2px solid #222; padding-bottom: 10px; }
-        
-        .categoria-titulo { font-size: 14px; color: #ff4500; font-weight: bold; margin-top: 15px; margin-bottom: 5px; text-transform: uppercase; padding-left: 5px; }
-        nav ul { list-style: none; margin-bottom: 10px; }
-        nav ul li button { width: 100%; text-align: left; background: none; border: none; color: #bbb; padding: 8px 12px; font-size: 14px; cursor: pointer; transition: 0.2s; border-left: 2px solid transparent; border-radius: 4px; }
-        nav ul li button:hover, nav ul li button.sub-ativo { color: #fff; background-color: #222; border-left-color: #ff4500; padding-left: 16px; font-weight: bold; }
-
-        /* 📝 ÁREA DE CONTEÚDO PRINCIPAL */
-        main { flex: 1; padding: 40px; background-color: #1e1e1e; display: flex; flex-direction: column; justify-content: center; }
-        .caixa-conteudo { background-color: #262626; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); min-height: 400px; border-left: 5px solid #ff4500; }
-        h1 { font-size: 32px; color: #fff; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        p { font-size: 18px; color: #ccc; line-height: 1.6; }
-        
-        /* CORTINA ESCURA (Fecha o menu se clicar fora dele no celular) */
-        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 994; }
-
-        /* 📱 ADAPTAÇÃO TOTAL PARA CELULAR */
-        @media (max-width: 768px) {
-            body { flex-direction: column; padding-top: 60px; }
-            .barra-topo-mobile { display: flex; }
-            
-            /* O Menu começa ESCONDIDO para a esquerda (-100%) */
-            nav { position: fixed; top: 0; left: 0; height: 100vh; width: 280px; z-index: 995; transform: translateX(-100%); border-right: 3px solid #ff4500; box-shadow: 5px 0 15px rgba(0,0,0,0.5); }
-            /* Classe que o JavaScript usa para MOSTRAR o menu */
-            nav.menu-visivel { transform: translateX(0); }
-            nav h2 { display: none; }
-            
-            .overlay.ativo { display: block; }
-            main { padding: 15px; }
-            .caixa-conteudo { padding: 20px; min-height: auto; }
-            h1 { font-size: 24px; }
-            p { font-size: 16px; }
-        }
-    </style>
+    <!-- CSS externo -->
+    <link rel="stylesheet" href="css/estilo.css">
 </head>
+
 <body>
 
-    <!-- Topo Mobile -->
+    <!-- ==================================================
+         BARRA SUPERIOR DO CELULAR (Aparece só no mobile)
+    ================================================== -->
     <div class="barra-topo-mobile">
-        <h2>Menu Técnico 🛠️</h2>
-        <button class="btn-menu-toggle" onclick="abrirMenuLateral()">☰</button>
+        <h2>Manual Técnico 🛠️</h2>
+        <button class="btn-menu-toggle" id="btn-menu">☰</button>
     </div>
 
-    <!-- Cortina de fundo -->
-    <div class="overlay" id="cortina" onclick="fecharMenuLateral()"></div>
+    <!-- ==================================================
+         CORTINA DO CELULAR (Overlay para fechar ao tocar fora)
+    ================================================== -->
+    <div class="overlay" id="overlay"></div>
 
-    <!-- Menu Lateral -->
+    <!-- ==================================================
+         MENU LATERAL
+    ================================================== -->
     <nav id="menu-lateral">
-        <h2>Menu Técnico 🛠️</h2>
-        
-        <div class="categoria-titulo">Lubrificação</div>
-        <ul>
-            <li><button onclick="mostrarConteudo('tab_lubrificacao', this)">Tabela de Lubrificação</button></li>
-            <li><button onclick="mostrarConteudo('luz_pressao', this)">Luz e Pressão</button></li>
-        </ul>
+        <h2 class="titulo-menu">Manual Técnico 🛠️</h2>
 
-        <div class="categoria-titulo">Sistema Elétrico</div>
-        <ul>
-            <li><button onclick="mostrarConteudo('fusiveis', this)">Fusíveis e Lâmpadas</button></li>
-            <li><button onclick="mostrarConteudo('farol', this)">Farol e Seta</button></li>
-        </ul>
+        <div class="botoes-navegacao">
+            <a href="index.html" class="btn-home">🏠 Home</a>
+            <button id="btn-topo" class="btn-topo">⬆️ Início</button>
+        </div>
 
-        <div class="categoria-titulo">Linha Combustível</div>
-        <ul>
-            <li><button onclick="mostrarConteudo('tanque', this)">Tanque, Filtro, Mang.</button></li>
-            <li><button onclick="mostrarConteudo('bomba_eletrica', this)">Bomba Elétrica</button></li>
-            <li><button onclick="mostrarConteudo('bomba_engrenagem', this)">Bomba Engrenagem</button></li>
-            <li><button onclick="mostrarConteudo('valvula_kuv', this)">Válvula KUV</button></li>
-            <li><button onclick="mostrarConteudo('bomba_alta', this)">Bomba Alta Pressão</button></li>
-            <li><button onclick="mostrarConteudo('tubo_rail', this)">Tubo Rail</button></li>
-        </ul>
+        <!-- SISTEMA DE LUBRIFICAÇÃO -->
+        <div class="item-menu">
+            <button class="btn-principal" data-menu="lubrificacao">
+                <span>Sistema de Lubrificação</span>
+                <span class="seta">▼</span>
+            </button>
+            <ul id="lubrificacao" class="submenu">
+                <li><button data-conteudo="tab_lubrificacao">Tabela de Lubrificação</button></li>
+                <li><button data-conteudo="luz_pressao">Luz e Pressão</button></li>
+            </ul>
+        </div>
 
-        <div class="categoria-titulo">Sensores e Atuadores</div>
-        <ul>
-            <li><button onclick="mostrarConteudo('valvula_mprop', this)">Válvula MProp</button></li>
-            <li><button onclick="mostrarConteudo('sensor_rotacao', this)">Sensor Rotação</button></li>
-            <li><button onclick="mostrarConteudo('sensor_fase', this)">Sensor Fase</button></li>
-            <li><button onclick="mostrarConteudo('sensor_pres_adm', this)">Sensor Pres. Adm</button></li>
-            <li><button onclick="mostrarConteudo('pedal_acelerador', this)">Pedal Acelerador</button></li>
-            <li><button onclick="mostrarConteudo('sensor_temp_ecm', this)">Sensor Temp. ECM</button></li>
-            <li><button onclick="mostrarConteudo('modulador_turbina', this)">Modulador Turbina</button></li>
-            <li><button onclick="mostrarConteudo('sensor_pres_rail', this)">Sensor Pres. Rail</button></li>
-            <li><button onclick="mostrarConteudo('bicos_injetores', this)">Bicos Injetores</button></li>
-        </ul>
+        <!-- SISTEMA ELÉTRICO -->
+        <div class="item-menu">
+            <button class="btn-principal" data-menu="eletrico">
+                <span>Sistema Elétrico</span>
+                <span class="seta">▼</span>
+            </button>
+            <ul id="eletrico" class="submenu">
+                <li><button data-conteudo="fusiveis">Fusíveis e Lâmpadas</button></li>
+                <li><button data-conteudo="farol">Farol e Seta</button></li>
+            </ul>
+        </div>
 
-        <div class="categoria-titulo">Admissão e Escape</div>
-        <ul>
-            <li><button onclick="mostrarConteudo('filtros_mangueiras', this)">Filtros e Mangueiras</button></li>
-            <li><button onclick="mostrarConteudo('turbina', this)">Turbina</button></li>
-        </ul>
+        <!-- LINHA COMBUSTÍVEL -->
+        <div class="item-menu">
+            <button class="btn-principal" data-menu="combustivel">
+                <span>Linha Combustível</span>
+                <span class="seta">▼</span>
+            </button>
+            <ul id="combustivel" class="submenu">
+                <li><button data-conteudo="tanque">Tanque, Filtro, Mang.</button></li>
+                <li><button data-conteudo="bomba_eletrica">Bomba Elétrica</button></li>
+                <li><button data-conteudo="bomba_engrenagem">Bomba Engrenagem</button></li>
+                <li><button data-conteudo="valvula_kuv">Válvula KUV</button></li>
+                <li><button data-conteudo="bomba_alta">Bomba Alta Pressão</button></li>
+                <li><button data-conteudo="tubo_rail">Tubo Rail</button></li>
+            </ul>
+        </div>
 
-        <div class="categoria-titulo">Sistema de Direção</div>
-        <ul>
-            <li><button onclick="mostrarConteudo('bomba_direcao', this)">Bomba de Direção</button></li>
-            <li><button onclick="mostrarConteudo('caixa_direcao', this)">Caixa de Direção</button></li>
-            <li><button onclick="mostrarConteudo('oleo_direcao', this)">Óleo de Direção</button></li>
-        </ul>
+        <!-- SENSORES E ATUADORES -->
+        <div class="item-menu">
+            <button class="btn-principal" data-menu="sensores">
+                <span>Sensores e Atuadores</span>
+                <span class="seta">▼</span>
+            </button>
+            <ul id="sensores" class="submenu">
+                <li><button data-conteudo="valvula_mprop">Válvula MProp</button></li>
+                <li><button onclick="window.scrollTo(0,0)" data-conteudo="sensor_rotacao">Sensor Rotação</button></li>
+                <li><button data-conteudo="sensor_fase">Sensor Fase</button></li>
+                <li><button data-conteudo="sensor_pres_adm">Sensor Pres. Adm</button></li>
+                <li><button data-conteudo="pedal_acelerador">Pedal Acelerador</button></li>
+                <li><button data-conteudo="sensor_temp_ecm">Sensor Temp. ECM</button></li>
+                <li><button data-conteudo="modulador_turbina">Modulador Turbina</button></li>
+                <li><button data-conteudo="sensor_pres_rail">Sensor Pres. Rail</button></li>
+                <li><button data-conteudo="bicos_injetores">Bicos Injetores</button></li>
+            </ul>
+        </div>
 
-        <div class="categoria-titulo">Sistemas de Freios</div>
-        <ul>
-            <li><button onclick="mostrarConteudo('bomba_vacuo', this)">Bomba de Vácuo</button></li>
-            <li><button onclick="mostrarConteudo('freios_traseiros', this)">Freios Traseiros / Mão</button></li>
-        </ul>
+        <!-- ADMISSÃO E ESCAPE -->
+        <div class="item-menu">
+            <button class="btn-principal" data-menu="admissao">
+                <span>Admissão e Escape</span>
+                <span class="seta">▼</span>
+            </button>
+            <ul id="admissao" class="submenu">
+                <li><button data-conteudo="filtros_mangueiras">Filtros e Mangueiras</button></li>
+                <li><button data-conteudo="turbina">Turbina</button></li>
+            </ul>
+        </div>
+
+        <!-- SISTEMA DE DIREÇÃO -->
+        <div class="item-menu">
+            <button class="btn-principal" data-menu="direcao">
+                <span>Sistema de Direção</span>
+                <span class="seta">▼</span>
+            </button>
+            <ul id="direcao" class="submenu">
+                <li><button data-conteudo="bomba_direcao">Bomba de Direção</button></li>
+                <li><button data-conteudo="caixa_direcao">Caixa de Direção</button></li>
+                <li><button data-conteudo="oleo_direcao">Óleo de Direção</button></li>
+            </ul>
+        </div>
+
+        <!-- SISTEMAS DE FREIOS -->
+        <div class="item-menu">
+            <button class="btn-principal" data-menu="freios">
+                <span>Sistemas de Freios</span>
+                <span class="seta">▼</span>
+            </button>
+            <ul id="freios" class="submenu">
+                <li><button data-conteudo="bomba_vacuo">Bomba de Vácuo</button></li>
+                <li><button data-conteudo="freios_traseiros">Freios Traseiros / Mão</button></li>
+            </ul>
+        </div>
     </nav>
 
-    <!-- Área de Exibição Dinâmica -->
+    <!-- ==================================================
+         CONTEÚDO PRINCIPAL (Exibição Dinâmica)
+    ================================================== -->
     <main>
         <div class="caixa-conteudo">
             <h1 id="titulo-sistema">Bem-vindo ao Manual Técnico</h1>
-            <p id="texto-sistema">Selecione uma categoria ao lado para visualizar as especificações e dados técnicos do componente automotivo.</p>
+            <p id="texto-sistema">Selecione uma categoria e um submenu ao lado para visualizar os dados técnicos e especificações detalhadas de cada componente automotivo.</p>
         </div>
     </main>
 
+    <!-- ==================================================
+         PROGRAMAÇÃO JAVASCRIPT (Controla a mágica das páginas)
+    ================================================== -->
     <script>
+        // Banco de dados com os seus textos
         const bancoDeDados = {
             tab_lubrificacao: { titulo: "Tabela de Lubrificação", texto: "Dados de viscosidade (ex: 5W30, 10W40), capacidades de cárter em litros e intervalos recomendados para troca de óleo e filtros de acordo com a quilometragem do fabricante." },
             luz_pressao: { titulo: "Luz e Pressão de Óleo", texto: "Análise do sensor de pressão (cebolinha). O acendimento da luz no painel indica queda perigosa na pressão de trabalho da bomba, podendo causar o travamento imediato do motor." },
@@ -139,3 +157,8 @@
             bomba_engrenagem: { titulo: "Bomba de Engrenagem", texto: "Dispositivo mecânico de deslocamento positivo utilizado principalmente em sistemas diesel para succionar o combustível através do filtro e alimentar a bomba de alta." },
             valvula_kuv: { titulo: "Válvula KUV", texto: "Válvula de transbordo e segurança responsável por regular o excesso de retorno de combustível, mantendo a estabilidade térmica e hidráulica da linha." },
             bomba_alta: { titulo: "Bomba de Alta Pressão", texto: "Responsável por receber o combustível da linha de baixa e comprimi-lo a níveis extremos (até mais de 2000 bar em sistemas Common Rail) para otimizar a atomização." },
+            tubo_rail: { titulo: "Tubo Rail (Flauta)", texto: "Tubo distribuidor de alta pressão que atua como acumulador hidráulico, garantindo que todos os bicos injetores recebam combustível com pressão idêntica e sem oscilações." },
+            valvula_mprop: { titulo: "Válvula MProp", texto: "Válvula reguladora de vazão acoplada na bomba de alta pressão. Controla eletronicamente a quantidade de combustível que será comprimida para o tubo Rail." },
+            sensor_rotacao: { titulo: "Sensor de Rotação (CKP)", texto: "Monitora a velocidade e a posição exata da árvore de manivelas (virabrequim), enviando a informação essencial para a ECM sincronizar o momento da injeção e ignição." },
+            sensor_fase: { titulo: "Sensor de Fase (CMP)", texto: "Identifica a posição do comando de válvulas, permitindo que a central eletrônica reconheça qual cilindro está em fase de compressão para realizar a injeção sequencial." },
+            sensor_pres_adm: { titulo: "Sensor de Pressão de Admissão (MAP)", texto: "Mede a pressão absoluta ou vácuo dentro do coletor de admissão para auxiliar no cálculo do volume de ar que está entrando nos cilindros." },
