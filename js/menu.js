@@ -1,129 +1,511 @@
-```javascript
-// BOTÃO DO MENU
-
-const btnMenu = document.getElementById("btnMenu");
-
-const menu = document.getElementById("menu");
+document.addEventListener("DOMContentLoaded", function () {
 
 
-btnMenu.addEventListener("click", function () {
+    /* ==================================================
+       BANCO DE DADOS
+    ================================================== */
 
-    menu.classList.toggle("aberto");
+    const bancoDeDados = {
 
-});
+        tab_lubrificacao: {
+            categoria: "Sistema de Lubrificação",
+            titulo: "Tabela de Lubrificação",
+            texto: "Informações sobre tipo de óleo, viscosidade, capacidade do motor, filtro de óleo e intervalo de manutenção."
+        },
+
+        luz_pressao: {
+            categoria: "Sistema de Lubrificação",
+            titulo: "Luz e Pressão",
+            texto: "Informações sobre pressão de óleo, interruptor de pressão, funcionamento da luz de advertência e diagnóstico."
+        },
+
+        fusiveis: {
+            categoria: "Sistema Elétrico",
+            titulo: "Fusíveis e Lâmpadas",
+            texto: "Tabela de fusíveis, amperagens, circuitos protegidos e tipos de lâmpadas."
+        },
+
+        farol: {
+            categoria: "Sistema Elétrico",
+            titulo: "Farol e Seta",
+            texto: "Funcionamento dos faróis, lanternas, setas, relés e comandos de iluminação."
+        },
+
+        tanque: {
+            categoria: "Linha Combustível",
+            titulo: "Tanque, Filtro e Mangueiras",
+            texto: "Componentes responsáveis pelo armazenamento, filtragem e condução do combustível."
+        },
+
+        bomba_eletrica: {
+            categoria: "Linha Combustível",
+            titulo: "Bomba Elétrica",
+            texto: "Funcionamento da bomba elétrica de combustível, alimentação, pressão e vazão."
+        },
+
+        bomba_engrenagem: {
+            categoria: "Linha Combustível",
+            titulo: "Bomba de Engrenagem",
+            texto: "Funcionamento da bomba mecânica de engrenagens utilizada na alimentação do sistema de combustível."
+        },
+
+        valvula_kuv: {
+            categoria: "Linha Combustível",
+            titulo: "Válvula KUV",
+            texto: "Informações técnicas sobre funcionamento, controle hidráulico e atuação da válvula KUV."
+        },
+
+        bomba_alta: {
+            categoria: "Linha Combustível",
+            titulo: "Bomba de Alta Pressão",
+            texto: "Funcionamento da bomba de alta pressão do sistema Common Rail."
+        },
+
+        tubo_rail: {
+            categoria: "Linha Combustível",
+            titulo: "Tubo Rail",
+            texto: "Funcionamento do acumulador de alta pressão e distribuição do combustível aos injetores."
+        },
+
+        valvula_mprop: {
+            categoria: "Sensores e Atuadores",
+            titulo: "Válvula MProp",
+            texto: "Funcionamento da válvula MProp, controle da alimentação da bomba de alta pressão e diagnóstico."
+        },
+
+        sensor_rotacao: {
+            categoria: "Sensores e Atuadores",
+            titulo: "Sensor de Rotação",
+            texto: "Funcionamento do sensor de rotação, geração do sinal e diagnóstico."
+        },
+
+        sensor_fase: {
+            categoria: "Sensores e Atuadores",
+            titulo: "Sensor de Fase",
+            texto: "Funcionamento do sensor de fase e sua função no sincronismo do motor."
+        },
+
+        sensor_pres_adm: {
+            categoria: "Sensores e Atuadores",
+            titulo: "Sensor de Pressão da Admissão",
+            texto: "Funcionamento do sensor de pressão da admissão, alimentação e sinal."
+        },
+
+        pedal_acelerador: {
+            categoria: "Sensores e Atuadores",
+            titulo: "Pedal do Acelerador",
+            texto: "Funcionamento do pedal eletrônico, sinais dos sensores e diagnóstico."
+        },
+
+        sensor_temp_ecm: {
+            categoria: "Sensores e Atuadores",
+            titulo: "Sensor de Temperatura ECM",
+            texto: "Funcionamento do sensor de temperatura utilizado pelo sistema de gerenciamento eletrônico."
+        },
+
+        modulador_turbina: {
+            categoria: "Sensores e Atuadores",
+            titulo: "Modulador da Turbina",
+            texto: "Funcionamento do modulador e controle da pressão da turbina."
+        },
+
+        sensor_pres_rail: {
+            categoria: "Sensores e Atuadores",
+            titulo: "Sensor de Pressão Rail",
+            texto: "Funcionamento do sensor de pressão do Rail, alimentação, sinal e diagnóstico."
+        },
+
+        bicos_injetores: {
+            categoria: "Sensores e Atuadores",
+            titulo: "Bicos Injetores",
+            texto: "Funcionamento dos injetores, pulverização, retorno, testes e diagnóstico."
+        },
+
+        filtros_mangueiras: {
+            categoria: "Admissão e Escape",
+            titulo: "Filtros e Mangueiras",
+            texto: "Filtros de ar, mangueiras de admissão, inspeção e manutenção do sistema."
+        },
+
+        turbina: {
+            categoria: "Admissão e Escape",
+            titulo: "Turbina",
+            texto: "Funcionamento do turbocompressor, lubrificação, pressão e diagnóstico."
+        },
+
+        bomba_direcao: {
+            categoria: "Sistema de Direção",
+            titulo: "Bomba de Direção",
+            texto: "Funcionamento da bomba hidráulica da direção e diagnóstico."
+        },
+
+        caixa_direcao: {
+            categoria: "Sistema de Direção",
+            titulo: "Caixa de Direção",
+            texto: "Funcionamento, regulagem e manutenção da caixa de direção."
+        },
+
+        oleo_direcao: {
+            categoria: "Sistema de Direção",
+            titulo: "Óleo de Direção",
+            texto: "Especificação, nível, substituição e manutenção do fluido da direção."
+        },
+
+        bomba_vacuo: {
+            categoria: "Sistemas de Freios",
+            titulo: "Bomba de Vácuo",
+            texto: "Funcionamento da bomba de vácuo e sua relação com a assistência dos freios."
+        },
+
+        freios_traseiros: {
+            categoria: "Sistemas de Freios",
+            titulo: "Freios Traseiros / Mão",
+            texto: "Funcionamento dos freios traseiros e do sistema de freio de estacionamento."
+        }
+
+    };
 
 
-// SUBMENUS
+    /* ==================================================
+       ELEMENTOS
+    ================================================== */
 
-const botoes =
-    document.querySelectorAll(".menu-botao");
+    const botoesMenu =
+        document.querySelectorAll(".btn-principal");
+
+    const submenus =
+        document.querySelectorAll(".submenu");
+
+    const botoesConteudo =
+        document.querySelectorAll("[data-conteudo]");
+
+    const menuLateral =
+        document.getElementById("menu-lateral");
+
+    const overlay =
+        document.getElementById("overlay");
+
+    const btnMenu =
+        document.getElementById("btn-menu");
+
+    const btnHome =
+        document.getElementById("btn-home");
+
+    const btnInicio =
+        document.getElementById("btn-inicio");
+
+    const btnTopo =
+        document.getElementById("btn-topo");
 
 
-botoes.forEach(function (botao) {
+    /* ==================================================
+       SUBMENUS
+       
+       IMPORTANTE:
+       APENAS UM SUBMENU PODE FICAR ABERTO.
+    ================================================== */
 
-    botao.addEventListener("click", function () {
+    botoesMenu.forEach(function (botao) {
 
-        const submenu =
-            botao.nextElementSibling;
+        botao.addEventListener("click", function () {
 
-        submenu.classList.toggle("aberto");
+            const id =
+                botao.getAttribute("data-menu");
+
+            const submenu =
+                document.getElementById(id);
+
+            const estavaAberto =
+                submenu.classList.contains("aberto");
 
 
-        const sinal =
-            botao.querySelector("span");
+            /* Fecha TODOS */
+
+            submenus.forEach(function (menu) {
+
+                menu.classList.remove("aberto");
+
+            });
 
 
-        if (submenu.classList.contains("aberto")) {
+            /* Retira ativo de TODOS */
 
-            sinal.textContent = "−";
+            botoesMenu.forEach(function (btn) {
+
+                btn.classList.remove("ativo");
+
+            });
+
+
+            /* Se estava fechado, abre */
+
+            if (!estavaAberto) {
+
+                submenu.classList.add("aberto");
+
+                botao.classList.add("ativo");
+
+            }
+
+        });
+
+    });
+
+
+    /* ==================================================
+       CONTEÚDO DOS SUBMENUS
+    ================================================== */
+
+    botoesConteudo.forEach(function (botao) {
+
+        botao.addEventListener("click", function () {
+
+            const id =
+                botao.getAttribute("data-conteudo");
+
+            const dados =
+                bancoDeDados[id];
+
+
+            if (!dados) {
+                return;
+            }
+
+
+            document
+                .getElementById("titulo-sistema")
+                .textContent =
+                dados.titulo;
+
+
+            document
+                .getElementById("categoria-sistema")
+                .textContent =
+                dados.categoria;
+
+
+            document
+                .getElementById("texto-sistema")
+                .textContent =
+                dados.texto;
+
+
+            /* Remove seleção anterior */
+
+            botoesConteudo.forEach(function (item) {
+
+                item.classList.remove("sub-ativo");
+
+            });
+
+
+            /* Marca item selecionado */
+
+            botao.classList.add("sub-ativo");
+
+
+            /* No celular fecha o menu lateral */
+
+            if (window.innerWidth <= 768) {
+
+                fecharMenuMobile();
+
+            }
+
+        });
+
+    });
+
+
+    /* ==================================================
+       MENU MOBILE
+    ================================================== */
+
+    function abrirMenuMobile() {
+
+        menuLateral.classList.add("menu-visivel");
+
+        overlay.classList.add("ativo");
+
+    }
+
+
+    function fecharMenuMobile() {
+
+        menuLateral.classList.remove("menu-visivel");
+
+        overlay.classList.remove("ativo");
+
+    }
+
+
+    btnMenu.addEventListener("click", function () {
+
+        if (
+            menuLateral.classList.contains("menu-visivel")
+        ) {
+
+            fecharMenuMobile();
 
         } else {
 
-            sinal.textContent = "+";
+            abrirMenuMobile();
 
         }
 
     });
 
-});
+
+    /* ==================================================
+       CLICAR NA CORTINA
+    ================================================== */
+
+    overlay.addEventListener("click", function () {
+
+        fecharMenuMobile();
+
+    });
 
 
-// FECHAR MENU AO CLICAR EM UM LINK NO CELULAR
+    /* ==================================================
+       TECLA ESC
+    ================================================== */
 
-const links =
-    document.querySelectorAll(".menu a");
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key === "Escape") {
+
+            fecharMenuMobile();
+
+        }
+
+    });
 
 
-links.forEach(function (link) {
+    /* ==================================================
+       BOTÃO HOME
+    ================================================== */
 
-    link.addEventListener("click", function () {
+    btnHome.addEventListener("click", function () {
 
-        if (window.innerWidth <= 900) {
+        /* Fecha submenus */
+
+        submenus.forEach(function (menu) {
 
             menu.classList.remove("aberto");
 
-        }
-
-    });
-
-});
+        });
 
 
-// ANO AUTOMÁTICO
+        /* Retira ativo */
 
-const ano =
-    document.getElementById("ano");
+        botoesMenu.forEach(function (btn) {
 
+            btn.classList.remove("ativo");
 
-if (ano) {
-
-    ano.textContent =
-        new Date().getFullYear();
-
-}
+        });
 
 
-// PESQUISA
+        /* Retira item selecionado */
 
-const pesquisa =
-    document.getElementById("pesquisa");
+        botoesConteudo.forEach(function (item) {
 
+            item.classList.remove("sub-ativo");
 
-pesquisa.addEventListener("input", function () {
-
-    const texto =
-        pesquisa.value.toLowerCase().trim();
+        });
 
 
-    const secoes =
-        document.querySelectorAll("main section");
+        /* Volta conteúdo inicial */
+
+        document
+            .getElementById("titulo-sistema")
+            .textContent =
+            "Bem-vindo ao Manual Técnico";
 
 
-    secoes.forEach(function (secao) {
+        document
+            .getElementById("categoria-sistema")
+            .textContent =
+            "Sistemas Automotivos";
 
-        const conteudo =
-            secao.textContent.toLowerCase();
+
+        document
+            .getElementById("texto-sistema")
+            .innerHTML =
+            "Selecione uma categoria no menu e depois um componente para visualizar as informações técnicas.<br><br>" +
+            "Este manual poderá conter:<br><br>" +
+            "• Especificações técnicas<br>" +
+            "• Valores de teste<br>" +
+            "• Pinagem<br>" +
+            "• Funcionamento<br>" +
+            "• Diagnóstico<br>" +
+            "• Fotografias<br>" +
+            "• Diagramas<br>" +
+            "• Tabelas<br>" +
+            "• Procedimentos de reparação";
 
 
-        if (texto === "") {
+        /* Fecha menu no celular */
 
-            secao.style.display = "";
+        if (window.innerWidth <= 768) {
 
-        }
-
-        else if (conteudo.includes(texto)) {
-
-            secao.style.display = "";
-
-        }
-
-        else {
-
-            secao.style.display = "none";
+            fecharMenuMobile();
 
         }
 
     });
 
+
+    /* ==================================================
+       BOTÃO INÍCIO
+    ================================================== */
+
+    btnInicio.addEventListener("click", function () {
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior: "smooth"
+
+        });
+
+    });
+
+
+    /* ==================================================
+       BOTÃO FLUTUANTE ↑
+    ================================================== */
+
+    btnTopo.addEventListener("click", function () {
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior: "smooth"
+
+        });
+
+    });
+
+
+    /* ==================================================
+       MOSTRAR / ESCONDER BOTÃO ↑
+    ================================================== */
+
+    window.addEventListener("scroll", function () {
+
+        if (window.scrollY > 300) {
+
+            btnTopo.style.display = "block";
+
+        } else {
+
+            btnTopo.style.display = "none";
+
+        }
+
+    });
+
 });
-```
