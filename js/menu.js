@@ -137,6 +137,39 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
+    /* ==========================================
+       FUNÇÃO PARA EXIBIR CONTEÚDO INICIAL
+    ========================================== */
+    function exibirInicio() {
+        const tituloElemento = document.getElementById("titulo-sistema");
+        const textoElemento = document.getElementById("texto-sistema");
+        
+        if (tituloElemento && textoElemento) {
+            tituloElemento.textContent = "📚 Bem-vindo ao Manual Técnico";
+            textoElemento.textContent = "Selecione uma categoria no menu lateral e clique em um item para visualizar as informações técnicas detalhadas de cada componente automotivo.";
+        }
+
+        // Remove destaque de todos os sub-itens
+        document.querySelectorAll("[data-conteudo]").forEach(function (btn) {
+            btn.classList.remove("sub-ativo");
+        });
+
+        // Fecha todos os submenus
+        document.querySelectorAll(".submenu").forEach(function (menu) {
+            menu.classList.remove("aberto");
+        });
+
+        // Remove estado ativo dos botões principais
+        document.querySelectorAll(".btn-principal").forEach(function (btn) {
+            btn.classList.remove("ativo");
+            btn.classList.remove("aberto");
+        });
+
+        // Coloca todas as setas para baixo
+        document.querySelectorAll(".seta").forEach(function (seta) {
+            seta.textContent = "▼";
+        });
+    }
 
     /* ==========================================
        ABRIR E FECHAR SUBMENUS
@@ -186,7 +219,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-
     /* ==========================================
        MOSTRAR CONTEÚDO
     ========================================== */
@@ -225,7 +257,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-
     /* ==========================================
        CONTROLE DO MENU MOBILE (RESPONSIVO)
     ========================================== */
@@ -234,18 +265,78 @@ document.addEventListener("DOMContentLoaded", function () {
     const menuLateral = document.getElementById('menu-lateral');
     const overlay = document.getElementById('overlay');
     const btnTopo = document.getElementById('btn-topo');
+    const btnHome = document.getElementById('btn-home');
 
     function alternarMenuLateral() {
         if (menuLateral && overlay) {
             menuLateral.classList.toggle('menu-visivel');
             overlay.classList.toggle('ativo');
+            document.body.style.overflow = menuLateral.classList.contains('menu-visivel') ? 'hidden' : '';
         }
     }
 
-    if (btnMenu) btnMenu.addEventListener('click', alternarMenuLateral);
-    if (overlay) overlay.addEventListener('click', alternarMenuLateral);
+    // Abrir/fechar menu com o botão hambúrguer
+    if (btnMenu) {
+        btnMenu.addEventListener('click', function(e) {
+            e.stopPropagation();
+            alternarMenuLateral();
+        });
+    }
 
-    // Configuração do botão Início/Resetar
+    // Fechar menu ao clicar no overlay
+    if (overlay) {
+        overlay.addEventListener('click', alternarMenuLateral);
+    }
+
+    // Fechar menu ao redimensionar para desktop
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768 && menuLateral) {
+            menuLateral.classList.remove('menu-visivel');
+            if (overlay) overlay.classList.remove('ativo');
+            document.body.style.overflow = '';
+        }
+    });
+
+    /* ==========================================
+       BOTÃO INÍCIO - RESETAR PARA TELA INICIAL
+    ========================================== */
     if (btnTopo) {
         btnTopo.addEventListener('click', function () {
-            const tituloElemento = document.getElementById("titulo-sistema");
+            exibirInicio();
+            
+            // Fecha o menu no mobile
+            if (window.innerWidth <= 768) {
+                alternarMenuLateral();
+            }
+            
+            // Scroll suave para o topo
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    /* ==========================================
+       BOTÃO HOME - RESETAR PARA TELA INICIAL
+    ========================================== */
+    if (btnHome) {
+        btnHome.addEventListener('click', function (e) {
+            e.preventDefault();
+            exibirInicio();
+            
+            // Fecha o menu no mobile
+            if (window.innerWidth <= 768) {
+                alternarMenuLateral();
+            }
+            
+            // Scroll suave para o topo
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    /* ==========================================
+       EXIBIR TELA INICIAL AO CARREGAR
+    ========================================== */
+    exibirInicio();
+
+    console.log("✅ Manual Técnico carregado com sucesso!");
+    console.log("📚 Total de itens: " + Object.keys(bancoDeDados).length);
+});
