@@ -161,11 +161,12 @@ document.addEventListener("DOMContentLoaded", function () {
             titulo: "Freios Traseiros / Mão",
             texto: "Funcionamento dos freios traseiros e do sistema de freio de estacionamento."
         }
+
     };
 
 
     /* ==========================================
-       SUBMENUS
+       ABRIR E FECHAR SUBMENUS
     ========================================== */
 
     const botoesMenu = document.querySelectorAll(".btn-principal");
@@ -175,37 +176,47 @@ document.addEventListener("DOMContentLoaded", function () {
         botao.addEventListener("click", function () {
 
             const id = botao.getAttribute("data-menu");
+
             const submenu = document.getElementById(id);
 
             if (!submenu) {
-                console.error("Submenu não encontrado:", id);
+                console.error("Submenu não encontrado: " + id);
                 return;
             }
 
             const estavaAberto = submenu.classList.contains("aberto");
 
-            /* Fecha todos */
+
+            /* Fecha todos os submenus */
+
             document.querySelectorAll(".submenu").forEach(function (menu) {
                 menu.classList.remove("aberto");
             });
 
-            /* Remove estados */
+
+            /* Retira estado ativo */
+
             document.querySelectorAll(".btn-principal").forEach(function (btn) {
                 btn.classList.remove("ativo");
                 btn.classList.remove("aberto");
             });
 
-            /* Reseta todas as setas */
+
+            /* Coloca todas as setas para baixo */
+
             document.querySelectorAll(".seta").forEach(function (seta) {
                 seta.textContent = "▼";
             });
 
+
             /* Abre o submenu clicado */
+
             if (!estavaAberto) {
 
                 submenu.classList.add("aberto");
 
                 botao.classList.add("ativo");
+
                 botao.classList.add("aberto");
 
                 const seta = botao.querySelector(".seta");
@@ -213,13 +224,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (seta) {
                     seta.textContent = "▲";
                 }
+
             }
+
         });
+
     });
 
 
     /* ==========================================
-       CONTEÚDO
+       MOSTRAR CONTEÚDO
     ========================================== */
 
     const botoesConteudo = document.querySelectorAll("[data-conteudo]");
@@ -229,16 +243,21 @@ document.addEventListener("DOMContentLoaded", function () {
         botao.addEventListener("click", function () {
 
             const id = botao.getAttribute("data-conteudo");
+
             const dados = bancoDeDados[id];
 
             if (!dados) {
-                console.error("Conteúdo não encontrado:", id);
+                console.error("Conteúdo não encontrado: " + id);
                 return;
             }
 
+
             const titulo = document.getElementById("titulo-sistema");
+
             const categoria = document.getElementById("categoria-sistema");
+
             const texto = document.getElementById("texto-sistema");
+
 
             if (titulo) {
                 titulo.textContent = dados.titulo;
@@ -252,18 +271,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 texto.textContent = dados.texto;
             }
 
-            /* Marca item selecionado */
+
+            /* Marca o submenu selecionado */
+
             botoesConteudo.forEach(function (item) {
                 item.classList.remove("sub-ativo");
             });
 
             botao.classList.add("sub-ativo");
 
-            /* Fecha menu no celular */
+
+            /* Fecha o menu no celular */
+
             if (window.innerWidth <= 768) {
                 fecharMenuMobile();
             }
+
         });
+
     });
 
 
@@ -272,7 +297,9 @@ document.addEventListener("DOMContentLoaded", function () {
     ========================================== */
 
     const menuLateral = document.getElementById("menu-lateral");
+
     const overlay = document.getElementById("overlay");
+
     const btnMenu = document.getElementById("btn-menu");
 
 
@@ -285,6 +312,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (overlay) {
             overlay.classList.add("ativo");
         }
+
     }
 
 
@@ -297,6 +325,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (overlay) {
             overlay.classList.remove("ativo");
         }
+
     }
 
 
@@ -308,12 +337,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 menuLateral &&
                 menuLateral.classList.contains("menu-visivel")
             ) {
+
                 fecharMenuMobile();
+
             } else {
+
                 abrirMenuMobile();
+
             }
 
         });
+
     }
 
 
@@ -324,7 +358,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (overlay) {
 
         overlay.addEventListener("click", function () {
+
             fecharMenuMobile();
+
         });
 
     }
@@ -337,9 +373,31 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("keydown", function (event) {
 
         if (event.key === "Escape") {
+
             fecharMenuMobile();
+
         }
 
     });
+
+
+    /* ==========================================
+       BOTÃO INÍCIO
+    ========================================== */
+
+    const btnTopo = document.getElementById("btn-topo");
+
+    if (btnTopo) {
+
+        btnTopo.addEventListener("click", function () {
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        });
+
+    }
 
 });
