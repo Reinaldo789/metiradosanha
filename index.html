@@ -2,473 +2,162 @@
 <html lang="pt-BR">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manual Técnico - Sistemas Automotivos</title>
-
     <!-- CSS externo -->
     <link rel="stylesheet" href="css/estilo.css">
-
 </head>
 
 <body>
 
-
-<!-- ==================================================
-     BARRA SUPERIOR DO CELULAR
-================================================== -->
-
-<div class="barra-topo-mobile">
-
-    <h2>Manual Técnico 🛠️</h2>
-
-    <button
-        class="btn-menu-toggle"
-        id="btn-menu">
-        ☰
-    </button>
-
-</div>
-
-
-<!-- MENU LATERAL -->
-
-<nav id="menu-lateral">
-
-    <h2 class="titulo-menu">
-        Manual Técnico 🛠️
-    </h2>
-
-    <!-- BOTÕES -->
-
-    <div class="botoes-navegacao">
-
-        <a href="index.html" class="btn-home">
-            🏠 Home
-        </a>
-
-        <button id="btn-topo" class="btn-topo">
-            ⬆️ Início
-        </button>
-
+    <!-- ==================================================
+         BARRA SUPERIOR DO CELULAR (Aparece só no mobile)
+    ================================================== -->
+    <div class="barra-topo-mobile">
+        <h2>Manual Técnico 🛠️</h2>
+        <button class="btn-menu-toggle" id="btn-menu">☰</button>
     </div>
 
-
-<!-- ==================================================
-     CORTINA DO CELULAR
-================================================== -->
-
-<div
-    class="overlay"
-    id="overlay">
-</div>
-
-
-<!-- ==================================================
-     MENU LATERAL
-================================================== -->
-
-<nav id="menu-lateral">
-
-    <h2>Manual Técnico</h2>
-
-    <div class="botoes-navegacao">
-
-        <a href="index.html" class="btn-home">
-            🏠 Home
-        </a>
-
-        <button id="btn-topo" class="btn-topo">
-            ⬆️ Início
-        </button>
-
-    </div>
-
-
-    <h2>Manual Técnico</h2>
-
-
-    <!-- SISTEMA DE LUBRIFICAÇÃO -->
-
-    <div class="item-menu">
-
-        <button
-            class="btn-principal"
-            data-menu="lubrificacao">
-
-            <span>Sistema de Lubrificação</span>
-
-            <span class="seta">▼</span>
-
-        </button>
-
-
-        <ul
-            id="lubrificacao"
-            class="submenu">
-
-            <li>
-                <button data-conteudo="tab_lubrificacao">
-                    Tabela de Lubrificação
-                </button>
-            </li>
-
-            <li>
-                <button data-conteudo="luz_pressao">
-                    Luz e Pressão
-                </button>
-            </li>
-
-        </ul>
-
-    </div>
-
-
-    <!-- SISTEMA ELÉTRICO -->
-
-    <div class="item-menu">
-
-        <button
-            class="btn-principal"
-            data-menu="eletrico">
-
-            <span>Sistema Elétrico</span>
-
-            <span class="seta">▼</span>
-
-        </button>
-
-
-        <ul
-            id="eletrico"
-            class="submenu">
-
-            <li>
-                <button data-conteudo="fusiveis">
-                    Fusíveis e Lâmpadas
-                </button>
-            </li>
-
-            <li>
-                <button data-conteudo="farol">
-                    Farol e Seta
-                </button>
-            </li>
-
-        </ul>
-
-    </div>
-
-
-    <!-- LINHA COMBUSTÍVEL -->
-
-    <div class="item-menu">
-
-        <button
-            class="btn-principal"
-            data-menu="combustivel">
-
-            <span>Linha Combustível</span>
-
-            <span class="seta">▼</span>
-
-        </button>
-
-
-        <ul
-            id="combustivel"
-            class="submenu">
-
-            <li>
-                <button data-conteudo="tanque">
-                    Tanque, Filtro, Mang.
-                </button>
-            </li>
-
-            <li>
-                <button data-conteudo="bomba_eletrica">
-                    Bomba Elétrica
-                </button>
-            </li>
-
-            <li>
-                <button data-conteudo="bomba_engrenagem">
-                    Bomba Engrenagem
-                </button>
-            </li>
-
-            <li>
-                <button data-conteudo="valvula_kuv">
-                    Válvula KUV
-                </button>
-            </li>
-
-            <li>
-                <button data-conteudo="bomba_alta">
-                    Bomba Alta Pressão
-                </button>
-            </li>
-
-            <li>
-                <button data-conteudo="tubo_rail">
-                    Tubo Rail
-                </button>
-            </li>
-
-        </ul>
-
-    </div>
-
-
-    <!-- SENSORES E ATUADORES -->
-
-    <div class="item-menu">
-
-        <button
-            class="btn-principal"
-            data-menu="sensores">
-
-            <span>Sensores e Atuadores</span>
-
-            <span class="seta">▼</span>
-
-        </button>
-
-
-        <ul
-            id="sensores"
-            class="submenu">
-
-            <li>
-                <button data-conteudo="valvula_mprop">
-                    Válvula MProp
-                </button>
-            </li>
-
-            <li>
-                <button data-conteudo="sensor_rotacao">
-                    Sensor Rotação
-                </button>
-            </li>
-
-            <li>
-                <button data-conteudo="sensor_fase">
-                    Sensor Fase
-                </button>
-            </li>
-
-            <li>
-                <button data-conteudo="sensor_pres_adm">
-                    Sensor Pres. Adm
-                </button>
-            </li>
-
-            <li>
-                <button data-conteudo="pedal_acelerador">
-                    Pedal Acelerador
-                </button>
-            </li>
-
-            <li>
-                <button data-conteudo="sensor_temp_ecm">
-                    Sensor Temp. ECM
-                </button>
-            </li>
-
-            <li>
-                <button data-conteudo="modulador_turbina">
-                    Modulador Turbina
-                </button>
-            </li>
-
-            <li>
-                <button data-conteudo="sensor_pres_rail">
-                    Sensor Pres. Rail
-                </button>
-            </li>
-
-            <li>
-                <button data-conteudo="bicos_injetores">
-                    Bicos Injetores
-                </button>
-            </li>
-
-        </ul>
-
-    </div>
-
-
-    <!-- ADMISSÃO E ESCAPE -->
-
-    <div class="item-menu">
-
-        <button
-            class="btn-principal"
-            data-menu="admissao">
-
-            <span>Admissão e Escape</span>
-
-            <span class="seta">▼</span>
-
-        </button>
-
-
-        <ul
-            id="admissao"
-            class="submenu">
-
-            <li>
-                <button data-conteudo="filtros_mangueiras">
-                    Filtros e Mangueiras
-                </button>
-            </li>
-
-            <li>
-                <button data-conteudo="turbina">
-                    Turbina
-                </button>
-            </li>
-
-        </ul>
-
-    </div>
-
-
-    <!-- SISTEMA DE DIREÇÃO -->
-
-    <div class="item-menu">
-
-        <button
-            class="btn-principal"
-            data-menu="direcao">
-
-            <span>Sistema de Direção</span>
-
-            <span class="seta">▼</span>
-
-        </button>
-
-
-        <ul
-            id="direcao"
-            class="submenu">
-
-            <li>
-                <button data-conteudo="bomba_direcao">
-                    Bomba de Direção
-                </button>
-            </li>
-
-            <li>
-                <button data-conteudo="caixa_direcao">
-                    Caixa de Direção
-                </button>
-            </li>
-
-            <li>
-                <button data-conteudo="oleo_direcao">
-                    Óleo de Direção
-                </button>
-            </li>
-
-        </ul>
-
-    </div>
-
-
-    <!-- SISTEMAS DE FREIOS -->
-
-    <div class="item-menu">
-
-        <button
-            class="btn-principal"
-            data-menu="freios">
-
-            <span>Sistemas de Freios</span>
-
-            <span class="seta">▼</span>
-
-        </button>
-
-
-        <ul
-            id="freios"
-            class="submenu">
-
-            <li>
-                <button data-conteudo="bomba_vacuo">
-                    Bomba de Vácuo
-                </button>
-            </li>
-
-            <li>
-                <button data-conteudo="freios_traseiros">
-                    Freios Traseiros / Mão
-                </button>
-            </li>
-
-        </ul>
-
-    </div>
-
-
-</nav>
-
-
-<!-- ==================================================
-     CONTEÚDO PRINCIPAL
-================================================== -->
-
-<main>
-
-    <div class="caixa-conteudo">
-
-        <h1 id="titulo-sistema">
-            Bem-vindo ao Manual Técnico
-        </h1>
-
-
-        <div id="categoria-sistema">
-            Sistemas Automotivos
+    <!-- ==================================================
+         CORTINA DO CELULAR (Overlay para fechar ao tocar fora)
+    ================================================== -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- ==================================================
+         MENU LATERAL
+    ================================================== -->
+    <nav id="menu-lateral">
+        <h2 class="titulo-menu">Manual Técnico 🛠️</h2>
+
+        <div class="botoes-navegacao">
+            <a href="index.html" class="btn-home">🏠 Home</a>
+            <button id="btn-topo" class="btn-topo">⬆️ Início</button>
         </div>
 
+        <!-- SISTEMA DE LUBRIFICAÇÃO -->
+        <div class="item-menu">
+            <button class="btn-principal" data-menu="lubrificacao">
+                <span>Sistema de Lubrificação</span>
+                <span class="seta">▼</span>
+            </button>
+            <ul id="lubrificacao" class="submenu">
+                <li><button data-conteudo="tab_lubrificacao">Tabela de Lubrificação</button></li>
+                <li><button data-conteudo="luz_pressao">Luz e Pressão</button></li>
+            </ul>
+        </div>
 
-        <p id="texto-sistema">
+        <!-- SISTEMA ELÉTRICO -->
+        <div class="item-menu">
+            <button class="btn-principal" data-menu="eletrico">
+                <span>Sistema Elétrico</span>
+                <span class="seta">▼</span>
+            </button>
+            <ul id="eletrico" class="submenu">
+                <li><button data-conteudo="fusiveis">Fusíveis e Lâmpadas</button></li>
+                <li><button data-conteudo="farol">Farol e Seta</button></li>
+            </ul>
+        </div>
 
-            Selecione uma categoria no menu e depois
-            um componente para visualizar as informações
-            técnicas.
+        <!-- LINHA COMBUSTÍVEL -->
+        <div class="item-menu">
+            <button class="btn-principal" data-menu="combustivel">
+                <span>Linha Combustível</span>
+                <span class="seta">▼</span>
+            </button>
+            <ul id="combustivel" class="submenu">
+                <li><button data-conteudo="tanque">Tanque, Filtro, Mang.</button></li>
+                <li><button data-conteudo="bomba_eletrica">Bomba Elétrica</button></li>
+                <li><button data-conteudo="bomba_engrenagem">Bomba Engrenagem</button></li>
+                <li><button data-conteudo="valvula_kuv">Válvula KUV</button></li>
+                <li><button data-conteudo="bomba_alta">Bomba Alta Pressão</button></li>
+                <li><button data-conteudo="tubo_rail">Tubo Rail</button></li>
+            </ul>
+        </div>
 
-            <br><br>
+        <!-- SENSORES E ATUADORES -->
+        <div class="item-menu">
+            <button class="btn-principal" data-menu="sensores">
+                <span>Sensores e Atuadores</span>
+                <span class="seta">▼</span>
+            </button>
+            <ul id="sensores" class="submenu">
+                <li><button data-conteudo="valvula_mprop">Válvula MProp</button></li>
+                <li><button data-conteudo="sensor_rotacao">Sensor Rotação</button></li>
+                <li><button data-conteudo="sensor_fase">Sensor Fase</button></li>
+                <li><button data-conteudo="sensor_pres_adm">Sensor Pres. Adm</button></li>
+                <li><button data-conteudo="pedal_acelerador">Pedal Acelerador</button></li>
+                <li><button data-conteudo="sensor_temp_ecm">Sensor Temp. ECM</button></li>
+                <li><button data-conteudo="modulador_turbina">Modulador Turbina</button></li>
+                <li><button data-conteudo="sensor_pres_rail">Sensor Pres. Rail</button></li>
+                <li><button data-conteudo="bicos_injetores">Bicos Injetores</button></li>
+            </ul>
+        </div>
 
-            Este manual poderá conter:
+        <!-- ADMISSÃO E ESCAPE -->
+        <div class="item-menu">
+            <button class="btn-principal" data-menu="admissao">
+                <span>Admissão e Escape</span>
+                <span class="seta">▼</span>
+            </button>
+            <ul id="admissao" class="submenu">
+                <li><button data-conteudo="filtros_mangueiras">Filtros e Mangueiras</button></li>
+                <li><button data-conteudo="turbina">Turbina</button></li>
+            </ul>
+        </div>
 
-            <br><br>
+        <!-- SISTEMA DE DIREÇÃO -->
+        <div class="item-menu">
+            <button class="btn-principal" data-menu="direcao">
+                <span>Sistema de Direção</span>
+                <span class="seta">▼</span>
+            </button>
+            <ul id="direcao" class="submenu">
+                <li><button data-conteudo="bomba_direcao">Bomba de Direção</button></li>
+                <li><button data-conteudo="caixa_direcao">Caixa de Direção</button></li>
+                <li><button data-conteudo="oleo_direcao">Óleo de Direção</button></li>
+            </ul>
+        </div>
 
-            • Especificações técnicas<br>
-            • Valores de teste<br>
-            • Pinagem<br>
-            • Funcionamento<br>
-            • Diagnóstico<br>
-            • Fotografias<br>
-            • Diagramas<br>
-            • Tabelas<br>
-            • Procedimentos de reparação
+        <!-- SISTEMAS DE FREIOS -->
+        <div class="item-menu">
+            <button class="btn-principal" data-menu="freios">
+                <span>Sistemas de Freios</span>
+                <span class="seta">▼</span>
+            </button>
+            <ul id="freios" class="submenu">
+                <li><button data-conteudo="bomba_vacuo">Bomba de Vácuo</button></li>
+                <li><button data-conteudo="freios_traseiros">Freios Traseiros / Mão</button></li>
+            </ul>
+        </div>
+    </nav>
 
-        </p>
+    <!-- ==================================================
+         CONTEÚDO PRINCIPAL (Exibição Dinâmica)
+    ================================================== -->
+    <main>
+        <div class="caixa-conteudo">
+            <h1 id="titulo-sistema">Bem-vindo ao Manual Técnico</h1>
+            <p id="texto-sistema">Selecione uma categoria e um submenu ao lado para visualizar os dados técnicos e especificações detalhadas de cada componente automotivo.</p>
+        </div>
+    </main>
 
-    </div>
-
-</main>
-
-
-<!-- JavaScript externo -->
-<script src="js/menu.js"></script>
-
-</body>
-
-</html>
+    <!-- ==================================================
+         PROGRAMAÇÃO JAVASCRIPT (Controla a mágica das páginas)
+    ================================================== -->
+    <script>
+        const bancoDeDados = {
+            tab_lubrificacao: { titulo: "Tabela de Lubrificação", texto: "Dados de viscosidade (ex: 5W30, 10W40), capacidades de cárter em litros e intervalos recomendados para troca de óleo e filtros de acordo com a quilometragem do fabricante." },
+            luz_pressao: { titulo: "Luz e Pressão de Óleo", texto: "Análise do sensor de pressão (cebolinha). O acendimento da luz no painel indica queda perigosa na pressão de trabalho da bomba, podendo causar o travamento imediato do motor." },
+            fusiveis: { titulo: "Fusíveis e Lâmpadas", texto: "Dimensionamento de amperagem para proteção dos circuitos contra curto-circuitos e esquemas de substituição de lâmpadas incandescentes ou LEDs de sinalização." },
+            farol: { titulo: "Farol e Seta", texto: "Funcionamento do circuito de iluminação principal (facho alto/baixo), lanternas e temporização das luzes de direção (setas) gerenciadas pelo relé ou central de carroceria." },
+            tanque: { titulo: "Tanque, Filtro e Mangueiras", texto: "Componentes da linha de baixa pressão. Armazenamento seguro de combustível, filtragem primária de impurezas e linhas flexíveis resistentes a pressões iniciais." },
+            bomba_eletrica: { titulo: "Bomba Elétrica", texto: "Instalada no tanque, opera fornecendo o fluxo inicial de combustível sob baixa pressão constante para alimentar os sistemas de injeção direta ou indireta." },
+            bomba_engrenagem: { titulo: "Bomba de Engrenagem", texto: "Dispositivo mecânico de deslocamento positivo utilizado principalmente em sistemas diesel para succionar o combustível através do filtro e alimentar a bomba de alta." },
+            valvula_kuv: { titulo: "Válvula KUV", texto: "Válvula de transbordo e segurança responsável por regular o excesso de retorno de combustível, mantendo a estabilidade térmica e hidráulica da linha." },
+            bomba_alta: { titulo: "Bomba de Alta Pressão", texto: "Responsável por receber o combustível da linha de baixa e comprimi-lo a níveis extremos (até mais de 2000 bar em sistemas Common Rail) para otimizar a atomização." },
+            tubo_rail: { titulo: "Tubo Rail (Flauta)", texto: "Tubo distribuidor de alta pressão que atua como acumulador hidráulico, garantindo que todos os bicos injetores recebam combustível com pressão idêntica e sem oscilações." },
+            valvula_mprop: { titulo: "Válvula MProp", texto: "Válvula reguladora de vazão acoplada na bomba de alta pressão. Controla eletronicamente a quantidade de combustível que será comprimida para o tubo Rail." },
+            sensor_rotacao: { titulo: "Sensor de Rotação (CKP)", texto: "Monitora a velocidade e a posição exata da árvore de manivelas (virabrequim), enviando a informação essencial para a ECM sincronizar o momento da injeção e ignição." },
+            sensor_fase: { titulo: "Sensor de Fase (CMP)", texto: "Identifica a posição do comando de válvulas, permitindo que a central eletrônica reconheça qual cilindro está em fase de compressão para realizar a injeção sequencial." },
+            sensor_pres_adm: { titulo: "Sensor de Pressão de Admissão (MAP)", texto: "Mede a pressão absoluta ou vácuo dentro do coletor de admissão para auxiliar no cálculo do volume de ar que está entrando nos cilindros." },
