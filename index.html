@@ -5,33 +5,270 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manual Técnico - Sistemas Automotivos</title>
-    <!-- CSS externo -->
-    <link rel="stylesheet" href="css/estilo.css">
+    <style>
+        /* ===== ESTILOS GERAIS ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ===== MENU LATERAL ===== */
+        #menu-lateral {
+            width: 280px;
+            background: #1a2a3a;
+            color: #fff;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+        }
+
+        .titulo-menu {
+            text-align: center;
+            font-size: 20px;
+            padding: 0 15px 20px;
+            border-bottom: 2px solid #2a4a6a;
+            color: #ffd700;
+        }
+
+        .botoes-navegacao {
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #2a4a6a;
+        }
+
+        .btn-home, .btn-topo {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn-home {
+            background: #ffd700;
+            color: #1a2a3a;
+        }
+
+        .btn-home:hover {
+            background: #ffed4a;
+            transform: scale(1.02);
+        }
+
+        .btn-topo {
+            background: #2a4a6a;
+            color: #fff;
+        }
+
+        .btn-topo:hover {
+            background: #3a5a7a;
+        }
+
+        /* ===== ITENS DO MENU ===== */
+        .item-menu {
+            border-bottom: 1px solid #2a4a6a;
+        }
+
+        .btn-principal {
+            width: 100%;
+            padding: 14px 20px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .btn-principal:hover {
+            background: #2a4a6a;
+        }
+
+        .btn-principal .seta {
+            transition: transform 0.3s;
+        }
+
+        .btn-principal.ativo .seta {
+            transform: rotate(180deg);
+        }
+
+        .submenu {
+            list-style: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: #0d1a2a;
+        }
+
+        .submenu.aberto {
+            max-height: 500px;
+        }
+
+        .submenu li button {
+            width: 100%;
+            padding: 10px 20px 10px 35px;
+            background: transparent;
+            border: none;
+            color: #b0c4de;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: left;
+            transition: 0.3s;
+        }
+
+        .submenu li button:hover {
+            background: #1a3a5a;
+            color: #fff;
+            padding-left: 45px;
+        }
+
+        /* ===== CONTEÚDO PRINCIPAL ===== */
+        main {
+            margin-left: 280px;
+            flex: 1;
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        .caixa-conteudo {
+            background: #fff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .caixa-conteudo h1 {
+            color: #1a2a3a;
+            font-size: 28px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #ffd700;
+            padding-bottom: 10px;
+        }
+
+        .caixa-conteudo p {
+            color: #444;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* ===== BARRA TOPO MOBILE ===== */
+        .barra-topo-mobile {
+            display: none;
+            background: #1a2a3a;
+            color: #fff;
+            padding: 12px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .barra-topo-mobile h2 {
+            font-size: 18px;
+        }
+
+        .btn-menu-toggle {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        /* ===== OVERLAY ===== */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        .overlay.ativo {
+            display: block;
+        }
+
+        /* ===== RESPONSIVO ===== */
+        @media (max-width: 768px) {
+            .barra-topo-mobile {
+                display: flex;
+            }
+
+            #menu-lateral {
+                transform: translateX(-100%);
+                width: 280px;
+                padding-top: 70px;
+            }
+
+            #menu-lateral.aberto {
+                transform: translateX(0);
+            }
+
+            main {
+                margin-left: 0;
+                padding: 80px 15px 30px;
+            }
+
+            .caixa-conteudo {
+                padding: 20px;
+            }
+
+            .caixa-conteudo h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- ==================================================
-         BARRA SUPERIOR DO CELULAR (Aparece só no mobile)
-    ================================================== -->
+    <!-- ===== BARRA SUPERIOR DO CELULAR ===== -->
     <div class="barra-topo-mobile">
         <h2>Manual Técnico 🛠️</h2>
         <button class="btn-menu-toggle" id="btn-menu">☰</button>
     </div>
 
-    <!-- ==================================================
-         CORTINA DO CELULAR (Overlay para fechar ao tocar fora)
-    ================================================== -->
+    <!-- ===== OVERLAY ===== -->
     <div class="overlay" id="overlay"></div>
 
-    <!-- ==================================================
-         MENU LATERAL
-    ================================================== -->
+    <!-- ===== MENU LATERAL ===== -->
     <nav id="menu-lateral">
         <h2 class="titulo-menu">Manual Técnico 🛠️</h2>
 
         <div class="botoes-navegacao">
-            <a href="index.html" class="btn-home">🏠 Home</a>
+            <a href="#" class="btn-home" id="btn-home">🏠 Home</a>
             <button id="btn-topo" class="btn-topo">⬆️ Início</button>
         </div>
 
@@ -132,9 +369,7 @@
         </div>
     </nav>
 
-    <!-- ==================================================
-         CONTEÚDO PRINCIPAL (Exibição Dinâmica)
-    ================================================== -->
+    <!-- ===== CONTEÚDO PRINCIPAL ===== -->
     <main>
         <div class="caixa-conteudo">
             <h1 id="titulo-sistema">Bem-vindo ao Manual Técnico</h1>
@@ -143,21 +378,236 @@
     </main>
 
     <!-- ==================================================
-         PROGRAMAÇÃO JAVASCRIPT CORRIGIDA
+         JAVASCRIPT COMPLETO
     ================================================== -->
     <script>
+        // ===== BANCO DE DADOS =====
         const bancoDeDados = {
-            tab_lubrificacao: { titulo: "Tabela de Lubrificação", texto: "Dados de viscosidade (ex: 5W30, 10W40), capacidades de cárter em litros e intervalos recomendados para troca de óleo e filtros de acordo com a quilometragem do fabricante." },
-            luz_pressao: { titulo: "Luz e Pressão de Óleo", texto: "Análise do sensor de pressão (cebolinha). O acendimento da luz no painel indica queda perigosa na pressão de trabalho da bomba, podendo causar o travamento imediato do motor." },
-            fusiveis: { titulo: "Fusíveis e Lâmpadas", texto: "Dimensionamento de amperagem para proteção dos circuitos contra curto-circuitos e esquemas de substituição de lâmpadas incandescentes ou LEDs de sinalização." },
-            farol: { titulo: "Farol e Seta", texto: "Funcionamento do circuito de iluminação principal (facho alto/baixo), lanternas e temporização das luzes de direção (setas) gerenciadas pelo relé ou central de carroceria." },
-            tanque: { titulo: "Tanque, Filtro e Mangueiras", texto: "Componentes da linha de baixa pressão. Armazenamento seguro de combustível, filtragem primária de impurezas e linhas flexíveis resistentes a pressões iniciais." },
-            bomba_eletrica: { titulo: "Bomba Elétrica", texto: "Instalada no tanque, opera fornecendo o fluxo inicial de combustível sob baixa pressão constante para alimentar os sistemas de injeção direta ou indireta." },
-            bomba_engrenagem: { titulo: "Bomba de Engrenagem", texto: "Dispositivo mecânico de deslocamento positivo utilizado principalmente em sistemas diesel para succionar o combustível através do filtro e alimentar a bomba de alta." },
-            valvula_kuv: { titulo: "Válvula KUV", texto: "Válvula de transbordo e segurança responsável por regular o excesso de retorno de combustível, mantendo a estabilidade térmica e hidráulica da linha." },
-            bomba_alta: { titulo: "Bomba de Alta Pressão", texto: "Responsável por receber o combustível da linha de baixa e comprimi-lo a níveis extremos (até mais de 2000 bar em sistemas Common Rail) para otimizar a atomização." },
-            tubo_rail: { titulo: "Tubo Rail (Flauta)", texto: "Tubo distribuidor de alta pressão que atua como acumulador hidráulico, garantindo que todos os bicos injetores recebam combustível com pressão idêntica e sem oscilações." },
-            valvula_mprop: { titulo: "Válvula MProp", texto: "Válvula reguladora de vazão acoplada na bomba de alta pressão. Controla eletronicamente a quantidade de combustível que será comprimida para o tubo Rail." },
-            sensor_rotacao: { titulo: "Sensor de Rotação (CKP)", texto: "Monitora a velocidade e a posição exata da árvore de manivelas (virabrequim), enviando a informação essencial para a ECM sincronizar o momento da injeção e ignição." },
-            sensor_fase: { titulo: "Sensor de Fase (CMP)", texto: "Identifica a posição do comando de válvulas, permitindo que a central eletrônica reconheça qual cilindro está em fase de compressão para realizar a injeção sequencial." },
-            sensor_pres_adm: { titulo: "Sensor de Pressão de Admissão (MAP)", texto: "Mede a pressão absoluta ou vácuo dentro do coletor de admissão para auxiliar no cálculo do volume de ar que está entrando nos cilindros." },
+            // Lubrificação
+            tab_lubrificacao: { 
+                titulo: "📊 Tabela de Lubrificação", 
+                texto: "Dados de viscosidade (ex: 5W30, 10W40), capacidades de cárter em litros e intervalos recomendados para troca de óleo e filtros de acordo com a quilometragem do fabricante.\n\n🔧 Recomendações:\n• Troca de óleo: a cada 10.000 km\n• Filtro de óleo: trocar junto com o óleo\n• Viscosidade recomendada: conforme clima da região" 
+            },
+            luz_pressao: { 
+                titulo: "⚠️ Luz e Pressão de Óleo", 
+                texto: "Análise do sensor de pressão (cebolinha). O acendimento da luz no painel indica queda perigosa na pressão de trabalho da bomba, podendo causar o travamento imediato do motor.\n\n🚨 Sintomas:\n• Luz acesa em baixa rotação\n• Barulho de metais no motor\n• Perda de potência" 
+            },
+            
+            // Elétrico
+            fusiveis: { 
+                titulo: "🔌 Fusíveis e Lâmpadas", 
+                texto: "Dimensionamento de amperagem para proteção dos circuitos contra curto-circuitos e esquemas de substituição de lâmpadas incandescentes ou LEDs de sinalização.\n\n💡 Dicas:\n• Fusível queimado = circuito sobrecarregado\n• Sempre use a amperagem correta\n• Verifique o manual do veículo para localização" 
+            },
+            farol: { 
+                titulo: "💡 Farol e Seta", 
+                texto: "Funcionamento do circuito de iluminação principal (facho alto/baixo), lanternas e temporização das luzes de direção (setas) gerenciadas pelo relé ou central de carroceria.\n\n🔦 Especificações:\n• Farol alto: 60W\n• Farol baixo: 55W\n• Seta: 21W" 
+            },
+            
+            // Combustível
+            tanque: { 
+                titulo: "⛽ Tanque, Filtro e Mangueiras", 
+                texto: "Componentes da linha de baixa pressão. Armazenamento seguro de combustível, filtragem primária de impurezas e linhas flexíveis resistentes a pressões iniciais.\n\n🔧 Manutenção:\n• Verificar vazamentos\n• Trocar filtro a cada 20.000 km\n• Mangueiras: inspecionar rachaduras" 
+            },
+            bomba_eletrica: { 
+                titulo: "⚡ Bomba Elétrica", 
+                texto: "Instalada no tanque, opera fornecendo o fluxo inicial de combustível sob baixa pressão constante para alimentar os sistemas de injeção direta ou indireta.\n\n📊 Dados técnicos:\n• Pressão: 3-5 bar\n• Vazão: 120 L/h\n• Tensão: 12V" 
+            },
+            bomba_engrenagem: { 
+                titulo: "⚙️ Bomba de Engrenagem", 
+                texto: "Dispositivo mecânico de deslocamento positivo utilizado principalmente em sistemas diesel para succionar o combustível através do filtro e alimentar a bomba de alta." 
+            },
+            valvula_kuv: { 
+                titulo: "🔧 Válvula KUV", 
+                texto: "Válvula de transbordo e segurança responsável por regular o excesso de retorno de combustível, mantendo a estabilidade térmica e hidráulica da linha." 
+            },
+            bomba_alta: { 
+                titulo: "💪 Bomba de Alta Pressão", 
+                texto: "Responsável por receber o combustível da linha de baixa e comprimi-lo a níveis extremos (até mais de 2000 bar em sistemas Common Rail) para otimizar a atomização." 
+            },
+            tubo_rail: { 
+                titulo: "🔴 Tubo Rail (Flauta)", 
+                texto: "Tubo distribuidor de alta pressão que atua como acumulador hidráulico, garantindo que todos os bicos injetores recebam combustível com pressão idêntica e sem oscilações." 
+            },
+            
+            // Sensores
+            valvula_mprop: { 
+                titulo: "🎛️ Válvula MProp", 
+                texto: "Válvula reguladora de vazão acoplada na bomba de alta pressão. Controla eletronicamente a quantidade de combustível que será comprimida para o tubo Rail." 
+            },
+            sensor_rotacao: { 
+                titulo: "🔄 Sensor de Rotação (CKP)", 
+                texto: "Monitora a velocidade e a posição exata da árvore de manivelas (virabrequim), enviando a informação essencial para a ECM sincronizar o momento da injeção e ignição." 
+            },
+            sensor_fase: { 
+                titulo: "⏱️ Sensor de Fase (CMP)", 
+                texto: "Identifica a posição do comando de válvulas, permitindo que a central eletrônica reconheça qual cilindro está em fase de compressão para realizar a injeção sequencial." 
+            },
+            sensor_pres_adm: { 
+                titulo: "🌬️ Sensor de Pressão de Admissão (MAP)", 
+                texto: "Mede a pressão absoluta ou vácuo dentro do coletor de admissão para auxiliar no cálculo do volume de ar que está entrando nos cilindros.\n\n📊 Faixa de medição: 0 a 5V\n🔧 Sintomas de falha: marcha lenta irregular, perda de potência." 
+            },
+            pedal_acelerador: { 
+                titulo: "🦶 Pedal Acelerador", 
+                texto: "Sensor de posição do pedal (APP) que envia o sinal de aceleração desejada para a central eletrônica. Possui dois potenciômetros redundantes para segurança.\n\n⚠️ Importante:\n• Sinal duplo para confiabilidade\n• Falha: modo de emergência ativado" 
+            },
+            sensor_temp_ecm: { 
+                titulo: "🌡️ Sensor de Temperatura da ECM", 
+                texto: "Monitora a temperatura da central eletrônica para evitar superaquecimento e garantir o funcionamento adequado dos componentes eletrônicos." 
+            },
+            modulador_turbina: { 
+                titulo: "🌀 Modulador da Turbina", 
+                texto: "Atuador que controla a geometria variável da turbina (VGT), ajustando o ângulo das pás para otimizar a pressão de boost conforme a rotação do motor." 
+            },
+            sensor_pres_rail: { 
+                titulo: "📊 Sensor de Pressão do Rail", 
+                texto: "Monitora continuamente a pressão no tubo Rail, enviando o sinal para a ECM que regula a válvula MProp para manter a pressão ideal.\n\n⚡ Faixa: 0-2000 bar\n🔧 Falha: perda de potência imediata" 
+            },
+            bicos_injetores: { 
+                titulo: "💉 Bicos Injetores", 
+                texto: "Responsáveis pela atomização do combustível dentro dos cilindros. Sistemas Common Rail utilizam injetores piezoelétricos ou solenoidais de alta precisão.\n\n🔧 Manutenção:\n• Limpeza a cada 50.000 km\n• Teste de vazamento\n• Calibração de vazão" 
+            },
+            
+            // Admissão e Escape
+            filtros_mangueiras: { 
+                titulo: "🌬️ Filtros e Mangueiras", 
+                texto: "Filtro de ar e mangueiras de admissão. O filtro deve ser trocado conforme especificação do fabricante para garantir a entrada de ar limpa e proteger o motor." 
+            },
+            turbina: { 
+                titulo: "🌀 Turbina (Turbo)", 
+                texto: "Compressor acionado pelos gases de escape que aumenta a densidade do ar de admissão, melhorando a eficiência da queima e a potência do motor.\n\n⚠️ Cuidados:\n• Esperar o turbo esfriar antes de desligar\n• Trocar óleo regularmente\n• Verificar vazamentos no sistema" 
+            },
+            
+            // Direção
+            bomba_direcao: { 
+                titulo: "🔧 Bomba de Direção", 
+                texto: "Bomba hidráulica que pressuriza o fluido para assistência na direção. Pode ser acionada por correia ou eletricamente.\n\n🔧 Manutenção:\n• Nível do fluido\n• Vazamentos\n• Troca do fluido a cada 50.000 km" 
+            },
+            caixa_direcao: { 
+                titulo: "⚙️ Caixa de Direção", 
+                texto: "Mecanismo que converte o movimento do volante em movimento das rodas. Pode ser de pinhão e cremalheira ou recirculação de esferas." 
+            },
+            oleo_direcao: { 
+                titulo: "🛢️ Óleo de Direção", 
+                texto: "Fluido hidráulico específico para sistemas de direção assistida. Deve ser trocado conforme intervalo recomendado pelo fabricante.\n\n📊 Especificação: ATF ou fluido específico" 
+            },
+            
+            // Freios
+            bomba_vacuo: { 
+                titulo: "🔄 Bomba de Vácuo", 
+                texto: "Gera vácuo para o servo-freio, amplificando a força aplicada no pedal. Pode ser acionada pelo motor ou eletricamente.\n\n⚠️ Sinais de falha:\n• Pedal duro\n• Ruído anormal\n• Perda de assistência" 
+            },
+            freios_traseiros: { 
+                titulo: "🛑 Freios Traseiros / Freio de Mão", 
+                texto: "Sistema de freios traseiros e freio de estacionamento (mão). Pode ser a tambor ou a disco com acionamento por cabo ou eletrônico." 
+            }
+        };
+
+        // ===== VARIÁVEIS =====
+        const menuLateral = document.getElementById('menu-lateral');
+        const overlay = document.getElementById('overlay');
+        const btnMenu = document.getElementById('btn-menu');
+        const tituloSistema = document.getElementById('titulo-sistema');
+        const textoPrincipal = document.getElementById('texto-sistema');
+        const btnHome = document.getElementById('btn-home');
+        const btnTopo = document.getElementById('btn-topo');
+
+        // ===== FUNÇÕES DO MENU MOBILE =====
+        function toggleMenu() {
+            menuLateral.classList.toggle('aberto');
+            overlay.classList.toggle('ativo');
+            document.body.style.overflow = menuLateral.classList.contains('aberto') ? 'hidden' : '';
+        }
+
+        function fecharMenu() {
+            menuLateral.classList.remove('aberto');
+            overlay.classList.remove('ativo');
+            document.body.style.overflow = '';
+        }
+
+        // ===== EVENTOS =====
+        btnMenu.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', fecharMenu);
+
+        // Fechar menu ao clicar em um item (mobile)
+        document.querySelectorAll('#menu-lateral button, #menu-lateral a').forEach(el => {
+            el.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    setTimeout(fecharMenu, 200);
+                }
+            });
+        });
+
+        // ===== EXPANDIR/COLAPSAR SUBMENUS =====
+        document.querySelectorAll('.btn-principal').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const submenuId = this.getAttribute('data-menu');
+                const submenu = document.getElementById(submenuId);
+                const isOpen = submenu.classList.contains('aberto');
+
+                // Fecha todos os outros submenus
+                document.querySelectorAll('.submenu').forEach(sm => {
+                    if (sm.id !== submenuId) {
+                        sm.classList.remove('aberto');
+                        sm.previousElementSibling.classList.remove('ativo');
+                    }
+                });
+
+                // Alterna o atual
+                submenu.classList.toggle('aberto');
+                this.classList.toggle('ativo');
+            });
+        });
+
+        // ===== EXIBIR CONTEÚDO =====
+        function exibirConteudo(id) {
+            const item = bancoDeDados[id];
+            if (item) {
+                tituloSistema.textContent = item.titulo;
+                textoPrincipal.textContent = item.texto;
+            }
+            // Fecha menu no mobile
+            if (window.innerWidth <= 768) {
+                fecharMenu();
+            }
+        }
+
+        // Clique nos sub-itens
+        document.querySelectorAll('[data-conteudo]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = this.getAttribute('data-conteudo');
+                exibirConteudo(id);
+            });
+        });
+
+        // ===== BOTÃO HOME =====
+        btnHome.addEventListener('click', function(e) {
+            e.preventDefault();
+            tituloSistema.textContent = '🏠 Bem-vindo ao Manual Técnico';
+            textoPrincipal.textContent = 'Selecione uma categoria e um submenu ao lado para visualizar os dados técnicos e especificações detalhadas de cada componente automotivo.';
+            fecharMenu();
+        });
+
+        // ===== BOTÃO INÍCIO =====
+        btnTopo.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Mostra mensagem inicial
+            tituloSistema.textContent = '⬆️ Início do Manual';
+            textoPrincipal.textContent = 'Navegue pelo menu lateral para acessar todas as informações técnicas.';
+            fecharMenu();
+        });
+
+        // ===== FECHAR MENU AO REDIMENSIONAR =====
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                fecharMenu();
+            }
+        });
+
+        console.log('✅ Manual Técnico carregado com sucesso!');
+        console.log('📚 Total de itens:', Object.keys(bancoDeDados).length);
+    </script>
+
+</body>
+
+</html>
