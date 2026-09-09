@@ -3,784 +3,431 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<title>Manual Técnico</title>
+    <title>Manual Técnico - Sistemas Automotivos</title>
 
-<style>
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f5f6f8;
-    color: #222;
-}
-
-
-/* =========================
-   TOPO
-========================= */
-
-.topo {
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 65px;
-
-    background: white;
-    border-bottom: 1px solid #ddd;
-
-    display: flex;
-    align-items: center;
-
-    padding: 0 20px;
-
-    z-index: 1000;
-}
-
-.logo {
-    font-size: 22px;
-    font-weight: bold;
-}
-
-.btn-menu {
-    display: none;
-
-    border: none;
-    background: #eee;
-
-    border-radius: 30px;
-
-    width: 55px;
-    height: 45px;
-
-    font-size: 25px;
-
-    cursor: pointer;
-
-    margin-right: 15px;
-}
-
-
-/* =========================
-   PESQUISA
-========================= */
-
-.busca {
-    margin-left: auto;
-}
-
-.busca input {
-    width: 250px;
-
-    padding: 10px 15px;
-
-    border: none;
-
-    background: #eee;
-
-    border-radius: 25px;
-
-    font-size: 16px;
-}
-
-
-/* =========================
-   MENU
-========================= */
-
-.menu {
-    position: fixed;
-
-    top: 65px;
-    left: 0;
-
-    width: 260px;
-
-    height: calc(100vh - 65px);
-
-    background: #172033;
-
-    color: white;
-
-    overflow-y: auto;
-
-    z-index: 900;
-}
-
-.menu a,
-.menu-botao {
-    display: block;
-
-    width: 100%;
-
-    padding: 13px 20px;
-
-    color: white;
-
-    text-decoration: none;
-
-    border: none;
-
-    background: transparent;
-
-    text-align: left;
-
-    font-size: 16px;
-
-    cursor: pointer;
-}
-
-.menu a:hover,
-.menu-botao:hover {
-    background: #293750;
-}
-
-.menu-botao {
-    display: flex;
-
-    justify-content: space-between;
-}
-
-
-/* SUBMENU */
-
-.submenu {
-    display: none;
-
-    background: #0d1422;
-}
-
-.submenu.aberto {
-    display: block;
-}
-
-.submenu a {
-    padding-left: 40px;
-
-    color: #d5dce8;
-
-    font-size: 15px;
-}
-
-
-/* =========================
-   CONTEÚDO
-========================= */
-
-main {
-    margin-left: 260px;
-
-    padding-top: 65px;
-}
-
-section {
-    padding: 70px 40px;
-
-    max-width: 1200px;
-
-    margin: auto;
-}
-
-.inicio {
-    max-width: none;
-
-    min-height: 480px;
-
-    background: #eef4ff;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-}
-
-.inicio h1 {
-    font-size: 55px;
-
-    margin: 20px 0;
-}
-
-.inicio p {
-    max-width: 700px;
-
-    font-size: 19px;
-
-    line-height: 1.6;
-}
-
-.botao {
-    margin-top: 25px;
-
-    width: fit-content;
-
-    padding: 12px 20px;
-
-    background: #2563eb;
-
-    color: white;
-
-    text-decoration: none;
-
-    border-radius: 7px;
-}
-
-
-/* =========================
-   CARDS
-========================= */
-
-.cards {
-    display: grid;
-
-    grid-template-columns:
-        repeat(auto-fit, minmax(220px, 1fr));
-
-    gap: 20px;
-
-    margin-top: 30px;
-}
-
-.card {
-    background: white;
-
-    border: 1px solid #ddd;
-
-    border-radius: 10px;
-
-    padding: 25px;
-}
-
-.card h3 {
-    margin: 10px 0;
-}
-
-.card p {
-    color: #666;
-}
-
-
-/* =========================
-   RODAPÉ
-========================= */
-
-footer {
-    background: #172033;
-
-    color: white;
-
-    padding: 40px;
-
-    text-align: center;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 900px) {
-
-    .btn-menu {
-        display: block;
-    }
-
-    .logo {
-        font-size: 18px;
-    }
-
-    .busca {
-        display: none;
-    }
-
-    .menu {
-
-        transform: translateX(-100%);
-
-        transition:
-            transform 0.25s ease;
-
-    }
-
-    .menu.aberto {
-
-        transform: translateX(0);
-
-    }
-
-    main {
-
-        margin-left: 0;
-
-    }
-
-    .inicio h1 {
-
-        font-size: 40px;
-
-    }
-
-    section {
-
-        padding: 50px 20px;
-
-    }
-
-}
-
-
-/* =========================
-   CELULAR PEQUENO
-========================= */
-
-@media (max-width: 500px) {
-
-    .logo {
-        font-size: 16px;
-    }
-
-    .inicio h1 {
-        font-size: 35px;
-    }
-
-}
-
-</style>
+    <link rel="stylesheet" href="css/estilo.css">
 
 </head>
 
-
 <body>
 
+<!-- ==================================================
+     BARRA SUPERIOR - CELULAR
+================================================== -->
 
-<header class="topo">
+<div class="barra-topo-mobile">
 
-    <button
-        id="btnMenu"
-        class="btn-menu">
+    <span>MANUAL TÉCNICO 🛠️</span>
 
+    <button id="btn-menu" class="btn-menu-toggle">
         ☰
-
     </button>
 
+</div>
 
-    <div class="logo">
 
+<!-- ==================================================
+     CORTINA DO CELULAR
+================================================== -->
+
+<div id="overlay" class="overlay"></div>
+
+
+<!-- ==================================================
+     MENU LATERAL
+================================================== -->
+
+<nav id="menu-lateral">
+
+    <!-- TÍTULO APENAS DO COMPUTADOR -->
+
+    <h2 class="titulo-menu">
         MANUAL TÉCNICO 🛠️
-
-    </div>
-
-
-    <div class="busca">
-
-        <input
-            type="search"
-            placeholder="🔍 Pesquisar...">
-
-    </div>
-
-</header>
-
-
-
-<aside
-    id="menu"
-    class="menu">
-
-
-    <a href="#inicio">
-        Início
-    </a>
-
-
-    <button class="menu-botao">
-
-        Veículos
-
-        <span>+</span>
-
-    </button>
-
-
-    <div class="submenu">
-
-        <a href="#marrua">Marruá</a>
-
-        <a href="#s10">S10</a>
-
-        <a href="#hilux">Hilux</a>
-
-        <a href="#cherokee">Cherokee XJ</a>
-
-        <a href="#ranger">Ranger</a>
-
-    </div>
-
-
-
-    <button class="menu-botao">
-
-        Motores
-
-        <span>+</span>
-
-    </button>
-
-
-    <div class="submenu">
-
-        <a href="#mwm">
-            MWM 2.8
-        </a>
-
-        <a href="#maxion">
-            Maxion HSD
-        </a>
-
-        <a href="#diesel">
-            Motores Diesel
-        </a>
-
-    </div>
-
-
-
-    <button class="menu-botao">
-
-        Injeção Diesel
-
-        <span>+</span>
-
-    </button>
-
-
-    <div class="submenu">
-
-        <a href="#cp3">
-            Bosch CP3
-        </a>
-
-        <a href="#mprop">
-            Válvula M-PROP
-        </a>
-
-        <a href="#kuv">
-            Válvula KUV
-        </a>
-
-        <a href="#rail">
-            Sensor Rail
-        </a>
-
-        <a href="#map">
-            Sensor MAP
-        </a>
-
-        <a href="#rotacao">
-            Sensor de rotação
-        </a>
-
-    </div>
-
-
-
-    <button class="menu-botao">
-
-        Diagnóstico
-
-        <span>+</span>
-
-    </button>
-
-
-    <div class="submenu">
-
-        <a href="#sensores">
-            Sensores
-        </a>
-
-        <a href="#atuadores">
-            Atuadores
-        </a>
-
-        <a href="#injetores">
-            Injetores
-        </a>
-
-        <a href="#falhas">
-            Códigos de falha
-        </a>
-
-    </div>
-
-
-
-    <button class="menu-botao">
-
-        Manutenção
-
-        <span>+</span>
-
-    </button>
-
-
-    <div class="submenu">
-
-        <a href="#torques">
-            Torques
-        </a>
-
-        <a href="#oleos">
-            Óleos e lubrificantes
-        </a>
-
-        <a href="#filtros">
-            Filtros
-        </a>
-
-    </div>
-
-</aside>
-
-
-
-<main>
-
-
-<section id="inicio" class="inicio">
-
-    <small>
-        MANUAL TÉCNICO
-    </small>
-
-    <h1>
-        Sistemas Automotivos
-    </h1>
-
-    <p>
-        Informações técnicas sobre motores,
-        sistemas de injeção diesel, sensores,
-        atuadores, diagnóstico e manutenção.
-    </p>
-
-    <a href="#componentes" class="botao">
-        Explorar conteúdo
-    </a>
-
-</section>
-
-
-
-<section id="componentes">
-
-    <h2>
-        Componentes
     </h2>
 
-    <div class="cards">
 
+    <!-- ==================================================
+         BOTÕES HOME / INÍCIO
+    ================================================== -->
 
-        <article class="card">
+    <div class="botoes-navegacao">
 
-            <div>🚙</div>
+        <button class="btn-navegacao" id="btn-home">
+            🏠 Home
+        </button>
 
-            <h3>
-                Veículos
-            </h3>
-
-            <p>
-                Informações específicas
-                de diferentes veículos.
-            </p>
-
-        </article>
-
-
-        <article class="card">
-
-            <div>⚙️</div>
-
-            <h3>
-                Motores
-            </h3>
-
-            <p>
-                Motores diesel e seus
-                componentes.
-            </p>
-
-        </article>
-
-
-        <article class="card">
-
-            <div>💉</div>
-
-            <h3>
-                Injeção Diesel
-            </h3>
-
-            <p>
-                Common Rail, bombas,
-                sensores e atuadores.
-            </p>
-
-        </article>
-
-
-        <article class="card">
-
-            <div>🔍</div>
-
-            <h3>
-                Diagnóstico
-            </h3>
-
-            <p>
-                Testes e diagnóstico
-                de sistemas automotivos.
-            </p>
-
-        </article>
+        <button class="btn-navegacao" id="btn-inicio">
+            ⬆ Início
+        </button>
 
     </div>
 
-</section>
+
+    <!-- ==================================================
+         SISTEMA DE LUBRIFICAÇÃO
+    ================================================== -->
+
+    <div class="item-menu">
+
+        <button class="btn-principal"
+                data-menu="lubrificacao">
+
+            <span>Sistema de Lubrificação</span>
+            <span class="seta">▼</span>
+
+        </button>
+
+        <ul id="lubrificacao" class="submenu">
+
+            <li>
+                <button data-conteudo="tab_lubrificacao">
+                    Tabela de Lubrificação
+                </button>
+            </li>
+
+            <li>
+                <button data-conteudo="luz_pressao">
+                    Luz e Pressão
+                </button>
+            </li>
+
+        </ul>
+
+    </div>
 
 
+    <!-- ==================================================
+         SISTEMA ELÉTRICO
+    ================================================== -->
 
-<section id="marrua">
+    <div class="item-menu">
 
-    <h2>
-        Agrale Marruá
-    </h2>
+        <button class="btn-principal"
+                data-menu="eletrico">
 
-    <p>
-        Informações técnicas do Marruá.
-    </p>
+            <span>Sistema Elétrico</span>
+            <span class="seta">▼</span>
 
-</section>
+        </button>
+
+        <ul id="eletrico" class="submenu">
+
+            <li>
+                <button data-conteudo="fusiveis">
+                    Fusíveis e Lâmpadas
+                </button>
+            </li>
+
+            <li>
+                <button data-conteudo="farol">
+                    Farol e Seta
+                </button>
+            </li>
+
+        </ul>
+
+    </div>
 
 
+    <!-- ==================================================
+         LINHA COMBUSTÍVEL
+    ================================================== -->
 
-<section id="s10">
+    <div class="item-menu">
 
-    <h2>
-        Chevrolet S10
-    </h2>
+        <button class="btn-principal"
+                data-menu="combustivel">
 
-    <p>
-        Informações técnicas da S10.
-    </p>
+            <span>Linha Combustível</span>
+            <span class="seta">▼</span>
 
-</section>
+        </button>
+
+        <ul id="combustivel" class="submenu">
+
+            <li>
+                <button data-conteudo="tanque">
+                    Tanque, Filtro, Mang.
+                </button>
+            </li>
+
+            <li>
+                <button data-conteudo="bomba_eletrica">
+                    Bomba Elétrica
+                </button>
+            </li>
+
+            <li>
+                <button data-conteudo="bomba_engrenagem">
+                    Bomba Engrenagem
+                </button>
+            </li>
+
+            <li>
+                <button data-conteudo="valvula_kuv">
+                    Válvula KUV
+                </button>
+            </li>
+
+            <li>
+                <button data-conteudo="bomba_alta">
+                    Bomba Alta Pressão
+                </button>
+            </li>
+
+            <li>
+                <button data-conteudo="tubo_rail">
+                    Tubo Rail
+                </button>
+            </li>
+
+        </ul>
+
+    </div>
 
 
+    <!-- ==================================================
+         SENSORES E ATUADORES
+    ================================================== -->
 
-<footer>
+    <div class="item-menu">
 
-    MANUAL TÉCNICO 🛠️
+        <button class="btn-principal"
+                data-menu="sensores">
 
-</footer>
+            <span>Sensores e Atuadores</span>
+            <span class="seta">▼</span>
 
+        </button>
+
+        <ul id="sensores" class="submenu">
+
+            <li>
+                <button data-conteudo="valvula_mprop">
+                    Válvula MProp
+                </button>
+            </li>
+
+            <li>
+                <button data-conteudo="sensor_rotacao">
+                    Sensor Rotação
+                </button>
+            </li>
+
+            <li>
+                <button data-conteudo="sensor_fase">
+                    Sensor Fase
+                </button>
+            </li>
+
+            <li>
+                <button data-conteudo="sensor_pres_adm">
+                    Sensor Pres. Adm
+                </button>
+            </li>
+
+            <li>
+                <button data-conteudo="pedal_acelerador">
+                    Pedal Acelerador
+                </button>
+            </li>
+
+            <li>
+                <button data-conteudo="sensor_temp_ecm">
+                    Sensor Temp. ECM
+                </button>
+            </li>
+
+            <li>
+                <button data-conteudo="modulador_turbina">
+                    Modulador Turbina
+                </button>
+            </li>
+
+            <li>
+                <button data-conteudo="sensor_pres_rail">
+                    Sensor Pres. Rail
+                </button>
+            </li>
+
+            <li>
+                <button data-conteudo="bicos_injetores">
+                    Bicos Injetores
+                </button>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- ==================================================
+         ADMISSÃO E ESCAPE
+    ================================================== -->
+
+    <div class="item-menu">
+
+        <button class="btn-principal"
+                data-menu="admissao">
+
+            <span>Admissão e Escape</span>
+            <span class="seta">▼</span>
+
+        </button>
+
+        <ul id="admissao" class="submenu">
+
+            <li>
+                <button data-conteudo="filtros_mangueiras">
+                    Filtros e Mangueiras
+                </button>
+            </li>
+
+            <li>
+                <button data-conteudo="turbina">
+                    Turbina
+                </button>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- ==================================================
+         SISTEMA DE DIREÇÃO
+    ================================================== -->
+
+    <div class="item-menu">
+
+        <button class="btn-principal"
+                data-menu="direcao">
+
+            <span>Sistema de Direção</span>
+            <span class="seta">▼</span>
+
+        </button>
+
+        <ul id="direcao" class="submenu">
+
+            <li>
+                <button data-conteudo="bomba_direcao">
+                    Bomba de Direção
+                </button>
+            </li>
+
+            <li>
+                <button data-conteudo="caixa_direcao">
+                    Caixa de Direção
+                </button>
+            </li>
+
+            <li>
+                <button data-conteudo="oleo_direcao">
+                    Óleo de Direção
+                </button>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- ==================================================
+         SISTEMAS DE FREIOS
+    ================================================== -->
+
+    <div class="item-menu">
+
+        <button class="btn-principal"
+                data-menu="freios">
+
+            <span>Sistemas de Freios</span>
+            <span class="seta">▼</span>
+
+        </button>
+
+        <ul id="freios" class="submenu">
+
+            <li>
+                <button data-conteudo="bomba_vacuo">
+                    Bomba de Vácuo
+                </button>
+            </li>
+
+            <li>
+                <button data-conteudo="freios_traseiros">
+                    Freios Traseiros / Mão
+                </button>
+            </li>
+
+        </ul>
+
+    </div>
+
+</nav>
+
+
+<!-- ==================================================
+     CONTEÚDO
+================================================== -->
+
+<main id="topo">
+
+    <div class="caixa-conteudo">
+
+        <h1 id="titulo-sistema">
+            Bem-vindo ao Manual Técnico
+        </h1>
+
+        <div id="categoria-sistema">
+            Sistemas Automotivos
+        </div>
+
+        <p id="texto-sistema">
+
+            Selecione uma categoria no menu e depois
+            um componente para visualizar as informações
+            técnicas.
+
+            <br><br>
+
+            Este manual poderá conter:
+
+            <br><br>
+
+            • Especificações técnicas<br>
+            • Valores de teste<br>
+            • Pinagem<br>
+            • Funcionamento<br>
+            • Diagnóstico<br>
+            • Fotografias<br>
+            • Diagramas<br>
+            • Tabelas<br>
+            • Procedimentos de reparação
+
+        </p>
+
+    </div>
 
 </main>
 
 
+<!-- ==================================================
+     BOTÃO FLUTUANTE VOLTAR AO TOPO
+================================================== -->
 
-<script>
-
-const btnMenu =
-    document.getElementById("btnMenu");
-
-const menu =
-    document.getElementById("menu");
-
-
-/* ABRIR MENU */
-
-btnMenu.addEventListener("click", function () {
-
-    menu.classList.toggle("aberto");
-
-});
+<button id="btn-topo" title="Voltar ao início">
+    ↑
+</button>
 
 
-/* SUBMENUS */
-
-const botoes =
-    document.querySelectorAll(".menu-botao");
-
-
-botoes.forEach(function(botao) {
-
-    botao.addEventListener("click", function() {
-
-        const submenu =
-            botao.nextElementSibling;
-
-        submenu.classList.toggle("aberto");
-
-
-        const sinal =
-            botao.querySelector("span");
-
-
-        if (
-            submenu.classList.contains("aberto")
-        ) {
-
-            sinal.textContent = "−";
-
-        } else {
-
-            sinal.textContent = "+";
-
-        }
-
-    });
-
-});
-
-
-/* FECHAR MENU DEPOIS DE CLICAR */
-
-const links =
-    document.querySelectorAll(".menu a");
-
-
-links.forEach(function(link) {
-
-    link.addEventListener("click", function() {
-
-        if (window.innerWidth <= 900) {
-
-            menu.classList.remove("aberto");
-
-        }
-
-    });
-
-});
-
-</script>
-
+<script src="js/menu.js"></script>
 
 </body>
-
 </html>
