@@ -473,24 +473,24 @@ nav::-webkit-scrollbar-thumb {
 
 .botoes-navegacao {
     display: flex;
-    gap: 8px;
-    margin-bottom: 15px;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 .btn-home,
 .btn-topo {
     flex: 1;
-    padding: 10px 8px;
-    border-radius: 5px;
-    border: 1px solid #ff4500;
-    background-color: #222;
-    color: #fff;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 600;
     text-align: center;
+    text-decoration: none;
+    background-color: #222;
+    border: 1px solid #ff4500;
+    color: #fff;
+    padding: 12px 8px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 6px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 .btn-home:hover,
