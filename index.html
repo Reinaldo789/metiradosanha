@@ -8,12 +8,12 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         body { background-color: #1a1a1a; color: #f4f4f4; display: flex; min-height: 100vh; position: relative; }
         
-        /* Barra Superior (Mobile Only) */
+        /* Barra Superior (Apenas Celular) */
         .barra-topo-mobile { display: none; width: 100%; background-color: #111; padding: 15px; border-bottom: 2px solid #ff4500; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; z-index: 1000; }
         .barra-topo-mobile h2 { font-size: 18px; color: #ff4500; text-transform: uppercase; }
         .btn-menu-toggle { background: #222; border: 1px solid #ff4500; color: #fff; padding: 8px 12px; font-size: 20px; cursor: pointer; border-radius: 5px; }
 
-        /* Menu Lateral (Desktop) */
+        /* Menu Lateral (Padrão Computador) */
         nav { width: 320px; background-color: #111; padding: 20px; border-right: 3px solid #ff4500; overflow-y: auto; height: 100vh; position: sticky; top: 0; transition: transform 0.3s ease; }
         nav h2 { font-size: 20px; margin-bottom: 20px; color: #ff4500; text-transform: uppercase; letter-spacing: 1px; text-align: center; border-bottom: 2px solid #222; padding-bottom: 10px; }
         
@@ -35,17 +35,17 @@
         h1 { font-size: 32px; color: #fff; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; }
         p { font-size: 18px; color: #ccc; line-height: 1.6; }
         
-        /* Cortina de Fundo para Mobile */
+        /* Cortina Escura (Apenas Celular) */
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 994; }
 
-        /* 📱 CSS Responsivo para Celular (Media Query) */
+        /* Estilos Responsivos (Telas até 768px - Celular) */
         @media (max-width: 768px) {
             body { flex-direction: column; padding-top: 60px; }
             .barra-topo-mobile { display: flex; }
             
             nav { position: fixed; top: 0; left: 0; height: 100vh; width: 280px; z-index: 995; transform: translateX(-100%); border-right: 3px solid #ff4500; box-shadow: 5px 0 15px rgba(0,0,0,0.5); }
             nav.menu-visivel { transform: translateX(0); }
-            nav h2 { display: none; } /* Oculta o h2 interno já que tem a barra no topo */
+            nav h2 { display: none; }
             
             .overlay.ativo { display: block; }
             main { padding: 15px; }
@@ -57,23 +57,23 @@
 </head>
 <body>
 
-    <!-- Barra do Topo Móvel (Aparece só no celular) -->
+    <!-- Topo Mobile -->
     <div class="barra-topo-mobile">
         <h2>Menu Técnico 🛠️</h2>
         <button class="btn-menu-toggle" onclick="alternarMenuLateral()">☰</button>
     </div>
 
-    <!-- Cortina de fundo para fechar o menu ao tocar fora (Mobile) -->
+    <!-- Cortina de fundo para fechar o menu no mobile -->
     <div class="overlay" id="cortina" onclick="alternarMenuLateral()"></div>
 
-    <!-- Menu de Navegação Lateral -->
+    <!-- Menu Lateral -->
     <nav id="menu-lateral">
         <h2>Menu Técnico 🛠️</h2>
         
         <!-- Sistema de Lubrificação -->
         <div class="item-menu">
-            <button class="btn-principal ativo" onclick="controlarMenu('lubrificacao', this)">Sistema de Lubrificação ▾</button>
-            <ul id="lubrificacao-sub" class="submenu aberto">
+            <button class="btn-principal" onclick="controlarMenu('lubrificacao', this)">Sistema de Lubrificação ▾</button>
+            <ul id="lubrificacao-sub" class="submenu">
                 <li><button onclick="mostrarConteudo('tab_lubrificacao', this)">Tabela de Lubrificação</button></li>
                 <li><button onclick="mostrarConteudo('luz_pressao', this)">Luz e Pressão</button></li>
             </ul>
@@ -109,7 +109,7 @@
                 <li><button onclick="mostrarConteudo('sensor_rotacao', this)">Sensor Rotação</button></li>
                 <li><button onclick="mostrarConteudo('sensor_fase', this)">Sensor Fase</button></li>
                 <li><button onclick="mostrarConteudo('sensor_pres_adm', this)">Sensor Pres. Adm</button></li>
-                <li><button onclick="mostrarAcele('pedal_acelerador', this)">Pedal Acelerador</button></li>
+                <li><button onclick="mostrarConteudo('pedal_acelerador', this)">Pedal Acelerador</button></li>
                 <li><button onclick="mostrarConteudo('sensor_temp_ecm', this)">Sensor Temp. ECM</button></li>
                 <li><button onclick="mostrarConteudo('modulador_turbina', this)">Modulador Turbina</button></li>
                 <li><button onclick="mostrarConteudo('sensor_pres_rail', this)">Sensor Pres. Rail</button></li>
@@ -146,7 +146,7 @@
         </div>
     </nav>
 
-    <!-- Página de Conteúdo Dinâmica -->
+    <!-- Tela do Conteúdo Principal -->
     <main>
         <div class="caixa-conteudo">
             <h1 id="titulo-sistema">Bem-vindo ao Manual Técnico</h1>
