@@ -1,4 +1,25 @@
+/* Título do menu lateral */
+.titulo-menu {
+    display: block;
+}
 
+/* Barra superior do celular */
+.barra-topo-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    /* Mostra a barra superior somente no celular */
+    .barra-topo-mobile {
+        display: flex;
+    }
+
+    /* Esconde o título que está dentro do menu no celular */
+    .titulo-menu {
+        display: none;
+    }
+}
 /* ==================================================
    CONFIGURAÇÃO GERAL
 ================================================== */
