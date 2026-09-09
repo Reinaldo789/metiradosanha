@@ -6,10 +6,15 @@
     <title>Manual Técnico - Sistemas Automotivos</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: #1a1a1a; color: #f4f4f4; display: flex; min-height: 100vh; }
+        body { background-color: #1a1a1a; color: #f4f4f4; display: flex; min-height: 100vh; position: relative; }
         
-        /* Menu Lateral */
-        nav { width: 320px; background-color: #111; padding: 20px; border-right: 3px solid #ff4500; overflow-y: auto; }
+        /* Barra Superior (Mobile Only) */
+        .barra-topo-mobile { display: none; width: 100%; background-color: #111; padding: 15px; border-bottom: 2px solid #ff4500; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; z-index: 1000; }
+        .barra-topo-mobile h2 { font-size: 18px; color: #ff4500; text-transform: uppercase; }
+        .btn-menu-toggle { background: #222; border: 1px solid #ff4500; color: #fff; padding: 8px 12px; font-size: 20px; cursor: pointer; border-radius: 5px; }
+
+        /* Menu Lateral (Desktop) */
+        nav { width: 320px; background-color: #111; padding: 20px; border-right: 3px solid #ff4500; overflow-y: auto; height: 100vh; position: sticky; top: 0; transition: transform 0.3s ease; }
         nav h2 { font-size: 20px; margin-bottom: 20px; color: #ff4500; text-transform: uppercase; letter-spacing: 1px; text-align: center; border-bottom: 2px solid #222; padding-bottom: 10px; }
         
         .item-menu { margin-bottom: 8px; }
@@ -18,7 +23,7 @@
         .btn-principal { width: 100%; text-align: left; background-color: #222; border: none; color: #fff; padding: 12px 15px; font-size: 15px; cursor: pointer; border-radius: 5px; transition: 0.3s; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
         .btn-principal:hover, .btn-principal.ativo { background-color: #ff4500; color: #fff; }
 
-        /* Submenus Corrigidos */
+        /* Submenus */
         .submenu { list-style: none; padding-left: 15px; display: none; background-color: #161616; border-radius: 0 0 5px 5px; padding-top: 5px; padding-bottom: 5px; }
         .submenu.aberto { display: block; }
         .submenu li button { width: 100%; text-align: left; background: none; border: none; color: #bbb; padding: 8px 12px; font-size: 14px; cursor: pointer; transition: 0.2s; border-left: 2px solid transparent; }
@@ -30,18 +35,39 @@
         h1 { font-size: 32px; color: #fff; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; }
         p { font-size: 18px; color: #ccc; line-height: 1.6; }
         
-        /* Ajuste para telas de Celular */
+        /* Cortina de Fundo para Mobile */
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 994; }
+
+        /* 📱 CSS Responsivo para Celular (Media Query) */
         @media (max-width: 768px) {
-            body { flex-direction: column; }
-            nav { width: 100%; max-height: 400px; border-right: none; border-bottom: 3px solid #ff4500; }
-            main { padding: 20px; }
+            body { flex-direction: column; padding-top: 60px; }
+            .barra-topo-mobile { display: flex; }
+            
+            nav { position: fixed; top: 0; left: 0; height: 100vh; width: 280px; z-index: 995; transform: translateX(-100%); border-right: 3px solid #ff4500; box-shadow: 5px 0 15px rgba(0,0,0,0.5); }
+            nav.menu-visivel { transform: translateX(0); }
+            nav h2 { display: none; } /* Oculta o h2 interno já que tem a barra no topo */
+            
+            .overlay.ativo { display: block; }
+            main { padding: 15px; }
+            .caixa-conteudo { padding: 20px; min-height: auto; }
+            h1 { font-size: 24px; }
+            p { font-size: 16px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Barra do Topo Móvel (Aparece só no celular) -->
+    <div class="barra-topo-mobile">
+        <h2>Menu Técnico 🛠️</h2>
+        <button class="btn-menu-toggle" onclick="alternarMenuLateral()">☰</button>
+    </div>
+
+    <!-- Cortina de fundo para fechar o menu ao tocar fora (Mobile) -->
+    <div class="overlay" id="cortina" onclick="alternarMenuLateral()"></div>
+
     <!-- Menu de Navegação Lateral -->
-    <nav>
+    <nav id="menu-lateral">
         <h2>Menu Técnico 🛠️</h2>
         
         <!-- Sistema de Lubrificação -->
@@ -83,7 +109,7 @@
                 <li><button onclick="mostrarConteudo('sensor_rotacao', this)">Sensor Rotação</button></li>
                 <li><button onclick="mostrarConteudo('sensor_fase', this)">Sensor Fase</button></li>
                 <li><button onclick="mostrarConteudo('sensor_pres_adm', this)">Sensor Pres. Adm</button></li>
-                <li><button onclick="mostrarConteudo('pedal_acelerador', this)">Pedal Acelerador</button></li>
+                <li><button onclick="mostrarAcele('pedal_acelerador', this)">Pedal Acelerador</button></li>
                 <li><button onclick="mostrarConteudo('sensor_temp_ecm', this)">Sensor Temp. ECM</button></li>
                 <li><button onclick="mostrarConteudo('modulador_turbina', this)">Modulador Turbina</button></li>
                 <li><button onclick="mostrarConteudo('sensor_pres_rail', this)">Sensor Pres. Rail</button></li>
@@ -131,11 +157,3 @@
     <script>
         const bancoDeDados = {
             tab_lubrificacao: { titulo: "Tabela de Lubrificação", texto: "Dados de viscosidade (ex: 5W30, 10W40), capacidades de cárter em litros e intervalos recomendados para troca de óleo e filtros de acordo com a quilometragem do fabricante." },
-            luz_pressao: { titulo: "Luz e Pressão de Óleo", texto: "Análise do sensor de pressão (cebolinha). O acendimento da luz no painel indica queda perigosa na pressão de trabalho da bomba, podendo causar o travamento imediato do motor." },
-            fusiveis: { titulo: "Fusíveis e Lâmpadas", texto: "Dimensionamento de amperagem para proteção dos circuitos contra curto-circuitos e esquemas de substituição de lâmpadas incandescentes ou LEDs de sinalização." },
-            farol: { titulo: "Farol e Seta", texto: "Funcionamento do circuito de iluminação principal (facho alto/baixo), lanternas e temporização das luzes de direção (setas) gerenciadas pelo relé ou central de carroceria." },
-            tanque: { titulo: "Tanque, Filtro e Mangueiras", texto: "Componentes da linha de baixa pressão. Armazenamento seguro de combustível, filtragem primária de impurezas e linhas flexíveis resistentes a pressões iniciais." },
-            bomba_eletrica: { titulo: "Bomba Elétrica", texto: "Instalada no tanque, opera fornecendo o fluxo inicial de combustível sob baixa pressão constante para alimentar os sistemas de injeção direta ou indireta." },
-            bomba_engrenagem: { titulo: "Bomba de Engrenagem", texto: "Dispositivo mecânico de deslocamento positivo utilizado principalmente em sistemas diesel para succionar o combustível através do filtro e alimentar a bomba de alta." },
-            valvula_kuv: { titulo: "Válvula KUV", texto: "Válvula de transbordo e segurança responsável por regular o excesso de retorno de combustível, mantendo a estabilidade térmica e hidráulica da linha." },
-            bomba_alta: { titulo: "Bomba de Alta Pressão", texto: "Responsável por receber o combustível da linha de baixa e comprimi-lo a níveis extremos (até mais de 2000 bar em sistemas Common Rail) para otimizar a atomização." },
