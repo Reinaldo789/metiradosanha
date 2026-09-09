@@ -1,4 +1,6 @@
-/* ==================================================
+document.addEventListener("DOMContentLoaded", function () {
+
+    // /* ==================================================
    BANCO DE DADOS
 ================================================== */
 
@@ -365,5 +367,7 @@ document.addEventListener("keydown", function(event) {
         fecharMenuMobile();
 
     }
+
+});
 
 });
