@@ -1,282 +1,578 @@
+/* ==================================================
+   CONFIGURAÇÃO GERAL
+================================================== */
+
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
+
 html {
     scroll-behavior: smooth;
 }
+
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f5f6f8;
-    color: #1f2937;
-    line-height: 1.6;
-}
-a {
-    text-decoration: none;
-    color: inherit;
-}
-/* TOPO */
-.topo {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 64px;
-    background: white;
-    border-bottom: 1px solid #ddd;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #1a1a1a;
+    color: #f4f4f4;
+    min-height: 100vh;
     display: flex;
-    align-items: center;
-    padding: 0 20px;
+}
+
+
+/* ==================================================
+   MENU LATERAL
+================================================== */
+
+nav {
+    width: 395px;
+    min-width: 395px;
+    height: 100vh;
+
+    background: #111;
+
+    border-right: 3px solid #ff4500;
+
+    padding: 20px;
+
+    overflow-y: auto;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+
     z-index: 1000;
 }
-.logo {
-    font-size: 20px;
-    font-weight: bold;
+
+
+/* ==================================================
+   TÍTULO
+================================================== */
+
+.titulo-menu {
+    color: #ff4500;
+
+    text-align: center;
+
+    font-size: 25px;
+
+    margin-bottom: 20px;
+
+    padding-bottom: 15px;
+
+    border-bottom: 2px solid #292929;
 }
-.btn-menu {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 26px;
-    cursor: pointer;
-    margin-right: 15px;
-}
-.busca {
-    margin-left: auto;
-}
-.busca input {
-    width: 240px;
-    padding: 9px 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
-}
-/* MENU */
-.menu {
-    position: fixed;
-    top: 64px;
-    left: 0;
-    width: 260px;
-    height: calc(100vh - 64px);
-    background: #172033;
-    color: white;
-    overflow-y: auto;
-    z-index: 900;
-}
-.menu nav > a,
-.menu-botao {
+
+
+/* ==================================================
+   HOME / INÍCIO
+================================================== */
+
+.botoes-navegacao {
     display: flex;
-    width: 100%;
-    padding: 13px 20px;
-    border: none;
-    background: none;
-    color: white;
-    font-size: 15px;
-    text-align: left;
+
+    gap: 10px;
+
+    margin-bottom: 25px;
+}
+
+.btn-navegacao {
+    flex: 1;
+
+    padding: 13px 10px;
+
+    background: #222;
+
+    border: 1px solid #ff4500;
+
+    border-radius: 6px;
+
+    color: #fff;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
     cursor: pointer;
+
+    transition: 0.2s;
 }
-.menu nav > a:hover,
-.menu-botao:hover {
-    background: #26344d;
+
+.btn-navegacao:hover {
+    background: #ff4500;
 }
-.menu-botao {
+
+
+/* ==================================================
+   ITEM PRINCIPAL
+================================================== */
+
+.item-menu {
+    margin-bottom: 9px;
+}
+
+
+/* ==================================================
+   BOTÃO PRINCIPAL
+================================================== */
+
+.btn-principal {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    background: #242424;
+
+    border: none;
+
+    border-radius: 6px;
+
+    color: #fff;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    display: flex;
+
     justify-content: space-between;
+
+    align-items: center;
+
+    text-align: left;
+
+    transition: 0.2s;
 }
+
+
+/* Mouse sobre o menu */
+
+.btn-principal:hover {
+    background: #ff4500;
+}
+
+
+/* Menu aberto */
+
+.btn-principal.ativo {
+    background: #ff4500;
+}
+
+
+/* ==================================================
+   SETA
+================================================== */
+
+.seta {
+    font-size: 13px;
+
+    transition: transform 0.2s;
+}
+
+.btn-principal.ativo .seta {
+    transform: rotate(180deg);
+}
+
+
+/* ==================================================
+   SUBMENU
+================================================== */
+
 .submenu {
+    list-style: none;
+
     display: none;
-    background: #0f172a;
+
+    background: #191919;
+
+    border-radius: 0 0 6px 6px;
+
+    overflow: hidden;
 }
+
+
+/* SOMENTE o submenu aberto aparece */
+
 .submenu.aberto {
     display: block;
 }
-.submenu a {
-    display: block;
-    padding: 10px 20px 10px 40px;
-    color: #cbd5e1;
-    font-size: 14px;
-}
-.submenu a:hover {
-    background: #1e293b;
-    color: white;
-}
-/* CONTEÚDO */
-main {
-    margin-left: 260px;
-    padding-top: 64px;
-}
-section {
-    max-width: 1200px;
-    margin: auto;
-    padding: 70px 40px;
-}
-section h2 {
-    font-size: 34px;
-    margin-bottom: 10px;
-}
-.descricao {
-    color: #64748b;
-    margin-bottom: 30px;
-}
-/* INÍCIO */
-.inicio {
-    max-width: none;
-    min-height: 480px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: #eef4ff;
-}
-.etiqueta {
-    width: fit-content;
-    background: #dbeafe;
-    color: #1d4ed8;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: bold;
-}
-.inicio h1 {
-    font-size: 58px;
-    line-height: 1.1;
-    margin: 18px 0;
-}
-.inicio p {
-    max-width: 700px;
-    font-size: 18px;
-    color: #475569;
-}
-.botao {
-    width: fit-content;
-    margin-top: 25px;
-    padding: 12px 20px;
-    background: #2563eb;
-    color: white;
-    border-radius: 6px;
-    font-weight: bold;
-}
-.botao:hover {
-    background: #1d4ed8;
-}
-/* CARDS */
-.cards {
-    display: grid;
-    grid-template-columns:
-        repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-}
-.card {
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 25px;
-}
-.card:hover {
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.08);
-}
-.icone {
-    font-size: 30px;
-    margin-bottom: 10px;
-}
-.card h3 {
-    margin-bottom: 8px;
-}
-.card p {
-    color: #64748b;
-    margin-bottom: 15px;
-}
-.card a {
-    color: #2563eb;
-    font-weight: bold;
-}
-/* LISTA */
-.lista {
-    display: grid;
-    gap: 15px;
-}
-.lista article {
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 20px;
-}
-.lista article h3 {
-    margin-bottom: 5px;
-}
-.lista article p {
-    color: #64748b;
-}
-/* TABELA */
-.tabela {
-    overflow-x: auto;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-table {
+
+
+/* ==================================================
+   BOTÕES DO SUBMENU
+================================================== */
+
+.submenu li button {
     width: 100%;
-    min-width: 600px;
-    border-collapse: collapse;
-}
-th,
-td {
-    padding: 14px;
+
+    padding: 11px 20px;
+
+    background: #191919;
+
+    border: none;
+
+    border-left: 3px solid transparent;
+
+    color: #bbb;
+
+    font-size: 15px;
+
     text-align: left;
-    border-bottom: 1px solid #ddd;
+
+    cursor: pointer;
+
+    transition: 0.2s;
 }
-th {
-    background: #f1f5f9;
+
+
+/* Mouse */
+
+.submenu li button:hover {
+    background: #252525;
+
+    color: #ff4500;
+
+    border-left-color: #ff4500;
+
+    padding-left: 25px;
 }
-/* RODAPÉ */
-footer {
-    margin-left: 0;
-    padding: 40px;
-    background: #172033;
+
+
+/* Item selecionado */
+
+.submenu li button.sub-ativo {
+    background: #252525;
+
+    color: #ff4500;
+
+    border-left-color: #ff4500;
+
+    font-weight: bold;
+}
+
+
+/* ==================================================
+   CONTEÚDO
+================================================== */
+
+main {
+    margin-left: 395px;
+
+    width: calc(100% - 395px);
+
+    min-height: 100vh;
+
+    padding: 48px;
+
+    background: #1e1e1e;
+}
+
+
+.caixa-conteudo {
+    background: #262626;
+
+    border-left: 6px solid #ff4500;
+
+    border-radius: 9px;
+
+    padding: 45px;
+
+    min-height: 400px;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.45);
+}
+
+
+.caixa-conteudo h1 {
+    font-size: 38px;
+
+    margin-bottom: 15px;
+
+    padding-bottom: 15px;
+
+    border-bottom: 1px solid #3a3a3a;
+}
+
+
+#categoria-sistema {
+    color: #ff4500;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    text-transform: uppercase;
+
+    margin-bottom: 28px;
+}
+
+
+#texto-sistema {
+    color: #ccc;
+
+    font-size: 19px;
+
+    line-height: 1.7;
+}
+
+
+/* ==================================================
+   BOTÃO VOLTAR AO TOPO
+================================================== */
+
+#btn-topo {
+    position: fixed;
+
+    right: 25px;
+
+    bottom: 25px;
+
+    width: 48px;
+
+    height: 48px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #ff4500;
+
     color: white;
-    text-align: center;
+
+    font-size: 25px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    display: none;
+
+    z-index: 1100;
+
+    box-shadow: 0 3px 12px rgba(0,0,0,0.5);
 }
-footer p {
-    color: #94a3b8;
-    margin-top: 5px;
+
+#btn-topo:hover {
+    background: #ff5f20;
+
+    transform: scale(1.08);
 }
-/* CELULAR */
-@media (max-width: 900px) {
-    .btn-menu {
+
+
+/* ==================================================
+   BARRA MOBILE
+================================================== */
+
+.barra-topo-mobile {
+    display: none;
+}
+
+
+/* ==================================================
+   OVERLAY
+================================================== */
+
+.overlay {
+    display: none;
+}
+
+
+/* ==================================================
+   CELULAR
+================================================== */
+
+@media (max-width: 768px) {
+
+    body {
         display: block;
+
+        padding-top: 62px;
     }
-    .menu {
+
+
+    /* Barra superior */
+
+    .barra-topo-mobile {
+
+        display: flex;
+
+        position: fixed;
+
+        top: 0;
+        left: 0;
+
+        width: 100%;
+
+        height: 62px;
+
+        background: #111;
+
+        border-bottom: 2px solid #ff4500;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        padding: 10px 15px;
+
+        z-index: 1200;
+
+    }
+
+
+    .barra-topo-mobile span {
+
+        color: #ff4500;
+
+        font-size: 17px;
+
+        font-weight: bold;
+
+    }
+
+
+    /* Botão menu */
+
+    .btn-menu-toggle {
+
+        background: #222;
+
+        border: 1px solid #ff4500;
+
+        border-radius: 5px;
+
+        color: #fff;
+
+        font-size: 22px;
+
+        padding: 5px 11px;
+
+        cursor: pointer;
+
+    }
+
+
+    /* Menu lateral */
+
+    nav {
+
+        width: 290px;
+
+        min-width: 290px;
+
+        height: 100vh;
+
+        padding: 18px;
+
+        position: fixed;
+
+        top: 0;
+
+        left: 0;
+
         transform: translateX(-100%);
-        transition: transform .25s ease;
+
+        transition: transform 0.25s ease;
+
+        z-index: 1300;
+
     }
-    .menu.aberto {
+
+
+    nav.menu-visivel {
         transform: translateX(0);
     }
-    main {
-        margin-left: 0;
-    }
-    .busca {
+
+
+    /* Título do menu não aparece no celular */
+
+    .titulo-menu {
         display: none;
     }
-    section {
-        padding: 55px 20px;
+
+
+    /* Home / início */
+
+    .botoes-navegacao {
+        margin-top: 5px;
+
+        margin-bottom: 20px;
     }
-    .inicio h1 {
-        font-size: 42px;
+
+
+    /* Overlay */
+
+    .overlay {
+
+        display: none;
+
+        position: fixed;
+
+        inset: 0;
+
+        background: rgba(0,0,0,0.7);
+
+        z-index: 1250;
+
     }
-}
-/* CELULARES PEQUENOS */
-@media (max-width: 500px) {
-    .topo {
-        padding: 0 12px;
+
+
+    .overlay.ativo {
+        display: block;
     }
-    .logo {
+
+
+    /* Conteúdo */
+
+    main {
+
+        margin-left: 0;
+
+        width: 100%;
+
+        padding: 15px;
+
+    }
+
+
+    .caixa-conteudo {
+
+        padding: 25px 20px;
+
+        min-height: 400px;
+
+    }
+
+
+    .caixa-conteudo h1 {
+
+        font-size: 27px;
+
+    }
+
+
+    #texto-sistema {
+
         font-size: 16px;
+
     }
-    .inicio h1 {
-        font-size: 36px;
+
+
+    /* Botão topo */
+
+    #btn-topo {
+
+        right: 18px;
+
+        bottom: 18px;
+
+        width: 44px;
+
+        height: 44px;
+
     }
-    section h2 {
-        font-size: 28px;
-    }
+
 }
