@@ -60,3 +60,29 @@
     }
 
 }
+
+/* BOTÕES HOME E INÍCIO */
+.botoes-fixos {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 3000;
+}
+.botoes-fixos button {
+    width: 46px;
+    height: 46px;
+    border: 1px solid #ff4500;
+    border-radius: 50%;
+    background: #222;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+}
+.botoes-fixos button:hover {
+    background: #ff4500;
+}
+#btn-inicio { display: none; }
+#btn-inicio.visivel { display: block; }
