@@ -1,77 +1,132 @@
-// ===========================================
-// CONTROLE DO MENU MOBILE - CORREÇÃO
-// ===========================================
+<script>
+    // ===========================================
+    // BANCO DE DADOS
+    // ===========================================
+    const bancoDeDados = {
+        tab_lubrificacao: { titulo: "Tabela de Lubrificação", texto: "Dados de viscosidade (ex: 5W30, 10W40), capacidades de cárter em litros e intervalos recomendados para troca de óleo e filtros de acordo com a quilometragem do fabricante." },
+        luz_pressao: { titulo: "Luz e Pressão de Óleo", texto: "Análise do sensor de pressão (cebolinha). O acendimento da luz no painel indica queda perigosa na pressão de trabalho da bomba, podendo causar o travamento imediato do motor." },
+        fusiveis: { titulo: "Fusíveis e Lâmpadas", texto: "Dimensionamento de amperagem para proteção dos circuitos contra curto-circuitos e esquemas de substituição de lâmpadas incandescentes ou LEDs de sinalização." },
+        farol: { titulo: "Farol e Seta", texto: "Funcionamento do circuito de iluminação principal (facho alto/baixo), lanternas e temporização das luzes de direção (setas) gerenciadas pelo relé ou central de carroceria." },
+        tanque: { titulo: "Tanque, Filtro e Mangueiras", texto: "Componentes da linha de baixa pressão. Armazenamento seguro de combustível, filtragem primária de impurezas e linhas flexíveis resistentes a pressões iniciais." },
+        bomba_eletrica: { titulo: "Bomba Elétrica", texto: "Instalada no tanque, opera fornecendo o fluxo inicial de combustível sob baixa pressão constante para alimentar os sistemas de injeção direta ou indireta." },
+        bomba_engrenagem: { titulo: "Bomba de Engrenagem", texto: "Dispositivo mecânico de deslocamento positivo utilizado principalmente em sistemas diesel para succionar o combustível através do filtro e alimentar a bomba de alta." },
+        valvula_kuv: { titulo: "Válvula KUV", texto: "Válvula de transbordo e segurança responsável por regular o excesso de retorno de combustível, mantendo a estabilidade térmica e hidráulica da linha." },
+        bomba_alta: { titulo: "Bomba de Alta Pressão", texto: "Responsável por receber o combustível da linha de baixa e comprimi-lo a níveis extremos (até mais de 2000 bar em sistemas Common Rail) para otimizar a atomização." },
+        tubo_rail: { titulo: "Tubo Rail (Flauta)", texto: "Tubo distribuidor de alta pressão que atua como acumulador hidráulico, garantindo que todos os bicos injetores recebam combustível com pressão idêntica e sem oscilações." },
+        valvula_mprop: { titulo: "Válvula MProp", texto: "Válvula reguladora de vazão acoplada na bomba de alta pressão. Controla eletronicamente a quantidade de combustível que será comprimida para o tubo Rail." },
+        sensor_rotacao: { titulo: "Sensor de Rotação (CKP)", texto: "Monitora a velocidade e a posição exata da árvore de manivelas (virabrequim), enviando a informação essencial para a ECM sincronizar o momento da injeção e ignição." },
+        sensor_fase: { titulo: "Sensor de Fase (CMP)", texto: "Identifica a posição do comando de válvulas, permitindo que a central eletrônica reconheça qual cilindro está em fase de compressão para realizar a injeção sequencial." },
+        sensor_pres_adm: { titulo: "Sensor de Pressão de Admissão (MAP)", texto: "Mede a pressão absoluta ou vácuo dentro do coletor de admissão para auxiliar no cálculo do volume de ar que está entrando nos cilindros." },
+        pedal_acelerador: { titulo: "Pedal do Acelerador", texto: "Sensor de posição do pedal (APP) que converte o movimento mecânico em sinal elétrico para a ECM determinar a abertura da borboleta e a quantidade de combustível a ser injetada." },
+        sensor_temp_ecm: { titulo: "Sensor de Temperatura (ECT)", texto: "Monitora a temperatura do líquido de arrefecimento do motor, permitindo ajustes na injeção e no funcionamento da ventoinha." },
+        modulador_turbina: { titulo: "Modulador da Turbina", texto: "Atuador que controla a geometria variável ou wastegate da turbina, regulando a pressão de sobrealimentação conforme a demanda do motor." },
+        sensor_pres_rail: { titulo: "Sensor de Pressão do Rail", texto: "Monitora em tempo real a pressão do combustível no tubo Rail, enviando o sinal para a ECM que ajusta a válvula MProp para manter a pressão ideal." },
+        bicos_injetores: { titulo: "Bicos Injetores", texto: "Componentes eletromagnéticos ou piezoelétricos que atomizam o combustível diretamente nos cilindros. A abertura ocorre em frações de milissegundo controladas pela ECM." },
+        filtros_mangueiras: { titulo: "Filtros e Mangueiras de Ar", texto: "Elementos filtrantes que retêm partículas sólidas antes da entrada do ar no motor e mangueiras de silicone ou borracha que conduzem o ar até a admissão." },
+        turbina: { titulo: "Turbina (Turbocharger)", texto: "Compressor acionado pelos gases de escape que aumenta a densidade do ar admitido, elevando a potência e eficiência do motor." },
+        bomba_direcao: { titulo: "Bomba de Direção Hidráulica", texto: "Bomba acionada pela correia do motor que gera pressão hidráulica para assistir o esforço na caixa de direção, tornando a condução mais leve." },
+        caixa_direcao: { titulo: "Caixa de Direção", texto: "Mecanismo que transforma o movimento de rotação do volante em movimento linear nas rodas. Pode ser pinhão e cremalheira ou recirculação de esferas." },
+        oleo_direcao: { titulo: "Óleo de Direção", texto: "Fluído hidráulico específico que transmite a pressão da bomba para a caixa. Deve ser trocado conforme a quilometragem para evitar vazamentos e desgaste." },
+        bomba_vacuo: { titulo: "Bomba de Vácuo", texto: "Gera vácuo para o servofreio, amplificando a força aplicada no pedal. Pode ser acionada por correia ou ser elétrica." },
+        freios_traseiros: { titulo: "Freios Traseiros / Mão", texto: "Sistema de freio a disco ou tambor nas rodas traseiras, com acionamento hidráulico e cabo para o freio de estacionamento (mão)." }
+    };
 
-// Elementos
-const btnMenu = document.getElementById('btn-menu');
-const menuLateral = document.getElementById('menu-lateral');
-const overlay = document.getElementById('overlay');
+    // ===========================================
+    // 1. CONTROLE DO MENU MOBILE (BOTÃO ☰)
+    // ===========================================
+    const btnMenu = document.getElementById('btn-menu');
+    const menuLateral = document.getElementById('menu-lateral');
+    const overlay = document.getElementById('overlay');
 
-// Verifica se os elementos existem
-if (btnMenu && menuLateral && overlay) {
-    
-    // Abrir/fechar menu ao clicar no botão ☰
-    btnMenu.addEventListener('click', function(e) {
-        e.stopPropagation(); // Evita conflitos
-        menuLateral.classList.toggle('aberto');
-        overlay.classList.toggle('ativo');
-    });
+    // Verifica se os elementos existem
+    if (btnMenu && menuLateral && overlay) {
+        // Abrir/fechar menu ao clicar no botão ☰
+        btnMenu.addEventListener('click', function(e) {
+            e.stopPropagation();
+            menuLateral.classList.toggle('aberto');
+            overlay.classList.toggle('ativo');
+        });
 
-    // Fechar menu ao clicar na cortina (overlay)
-    overlay.addEventListener('click', function() {
-        menuLateral.classList.remove('aberto');
-        overlay.classList.remove('ativo');
-    });
-
-    // Fechar menu ao clicar em qualquer item do submenu
-    document.querySelectorAll('[data-conteudo]').forEach(item => {
-        item.addEventListener('click', function() {
+        // Fechar menu ao clicar na cortina (overlay)
+        overlay.addEventListener('click', function() {
             menuLateral.classList.remove('aberto');
             overlay.classList.remove('ativo');
         });
+
+        // Fechar menu ao redimensionar para desktop
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                menuLateral.classList.remove('aberto');
+                overlay.classList.remove('ativo');
+            }
+        });
+    }
+
+    // ===========================================
+    // 2. ABRIR/FECHAR SUBMENUS (setas ▼ ▲)
+    // ===========================================
+    document.querySelectorAll('.btn-principal').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const submenuId = this.dataset.menu;
+            const submenu = document.getElementById(submenuId);
+            if (submenu) {
+                submenu.classList.toggle('active');
+                const seta = this.querySelector('.seta');
+                if (seta) {
+                    seta.textContent = submenu.classList.contains('active') ? '▲' : '▼';
+                }
+            }
+        });
     });
 
-    // Fechar menu ao redimensionar para desktop
-    window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) {
+    // ===========================================
+    // 3. CARREGAR CONTEÚDO AO CLICAR NO SUBITEM
+    // ===========================================
+    document.querySelectorAll('[data-conteudo]').forEach(item => {
+        item.addEventListener('click', function() {
+            const chave = this.dataset.conteudo;
+            const dados = bancoDeDados[chave];
+            if (dados) {
+                document.getElementById('titulo-sistema').textContent = dados.titulo;
+                document.getElementById('texto-sistema').textContent = dados.texto;
+            } else {
+                document.getElementById('titulo-sistema').textContent = "Conteúdo não encontrado";
+                document.getElementById('texto-sistema').textContent = "Este tópico ainda não possui informações cadastradas.";
+            }
+            // Fecha menu mobile após clicar
+            if (menuLateral) {
+                menuLateral.classList.remove('aberto');
+            }
+            if (overlay) {
+                overlay.classList.remove('ativo');
+            }
+        });
+    });
+
+    // ===========================================
+    // 4. BOTÃO "INÍCIO" (volta ao topo)
+    // ===========================================
+    const btnTopo = document.getElementById('btn-topo');
+    if (btnTopo) {
+        btnTopo.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // ===========================================
+    // 5. CORREÇÃO: Garantir que o menu no desktop
+    //    sempre fique visível
+    // ===========================================
+    function ajustarMenuDesktop() {
+        if (window.innerWidth > 768 && menuLateral) {
             menuLateral.classList.remove('aberto');
-            overlay.classList.remove('ativo');
-        }
-    });
-}
-
-// ===========================================
-// SEU CÓDIGO EXISTENTE (submenus e conteúdo)
-// ===========================================
-
-// Abrir/fechar submenus
-document.querySelectorAll('.btn-principal').forEach(btn => {
-    btn.addEventListener('click', function() {
-        const submenuId = this.dataset.menu;
-        const submenu = document.getElementById(submenuId);
-        if (submenu) {
-            submenu.classList.toggle('active');
-            const seta = this.querySelector('.seta');
-            if (seta) {
-                seta.textContent = submenu.classList.contains('active') ? '▲' : '▼';
+            if (overlay) {
+                overlay.classList.remove('ativo');
             }
         }
-    });
-});
+    }
 
-// Carregar conteúdo ao clicar nos subitens
-document.querySelectorAll('[data-conteudo]').forEach(item => {
-    item.addEventListener('click', function() {
-        const chave = this.dataset.conteudo;
-        const dados = bancoDeDados[chave];
-        if (dados) {
-            document.getElementById('titulo-sistema').textContent = dados.titulo;
-            document.getElementById('texto-sistema').textContent = dados.texto;
-        }
-    });
-});
-
-// Botão Início
-document.getElementById('btn-topo').addEventListener('click', function() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+    // Executa ao carregar e ao redimensionar
+    window.addEventListener('load', ajustarMenuDesktop);
+    window.addEventListener('resize', ajustarMenuDesktop);
+</script>
