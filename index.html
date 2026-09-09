@@ -8,51 +8,42 @@
     <!-- CSS externo -->
     <link rel="stylesheet" href="css/estilo.css">
 
-    <!-- 📱 ESTILOS DE SEGURANÇA PARA O CELULAR (Corrige o Mobile se o CSS externo falhar) -->
+    <!-- 🛠️ ESTILOS DE SEGURANÇA (Força o funcionamento caso o CSS externo bloqueie) -->
     <style>
+        /* Garante que os submenus obedeçam estritamente ao clique do JavaScript */
+        .submenu { display: none; list-style: none; padding-left: 15px; background-color: #161616; padding-top: 5px; padding-bottom: 5px; }
+        .submenu.aberto { display: block !important; }
+        
+        /* Ajustes mobile obrigatórios */
         @media (max-width: 768px) {
             body { flex-direction: column; padding-top: 60px !important; }
-            
-            /* Garante que a barra do topo apareça no celular */
             .barra-topo-mobile { display: flex !important; width: 100%; background-color: #111; padding: 15px; border-bottom: 2px solid #ff4500; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; z-index: 10000; }
             .barra-topo-mobile h2 { font-size: 18px; color: #ff4500; text-transform: uppercase; }
             .btn-menu-toggle { background: #222; border: 1px solid #ff4500; color: #fff; padding: 8px 12px; font-size: 20px; cursor: pointer; border-radius: 5px; display: block !important; }
 
-            /* Configura o menu lateral como uma gaveta que entra da esquerda */
             #menu-lateral { position: fixed !important; top: 0; left: 0; height: 100vh !important; width: 280px !important; z-index: 10005; transform: translateX(-100%); transition: transform 0.3s ease !important; background-color: #111 !important; border-right: 3px solid #ff4500 !important; box-shadow: 5px 0 15px rgba(0,0,0,0.5); display: block !important; }
-            
-            /* Classe que o JavaScript ativa para MOSTRAR o menu no celular */
             #menu-lateral.menu-visivel { transform: translateX(0) !important; }
-            #menu-lateral .titulo-menu { display: none !important; } /* Oculta o título interno para não repetir */
+            #menu-lateral .titulo-menu { display: none !important; }
 
-            /* Cortina escura atrás do menu */
             .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10002; }
             .overlay.ativo { display: block !important; }
-
             main { padding: 15px !important; width: 100% !important; }
-            .caixa-conteudo { padding: 20px !important; min-height: auto !important; }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- ==================================================
-         BARRA SUPERIOR DO CELULAR
-    ================================================== -->
+    <!-- BARRA SUPERIOR DO CELULAR -->
     <div class="barra-topo-mobile">
         <h2>Manual Técnico 🛠️</h2>
         <button class="btn-menu-toggle" id="btn-menu">☰</button>
     </div>
 
-    <!-- ==================================================
-         CORTINA DO CELULAR
-    ================================================== -->
+    <!-- CORTINA DO CELULAR -->
     <div class="overlay" id="overlay"></div>
 
-    <!-- ==================================================
-         MENU LATERAL
-    ================================================== -->
+    <!-- MENU LATERAL -->
     <nav id="menu-lateral">
         <h2 class="titulo-menu">Manual Técnico 🛠️</h2>
 
@@ -158,9 +149,7 @@
         </div>
     </nav>
 
-    <!-- ==================================================
-         CONTEÚDO PRINCIPAL
-    ================================================== -->
+    <!-- CONTEÚDO PRINCIPAL -->
     <main>
         <div class="caixa-conteudo">
             <h1 id="titulo-sistema">Bem-vindo ao Manual Técnico</h1>
@@ -171,23 +160,36 @@
     <!-- VÍNCULO DO ARQUIVO JAVASCRIPT EXTERNO -->
     <script src="js/script.js"></script>
 
-    <!-- MECANISMO DE SEGURANÇA MÓVEL: Garante que os cliques funcionem de qualquer forma no celular -->
+    <!-- 🔐 MECANISMO ULTRA DE SEGURANÇA (Força a abertura mecânica dos submenus se o JS externo falhar) -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const btn = document.getElementById('btn-menu');
-            const menu = document.getElementById('menu-lateral');
-            const over = document.getElementById('overlay');
-
-            if(btn && menu && over) {
-                btn.onclick = function() {
-                    menu.classList.toggle('menu-visivel');
-                    over.classList.toggle('ativo');
-                };
-                over.onclick = function() {
-                    menu.classList.remove('menu-visivel');
-                    over.classList.remove('ativo');
-                };
-            }
+            // Reparação de cliques das categorias principais
+            document.querySelectorAll('.btn-principal').forEach(botao => {
+                botao.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const menuId = botao.getAttribute('data-menu');
+                    const submenu = document.getElementById(menuId);
+                    const seta = botao.querySelector('.seta');
+                    
+                    if (submenu) {
+                        const estaAberto = submenu.style.display === 'block' || submenu.classList.contains('aberto');
+                        
+                        // Fecha tudo primeiro
+                        document.querySelectorAll('.submenu').forEach(s => {
+                            s.style.display = 'none';
+                            s.classList.remove('aberto');
+                        });
+                        document.querySelectorAll('.seta').forEach(st => st.innerText = '▼');
+                        
+                        // Executa abertura forçada se estava fechado
+                        if (!estaAberto) {
+                            submenu.style.setProperty('display', 'block', 'important');
+                            submenu.classList.add('aberto');
+                            if(seta) seta.innerText = '▲';
+                        }
+                    }
+                });
+            });
         });
     </script>
 </body>
