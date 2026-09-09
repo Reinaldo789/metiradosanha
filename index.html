@@ -12,7 +12,7 @@
 <body>
 
     <!-- ==================================================
-         BARRA SUPERIOR DO CELULAR (Aparece só no mobile)
+         BARRA SUPERIOR DO CELULAR
     ================================================== -->
     <div class="barra-topo-mobile">
         <h2>Manual Técnico 🛠️</h2>
@@ -20,7 +20,7 @@
     </div>
 
     <!-- ==================================================
-         CORTINA DO CELULAR (Overlay para fechar ao tocar fora)
+         CORTINA DO CELULAR
     ================================================== -->
     <div class="overlay" id="overlay"></div>
 
@@ -133,7 +133,7 @@
     </nav>
 
     <!-- ==================================================
-         CONTEÚDO PRINCIPAL (Exibição Dinâmica)
+         CONTEÚDO PRINCIPAL
     ================================================== -->
     <main>
         <div class="caixa-conteudo">
@@ -143,21 +143,27 @@
     </main>
 
     <!-- ==================================================
-         PROGRAMAÇÃO JAVASCRIPT CORRIGIDA
+         VÍNCULO DO ARQUIVO JAVASCRIPT EXTERNO
     ================================================== -->
+    <script src="js/script.js"></script>
+
+    <!-- MECANISMO DE SEGURANÇA: Se o arquivo externo não carregar, este código assume o controle -->
     <script>
-        const bancoDeDados = {
-            tab_lubrificacao: { titulo: "Tabela de Lubrificação", texto: "Dados de viscosidade (ex: 5W30, 10W40), capacidades de cárter em litros e intervalos recomendados para troca de óleo e filtros de acordo com a quilometragem do fabricante." },
-            luz_pressao: { titulo: "Luz e Pressão de Óleo", texto: "Análise do sensor de pressão (cebolinha). O acendimento da luz no painel indica queda perigosa na pressão de trabalho da bomba, podendo causar o travamento imediato do motor." },
-            fusiveis: { titulo: "Fusíveis e Lâmpadas", texto: "Dimensionamento de amperagem para proteção dos circuitos contra curto-circuitos e esquemas de substituição de lâmpadas incandescentes ou LEDs de sinalização." },
-            farol: { titulo: "Farol e Seta", texto: "Funcionamento do circuito de iluminação principal (facho alto/baixo), lanternas e temporização das luzes de direção (setas) gerenciadas pelo relé ou central de carroceria." },
-            tanque: { titulo: "Tanque, Filtro e Mangueiras", texto: "Componentes da linha de baixa pressão. Armazenamento seguro de combustível, filtragem primária de impurezas e linhas flexíveis resistentes a pressões iniciais." },
-            bomba_eletrica: { titulo: "Bomba Elétrica", texto: "Instalada no tanque, opera fornecendo o fluxo inicial de combustível sob baixa pressão constante para alimentar os sistemas de injeção direta ou indireta." },
-            bomba_engrenagem: { titulo: "Bomba de Engrenagem", texto: "Dispositivo mecânico de deslocamento positivo utilizado principalmente em sistemas diesel para succionar o combustível através do filtro e alimentar a bomba de alta." },
-            valvula_kuv: { titulo: "Válvula KUV", texto: "Válvula de transbordo e segurança responsável por regular o excesso de retorno de combustível, mantendo a estabilidade térmica e hidráulica da linha." },
-            bomba_alta: { titulo: "Bomba de Alta Pressão", texto: "Responsável por receber o combustível da linha de baixa e comprimi-lo a níveis extremos (até mais de 2000 bar em sistemas Common Rail) para otimizar a atomização." },
-            tubo_rail: { titulo: "Tubo Rail (Flauta)", texto: "Tubo distribuidor de alta pressão que atua como acumulador hidráulico, garantindo que todos os bicos injetores recebam combustível com pressão idêntica e sem oscilações." },
-            valvula_mprop: { titulo: "Válvula MProp", texto: "Válvula reguladora de vazão acoplada na bomba de alta pressão. Controla eletronicamente a quantidade de combustível que será comprimida para o tubo Rail." },
-            sensor_rotacao: { titulo: "Sensor de Rotação (CKP)", texto: "Monitora a velocidade e a posição exata da árvore de manivelas (virabrequim), enviando a informação essencial para a ECM sincronizar o momento da injeção e ignição." },
-            sensor_fase: { titulo: "Sensor de Fase (CMP)", texto: "Identifica a posição do comando de válvulas, permitindo que a central eletrônica reconheça qual cilindro está em fase de compressão para realizar a injeção sequencial." },
-            sensor_pres_adm: { titulo: "Sensor de Pressão de Admissão (MAP)", texto: "Mede a pressão absoluta ou vácuo dentro do coletor de admissão para auxiliar no cálculo do volume de ar que está entrando nos cilindros." },
+        setTimeout(() => {
+            document.querySelectorAll('.btn-principal').forEach(botao => {
+                botao.onclick = function() {
+                    const id = botao.getAttribute('data-menu');
+                    const sub = document.getElementById(id);
+                    if (sub) {
+                        const aberto = sub.style.display === 'block';
+                        document.querySelectorAll('.submenu').forEach(s => s.style.display = 'none');
+                        sub.style.display = aberto ? 'none' : 'block';
+                        botao.querySelector('.seta').innerText = aberto ? '▼' : '▲';
+                    }
+                };
+            });
+        }, 500);
+    </script>
+</body>
+
+</html>
