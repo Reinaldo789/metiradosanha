@@ -1,4 +1,3 @@
-```javascript
 /* ==================================================
    BANCO DE DADOS
 ================================================== */
@@ -368,4 +367,3 @@ document.addEventListener("keydown", function(event) {
     }
 
 });
-```
