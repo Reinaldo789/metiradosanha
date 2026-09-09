@@ -1,132 +1,79 @@
-<script>
-    // ===========================================
-    // BANCO DE DADOS
-    // ===========================================
-    const bancoDeDados = {
-        tab_lubrificacao: { titulo: "Tabela de Lubrificação", texto: "Dados de viscosidade (ex: 5W30, 10W40), capacidades de cárter em litros e intervalos recomendados para troca de óleo e filtros de acordo com a quilometragem do fabricante." },
-        luz_pressao: { titulo: "Luz e Pressão de Óleo", texto: "Análise do sensor de pressão (cebolinha). O acendimento da luz no painel indica queda perigosa na pressão de trabalho da bomba, podendo causar o travamento imediato do motor." },
-        fusiveis: { titulo: "Fusíveis e Lâmpadas", texto: "Dimensionamento de amperagem para proteção dos circuitos contra curto-circuitos e esquemas de substituição de lâmpadas incandescentes ou LEDs de sinalização." },
-        farol: { titulo: "Farol e Seta", texto: "Funcionamento do circuito de iluminação principal (facho alto/baixo), lanternas e temporização das luzes de direção (setas) gerenciadas pelo relé ou central de carroceria." },
-        tanque: { titulo: "Tanque, Filtro e Mangueiras", texto: "Componentes da linha de baixa pressão. Armazenamento seguro de combustível, filtragem primária de impurezas e linhas flexíveis resistentes a pressões iniciais." },
-        bomba_eletrica: { titulo: "Bomba Elétrica", texto: "Instalada no tanque, opera fornecendo o fluxo inicial de combustível sob baixa pressão constante para alimentar os sistemas de injeção direta ou indireta." },
-        bomba_engrenagem: { titulo: "Bomba de Engrenagem", texto: "Dispositivo mecânico de deslocamento positivo utilizado principalmente em sistemas diesel para succionar o combustível através do filtro e alimentar a bomba de alta." },
-        valvula_kuv: { titulo: "Válvula KUV", texto: "Válvula de transbordo e segurança responsável por regular o excesso de retorno de combustível, mantendo a estabilidade térmica e hidráulica da linha." },
-        bomba_alta: { titulo: "Bomba de Alta Pressão", texto: "Responsável por receber o combustível da linha de baixa e comprimi-lo a níveis extremos (até mais de 2000 bar em sistemas Common Rail) para otimizar a atomização." },
-        tubo_rail: { titulo: "Tubo Rail (Flauta)", texto: "Tubo distribuidor de alta pressão que atua como acumulador hidráulico, garantindo que todos os bicos injetores recebam combustível com pressão idêntica e sem oscilações." },
-        valvula_mprop: { titulo: "Válvula MProp", texto: "Válvula reguladora de vazão acoplada na bomba de alta pressão. Controla eletronicamente a quantidade de combustível que será comprimida para o tubo Rail." },
-        sensor_rotacao: { titulo: "Sensor de Rotação (CKP)", texto: "Monitora a velocidade e a posição exata da árvore de manivelas (virabrequim), enviando a informação essencial para a ECM sincronizar o momento da injeção e ignição." },
-        sensor_fase: { titulo: "Sensor de Fase (CMP)", texto: "Identifica a posição do comando de válvulas, permitindo que a central eletrônica reconheça qual cilindro está em fase de compressão para realizar a injeção sequencial." },
-        sensor_pres_adm: { titulo: "Sensor de Pressão de Admissão (MAP)", texto: "Mede a pressão absoluta ou vácuo dentro do coletor de admissão para auxiliar no cálculo do volume de ar que está entrando nos cilindros." },
-        pedal_acelerador: { titulo: "Pedal do Acelerador", texto: "Sensor de posição do pedal (APP) que converte o movimento mecânico em sinal elétrico para a ECM determinar a abertura da borboleta e a quantidade de combustível a ser injetada." },
-        sensor_temp_ecm: { titulo: "Sensor de Temperatura (ECT)", texto: "Monitora a temperatura do líquido de arrefecimento do motor, permitindo ajustes na injeção e no funcionamento da ventoinha." },
-        modulador_turbina: { titulo: "Modulador da Turbina", texto: "Atuador que controla a geometria variável ou wastegate da turbina, regulando a pressão de sobrealimentação conforme a demanda do motor." },
-        sensor_pres_rail: { titulo: "Sensor de Pressão do Rail", texto: "Monitora em tempo real a pressão do combustível no tubo Rail, enviando o sinal para a ECM que ajusta a válvula MProp para manter a pressão ideal." },
-        bicos_injetores: { titulo: "Bicos Injetores", texto: "Componentes eletromagnéticos ou piezoelétricos que atomizam o combustível diretamente nos cilindros. A abertura ocorre em frações de milissegundo controladas pela ECM." },
-        filtros_mangueiras: { titulo: "Filtros e Mangueiras de Ar", texto: "Elementos filtrantes que retêm partículas sólidas antes da entrada do ar no motor e mangueiras de silicone ou borracha que conduzem o ar até a admissão." },
-        turbina: { titulo: "Turbina (Turbocharger)", texto: "Compressor acionado pelos gases de escape que aumenta a densidade do ar admitido, elevando a potência e eficiência do motor." },
-        bomba_direcao: { titulo: "Bomba de Direção Hidráulica", texto: "Bomba acionada pela correia do motor que gera pressão hidráulica para assistir o esforço na caixa de direção, tornando a condução mais leve." },
-        caixa_direcao: { titulo: "Caixa de Direção", texto: "Mecanismo que transforma o movimento de rotação do volante em movimento linear nas rodas. Pode ser pinhão e cremalheira ou recirculação de esferas." },
-        oleo_direcao: { titulo: "Óleo de Direção", texto: "Fluído hidráulico específico que transmite a pressão da bomba para a caixa. Deve ser trocado conforme a quilometragem para evitar vazamentos e desgaste." },
-        bomba_vacuo: { titulo: "Bomba de Vácuo", texto: "Gera vácuo para o servofreio, amplificando a força aplicada no pedal. Pode ser acionada por correia ou ser elétrica." },
-        freios_traseiros: { titulo: "Freios Traseiros / Mão", texto: "Sistema de freio a disco ou tambor nas rodas traseiras, com acionamento hidráulico e cabo para o freio de estacionamento (mão)." }
-    };
+# MariaDB Enterprise Platform
 
-    // ===========================================
-    // 1. CONTROLE DO MENU MOBILE (BOTÃO ☰)
-    // ===========================================
-    const btnMenu = document.getElementById('btn-menu');
-    const menuLateral = document.getElementById('menu-lateral');
-    const overlay = document.getElementById('overlay');
+{% hint style="info" %}
+📄 Read offline: [mariadb-platform.pdf](https://github.com/mariadb-corporation/mariadb-docs/releases/latest/download/mariadb-platform.pdf) (\~500 pages, 4.5 MB). The PDF is a point-in-time snapshot; this site is always current.
+{% endhint %}
 
-    // Verifica se os elementos existem
-    if (btnMenu && menuLateral && overlay) {
-        // Abrir/fechar menu ao clicar no botão ☰
-        btnMenu.addEventListener('click', function(e) {
-            e.stopPropagation();
-            menuLateral.classList.toggle('aberto');
-            overlay.classList.toggle('ativo');
-        });
+### What is MariaDB Enterprise Platform? <a href="#what-is-mariadb-enterprise-platform" id="what-is-mariadb-enterprise-platform"></a>
 
-        // Fechar menu ao clicar na cortina (overlay)
-        overlay.addEventListener('click', function() {
-            menuLateral.classList.remove('aberto');
-            overlay.classList.remove('ativo');
-        });
+MariaDB Enterprise Platform is designed to deliver best-in-class performance, data security, replication, clustering, and high availability for production workloads in any cloud environment, including private, public, hybrid, or multicloud setups. It empowers modern data strategies with an end-to-end database solution, ensuring consistent performance and unwavering stability for mission-critical applications in demanding environments. The platform simplifies the data landscape by running all workloads in a single, robust MariaDB environment, powered by open-source technology and fortified with enterprise-grade reliability, security, and support.
 
-        // Fechar menu ao redimensionar para desktop
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                menuLateral.classList.remove('aberto');
-                overlay.classList.remove('ativo');
-            }
-        });
-    }
+#### Components <a href="#components" id="components"></a>
 
-    // ===========================================
-    // 2. ABRIR/FECHAR SUBMENUS (setas ▼ ▲)
-    // ===========================================
-    document.querySelectorAll('.btn-principal').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const submenuId = this.dataset.menu;
-            const submenu = document.getElementById(submenuId);
-            if (submenu) {
-                submenu.classList.toggle('active');
-                const seta = this.querySelector('.seta');
-                if (seta) {
-                    seta.textContent = submenu.classList.contains('active') ? '▲' : '▼';
-                }
-            }
-        });
-    });
+MariaDB Enterprise Platform comprises a number of technology components, modules, tools, and services, notably these include:
 
-    // ===========================================
-    // 3. CARREGAR CONTEÚDO AO CLICAR NO SUBITEM
-    // ===========================================
-    document.querySelectorAll('[data-conteudo]').forEach(item => {
-        item.addEventListener('click', function() {
-            const chave = this.dataset.conteudo;
-            const dados = bancoDeDados[chave];
-            if (dados) {
-                document.getElementById('titulo-sistema').textContent = dados.titulo;
-                document.getElementById('texto-sistema').textContent = dados.texto;
-            } else {
-                document.getElementById('titulo-sistema').textContent = "Conteúdo não encontrado";
-                document.getElementById('texto-sistema').textContent = "Este tópico ainda não possui informações cadastradas.";
-            }
-            // Fecha menu mobile após clicar
-            if (menuLateral) {
-                menuLateral.classList.remove('aberto');
-            }
-            if (overlay) {
-                overlay.classList.remove('ativo');
-            }
-        });
-    });
+* MariaDB Enterprise Server – a scalable database management system offering support for transactional, analytical, and hybrid workloads, working with relational, JSON, and hybrid data models
+* MariaDB ColumnStore – a specialized storage engine for scalable, high-performance analytics without the need for complex schemas and indexes – distributed, columnar storage with parallel query processing
+* MariaDB MaxScale – a database proxy which provides enterprise high availability, scalability, security and integration services, simplifying application development and database administration
+* MariaDB Galera Cluster - a virtually synchronous multi-master cluster, providing read scalability and enhanced transaction security
+* MariaDB Connectors – database drivers for practically every programming language
+* :new: MariaDB Enterprise Manager — a comprehensive observability and management solution designed for your entire database fleet
+* :new: MariaDB MCP Server — a secure, enterprise-grade application designed to act as the primary interface between AI assistants and MariaDB data ecosystems
+* :new: MariaDB AI RAG — an enterprise-grade Retrieval-Augmented Generation (RAG) solution that integrates with MariaDB to provide AI-powered document processing, semantic search, and natural language generation capabilities
+* :new: MariaDB Exa — a high-performance, in-memory, MPP (Massively Parallel Processing) analytical database designed for fast, large-scale SQL analytics
+* :new: MariaDB Query Accelerator — allows MariaDB to use ColumnStore to execute queries that are otherwise executed by InnoDB
 
-    // ===========================================
-    // 4. BOTÃO "INÍCIO" (volta ao topo)
-    // ===========================================
-    const btnTopo = document.getElementById('btn-topo');
-    if (btnTopo) {
-        btnTopo.addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
+MariaDB Enterprise Platform comprises a number of services, including:
 
-    // ===========================================
-    // 5. CORREÇÃO: Garantir que o menu no desktop
-    //    sempre fique visível
-    // ===========================================
-    function ajustarMenuDesktop() {
-        if (window.innerWidth > 768 && menuLateral) {
-            menuLateral.classList.remove('aberto');
-            if (overlay) {
-                overlay.classList.remove('ativo');
-            }
-        }
-    }
+* Remote database administration
+* Migration management
+* Technical support
 
-    // Executa ao carregar e ao redimensionar
-    window.addEventListener('load', ajustarMenuDesktop);
-    window.addEventListener('resize', ajustarMenuDesktop);
-</script>
+#### Security <a href="#security" id="security"></a>
+
+MariaDB Enterprise Platform **includes advanced security features, such as transparent data encryption (TDE), query blocking, result limiting, and a database firewall**, which meet and exceed traditional enterprise security requirements. It also supports dynamic data masking and complete data obfuscation to protect personal data and meet GDPR requirements.
+
+MariaDB Enterprise has a [DoD](https://www.defense.gov/) [STIG certification](https://mariadb.com/newsroom/press-releases/mariadb-receives-stig-approval/), which is required for most US government IT solutions.
+
+#### Innovation <a href="#innovation" id="innovation"></a>
+
+The platform is **built for the enterprise and accelerated by open-source innovation, offering unmatched performance and compatibility with existing MySQL APIs and commands**. It supports a wide range of database workloads and data types, including transactional, analytical, semi-structured, and AI-ready vector data.
+
+#### MariaDB Enterprise Platform <a href="#platform-2025-vs.-platform-2026" id="platform-2025-vs.-platform-2026"></a>
+
+In January 2025, Platform 2025 was released. Platform 2026, released in October 2025, includes all the latest new components, such as Enterprise Server 11.8, and a variety of new tools and components.
+
+## Product Overview <a href="#product-overview" id="product-overview"></a>
+
+| Category                           | Product or Features                    | Description                                                                                                                                                                                                                                                                   | Details                                                                    |
+| ---------------------------------- | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| **Databases**                      | MariaDB Enterprise Server              | An enhanced, hardened, and secured version of the open-source database, designed for enterprise-grade reliability and scalability. It is optimized for OLTP and offers ACID compliance. Its scalable architecture makes it ideal for modern web and cloud-based applications. | [Link](https://mariadb.com/docs/server/)                                   |
+| **Connectors**                     | MariaDB Connector/C                    | Enables C applications to connect to MariaDB and MySQL databases.                                                                                                                                                                                                             | [Link](/docs/connectors/mariadb-connector-c.md)                            |
+|                                    | MariaDB Connector/C++                  | Provides C++ applications with an object-oriented interface to MariaDB and MySQL databases.                                                                                                                                                                                   | [Link](/docs/connectors/mariadb-connector-cpp.md)                          |
+|                                    | MariaDB Connector/J                    | Allows Java applications to connect using the standard JDBC API.                                                                                                                                                                                                              | [Link](/docs/connectors/mariadb-connector-j.md)                            |
+|                                    | MariaDB Connector/R2DBC                | Facilitates reactive programming in Java applications with non-blocking database access.                                                                                                                                                                                      | [Link](/docs/connectors/mariadb-connector-r2dbc.md)                        |
+|                                    | MariaDB Connector/Node.js              | Enables Node.js applications to interact with MariaDB and MySQL databases.                                                                                                                                                                                                    | [Link](/docs/connectors/mariadb-connector-nodejs.md)                       |
+|                                    | MariaDB Connector/ODBC                 | Provides ODBC-compliant applications with access to MariaDB and MySQL databases.                                                                                                                                                                                              | [Link](/docs/connectors/mariadb-connector-odbc.md)                         |
+|                                    | MariaDB Connector/Python               | Allows Python applications to connect using a DB API 2.0-compliant interface.                                                                                                                                                                                                 | [Link](/docs/connectors/mariadb-connector-python.md)                       |
+| **Tools & Automation**             | MariaDB MaxScale                       | A database proxy for scalability, high availability, and security; simplifies development and admin tasks. It offers load balancing, data routing for performance, and improves database security.                                                                            | [Link](https://mariadb.com/docs/maxscale/)                                 |
+|                                    | :new: MariaDB Enterprise Manager       | A comprehensive observability and management solution designed for your entire database fleet.                                                                                                                                                                                | [Link](/docs/tools/mariadb-enterprise-manager.md)                          |
+|                                    | :new: MariaDB MCP Server               | A secure, enterprise-grade application designed to act as the primary interface between AI assistants and MariaDB data ecosystems.                                                                                                                                            | [Link](/docs/tools/mariadb-enterprise-mcp-server.md)                       |
+|                                    | :new: MariaDB AI RAG                   | An enterprise-grade Retrieval-Augmented Generation (RAG) solution that integrates with MariaDB to provide AI-powered document processing, semantic search, and natural language generation capabilities.                                                                      | [Link](/docs/tools/mariadb-ai-rag.md)                                      |
+|                                    | MariaDB Enterprise Kubernetes Operator | Automates and simplifies deployment and management of MariaDB and MaxScale in Kubernetes environments.                                                                                                                                                                        | [Link](/docs/tools/mariadb-enterprise-operator.md)                         |
+| **High Availability & Clustering** | MariaDB Enterprise Cluster             | An open-source, active-active, multi-master synchronous true parallel replication solution powered by Galera.                                                                                                                                                                 | [Link](https://mariadb.com/docs/galera-cluster/)                           |
+| **Analytics & AI**                 | MariaDB ColumnStore                    | Extends MariaDB with distributed columnar storage and massively parallel processing (MPP) for real-time analytics (OLAP) as well as data warehousing.                                                                                                                         | [Link](/docs/analytics/mariadb-columnstore.md)                             |
+|                                    | Vector Embedded Search                 | Native vector search for AI-powered applications, embedded directly into MariaDB.                                                                                                                                                                                             | [Link](/docs/server/reference/sql-structure/vectors.md)                    |
+|                                    | :new: MariaDB Exa                      | A high-performance, in-memory, MPP (Massively Parallel Processing) analytical database designed for fast, large-scale SQL analytics.                                                                                                                                          | [Link](/docs/analytics/mariadb-exa.md)                                     |
+|                                    | :new: MariaDB Query Accelerator        | Allows MariaDB to use ColumnStore to execute queries that are otherwise executed by InnoDB.                                                                                                                                                                                   | [Link](/docs/analytics/mariadb-columnstore/use-cases/query-accelerator.md) |
+| **Security & Disaster Recovery**   | Security                               | Advanced features like encryption, masking, firewalls, and access control to protect your data.                                                                                                                                                                               | [Link](/docs/server/security.md)                                           |
+|                                    | Disaster Recovery                      | Tools for backup, point-in-time recovery (PITR), delayed replicas, and failover strategies.                                                                                                                                                                                   | [Link](https://mariadb.com/database-topics/disaster-recovery/)             |
+| **Storage & Modeling**             | InnoDB                                 | Default transactional storage engine with ACID compliance and foreign key support.                                                                                                                                                                                            | [Link](/docs/server/server-usage/storage-engines/innodb.md)                |
+|                                    | Aria                                   | Crash-safe alternative to MyISAM, used for internal temporary tables.                                                                                                                                                                                                         | [Link](/docs/server/server-usage/storage-engines/aria.md)                  |
+|                                    | MyISAM                                 | Non-transactional engine, supports FULLTEXT indexing and spatial data types.                                                                                                                                                                                                  | [Link](/docs/server/server-usage/storage-engines/myisam-storage-engine.md) |
+|                                    | MEMORY                                 | Stores all data in RAM for fast access in environments that require quick lookups.                                                                                                                                                                                            | [Link](/docs/server/server-usage/storage-engines/memory-storage-engine.md) |
+|                                    | Spider                                 | Federated database solution supporting partitioning and XA transactions.                                                                                                                                                                                                      | [Link](/docs/server/server-usage/storage-engines/spider.md)                |
+|                                    | Storage Engines Overview               | Comprehensive guide to all available storage engines in MariaDB.                                                                                                                                                                                                              | [Link](/docs/server/server-usage/storage-engines.md)                       |
+
+These components collectively empower MariaDB Enterprise Platform to cater to diverse database management needs, from transactional operations to data analytics and enterprise-grade security.
+
+<sub>*This page is: Copyright © 2026 MariaDB. All rights reserved.*</sub>
