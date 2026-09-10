@@ -37,10 +37,18 @@ body {
    BOTÃO HOME
 ================================ */
 .btn-home {
-    position: fixed;
-    top: 98px;
-    left: 20px;
-    width: 169px;
+    /* Alterado de fixed para relative ou block para respeitar o menu pai */
+    position: relative; 
+    
+    /* Removido top e left fixos */
+    /* top: 98px; */
+    /* left: 20px; */
+    
+    /* Largura adaptável com limite de segurança */
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box; /* Garante que a borda de 1px fique dentro do cálculo da largura */
+    
     height: 50px;
     display: flex;
     align-items: center;
@@ -54,6 +62,7 @@ body {
     font-weight: 600;
     z-index: 2100;
     transition: .2s;
+    margin-bottom: 12px; /* Adiciona espaçamento em relação ao item de baixo */
 }
 
 .btn-home:hover {
