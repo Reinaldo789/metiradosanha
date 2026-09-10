@@ -1,336 +1,254 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Arial, sans-serif;
+:root {
+    --bg: #121212;
+    --surface: #1f1f1f;
+    --surface-hover: #292929;
+    --line: #333;
+    --text: #f7f7f7;
+    --muted: #b9b9b9;
+    --accent: #ff4d00;
 }
 
-html {
-    scroll-behavior: smooth;
-}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
-    background: #1a1a1a;
-    colorOS: #f4f4f
-4;
-    display: flex;
-    min-height:    100vh;
+    min-height: 100vh;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 220px minmax(310px, 485px) minmax(0, 1fr);
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-/* ==============================
- =   TOPO MOBILE
-================================ */
-.barra-topo-mobile {
-    display================================: none;
-}
+button, a { font: inherit; }
+button { cursor: pointer; }
+.barra-topo-mobile { display: none; }
 
-.btn-menu-toggle {
-    background: #222;
-    border: 1px solid #ff4500;
-    color: #fff;
-    padding: 8px 12px;
-    font-size: 20px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-/* ==============================
-   BOTÃO HOME
-================================ */
 .btn-home {
-    position: fixed;
-    top: 98px;
-    left: 20px;
-    width: 169px;
-    height: 50px;
-    display: flex;
+    grid-column: 1;
+    grid-row: 1;
+    align-self: start;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 10px;
+    min-height: 62px;
+    margin: 128px 0 0 25px;
+    padding: 0 22px;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    color: var(--text);
     text-decoration: none;
-    background: #222;
-    color: #fff;
-    border: 1px solid #ff4500;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: 600;
-    z-index: 2100;
-    transition: .2s;
+    font-weight: 700;
+    transition: background .2s ease, transform .2s ease;
 }
 
-.btn-home:hover {
-    background: #ff4500;
-    color: #fff;
+.btn-home:hover, .btn-home:focus-visible {
+    background: #2b211d;
+    transform: translateY(-1px);
+    outline: none;
 }
 
-/* ==============================
-   MENU LATERAL DESKTOP
-================================ */
-nav {
-    width: 390px;
-    flex-shrink: 0;
-    background: #111;
-    padding: 20px;
-    border-right: 3px solid #ff4500;
+#menu-lateral {
+    grid-column: 2;
+    grid-row: 1;
+    min-height: 100vh;
+    padding: 35px 25px 44px;
+    background: #101010;
+    border-right: 3px solid var(--accent);
     overflow-y: auto;
-    height: 100vh;
-    position: sticky;
-    top: 0;
 }
 
-nav h2 {
-    font-size: 25px;
-    margin-bottom: 20px;
-    color: #ff4500;
+#menu-lateral > h2 {
+    margin: 0 18px 26px;
+    padding-bottom: 23px;
+    border-bottom: 1px solid var(--line);
+    color: var(--accent);
+    font-size: 1.8rem;
+    letter-spacing: .03em;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    text-align: center;
-    border-bottom: 2px solid #222;
-    padding-bottom: 15px;
 }
 
-.item-menu {
-    margin-bottom: 8px;
-}
+.item-menu { margin-bottom: 9px; }
 
 .btn-principal {
     width: 100%;
-    text-align: left;
-    background: #222;
-    border: none;
-    color: #fff;
-    padding: 13px 15px;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: .2s;
-    font-weight: 600;
+    min-height: 58px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    min-height: 50px; /* Em vez de uma altura fixa rígida */
-    padding: 10px 15px;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 14px 17px 14px 19px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text);
+    text-align: left;
+    font-weight: 700;
+    line-height: 1.25;
+    transition: border-color .2s ease, background .2s ease, color .2s ease;
 }
 
-.btn-principal:hover,
+.btn-principal:hover, .btn-principal:focus-visible {
+    border-color: #555;
+    background: var(--surface-hover);
+    outline: none;
+}
+
 .btn-principal.ativo {
-    background: #ff4500;
-    color: #fff;
+    border-color: rgba(255, 77, 0, .7);
+    background: #2c211d;
 }
 
 .seta {
-    transition: transform .2s;
+    flex: 0 0 auto;
+    color: var(--accent);
+    font-size: .85rem;
+    transition: transform .25s ease;
 }
 
-.btn-principal.aberto .seta {
-    transform: rotate(180deg);
-}
+.btn-principal.aberto .seta { transform: rotate(180deg); }
 
 .submenu {
+    display: grid;
+    grid-template-rows: 0fr;
+    margin: 0;
+    padding: 0;
     list-style: none;
-    display: none;
-    background: #161616;
-    border-radius: 0 0 5px 5px;
-    padding: 5px 0;
+    opacity: 0;
+    transition: grid-template-rows .24s ease, opacity .2s ease;
 }
 
-.submenu.aberto {
-    display: block;
-}
+.submenu > li { min-height: 0; overflow: hidden; }
+.submenu.aberto { grid-template-rows: 1fr; opacity: 1; padding: 6px 0 4px; }
+.submenu.aberto > li { min-height: 34px; }
 
-.submenu li button {
+.submenu button {
     width: 100%;
+    padding: 8px 15px 8px 27px;
+    border: 0;
+    border-left: 2px solid #3b3b3b;
+    background: transparent;
+    color: var(--muted);
     text-align: left;
-    background: none;
-    border: none;
-    color: #bbb;
-    padding: 9px 15px 9px 24px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: .2s;
-    border-left: 2px solid transparent;
+    font-size: .9rem;
+    transition: color .2s ease, background .2s ease, border-color .2s ease;
 }
 
-.submenu li button:hover,
-.submenu li button.sub-ativo {
-    color: #ff4500;
-    border-left-color: #ff4500;
-    padding-left: 28px;
-    font-weight: bold;
+.submenu button:hover, .submenu button:focus-visible, .submenu button.sub-ativo {
+    border-left-color: var(--accent);
+    background: #211a17;
+    color: #fff;
+    outline: none;
 }
 
-/* ==============================
-   CONTEÚDO
-================================ */
-main {
-    flex: 1;
-    min-width: 0;
-    padding: 48px 52px;
-    background: #1e1e1e;
-}
+main { grid-column: 3; grid-row: 1; padding: 64px clamp(32px, 5vw, 68px); }
 
 .caixa-conteudo {
-    background: #262626;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,.5);
-    min-height: 450px;
-    border-left: 5px solid #ff4500;
+    width: min(100%, 1020px);
+    min-height: 565px;
+    margin: 0 auto;
+    padding: 56px;
+    border-left: 6px solid var(--accent);
+    border-radius: 12px;
+    background: #242424;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, .24);
 }
 
-h1 {
-    font-size: 32px;
-    color: #fff;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #333;
-    padding-bottom: 10px;
+.caixa-conteudo h1 {
+    margin: 0 0 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+    font-size: clamp(2rem, 3.1vw, 2.55rem);
+    line-height: 1.15;
 }
 
 #categoria-sistema {
-    color: #ff4500;
-    font-weight: 700;
+    margin: 22px 0 36px;
+    color: var(--accent);
+    font-size: .95rem;
+    font-weight: 800;
+    letter-spacing: .04em;
     text-transform: uppercase;
-    margin-bottom: 28px;
 }
 
-p {
-    font-size: 18px;
-    color: #ccc;
-    line-height: 1.6;
+#texto-sistema {
+    max-width: 720px;
+    margin: 0;
+    color: #d2d2d2;
+    font-size: 1.22rem;
+    line-height: 1.7;
 }
 
-/* ==============================
-   OVERLAY MOBILE
-================================ */
-.overlay {
-    display: none;
-}
-
-/* ==============================
-   BOTÃO VOLTAR AO INÍCIO
-================================ */
 .btn-inicio {
     position: fixed;
-    right: 22px;
-    bottom: 22px;
-    width: 46px;
-    height: 46px;
-    border: 1px solid #ff4500;
+    right: 20px;
+    bottom: 20px;
+    z-index: 100;
+    width: 56px;
+    height: 56px;
+    border: 1px solid var(--accent);
     border-radius: 50%;
-    background: #222;
-    color: #fff;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 3000;
-    transition: .2s;
+    background: #1f1f1f;
+    color: var(--text);
+    font-size: 1.5rem;
+    transition: background .2s ease, transform .2s ease;
 }
 
-.btn-inicio:hover {
-    background: #ff4500;
+.btn-inicio:hover, .btn-inicio:focus-visible {
+    background: var(--accent);
+    transform: translateY(-2px);
+    outline: none;
 }
 
-/* ==============================
-   CELULAR
-================================ */
+#btn-inicio { display: none; }
+.overlay { display: none; }
+
+@media (max-width: 980px) {
+    body { grid-template-columns: 88px minmax(300px, 385px) minmax(0, 1fr); }
+    .btn-home { width: 58px; min-width: 0; margin-left: 15px; padding: 0; font-size: 0; }
+    .btn-home::first-letter { font-size: 25px; }
+    #menu-lateral { padding-inline: 18px; }
+    main { padding: 42px 28px; }
+    .caixa-conteudo { padding: 42px; }
+}
+
 @media (max-width: 768px) {
-
-    body {
-        display: block;
-        padding-top: 70px;
-    }
-
+    body { display: block; padding-top: 68px; }
     .barra-topo-mobile {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 1100;
+        height: 68px;
         display: flex;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 70px;
-        padding: 10px 15px;
-        background: #111;
-        border-bottom: 2px solid #ff4500;
-        justify-content: space-between;
         align-items: center;
-        z-index: 3000;
+        justify-content: space-between;
+        padding: 0 16px 0 20px;
+        background: #101010;
+        border-bottom: 1px solid var(--line);
     }
-
-    .barra-topo-mobile h2 {
-        color: #ff4500;
-        font-size: 18px;
-        text-transform: uppercase;
-    }
-
-    .btn-home {
-        position: static;
-        width: auto;
-        height: auto;
-        margin: 12px 15px 0;
-        padding: 10px 15px;
-        display: inline-flex;
-        z-index: auto;
-    }
-
-    nav {
+    .barra-topo-mobile h2 { margin: 0; color: var(--text); font-size: 1.08rem; }
+    .btn-menu-toggle { width: 44px; height: 44px; border: 1px solid var(--accent); border-radius: 8px; background: #1d1d1d; color: var(--text); font-size: 1.45rem; }
+    .btn-home { display: none; }
+    #menu-lateral {
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 290px;
-        height: 100vh;
-        padding: 20px;
-        z-index: 4000;
-        transform: translateX(-105%);
-        transition: transform .3s ease;
-        border-right: 3px solid #ff4500;
-        box-shadow: 5px 0 15px rgba(0,0,0,.6);
+        inset: 0 auto 0 0;
+        z-index: 2000;
+        width: min(88vw, 340px);
+        min-height: 100dvh;
+        padding: 28px 18px;
+        transform: translateX(-102%);
+        transition: transform .28s ease;
+        box-shadow: 18px 0 36px rgba(0,0,0,.32);
     }
-
-    nav.menu-visivel {
-        transform: translateX(0);
-    }
-
-    nav h2 {
-        display: block;
-        font-size: 19px;
-        margin-bottom: 20px;
-    }
-
-    .overlay {
-        position: fixed;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,.7);
-        z-index: 3500;
-        display: none;
-    }
-
-    .overlay.ativo {
-        display: block;
-    }
-
-    main {
-        padding: 15px;
-    }
-
-    .caixa-conteudo {
-        padding: 20px;
-        min-height: 300px;
-    }
-
-    h1 {
-        font-size: 24px;
-    }
-
-    p {
-        font-size: 16px;
-    }
-
-    #categoria-sistema {
-        font-size: 14px;
-        margin-bottom: 20px;
-    }
-
-    .btn-inicio {
-        right: 15px;
-        bottom: 15px;
-    }
+    #menu-lateral.menu-visivel { transform: translateX(0); }
+    #menu-lateral > h2 { margin-inline: 10px; padding-bottom: 20px; font-size: 1.55rem; }
+    .overlay { position: fixed; inset: 0; z-index: 1500; background: rgba(0,0,0,.68); backdrop-filter: blur(2px); }
+    .overlay.ativo { display: block; }
+    main { padding: 24px 16px 42px; }
+    .caixa-conteudo { min-height: 420px; padding: 30px 24px; border-left-width: 4px; }
+    .caixa-conteudo h1 { font-size: 2rem; }
+    #texto-sistema { font-size: 1.05rem; }
+    .btn-inicio { width: 48px; height: 48px; right: 16px; bottom: 16px; }
 }
