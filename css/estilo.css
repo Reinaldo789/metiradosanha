@@ -1,334 +1,84 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Arial, sans-serif;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    background: #1a1a1a;
-    color: #f4f4f4;
-    display: flex;
-    min-height: 100vh;
-}
-
-/* ==============================
-   TOPO MOBILE
-================================ */
-.barra-topo-mobile {
-    display: none;
-}
-
-.btn-menu-toggle {
-    background: #222;
-    border: 1px solid #ff4500;
-    color: #fff;
-    padding: 8px 12px;
-    font-size: 20px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-/* ==============================
-   BOTÃO HOME
-================================ */
-.btn-home {
-    width: 100%;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    background: #222;
-    color: #fff;
-    border: 1px solid #ff4500;
-    border-radius: 5px;
-    font-size: 15px;
-    font-weight: 600;
-    transition: .2s;
-    margin-bottom: 12px; /* Garante a mesma distância do item-menu */
-    box-sizing: border-box;
-}
-
-.btn-home:hover {
-    background: #ff4500;
-    color: #fff;
-}
-/* ==============================
-   MENU LATERAL DESKTOP
-================================ */
-nav {
-    width: 390px;
-    flex-shrink: 0;
-    background: #111;
+/* --- Container do Menu Lateral --- */
+#menu-lateral {
+    background-color: #222;
+    height: 100%;
     padding: 20px;
-    border-right: 3px solid #ff4500;
-    overflow-y: auto;
-    height: 100vh;
-    position: sticky;
-    top: 0;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Coloca o Título e os Links um embaixo do outro */
+    gap: 20px; /* Espaço entre o Título e o primeiro link */
 }
 
-nav h2 {
-    font-size: 25px;
-    margin-bottom: 20px;
-    color: #ff4500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-align: center;
-    border-bottom: 2px solid #222;
-    padding-bottom: 15px;
+#menu-lateral h2 {
+    color: #ff5722;
+    font-size: 1rem;
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #333; /* Linha separadora do título */
 }
 
+/* --- Container dos Links --- */
+.menu-links {
+    display: flex;
+    flex-direction: column; /* Um item embaixo do outro */
+    gap: 10px; /* Espaço entre cada botão do menu */
+    width: 100%;
+}
+
+/* --- Botão Home --- */
+.btn-home {
+    display: flex;           /* Transforma em flexível */
+    flex-direction: row;     /* Ícone e texto na MESMA LINHA */
+    align-items: center;     /* Centraliza verticalmente */
+    gap: 12px;               /* Espaço entre o ícone e o texto */
+    
+    color: #fff;
+    text-decoration: none;
+    background-color: #2a2a2a; /* Um fundo leve para destacar */
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: 0.3s;
+    width: 100%;             /* Ocupa a largura total do menu */
+    box-sizing: border-box;
+}
+
+/* Efeito ao passar o mouse no Home */
+.btn-home:hover {
+    background-color: #333;
+    color: #ff5722;
+}
+
+/* Ajuste dos ícones */
+.icone {
+    font-size: 1.2rem;
+}
+
+/* --- Botões Principais (Sistema de Lubrificação) --- */
 .item-menu {
-    margin-bottom: 8px;
+    width: 100%;
 }
 
 .btn-principal {
-    width: 100%;
-    text-align: left;
-    background: #222;
-    border: none;
-    color: #fff;
-    padding: 13px 15px;
-    font-size: 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: .2s;
-    font-weight: 600;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Texto na esquerda, seta na direita */
     align-items: center;
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #2a2a2a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    text-align: left;
+    transition: 0.3s;
 }
 
-.btn-principal:hover,
-.btn-principal.ativo {
-    background: #ff4500;
-    color: #fff;
+.btn-principal:hover {
+    background-color: #333;
 }
 
 .seta {
-    transition: transform .2s;
-}
-
-.btn-principal.aberto .seta {
-    transform: rotate(180deg);
-}
-
-.submenu {
-    list-style: none;
-    display: none;
-    background: #161616;
-    border-radius: 0 0 5px 5px;
-    padding: 5px 0;
-}
-
-.submenu.aberto {
-    display: block;
-}
-
-.submenu li button {
-    width: 100%;
-    text-align: left;
-    background: none;
-    border: none;
-    color: #bbb;
-    padding: 9px 15px 9px 24px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: .2s;
-    border-left: 2px solid transparent;
-}
-
-.submenu li button:hover,
-.submenu li button.sub-ativo {
-    color: #ff4500;
-    border-left-color: #ff4500;
-    padding-left: 28px;
-    font-weight: bold;
-}
-
-/* ==============================
-   CONTEÚDO
-================================ */
-main {
-    flex: 1;
-    min-width: 0;
-    padding: 48px 52px;
-    background: #1e1e1e;
-}
-
-.caixa-conteudo {
-    background: #262626;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,.5);
-    min-height: 450px;
-    border-left: 5px solid #ff4500;
-}
-
-h1 {
-    font-size: 32px;
-    color: #fff;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #333;
-    padding-bottom: 10px;
-}
-
-#categoria-sistema {
-    color: #ff4500;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 28px;
-}
-
-p {
-    font-size: 18px;
-    color: #ccc;
-    line-height: 1.6;
-}
-
-/* ==============================
-   OVERLAY MOBILE
-================================ */
-.overlay {
-    display: none;
-}
-
-/* ==============================
-   BOTÃO VOLTAR AO INÍCIO
-================================ */
-.btn-inicio {
-    position: fixed;
-    right: 22px;
-    bottom: 22px;
-    width: 46px;
-    height: 46px;
-    border: 1px solid #ff4500;
-    border-radius: 50%;
-    background: #222;
-    color: #fff;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 3000;
-    transition: .2s;
-}
-
-.btn-inicio:hover {
-    background: #ff4500;
-}
-
-/* ==============================
-   CELULAR
-================================ */
-@media (max-width: 768px) {
-    /* ... outros estilos mobile ... */
-
-    .btn-home {
-        width: 100%;
-        margin-bottom: 15px;
-    }
-}
-
-    .barra-topo-mobile {
-        display: flex;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 70px;
-        padding: 10px 15px;
-        background: #111;
-        border-bottom: 2px solid #ff4500;
-        justify-content: space-between;
-        align-items: center;
-        z-index: 3000;
-    }
-
-    .barra-topo-mobile h2 {
-        color: #ff4500;
-        font-size: 18px;
-        text-transform: uppercase;
-    }
-
-    .btn-home {
-        position: static;
-        width: auto;
-        height: auto;
-        margin: 12px 15px 0;
-        padding: 10px 15px;
-        display: inline-flex;
-        z-index: auto;
-    }
-
-    nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 290px;
-        height: 100vh;
-        padding: 20px;
-        z-index: 4000;
-        transform: translateX(-105%);
-        transition: transform .3s ease;
-        border-right: 3px solid #ff4500;
-        box-shadow: 5px 0 15px rgba(0,0,0,.6);
-    }
-
-    nav.menu-visivel {
-        transform: translateX(0);
-    }
-
-    nav h2 {
-        display: block;
-        font-size: 19px;
-        margin-bottom: 20px;
-    }
-
-    .overlay {
-        position: fixed;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,.7);
-        z-index: 3500;
-        display: none;
-    }
-
-    .overlay.ativo {
-        display: block;
-    }
-
-    main {
-        padding: 15px;
-    }
-
-    .caixa-conteudo {
-        padding: 20px;
-        min-height: 300px;
-    }
-
-    h1 {
-        font-size: 24px;
-    }
-
-    p {
-        font-size: 16px;
-    }
-
-    #categoria-sistema {
-        font-size: 14px;
-        margin-bottom: 20px;
-    }
-
-    .btn-inicio {
-        right: 15px;
-        bottom: 15px;
-    }
+    font-size: 0.8rem;
+    color: #ff5722;
 }
