@@ -1,6 +1,5 @@
 :root {
     --fundo: #181818;
-    --barra: #121212;
     --menu: #101010;
     --cartao: #252525;
     --item: #242424;
@@ -12,7 +11,6 @@
 }
 
 * { box-sizing: border-box; }
-
 html { scroll-behavior: smooth; }
 
 body {
@@ -27,12 +25,8 @@ body {
 
 button, a { font: inherit; }
 button { cursor: pointer; }
+.barra-topo-mobile, .overlay { display: none; }
 
-/* A barra existe somente no celular. */
-.barra-topo-mobile { display: none; }
-.overlay { display: none; }
-
-/* Coluna inicial */
 .btn-home {
     grid-column: 1;
     grid-row: 1;
@@ -53,14 +47,12 @@ button { cursor: pointer; }
     transition: background .18s ease, box-shadow .18s ease;
 }
 
-.btn-home:hover,
-.btn-home:focus-visible {
+.btn-home:hover, .btn-home:focus-visible {
     background: rgba(255, 77, 0, .10);
     box-shadow: 0 0 0 3px rgba(255, 77, 0, .10);
     outline: none;
 }
 
-/* Menu lateral */
 #menu-lateral {
     grid-column: 2;
     grid-row: 1;
@@ -102,15 +94,13 @@ button { cursor: pointer; }
     transition: background .18s ease, border-color .18s ease;
 }
 
-.btn-principal:hover,
-.btn-principal:focus-visible {
+.btn-principal:hover, .btn-principal:focus-visible {
     border-color: #404040;
     background: var(--item-hover);
     outline: none;
 }
 
-.btn-principal.ativo,
-.btn-principal.aberto {
+.btn-principal.ativo, .btn-principal.aberto {
     border-color: rgba(255, 77, 0, .48);
     border-left-color: var(--laranja);
     background: #2c211d;
@@ -125,7 +115,6 @@ button { cursor: pointer; }
 
 .btn-principal.aberto .seta { transform: rotate(180deg); }
 
-/* Submenus: ficam dentro do menu, sem deslocar ou invadir o conteúdo. */
 .submenu {
     max-height: 0;
     margin: 0 0 0 15px;
@@ -173,22 +162,17 @@ button { cursor: pointer; }
     background: #777;
 }
 
-.submenu button:hover,
-.submenu button:focus-visible,
-.submenu button.sub-ativo {
+.submenu button:hover, .submenu button:focus-visible, .submenu button.sub-ativo {
     background: rgba(255, 77, 0, .11);
     color: var(--texto);
     outline: none;
 }
 
-.submenu button:hover::before,
-.submenu button:focus-visible::before,
-.submenu button.sub-ativo::before {
+.submenu button:hover::before, .submenu button:focus-visible::before, .submenu button.sub-ativo::before {
     background: var(--laranja);
     box-shadow: 0 0 7px rgba(255, 77, 0, .65);
 }
 
-/* Área de conteúdo */
 main {
     grid-column: 3;
     grid-row: 1;
@@ -231,7 +215,6 @@ main {
     line-height: 1.7;
 }
 
-/* Botão de retorno ao topo */
 .btn-inicio {
     position: fixed;
     right: 20px;
@@ -247,8 +230,7 @@ main {
     transition: background .18s ease, transform .18s ease;
 }
 
-.btn-inicio:hover,
-.btn-inicio:focus-visible {
+.btn-inicio:hover, .btn-inicio:focus-visible {
     background: var(--laranja);
     transform: translateY(-2px);
     outline: none;
@@ -282,7 +264,6 @@ main {
     }
 
     .barra-topo-mobile h2 { margin: 0; font-size: 1.05rem; }
-
     .btn-menu-toggle {
         width: 42px;
         height: 42px;
@@ -311,13 +292,7 @@ main {
     #menu-lateral > h2 { margin-bottom: 20px; padding-bottom: 18px; font-size: 1.55rem; }
     .btn-principal { min-height: 56px; }
 
-    .overlay {
-        position: fixed;
-        inset: 0;
-        z-index: 1500;
-        background: rgba(0, 0, 0, .68);
-    }
-
+    .overlay { position: fixed; inset: 0; z-index: 1500; background: rgba(0, 0, 0, .68); }
     .overlay.ativo { display: block; }
     main { padding: 24px 16px 42px; }
     .caixa-conteudo { min-height: 420px; padding: 31px 24px; border-left-width: 4px; }
