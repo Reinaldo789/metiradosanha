@@ -27,15 +27,21 @@ button, a { font: inherit; }
 button { cursor: pointer; }
 .barra-topo-mobile, .overlay { display: none; }
 
+/* ==============================
+   AÇÕES DO MENU (HOME + TOPO)
+================================ */
 .acoes-menu {
-    display: flex;
-    gap: 10px; /* Espaço entre os dois botões */
-    margin-bottom: 15px;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 10px;
     width: 100%;
+    margin-bottom: 15px;
+    box-sizing: border-box;
 }
 
-.btn-home,
-.btn-topo-menu {
+/* Estilo unificado para ambos os botões */
+.acoes-menu .btn-home,
+.acoes-menu .btn-topo-menu {
     height: 48px;
     display: flex;
     align-items: center;
@@ -47,23 +53,25 @@ button { cursor: pointer; }
     border-radius: 6px;
     font-size: 15px;
     font-weight: 600;
+    font-family: inherit;
     cursor: pointer;
     transition: .2s;
     box-sizing: border-box;
+    margin: 0 !important; /* Limpa margens indesejadas */
 }
 
-/* O botão Home ocupa 65% e o botão Topo ocupa 35% */
-.btn-home {
+/* Divisão de espaço: Home maior, Topo menor */
+.acoes-menu .btn-home {
     flex: 2;
-    margin-bottom: 0; /* Limpa margens antigas */
 }
 
-.btn-topo-menu {
+.acoes-menu .btn-topo-menu {
     flex: 1;
 }
 
-.btn-home:hover,
-.btn-topo-menu:hover {
+/* Efeito Hover */
+.acoes-menu .btn-home:hover,
+.acoes-menu .btn-topo-menu:hover {
     background: #ff4500;
     color: #fff;
 }
