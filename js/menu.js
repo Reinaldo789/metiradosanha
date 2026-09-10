@@ -1,160 +1,63 @@
-document.addEventListener("DOMContentLoaded", function () {
-
-    /* */
-
+document.addEventListener("DOMContentLoaded", () => {
     const menu = document.getElementById("menu-lateral");
     const overlay = document.getElementById("overlay");
     const botaoMenu = document.getElementById("btn-menu");
-    const botaoInicio = document.getElementById("btn-subir");
-    const botaoHome = document.getElementById("btn-home");
-
+    const botaoInicio = document.getElementById("btn-inicio");
     const botoesPrincipais = document.querySelectorAll(".btn-principal");
     const botoesConteudo = document.querySelectorAll("[data-conteudo]");
 
+    const fecharMenu = () => {
+        menu?.classList.remove("menu-visivel");
+        overlay?.classList.remove("ativo");
+        botaoMenu?.setAttribute("aria-expanded", "false");
+    };
 
-    /* ================================
-       MENU MOBILE
-    ================================= */
+    const abrirMenu = () => {
+        menu?.classList.add("menu-visivel");
+        overlay?.classList.add("ativo");
+        botaoMenu?.setAttribute("aria-expanded", "true");
+    };
 
-    function abrirMenu() {
-        if (!menu || !overlay) return;
-        menu.classList.add("menu-visivel");
-        overlay.classList.add("ativo");
-    }
+    botaoMenu?.addEventListener("click", () => {
+        menu?.classList.contains("menu-visivel") ? fecharMenu() : abrirMenu();
+    });
 
-    function fecharMenu() {
-        if (!menu || !overlay) return;
-        menu.classList.remove("menu-visivel");
-        overlay.classList.remove("ativo");
-    }
+    overlay?.addEventListener("click", fecharMenu);
 
-    /* BOTÃO ☰ */
-    if (botaoMenu) {
-        botaoMenu.addEventListener("click", function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            if (menu.classList.contains("menu-visivel")) {
-                fecharMenu();
-            } else {
-                abrirMenu();
-            }
-        });
-    }
-
-    /* CORTINA */
-    if (overlay) {
-        overlay.addEventListener("click", function () {
-            fecharMenu();
-        });
-    }
-
-
-    /* ================================
-       SUBMENUS
-    ================================= */
-
-    botoesPrincipais.forEach(function (botao) {
-        botao.addEventListener("click", function (e) {
-            e.preventDefault();
-
-            const id = botao.getAttribute("data-menu");
-            const submenu = document.getElementById(id);
-
+    botoesPrincipais.forEach((botao) => {
+        botao.setAttribute("aria-expanded", "false");
+        botao.addEventListener("click", () => {
+            const submenu = document.getElementById(botao.dataset.menu || "");
             if (!submenu) return;
 
-            const aberto = submenu.classList.contains("aberto");
+            const vaiAbrir = !submenu.classList.contains("aberto");
 
-            /* Fecha todos */
-            document.querySelectorAll(".submenu").forEach(function (item) {
-                item.classList.remove("aberto");
+            document.querySelectorAll(".submenu").forEach((item) => item.classList.remove("aberto"));
+            botoesPrincipais.forEach((item) => {
+                item.classList.remove("ativo", "aberto");
+                item.setAttribute("aria-expanded", "false");
             });
 
-            /* Retira ativo */
-            document.querySelectorAll(".btn-principal").forEach(function (item) {
-                item.classList.remove("ativo");
-                item.classList.remove("aberto");
-            });
-
-            /* Abre o escolhido */
-            if (!aberto) {
+            if (vaiAbrir) {
                 submenu.classList.add("aberto");
-                botao.classList.add("ativo");
-                botao.classList.add("aberto");
+                botao.classList.add("ativo", "aberto");
+                botao.setAttribute("aria-expanded", "true");
             }
         });
     });
 
-
-    /* ================================
-       CONTEÚDO
-    ================================= */
-
-    botoesConteudo.forEach(function (botao) {
-        botao.addEventListener("click", function () {
-            const id = botao.getAttribute("data-conteudo");
-
-            /*
-               Aqui você pode ligar futuramente
-               cada item à sua página.
-            */
-
-            botoesConteudo.forEach(function (item) {
-                item.classList.remove("sub-ativo");
-            });
-
+    botoesConteudo.forEach((botao) => {
+        botao.addEventListener("click", () => {
+            botoesConteudo.forEach((item) => item.classList.remove("sub-ativo"));
             botao.classList.add("sub-ativo");
-
-            /* Fecha o menu no celular */
-            if (window.innerWidth <= 768) {
-                fecharMenu();
-            }
+            if (window.innerWidth <= 768) fecharMenu();
         });
     });
 
+    window.addEventListener("scroll", () => {
+        if (botaoInicio) botaoInicio.style.display = window.scrollY > 300 ? "block" : "none";
+    }, { passive: true });
 
-    /* ================================
-       HOME
-    ================================= */
-
-    if (botaoHome) {
-        botaoHome.addEventListener("click", function (e) {
-            e.preventDefault(); // Evita recarregar a página desnecessariamente
-            window.location.href = "index.html";
-        });
-    }
-
-
-    /* ================================
-       BOTÃO VOLTAR AO TOPO
-    ================================= */
-
-    if (botaoInicio) {
-        window.addEventListener("scroll", function () {
-            if (window.scrollY > 300) {
-                botaoInicio.style.display = "block";
-            } else {
-                botaoInicio.style.display = "none";
-            }
-        });
-
-        botaoInicio.addEventListener("click", function () {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        });
-    }
-
-
-    /* ================================
-       ESC
-    ================================= */
-
-    document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") {
-            fecharMenu();
-        }
-    });
-
+    botaoInicio?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    document.addEventListener("keydown", (event) => { if (event.key === "Escape") fecharMenu(); });
 });
