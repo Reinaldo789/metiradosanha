@@ -40,10 +40,15 @@
     <!-- Este título aparece somente no computador -->
     <h2>Manual Técnico</h2>
 
-    <!-- BOTÃO HOME (INSERIDO DENTRO DO NAV) -->
-    <a href="index.html" class="btn-home">
-        🏠 Home
-    </a>
+    <!-- BOTÕES HOME E ROLAR PARA CIMA (LADO A LADO) -->
+    <div class="acoes-menu">
+        <a href="index.html" class="btn-home">
+            🏠 Home
+        </a>
+        <button type="button" class="btn-topo-menu" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Rolar para o topo">
+            ↑ Topo
+        </button>
+    </div>
 
     <!-- SISTEMA DE LUBRIFICAÇÃO -->
     <div class="item-menu">
