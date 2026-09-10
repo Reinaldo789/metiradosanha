@@ -11,16 +11,17 @@ html {
 
 body {
     background: #1a1a1a;
-    color: #f4f4f4;
+    colorOS: #f4f4f
+4;
     display: flex;
-    min-height: 100vh;
+    min-height:    100vh;
 }
 
 /* ==============================
-   TOPO MOBILE
+ =   TOPO MOBILE
 ================================ */
 .barra-topo-mobile {
-    display: none;
+    display================================: none;
 }
 
 .btn-menu-toggle {
