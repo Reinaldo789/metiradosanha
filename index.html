@@ -3,148 +3,384 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Manual Técnico - Sistemas Automotivos</title>
-    <link rel="stylesheet" href="css/estilo.css">
+
+    <link rel="stylesheet" href="css/estilo.css?v=2">
 </head>
 
 <body>
 
-    <!-- BARRA SUPERIOR SOMENTE NO CELULAR -->
-    <div class="barra-topo-mobile">
-        <h2>Manual Técnico</h2>
-        <button type="button" class="btn-menu-toggle" id="btn-menu">
-            ☰
-        </button>
-    </div>
+<!-- BARRA SUPERIOR SOMENTE NO CELULAR -->
+<div class="barra-topo-mobile">
 
-    <!-- OVERLAY (FUNDO ESCURO NO MOBILE) -->
-    <div class="overlay" id="overlay"></div>
+    <h2>Manual Técnico</h2>
 
-    <!-- BOTÃO HOME (Corrigido com o ID) -->
-    <a href="index.html" class="btn-home" id="btn-home">
-        🏠 Home
-    </a>
-
-    <!-- MENU LATERAL -->
-    <nav id="menu-lateral">
-        <h2>Manual Técnico</h2>
-
-        <!-- SISTEMA DE LUBRIFICAÇÃO -->
-        <div class="item-menu">
-            <button type="button" class="btn-principal" data-menu="lubrificacao">
-                <span>Sistema de Lubrificação</span>
-                <span class="seta">▼</span>
-            </button>
-            <ul id="lubrificacao" class="submenu">
-                <li><button type="button" data-conteudo="tab_lubrificacao">Tabela de Lubrificação</button></li>
-                <li><button type="button" data-conteudo="luz_pressao">Luz e Pressão</button></li>
-            </ul>
-        </div>
-
-        <!-- SISTEMA ELÉTRICO -->
-        <div class="item-menu">
-            <button type="button" class="btn-principal" data-menu="eletrico">
-                <span>Sistema Elétrico</span>
-                <span class="seta">▼</span>
-            </button>
-            <ul id="eletrico" class="submenu">
-                <li><button type="button" data-conteudo="fusiveis">Fusíveis e Lâmpadas</button></li>
-                <li><button type="button" data-conteudo="farol">Farol e Seta</button></li>
-            </ul>
-        </div>
-
-        <!-- LINHA COMBUSTÍVEL -->
-        <div class="item-menu">
-            <button type="button" class="btn-principal" data-menu="combustivel">
-                <span>Linha Combustível</span>
-                <span class="seta">▼</span>
-            </button>
-            <ul id="combustivel" class="submenu">
-                <li><button type="button" data-conteudo="tanque">Tanque, Filtro, Mang.</button></li>
-                <li><button type="button" data-conteudo="bomba_eletrica">Bomba Elétrica</button></li>
-                <li><button type="button" data-conteudo="bomba_engrenagem">Bomba Engrenagem</button></li>
-                <li><button type="button" data-conteudo="valvula_kuv">Válvula KUV</button></li>
-                <li><button type="button" data-conteudo="bomba_alta">Bomba Alta Pressão</button></li>
-                <li><button type="button" data-conteudo="tubo_rail">Tubo Rail</button></li>
-            </ul>
-        </div>
-
-        <!-- SENSORES E ATUADORES -->
-        <div class="item-menu">
-            <button type="button" class="btn-principal" data-menu="sensores">
-                <span>Sensores e Atuadores</span>
-                <span class="seta">▼</span>
-            </button>
-            <ul id="sensores" class="submenu">
-                <li><button type="button" data-conteudo="valvula_mprop">Válvula MProp</button></li>
-                <li><button type="button" data-conteudo="sensor_rotacao">Sensor Rotação</button></li>
-                <li><button type="button" data-conteudo="sensor_fase">Sensor Fase</button></li>
-                <li><button type="button" data-conteudo="sensor_pres_adm">Sensor Pres. Adm</button></li>
-                <li><button type="button" data-conteudo="pedal_acelerador">Pedal Acelerador</button></li>
-                <li><button type="button" data-conteudo="sensor_temp_ecm">Sensor Temp. ECM</button></li>
-                <li><button type="button" data-conteudo="modulador_turbina">Modulador Turbina</button></li>
-                <li><button type="button" data-conteudo="sensor_pres_rail">Sensor Pres. Rail</button></li>
-                <li><button type="button" data-conteudo="bicos_injetores">Bicos Injetores</button></li>
-            </ul>
-        </div>
-
-        <!-- ADMISSÃO E ESCAPE -->
-        <div class="item-menu">
-            <button type="button" class="btn-principal" data-menu="admissao">
-                <span>Admissão e Escape</span>
-                <span class="seta">▼</span>
-            </button>
-            <ul id="sensores" class="submenu">
-                <li><button type="button" data-conteudo="filtros_mangueiras">Filtros e Mangueiras</button></li>
-                <li><button type="button" data-conteudo="turbina">Turbina</button></li>
-            </ul>
-        </div>
-
-        <!-- SISTEMA DE DIREÇÃO -->
-        <div class="item-menu">
-            <button type="button" class="btn-principal" data-menu="direcao">
-                <span>Sistema de Direção</span>
-                <span class="seta">▼</span>
-            </button>
-            <ul id="direcao" class="submenu">
-                <li><button type="button" data-conteudo="bomba_direcao">Bomba de Direção</button></li>
-                <li><button type="button" data-conteudo="caixa_direcao">Caixa de Direção</button></li>
-                <li><button type="button" data-conteudo="oleo_direcao">Óleo de Direção</button></li>
-            </ul>
-        </div>
-
-        <!-- SISTEMAS DE FREIOS -->
-        <div class="item-menu">
-            <button type="button" class="btn-principal" data-menu="freios">
-                <span>Sistemas de Freios</span>
-                <span class="seta">▼</span>
-            </button>
-            <ul id="freios" class="submenu">
-                <li><button type="button" data-conteudo="bomba_vacuo">Bomba de Vácuo</button></li>
-                <li><button type="button" data-conteudo="freios_traseiros">Freios Traseiros / Mão</button></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- CONTEÚDO PRINCIPAL -->
-    <main>
-        <div class="caixa-conteudo">
-            <h1 id="titulo-sistema">Bem-vindo ao Manual Técnico</h1>
-            <div id="categoria-sistema">Sistemas Automotivos</div>
-            <p id="texto-sistema">
-                Selecione uma categoria no menu e depois um
-                componente para visualizar as informações técnicas.
-            </p>
-        </div>
-    </main>
-
-    <!-- BOTÃO VOLTAR AO INÍCIO -->
-    <button type="button" id="btn-inicio" class="btn-inicio" title="Voltar ao início">
-        ↑
+    <button
+        type="button"
+        class="btn-menu-toggle"
+        id="btn-menu">
+        ☰
     </button>
 
-    <script src="js/menu.js"></script>
-</body>
+</div>
 
+<div
+    class="overlay"
+    id="overlay">
+</div>
+
+
+
+    
+<!-- BOTÃO HOME -->
+<a href="index.html" class="btn-home">
+    🏠 Home
+</a>
+
+<!-- MENU LATERAL -->
+<nav id="menu-lateral">
+
+    <!-- Este título aparece somente no computador -->
+    <h2>Manual Técnico</h2>
+
+
+    <!-- SISTEMA DE LUBRIFICAÇÃO -->
+    <div class="item-menu">
+
+        <button
+            type="button"
+            class="btn-principal"
+            data-menu="lubrificacao">
+
+            <span>Sistema de Lubrificação</span>
+            <span class="seta">▼</span>
+
+        </button>
+
+        <ul id="lubrificacao" class="submenu">
+
+            <li>
+                <button type="button" data-conteudo="tab_lubrificacao">
+                    Tabela de Lubrificação
+                </button>
+            </li>
+
+            <li>
+                <button type="button" data-conteudo="luz_pressao">
+                    Luz e Pressão
+                </button>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- SISTEMA ELÉTRICO -->
+    <div class="item-menu">
+
+        <button
+            type="button"
+            class="btn-principal"
+            data-menu="eletrico">
+
+            <span>Sistema Elétrico</span>
+            <span class="seta">▼</span>
+
+        </button>
+
+        <ul id="eletrico" class="submenu">
+
+            <li>
+                <button type="button" data-conteudo="fusiveis">
+                    Fusíveis e Lâmpadas
+                </button>
+            </li>
+
+            <li>
+                <button type="button" data-conteudo="farol">
+                    Farol e Seta
+                </button>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- LINHA COMBUSTÍVEL -->
+    <div class="item-menu">
+
+        <button
+            type="button"
+            class="btn-principal"
+            data-menu="combustivel">
+
+            <span>Linha Combustível</span>
+            <span class="seta">▼</span>
+
+        </button>
+
+        <ul id="combustivel" class="submenu">
+
+            <li>
+                <button type="button" data-conteudo="tanque">
+                    Tanque, Filtro, Mang.
+                </button>
+            </li>
+
+            <li>
+                <button type="button" data-conteudo="bomba_eletrica">
+                    Bomba Elétrica
+                </button>
+            </li>
+
+            <li>
+                <button type="button" data-conteudo="bomba_engrenagem">
+                    Bomba Engrenagem
+                </button>
+            </li>
+
+            <li>
+                <button type="button" data-conteudo="valvula_kuv">
+                    Válvula KUV
+                </button>
+            </li>
+
+            <li>
+                <button type="button" data-conteudo="bomba_alta">
+                    Bomba Alta Pressão
+                </button>
+            </li>
+
+            <li>
+                <button type="button" data-conteudo="tubo_rail">
+                    Tubo Rail
+                </button>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- SENSORES E ATUADORES -->
+    <div class="item-menu">
+
+        <button
+            type="button"
+            class="btn-principal"
+            data-menu="sensores">
+
+            <span>Sensores e Atuadores</span>
+            <span class="seta">▼</span>
+
+        </button>
+
+        <ul id="sensores" class="submenu">
+
+            <li>
+                <button type="button" data-conteudo="valvula_mprop">
+                    Válvula MProp
+                </button>
+            </li>
+
+            <li>
+                <button type="button" data-conteudo="sensor_rotacao">
+                    Sensor Rotação
+                </button>
+            </li>
+
+            <li>
+                <button type="button" data-conteudo="sensor_fase">
+                    Sensor Fase
+                </button>
+            </li>
+
+            <li>
+                <button type="button" data-conteudo="sensor_pres_adm">
+                    Sensor Pres. Adm
+                </button>
+            </li>
+
+            <li>
+                <button type="button" data-conteudo="pedal_acelerador">
+                    Pedal Acelerador
+                </button>
+            </li>
+
+            <li>
+                <button type="button" data-conteudo="sensor_temp_ecm">
+                    Sensor Temp. ECM
+                </button>
+            </li>
+
+            <li>
+                <button type="button" data-conteudo="modulador_turbina">
+                    Modulador Turbina
+                </button>
+            </li>
+
+            <li>
+                <button type="button" data-conteudo="sensor_pres_rail">
+                    Sensor Pres. Rail
+                </button>
+            </li>
+
+            <li>
+                <button type="button" data-conteudo="bicos_injetores">
+                    Bicos Injetores
+                </button>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- ADMISSÃO E ESCAPE -->
+    <div class="item-menu">
+
+        <button
+            type="button"
+            class="btn-principal"
+            data-menu="admissao">
+
+            <span>Admissão e Escape</span>
+            <span class="seta">▼</span>
+
+        </button>
+
+        <ul id="admissao" class="submenu">
+
+            <li>
+                <button type="button" data-conteudo="filtros_mangueiras">
+                    Filtros e Mangueiras
+                </button>
+            </li>
+
+            <li>
+                <button type="button" data-conteudo="turbina">
+                    Turbina
+                </button>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- SISTEMA DE DIREÇÃO -->
+    <div class="item-menu">
+
+        <button
+            type="button"
+            class="btn-principal"
+            data-menu="direcao">
+
+            <span>Sistema de Direção</span>
+            <span class="seta">▼</span>
+
+        </button>
+
+        <ul id="direcao" class="submenu">
+
+            <li>
+                <button type="button" data-conteudo="bomba_direcao">
+                    Bomba de Direção
+                </button>
+            </li>
+
+            <li>
+                <button type="button" data-conteudo="caixa_direcao">
+                    Caixa de Direção
+                </button>
+            </li>
+
+            <li>
+                <button type="button" data-conteudo="oleo_direcao">
+                    Óleo de Direção
+                </button>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- SISTEMAS DE FREIOS -->
+    <div class="item-menu">
+
+        <button
+            type="button"
+            class="btn-principal"
+            data-menu="freios">
+
+            <span>Sistemas de Freios</span>
+            <span class="seta">▼</span>
+
+        </button>
+
+        <ul id="freios" class="submenu">
+
+            <li>
+                <button type="button" data-conteudo="bomba_vacuo">
+                    Bomba de Vácuo
+                </button>
+            </li>
+
+            <li>
+                <button type="button" data-conteudo="freios_traseiros">
+                    Freios Traseiros / Mão
+                </button>
+            </li>
+
+        </ul>
+
+    </div>
+
+</nav>
+
+
+<!-- CONTEÚDO -->
+<main>
+
+    <div class="caixa-conteudo">
+
+        <h1 id="titulo-sistema">
+            Bem-vindo ao Manual Técnico
+        </h1>
+
+        <div id="categoria-sistema">
+            Sistemas Automotivos
+        </div>
+
+        <p id="texto-sistema">
+            Selecione uma categoria no menu e depois um
+            componente para visualizar as informações técnicas.
+        </p>
+
+    </div>
+
+</main>
+
+
+
+
+    <!-- BOTÃO VOLTAR AO INÍCIO -->
+<button
+    type="button"
+    id="btn-inicio"
+    class="btn-inicio"
+    title="Voltar ao início">
+    ↑
+</button>
+
+<script src="js/menu.js"></script>
+
+</body>
 </html>
