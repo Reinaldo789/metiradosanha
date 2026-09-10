@@ -34,29 +34,31 @@ body {
 }
 
 /* ==============================
-   BOTÕES DE NAVEGAÇÃO
+   BOTÃO HOME
 ================================ */
-.botoes-navegacao {
+.btn-home {
+    position: fixed;
+    top: 98px;
+    left: 20px;
+    width: 169px;
+    height: 50px;
     display: flex;
-    gap: 10px;
-    margin-bottom: 18px;
-}
-
-.btn-navegacao {
-    flex: 1;
-    min-height: 50px;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
     background: #222;
     color: #fff;
     border: 1px solid #ff4500;
     border-radius: 6px;
     font-size: 16px;
     font-weight: 600;
-    cursor: pointer;
+    z-index: 2100;
     transition: .2s;
 }
 
-.btn-navegacao:hover {
+.btn-home:hover {
     background: #ff4500;
+    color: #fff;
 }
 
 /* ==============================
@@ -254,6 +256,16 @@ p {
         text-transform: uppercase;
     }
 
+    .btn-home {
+        position: static;
+        width: auto;
+        height: auto;
+        margin: 12px 15px 0;
+        padding: 10px 15px;
+        display: inline-flex;
+        z-index: auto;
+    }
+
     nav {
         position: fixed;
         top: 0;
@@ -276,15 +288,6 @@ p {
         display: block;
         font-size: 19px;
         margin-bottom: 20px;
-    }
-
-    .botoes-navegacao {
-        margin-bottom: 18px;
-    }
-
-    .btn-navegacao {
-        min-height: 46px;
-        font-size: 15px;
     }
 
     .overlay {
