@@ -46,11 +46,11 @@ body {
     background: #222;
     color: #fff;
     border: 1px solid #ff4500;
-    border-radius: 5px;
-    font-size: 15px;
+    border-radius: 6px;
+    font-size: 16px;
     font-weight: 600;
     transition: .2s;
-    margin-bottom: 15px; /* Cria um espaço em relação ao primeiro item do menu */
+    margin-bottom: 15px; /* Espaço em relação ao título / itens */
 }
 
 .btn-home:hover {
@@ -225,15 +225,14 @@ p {
 /* ==============================
    CELULAR
 ================================ */
-/*@media (max-width: 768px)*/ {
-.btn-home {
-    margin: 0 0 15px 0;
-    width: 100%;
-}
-    body {
-        display: block;
-        padding-top: 70px;
+@media (max-width: 768px) {
+    /* ... outros estilos mobile ... */
+
+    .btn-home {
+        width: 100%;
+        margin-bottom: 15px;
     }
+}
 
     .barra-topo-mobile {
         display: flex;
