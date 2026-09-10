@@ -7,7 +7,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const menu = document.getElementById("menu-lateral");
     const overlay = document.getElementById("overlay");
     const botaoMenu = document.getElementById("btn-menu");
-    const botaoInicio = document.getElementById("btn-inicio");
+    const botaoInicio = document.getElementById("btn-subir");
+    const botaoInicioMenu = document.getElementById("btn-inicio-menu");
+    const botaoHome = document.getElementById("btn-home");
 
     const botoesPrincipais =
         document.querySelectorAll(".btn-principal");
@@ -184,7 +186,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* ================================
-       BOTÃO INÍCIO
+       HOME E INÍCIO DO MENU
+    ================================= */
+
+    if (botaoHome) {
+        botaoHome.addEventListener("click", function () {
+            window.location.href = "index.html";
+        });
+    }
+
+    if (botaoInicioMenu) {
+        botaoInicioMenu.addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            if (window.innerWidth <= 768) fecharMenu();
+        });
+    }
+
+    /* ================================
+       BOTÃO VOLTAR AO TOPO
     ================================= */
 
     if (botaoInicio) {
