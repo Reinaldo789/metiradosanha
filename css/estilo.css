@@ -1,84 +1,48 @@
-/* --- Container do Menu Lateral --- */
+/* Container que segura o Menu e o Conteúdo */
+.main-container {
+    display: flex; /* Coloca um ao lado do outro */
+    width: 100%;
+    height: calc(100vh - 70px); /* Altura total menos o cabeçalho */
+    overflow: hidden; /* Evita barras de rolagem duplas */
+}
+
+/* --- MENU LATERAL --- */
 #menu-lateral {
-    background-color: #222;
-    height: 100%;
+    width: 280px; /* LARGURA FIXA! Isso impede que ele seja espremido */
+    min-width: 280px; /* Garante que ele não encolha */
+    background-color: #1a1a1a;
+    border-right: 2px solid #ff5722; /* Linha laranja divisória */
     padding: 20px;
+    overflow-y: auto; /* Permite rolar o menu se for muito grande */
     display: flex;
-    flex-direction: column; /* Coloca o Título e os Links um embaixo do outro */
-    gap: 20px; /* Espaço entre o Título e o primeiro link */
+    flex-direction: column;
+    gap: 15px;
 }
 
-#menu-lateral h2 {
-    color: #ff5722;
-    font-size: 1rem;
-    margin: 0;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #333; /* Linha separadora do título */
-}
-
-/* --- Container dos Links --- */
-.menu-links {
-    display: flex;
-    flex-direction: column; /* Um item embaixo do outro */
-    gap: 10px; /* Espaço entre cada botão do menu */
-    width: 100%;
-}
-
-/* --- Botão Home --- */
-.btn-home {
-    display: flex;           /* Transforma em flexível */
-    flex-direction: row;     /* Ícone e texto na MESMA LINHA */
-    align-items: center;     /* Centraliza verticalmente */
-    gap: 12px;               /* Espaço entre o ícone e o texto */
-    
+/* --- CONTEÚDO PRINCIPAL --- */
+.conteudo-principal {
+    flex: 1; /* MÁGICA: Ocupa TODO o espaço restante à direita do menu */
+    padding: 40px;
+    overflow-y: auto; /* Permite rolar apenas o conteúdo */
     color: #fff;
-    text-decoration: none;
-    background-color: #2a2a2a; /* Um fundo leve para destacar */
-    padding: 12px 15px;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: 0.3s;
-    width: 100%;             /* Ocupa a largura total do menu */
-    box-sizing: border-box;
+    /* Alinhamento do texto para a esquerda */
+    text-align: left; 
 }
 
-/* Efeito ao passar o mouse no Home */
-.btn-home:hover {
-    background-color: #333;
+/* Ajuste para o texto não ficar quebrando linha toda hora */
+.conteudo-principal p {
+    line-height: 1.6;
+    max-width: 800px; /* Limita a largura do texto para leitura confortável */
+}
+
+.conteudo-principal h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.conteudo-principal h2 {
     color: #ff5722;
-}
-
-/* Ajuste dos ícones */
-.icone {
     font-size: 1.2rem;
-}
-
-/* --- Botões Principais (Sistema de Lubrificação) --- */
-.item-menu {
-    width: 100%;
-}
-
-.btn-principal {
-    display: flex;
-    justify-content: space-between; /* Texto na esquerda, seta na direita */
-    align-items: center;
-    width: 100%;
-    padding: 12px 15px;
-    background-color: #2a2a2a;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.95rem;
-    text-align: left;
-    transition: 0.3s;
-}
-
-.btn-principal:hover {
-    background-color: #333;
-}
-
-.seta {
-    font-size: 0.8rem;
-    color: #ff5722;
+    margin-top: 30px;
+    margin-bottom: 15px;
 }
