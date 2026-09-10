@@ -1,4 +1,3 @@
-/* Adicione estas regras ao final do seu css/estilo.css atual. */
 :root {
     --fundo: #181818;
     --barra: #121212;
@@ -12,10 +11,8 @@
     --laranja: #ff4d00;
 }
 
-#menu-lateral { padding-bottom: 32px; }
 * { box-sizing: border-box; }
 
-#menu-lateral > h2 {
 html { scroll-behavior: smooth; }
 
 body {
@@ -44,7 +41,6 @@ button { cursor: pointer; }
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin-bottom: 22px;
     width: calc(100% - 38px);
     min-height: 62px;
     margin: 128px 19px 0;
@@ -57,12 +53,6 @@ button { cursor: pointer; }
     transition: background .18s ease, box-shadow .18s ease;
 }
 
-#menu-lateral > h2::before {
-    content: "";
-    width: 5px;
-    height: 28px;
-    border-radius: 999px;
-    background: #ff4d00;
 .btn-home:hover,
 .btn-home:focus-visible {
     background: rgba(255, 77, 0, .10);
@@ -70,7 +60,6 @@ button { cursor: pointer; }
     outline: none;
 }
 
-.item-menu { position: relative; margin-bottom: 8px; }
 /* Menu lateral */
 #menu-lateral {
     grid-column: 2;
@@ -95,9 +84,6 @@ button { cursor: pointer; }
 .item-menu { margin-bottom: 9px; }
 
 .btn-principal {
-    position: relative;
-    min-height: 54px;
-    border: 1px solid #303030;
     width: 100%;
     min-height: 57px;
     display: flex;
@@ -107,11 +93,6 @@ button { cursor: pointer; }
     padding: 13px 16px 13px 18px;
     border: 1px solid transparent;
     border-left: 3px solid transparent;
-    border-radius: 9px;
-    background: linear-gradient(115deg, #262626, #202020);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .14);
-    transition: border-color .18s ease, background .18s ease,
-        box-shadow .18s ease, transform .18s ease;
     border-radius: 7px;
     background: var(--item);
     color: var(--texto);
@@ -123,11 +104,6 @@ button { cursor: pointer; }
 
 .btn-principal:hover,
 .btn-principal:focus-visible {
-    border-color: #4a4a4a;
-    border-left-color: #ff4d00;
-    background: #2b2b2b;
-    box-shadow: 0 7px 16px rgba(0, 0, 0, .20);
-    transform: translateX(3px);
     border-color: #404040;
     background: var(--item-hover);
     outline: none;
@@ -135,23 +111,12 @@ button { cursor: pointer; }
 
 .btn-principal.ativo,
 .btn-principal.aberto {
-    border-color: rgba(255, 77, 0, .55);
-    border-left-color: #ff4d00;
-    background: linear-gradient(115deg, #31231e, #24201e);
     border-color: rgba(255, 77, 0, .48);
     border-left-color: var(--laranja);
     background: #2c211d;
 }
 
 .seta {
-    width: 27px;
-    height: 27px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    background: rgba(255, 77, 0, .12);
-    color: #ff6a2c;
-    font-size: .72rem;
     flex: 0 0 auto;
     color: #ff8a5c;
     font-size: .9rem;
@@ -162,9 +127,6 @@ button { cursor: pointer; }
 
 /* Submenus: ficam dentro do menu, sem deslocar ou invadir o conteúdo. */
 .submenu {
-    margin: 2px 0 4px 13px;
-    padding-left: 10px;
-    border-left: 1px solid #393939;
     max-height: 0;
     margin: 0 0 0 15px;
     padding: 0 0 0 12px;
@@ -186,10 +148,6 @@ button { cursor: pointer; }
 .submenu li { margin: 0; }
 
 .submenu button {
-    position: relative;
-    padding: 9px 12px;
-    border-radius: 6px;
-    color: #bdbdbd;
     width: 100%;
     display: flex;
     align-items: center;
@@ -207,22 +165,17 @@ button { cursor: pointer; }
 
 .submenu button::before {
     content: "";
-    display: inline-block;
     width: 5px;
     height: 5px;
-    margin: 0 9px 2px 1px;
     flex: 0 0 5px;
     margin-right: 9px;
     border-radius: 50%;
-    background: #6b6b6b;
     background: #777;
 }
 
 .submenu button:hover,
 .submenu button:focus-visible,
 .submenu button.sub-ativo {
-    background: rgba(255, 77, 0, .09);
-    color: #fff;
     background: rgba(255, 77, 0, .11);
     color: var(--texto);
     outline: none;
@@ -231,8 +184,6 @@ button { cursor: pointer; }
 .submenu button:hover::before,
 .submenu button:focus-visible::before,
 .submenu button.sub-ativo::before {
-    background: #ff4d00;
-    box-shadow: 0 0 8px rgba(255, 77, 0, .7);
     background: var(--laranja);
     box-shadow: 0 0 7px rgba(255, 77, 0, .65);
 }
@@ -315,8 +266,6 @@ main {
 }
 
 @media (max-width: 768px) {
-    #menu-lateral { padding-bottom: 28px; }
-    .btn-principal:hover { transform: none; }
     body { display: block; padding-top: 64px; }
 
     .barra-topo-mobile {
