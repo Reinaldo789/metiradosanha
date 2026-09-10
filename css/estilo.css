@@ -27,30 +27,45 @@ button, a { font: inherit; }
 button { cursor: pointer; }
 .barra-topo-mobile, .overlay { display: none; }
 
-.btn-home {
-    grid-column: 1;
-    grid-row: 1;
-    align-self: start;
+.acoes-menu {
+    display: flex;
+    gap: 10px; /* Espaço entre os dois botões */
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.btn-home,
+.btn-topo-menu {
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    width: calc(100% - 38px);
-    min-height: 62px;
-    margin: 128px 19px 0;
-    border: 1px solid var(--laranja);
-    border-radius: 8px;
-    color: var(--texto);
-    background: transparent;
     text-decoration: none;
-    font-weight: 700;
-    transition: background .18s ease, box-shadow .18s ease;
+    background: #222;
+    color: #fff;
+    border: 1px solid #ff4500;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+    box-sizing: border-box;
 }
 
-.btn-home:hover, .btn-home:focus-visible {
-    background: rgba(255, 77, 0, .10);
-    box-shadow: 0 0 0 3px rgba(255, 77, 0, .10);
-    outline: none;
+/* O botão Home ocupa 65% e o botão Topo ocupa 35% */
+.btn-home {
+    flex: 2;
+    margin-bottom: 0; /* Limpa margens antigas */
+}
+
+.btn-topo-menu {
+    flex: 1;
+}
+
+.btn-home:hover,
+.btn-topo-menu:hover {
+    background: #ff4500;
+    color: #fff;
 }
 
 #menu-lateral {
