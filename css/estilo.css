@@ -37,19 +37,8 @@ body {
    BOTÃO HOME
 ================================ */
 .btn-home {
-    /* Alterado de fixed para relative ou block para respeitar o menu pai */
-    position: relative; 
-    
-    /* Removido top e left fixos */
-    /* top: 98px; */
-    /* left: 20px; */
-    
-    /* Largura adaptável com limite de segurança */
     width: 100%;
-    max-width: 100%;
-    box-sizing: border-box; /* Garante que a borda de 1px fique dentro do cálculo da largura */
-    
-    height: 50px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -57,12 +46,11 @@ body {
     background: #222;
     color: #fff;
     border: 1px solid #ff4500;
-    border-radius: 6px;
-    font-size: 16px;
+    border-radius: 5px;
+    font-size: 15px;
     font-weight: 600;
-    z-index: 2100;
     transition: .2s;
-    margin-bottom: 12px; /* Adiciona espaçamento em relação ao item de baixo */
+    margin-bottom: 15px; /* Cria um espaço em relação ao primeiro item do menu */
 }
 
 .btn-home:hover {
@@ -237,8 +225,11 @@ p {
 /* ==============================
    CELULAR
 ================================ */
-@media (max-width: 768px) {
-
+/*@media (max-width: 768px)*/ {
+.btn-home {
+    margin: 0 0 15px 0;
+    width: 100%;
+}
     body {
         display: block;
         padding-top: 70px;
