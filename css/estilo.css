@@ -176,7 +176,7 @@ button { cursor: pointer; }
     align-items: center;
     min-height: 48px;
     padding: 10px 16px;
-    border: 1px solid var(--laranja); /* Borda em cada botão */
+    border: 1px solid var(--verde); /* Borda em cada botão */
     border-radius: 6px;
     background: #222; /* Fundo escuro igual ao menu */
     color: var(--texto);
