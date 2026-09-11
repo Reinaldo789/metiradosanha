@@ -171,7 +171,7 @@ button { cursor: pointer; }
 }
 
 .submenu button {
-    width: 60%;
+    width: 100%;
     display: flex;
     align-items: center;
     min-height: 48px;
