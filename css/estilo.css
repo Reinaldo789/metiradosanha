@@ -39,7 +39,6 @@ button { cursor: pointer; }
     box-sizing: border-box;
 }
 
-/* Estilo unificado para ambos os botões */
 .acoes-menu .btn-home,
 .acoes-menu .btn-topo-menu {
     height: 48px;
@@ -57,19 +56,12 @@ button { cursor: pointer; }
     cursor: pointer;
     transition: .2s;
     box-sizing: border-box;
-    margin: 0 !important; /* Limpa margens indesejadas */
+    margin: 0 !important;
 }
 
-/* Divisão de espaço: Home maior, Topo menor */
-.acoes-menu .btn-home {
-    flex: 2;
-}
+.acoes-menu .btn-home { flex: 2; }
+.acoes-menu .btn-topo-menu { flex: 1; }
 
-.acoes-menu .btn-topo-menu {
-    flex: 1;
-}
-
-/* Efeito Hover */
 .acoes-menu .btn-home:hover,
 .acoes-menu .btn-topo-menu:hover {
     background: #ff4500;
@@ -96,13 +88,22 @@ button { cursor: pointer; }
     text-transform: uppercase;
 }
 
+/* ==============================
+   CONTAINER UNIFICADO (CAIXA ÚNICA)
+================================ */
 .item-menu {
     margin-bottom: 9px;
-    background: var(--item); /* O fundo escuro fica na caixa inteira */
+    background: var(--item);
     border: 1px solid var(--linha);
     border-radius: 7px;
-    overflow: hidden; /* Garante que os cantos arredondados cortem o conteúdo interno */
+    overflow: hidden;
     transition: border-color .18s ease, background .18s ease;
+}
+
+.item-menu:has(.btn-principal.aberto),
+.item-menu:has(.btn-principal.ativo) {
+    border-color: var(--laranja);
+    background: #1c1c1c;
 }
 
 .btn-principal {
@@ -113,8 +114,8 @@ button { cursor: pointer; }
     justify-content: space-between;
     gap: 15px;
     padding: 13px 16px 13px 18px;
-    border: none; /* Remove bordas individuais */
-    background: transparent; /* Usa o fundo da caixa pai */
+    border: none;
+    background: transparent;
     color: var(--texto);
     text-align: left;
     font-weight: 700;
@@ -127,13 +128,6 @@ button { cursor: pointer; }
     outline: none;
 }
 
-/* Quando o menu estiver aberto, acende a borda da caixa inteira */
-.item-menu:has(.btn-principal.aberto),
-.item-menu:has(.btn-principal.ativo) {
-    border-color: var(--laranja);
-    background: #1c1c1c;
-}
-
 .seta {
     flex: 0 0 auto;
     color: #ff8a5c;
@@ -142,14 +136,6 @@ button { cursor: pointer; }
 }
 
 .btn-principal.aberto .seta { transform: rotate(180deg); }
-
-/* ==============================
-   SUBMENU COM BORDAS E ESTILO
-================================ */
-
-/* ==============================
-   SUBMENU COM BORDAS E ESTILO
-================================ */
 
 /* ==============================
    SUBMENU DENTRO DA MESMA CAIXA
@@ -164,27 +150,25 @@ button { cursor: pointer; }
     transition: max-height .28s ease, opacity .18s ease;
     display: flex;
     flex-direction: column;
-    background: rgba(0, 0, 0, 0.2); /* Fundo um pouco mais escuro para o submenu */
+    background: rgba(0, 0, 0, 0.2);
 }
 
 .submenu.aberto {
     max-height: 1000px;
     padding: 8px 0;
-    border-top: 1px solid var(--linha); /* Linha divisória discreta entre o título e os subitens */
+    border-top: 1px solid var(--linha);
     opacity: 1;
 }
 
-.submenu li {
-    margin: 0;
-}
+.submenu li { margin: 0; }
 
 .submenu button {
     width: 100%;
     display: flex;
     align-items: center;
     min-height: 42px;
-    padding: 8px 18px 8px 28px; /* Recuo para mostrar hierarquia */
-    border: none; /* Sem borda própria */
+    padding: 8px 18px 8px 28px;
+    border: none;
     border-left: 3px solid transparent;
     background: transparent;
     color: var(--texto-suave);
@@ -204,7 +188,6 @@ button { cursor: pointer; }
     background: #666;
 }
 
-/* Hover e estado ativo dentro do submenu */
 .submenu button:hover, 
 .submenu button:focus-visible, 
 .submenu button.sub-ativo {
@@ -286,13 +269,6 @@ main {
 #btn-inicio { display: none; }
 
 @media (max-width: 768px) {
-    .acoes-menu {
-        width: 100%;
-        margin-bottom: 15px;
-    }
-}
-
-@media (max-width: 768px) {
     body { display: block; padding-top: 64px; }
 
     .barra-topo-mobile {
@@ -309,6 +285,7 @@ main {
     }
 
     .barra-topo-mobile h2 { margin: 0; font-size: 1.05rem; }
+    
     .btn-menu-toggle {
         width: 42px;
         height: 42px;
@@ -319,7 +296,7 @@ main {
         font-size: 1.3rem;
     }
 
-    .btn-home { display: none; }
+    .acoes-menu { width: 100%; margin-bottom: 15px; }
 
     #menu-lateral {
         position: fixed;
