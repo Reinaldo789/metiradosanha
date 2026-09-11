@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela de Lubrificação - Manual Técnico</title>
+    <link rel="stylesheet" href="css/estilo.css?v=3">
+</head>
+<body>
+
+<div class="barra-topo-mobile">
+    <h2>Manual Técnico</h2>
+    <button type="button" class="btn-menu-toggle" id="btn-menu">☰</button>
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<nav id="menu-lateral">
+    <h2>Manual Técnico</h2>
+
+    <div class="acoes-menu">
+        <a href="index.html" class="btn-home">🏠 Home</a>
+        <button type="button" class="btn-topo-menu" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Rolar para o topo">
+            ↑ Topo
+        </button>
+    </div>
+
+    <!-- Mantenha o menu exatamente igual ao index.html -->
+    <div class="item-menu">
+        <button type="button" class="btn-principal aberto ativo" data-menu="lubrificacao">
+            <span>Sistema de Lubrificação</span>
+            <span class="seta">▼</span>
+        </button>
+
+        <ul id="lubrificacao" class="submenu aberto">
+            <li><a href="tabela-lubrificacao.html" class="sub-ativo">Tabela de Lubrificação</a></li>
+            <li><a href="luz-pressao.html">Luz e Pressão</a></li>
+        </ul>
+    </div>
+    
+    <!-- Outras categorias aqui... -->
+</nav>
+
+<!-- CONTEÚDO EXCLUSIVO DESTA PÁGINA -->
+<main>
+    <div class="caixa-conteudo">
+        <h1>Tabela de Lubrificação</h1>
+        <div id="categoria-sistema">Sistema de Lubrificação</div>
+        
+        <div id="texto-sistema">
+            <p>Especificações técnicas para troca de óleo, viscosidades recomendadas (ex: 5W30, 10W40) e intervalos de manutenção preventiva.</p>
+            <!-- Adicione mais detalhes ou tabelas técnicas aqui -->
+        </div>
+    </div>
+</main>
+
+<button type="button" id="btn-inicio" class="btn-inicio" title="Voltar ao início">↑</button>
+
+<script src="js/menu.js"></script>
+</body>
+</html>
