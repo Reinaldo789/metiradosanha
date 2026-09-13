@@ -363,7 +363,188 @@
 
         <p id="texto-sistema">
             Selecione uma categoria no menu e depois um
-            componente para visualizar as informações <!DOCTYPE html>
+            componente para visualizar as informações
+            
+            
+            <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Lubrificação</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f4;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        /* Cabeçalho Superior */
+        .header {
+            background-color: #f7ceab;
+            color: #1a1a1a;
+            text-align: center;
+            padding: 16px 10px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Conteúdo e Rolagem Responsiva */
+        .table-container {
+            padding: 12px;
+            width: 100%;
+            overflow-x: auto; /* Permite rolagem se a tela for menor que a tabela */
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+            min-width: 480px; /* Garante que os dados não fiquem espremidos no celular */
+        }
+
+        th, td {
+            border: 1px solid #1a1a1a;
+            padding: 8px 10px;
+            text-align: left;
+            white-space: nowrap; /* Evita quebras de linha indesejadas */
+        }
+
+        /* Cabeçalho da Tabela */
+        th {
+            background-color: #7b9ed7;
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+
+        /* Linhas da Tabela */
+        tbody tr {
+            background-color: #f9f4d9;
+            color: #1a1a1a;
+        }
+
+        .dash {
+            text-align: center;
+        }
+
+        /* Ajustes específicos para telas muito pequenas */
+        @media (max-width: 480px) {
+            .header {
+                font-size: 20px;
+                padding: 12px 5px;
+            }
+            .table-container {
+                padding: 8px 4px;
+            }
+            table {
+                font-size: 13px;
+                min-width: 100%; /* Força a caber no celular se possível */
+            }
+            th, td {
+                padding: 6px 6px;
+                white-space: normal; /* Permite quebrar linha no celular se necessário */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Título -->
+        <div class="header">
+            Resumo Lubrificação
+        </div>
+
+        <!-- Conteúdo com Rolagem Responsiva -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Óleo</th>
+                        <th>Viscosidade</th>
+                        <th>Qnt</th>
+                        <th>Troca</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Motor</td>
+                        <td>15W40 API CI-4</td>
+                        <td>8,5L</td>
+                        <td>10.000 km</td>
+                    </tr>
+                    <tr>
+                        <td>Câmbio</td>
+                        <td>80W90 API GL3/4</td>
+                        <td>3,5L</td>
+                        <td>40.000 Km</td>
+                    </tr>
+                    <tr>
+                        <td>CX Transf</td>
+                        <td>85W140 API GL 5</td>
+                        <td>0,6L</td>
+                        <td>40.000 km</td>
+                    </tr>
+                    <tr>
+                        <td>Diferencial Traseiro</td>
+                        <td>85W140 API GL 5</td>
+                        <td>3,8L (*)</td>
+                        <td>30.000 km</td>
+                    </tr>
+                    <tr>
+                        <td>Diferencial Dianteiro</td>
+                        <td>85W140 API GL 5</td>
+                        <td>1,8L (*)</td>
+                        <td>30.000 km</td>
+                    </tr>
+                    <tr>
+                        <td>Direção</td>
+                        <td>ATF TE-ML-09</td>
+                        <td>1,7L</td>
+                        <td class="dash">————</td>
+                    </tr>
+                    <tr>
+                        <td>Freio</td>
+                        <td>DOT 4 / 5</td>
+                        <td>1,0L</td>
+                        <td>12 meses</td>
+                    </tr>
+                    <tr>
+                        <td>Embreagem</td>
+                        <td>DOT 4 / 5</td>
+                        <td>0,28L</td>
+                        <td>12 meses</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
+
+            
+            
+             <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
