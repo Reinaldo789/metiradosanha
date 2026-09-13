@@ -363,7 +363,152 @@
 
         <p id="texto-sistema">
             Selecione uma categoria no menu e depois um
-            componente para visualizar as informações técnicas.
+            componente para visualizar as informações <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Lubrificação</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .header {
+            background-color: #f7ceab;
+            color: #1a1a1a;
+            text-align: center;
+            padding: 20px 10px;
+            font-size: 28px;
+            font-weight: 500;
+        }
+
+        .table-container {
+            background-color: #ffffff;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 16px;
+        }
+
+        th, td {
+            border: 1px solid #1a1a1a;
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        /* Cabeçalho da Tabela */
+        th {
+            background-color: #7b9ed7;
+            color: #1a1a1a;
+            font-weight: normal;
+        }
+
+        /* Linhas da Tabela */
+        tbody tr {
+            background-color: #f9f4d9;
+            color: #1a1a1a;
+        }
+
+        /* Centraliza os traços da célula vazia */
+        .dash {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Título -->
+        <div class="header">
+            Resumo Lubrificação
+        </div>
+
+        <!-- Conteúdo da Tabela -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Óleo</th>
+                        <th>Viscosidade</th>
+                        <th>Qnt</th>
+                        <th>Troca</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Motor</td>
+                        <td>15W40 API CI-4</td>
+                        <td>8,5L</td>
+                        <td>10.000 km</td>
+                    </tr>
+                    <tr>
+                        <td>Câmbio</td>
+                        <td>80W90 API GL3/4</td>
+                        <td>3,5L</td>
+                        <td>40.000 Km</td>
+                    </tr>
+                    <tr>
+                        <td>CX Transf</td>
+                        <td>85W140 API GL 5</td>
+                        <td>0,6L</td>
+                        <td>40.000 km</td>
+                    </tr>
+                    <tr>
+                        <td>Diferencial Traseiro</td>
+                        <td>85W140 API GL 5</td>
+                        <td>3,8L (*)</td>
+                        <td>30.000 km</td>
+                    </tr>
+                    <tr>
+                        <td>Diferencial Dianteiro</td>
+                        <td>85W140 API GL 5</td>
+                        <td>1,8L (*)</td>
+                        <td>30.000 km</td>
+                    </tr>
+                    <tr>
+                        <td>Direção</td>
+                        <td>ATF TE-ML-09</td>
+                        <td>1,7L</td>
+                        <td class="dash">————</td>
+                    </tr>
+                    <tr>
+                        <td>Freio</td>
+                        <td>DOT 4 / 5</td>
+                        <td>1,0L</td>
+                        <td>12 meses</td>
+                    </tr>
+                    <tr>
+                        <td>Embreagem</td>
+                        <td>DOT 4 / 5</td>
+                        <td>0,28L</td>
+                        <td>12 meses</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
+
+            
         </p>
 
     </div>
