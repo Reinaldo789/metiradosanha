@@ -3,186 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manual Técnico - Veicular</title>
-
-    <!-- Importação do arquivo CSS externo -->
+    <title>Meu Projeto no GitHub Pages</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Header Mobile (Aparece apenas em telas menores) -->
-    <div class="mobile-header">
-        <h2>Manual Técnico</h2>
-        <button class="toggle-btn" id="mobile-toggle" aria-label="Abrir Menu">☰ Menu</button>
-    </div>
-
-    <!-- Cabeçalho Principal e Menu Lateral -->
-    <header class="main_header">
-        <div>
-            <div class="main_header_logo">
-                <a href="#">
-                    <h1>Manual Técnico</h1>
-                </a>
-            </div>
-            
-            <nav id="sidebar">
-                <div class="mobile-quick-actions">
-                    <a href="#" class="quick-btn home-trigger"><span class="quick-icon">🏠</span> Home</a>
-                    <button type="button" class="quick-btn topo-menu-btn"><span class="quick-icon">↑</span> Topo</button>
-                </div>
-                <ul>
-                    <!-- Home (aparece no menu horizontal do desktop) -->
-                    <li class="home-item">
-                        <a href="#" class="link home-trigger"><span class="link-label">🏠 Home</span></a>
-                    </li>
-
-                    <!-- 1. Sistema de Lubrificação -->
-                    <li data-dropdown>
-                        <a href="#" class="link"><span class="link-label">Lubrificação</span><span class="link-arrow">▼</span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" data-page="paginas/sistema-de-lubrificacao/tabela-de-lubrificacao.html">Tabela de Lubrificação</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-lubrificacao/trocador-de-calor.html">Trocador de Calor</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-lubrificacao/luz-e-pressao.html">Luz e Pressão</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-lubrificacao/contaminacao.html">Contaminação</a></li>
-                        </ul>
-                    </li>
-
-                    <li data-dropdown>
-                        <a href="#" class="link"><span class="link-label">Elétrico</span><span class="link-arrow">▼</span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" data-page="paginas/sistema-eletrico/fusiveis-e-lampadas.html">Fusíveis e Lâmpadas</a></li>
-                            <li><a href="#" data-page="paginas/sistema-eletrico/alternador.html">Alternador</a></li>
-                            <li><a href="#" data-page="paginas/sistema-eletrico/farol-e-seta.html">Farol e Seta</a></li>
-                            <li><a href="#" data-page="paginas/sistema-eletrico/motor-de-partida.html">Motor de Partida</a></li>
-                            <li><a href="#" data-page="paginas/sistema-eletrico/obd-ii-e-ecm.html">OBD II e ECM</a></li>
-                            <li><a href="#" data-page="paginas/sistema-eletrico/inter-freio-embreagem.html">Inter. Freio/Embr.</a></li>
-                            <li><a href="#" data-page="paginas/sistema-eletrico/painel-instrumento.html">Painel Instrumento</a></li>
-                            <li><a href="#" data-page="paginas/sistema-eletrico/limpador-para-brisa.html">Limp. Para-brisa</a></li>
-                        </ul>
-                    </li>
-
-                    <li data-dropdown>
-                        <a href="#" class="link"><span class="link-label">Combustível</span><span class="link-arrow">▼</span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" data-page="paginas/linha-combustivel/tanque-filtro-mang.html">Tanque, Filtro, Mang.</a></li>
-                            <li><a href="#" data-page="paginas/linha-combustivel/bomba-eletrica.html">Bomba Elétrica</a></li>
-                            <li><a href="#" data-page="paginas/linha-combustivel/bomba-engrenagem.html">Bomba Engrenagem</a></li>
-                            <li><a href="#" data-page="paginas/linha-combustivel/valvula-kuv.html">Válvula KUV</a></li>
-                            <li><a href="#" data-page="paginas/linha-combustivel/bomba-alta-pressao.html">Bomba Alta Pressão</a></li>
-                            <li><a href="#" data-page="paginas/linha-combustivel/tubo-rail.html">Tubo Rail</a></li>
-                        </ul>
-                    </li>
-
-                    <li data-dropdown>
-                        <a href="#" class="link"><span class="link-label">Sensores</span><span class="link-arrow">▼</span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" data-page="paginas/sensores-e-atuadores/valvula-mprop.html">Válvula MProp</a></li>
-                            <li><a href="#" data-page="paginas/sensores-e-atuadores/sensor-rotacao.html">Sensor Rotação</a></li>
-                            <li><a href="#" data-page="paginas/sensores-e-atuadores/sensor-fase.html">Sensor Fase</a></li>
-                            <li><a href="#" data-page="paginas/sensores-e-atuadores/sensor-pres-adm.html">Sensor Pres. Adm</a></li>
-                            <li><a href="#" data-page="paginas/sensores-e-atuadores/pedal-acelerador.html">Pedal Acelerador</a></li>
-                            <li><a href="#" data-page="paginas/sensores-e-atuadores/sensor-temp-ecm.html">Sensor Temp. ECM</a></li>
-                            <li><a href="#" data-page="paginas/sensores-e-atuadores/modulador-turbina.html">Modulador Turbina</a></li>
-                            <li><a href="#" data-page="paginas/sensores-e-atuadores/sensor-pres-rail.html">Sensor Pres. Rail</a></li>
-                            <li><a href="#" data-page="paginas/sensores-e-atuadores/bicos-injetores.html">Bicos Injetores</a></li>
-                        </ul>
-                    </li>
-
-                    <li data-dropdown>
-                        <a href="#" class="link"><span class="link-label">Admissão/Escape</span><span class="link-arrow">▼</span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" data-page="paginas/admissao-e-escape/filtros-e-mangueiras.html">Filtros e Mangueiras</a></li>
-                            <li><a href="#" data-page="paginas/admissao-e-escape/turbina.html">Turbina</a></li>
-                            <li><a href="#" data-page="paginas/admissao-e-escape/sistema-dpf.html">Defletores / DPF</a></li>
-                            <li><a href="#" data-page="paginas/admissao-e-escape/sonda-lambda.html">Sonda Lambda</a></li>
-                            <li><a href="#" data-page="paginas/admissao-e-escape/corpo-de-borboleta.html">Corpo Borboleta</a></li>
-                            <li><a href="#" data-page="paginas/admissao-e-escape/catalizador.html">Catalizador</a></li>
-                            <li><a href="#" data-page="paginas/admissao-e-escape/valvula-egr.html">Válvula EGR</a></li>
-                            <li><a href="#" data-page="paginas/admissao-e-escape/arla-32.html">Arla 32</a></li>
-                        </ul>
-                    </li>
-
-                    <li data-dropdown>
-                        <a href="#" class="link"><span class="link-label">Arrefecimento</span><span class="link-arrow">▼</span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" data-page="paginas/sistema-de-arrefecimento/liq-arrefecimento.html">Líquido de Arrefecimento</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-arrefecimento/sensor-temp-painel.html">Sensor de Nível</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-arrefecimento/bomba-dagua.html">Bomba d'Água</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-arrefecimento/valvula-termostatica.html">Válvula Termostática</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-arrefecimento/reserv-dagua.html">Reservatório d'Água</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-arrefecimento/radiador.html">Radiador</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-arrefecimento/embreagem-viscosa.html">Embreagem Viscosa</a></li>
-                        </ul>
-                    </li>
-
-                    <li data-dropdown>
-                        <a href="#" class="link"><span class="link-label">Transmissão</span><span class="link-arrow">▼</span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" data-page="paginas/sistema-de-transmissao/embreagem.html">Embreagem</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-transmissao/diferencial-traseiro.html">Diferencial Traseiro</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-transmissao/caixa-mudanca.html">Caixa de Mudança</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-transmissao/diferencial-dianteiro.html">Diferencial Dianteiro</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-transmissao/caixa-transferencia.html">Caixa de Transferência</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-transmissao/cardan-e-cruzetas.html">Cardã e Cruzetas</a></li>
-                        </ul>
-                    </li>
-
-                    <li data-dropdown>
-                        <a href="#" class="link"><span class="link-label">Direção</span><span class="link-arrow">▼</span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" data-page="paginas/sistema-de-direcao/bomba-de-direcao.html">Bomba de Direção</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-direcao/caixa-de-direcao.html">Caixa de Direção</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-direcao/oleo-de-direcao.html">Óleo de Direção</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-direcao/coluna-de-direcao.html">Coluna de Direção</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-direcao/terminal-direcao.html">Buchas e Terminais</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-direcao/alinhamento.html">Alinhamento</a></li>
-                            <li><a href="#" data-page="paginas/sistema-de-direcao/sensor-de-direcao.html">Sensor de Direção</a></li>
-                        </ul>
-                    </li>
-
-                    <li data-dropdown>
-                        <a href="#" class="link"><span class="link-label">Freios</span><span class="link-arrow">▼</span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" data-page="paginas/sistemas-de-freios/oleo-de-freio.html">Tipos do Óleo</a></li>
-                            <li><a href="#" data-page="paginas/sistemas-de-freios/freios-dianteiros.html">Pinça e Cilindro</a></li>
-                            <li><a href="#" data-page="paginas/sistemas-de-freios/bomba-de-vacuo.html">Bomba de Vácuo</a></li>
-                            <li><a href="#" data-page="paginas/sistemas-de-freios/freios-traseiros-mao.html">Freios Traseiros / Mão</a></li>
-                            <li><a href="#" data-page="paginas/sistemas-de-freios/hidrovacuo.html">Hidrovácuo</a></li>
-                            <li><a href="#" data-page="paginas/sistemas-de-freios/sistema-abs.html">Sistema ABS</a></li>
-                            <li><a href="#" data-page="paginas/sistemas-de-freios/cilindro-mestre.html">Cilindro Mestre</a></li>
-                        </ul>
-                    </li>
-
-                    <li data-dropdown>
-                        <a href="#" class="link"><span class="link-label">Suspensão</span><span class="link-arrow">▼</span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" data-page="paginas/sistemas-de-suspensao/pivo-e-balanca.html">Balanças</a></li>
-                            <li><a href="#" data-page="paginas/sistemas-de-suspensao/suspencao-traseira.html">Molas Traseiras</a></li>
-                            <li><a href="#" data-page="paginas/sistemas-de-suspensao/suspencao-dianteira.html">Molas Dianteiras</a></li>
-                            <li><a href="#" data-page="paginas/sistemas-de-suspensao/amortecedores.html">Amortecedor</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+    <header>
+        <h1>Bem-vindo ao Meu Projeto</h1>
+        <p>Página configurada e pronta para o GitHub Pages</p>
     </header>
 
-    <!-- Conteúdo Principal Dinâmico -->
-    <main class="portfolio" id="content">
-        <div class="portfolio_articles">
-            <article class="portfolio_article" id="page-card" style="grid-column: 1 / -1; padding: 2rem;">
-                <header>
-                    <h2>Selecione um item no menu acima</h2>
-                    <p>O conteúdo técnico referente ao sistema escolhido será carregado aqui.</p>
-                </header>
-            </article>
-        </div>
+    <main>
+        <section class="card">
+            <h2>Sobre o Projeto</h2>
+            <p>Este é um modelo básico pronto para publicação. Você pode editar este conteúdo e adicionar seus próprios elementos.</p>
+            <button id="btn-interativo">Clique aqui</button>
+            <p id="mensagem" class="oculto"></p>
+        </section>
     </main>
 
-    <!-- Botão flutuante "Voltar ao topo" — some/aparece conforme a rolagem -->
-    <button type="button" id="top-btn" class="scroll-top-btn" aria-label="Voltar ao topo">↑</button>
+    <footer>
+        <p>&copy; 2026 - Publicado via GitHub Pages</p>
+    </footer>
 
-    <!-- JavaScript para Carregamento Dinâmico e Menu -->
-    <script src="menu.js" defer></script>
+    <script src="script.js"></script>
 </body>
 </html>
