@@ -1,9 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const botao = document.getElementById('btn-interativo');
-    const mensagem = document.getElementById('mensagem');
+    const menuToggle = document.getElementById('mobile-menu');
+    const navMenu = document.querySelector('.nav-menu');
 
-    botao.addEventListener('click', () => {
-        mensagem.textContent = '🚀 Seu script JavaScript está funcionando perfeitamente!';
-        mensagem.classList.remove('oculto');
+    // Toggle menu mobile
+    menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+    });
+
+    // Fecha o menu ao clicar em algum item
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+        });
     });
 });
