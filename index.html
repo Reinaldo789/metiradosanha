@@ -1,102 +1,640 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sensor de Rotação - MWM 2.8 Sprint</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guia Técnico - Dashboard</title>
+
+  <!-- Ícones Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ==========================================
+       1. VARIÁVEIS E ESTILOS INSPIRADOS NA IMAGEM
+       ========================================== */
+    :root {
+      --primary: #4F46E5;         /* Roxo/Azul do layout */
+      --primary-light: #EEF2FF;
+      --bg-body: #F3F4F6;         /* Fundo cinza suave de Dashboard */
+      --bg-card: #FFFFFF;         /* Cards e Sidebar brancos */
+      --text-main: #1F2937;       
+      --text-muted: #6B7280;      
+      --accent: #10B981;          /* Verde WhatsApp */
+      --border-color: #E5E7EB;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --sidebar-width: 260px;
+      --sidebar-collapsed: 70px;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+    }
+
+    *, *:before, *:after { box-sizing: inherit; }
+
+    /* Layout Principal em Grid/Flex */
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+      position: relative;
+    }
+
+    /* ==========================================
+       2. SIDEBAR LATERAL (DESKTOP)
+       ========================================== */
+    .sidebar {
+      width: var(--sidebar-width);
+      background-color: var(--bg-card);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+      z-index: 100;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    /* Topo da Sidebar (Logo & Botão de Encolher) */
+    .sidebar-header {
+      padding: 1.2rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .toggle-collapse {
+      background: var(--primary-light);
+      color: var(--primary);
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .toggle-collapse:hover {
+      background-color: var(--primary);
+      color: #FFF;
+    }
+
+    /* Lista de Navegação */
+    .sidebar-menu {
+      list-style: none;
+      padding: 1rem 0.6rem;
+      margin: 0;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    .menu-item {
+      margin-bottom: 0.3rem;
+    }
+
+    .menu-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0.9rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border-radius: 10px;
+      transition: var(--transition);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .menu-link-content {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .menu-link i.icon-main {
+      font-size: 1.1rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .menu-link:hover, .menu-item.open > .menu-link {
+      background-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .arrow-icon {
+      font-size: 0.75rem;
+      transition: var(--transition);
+    }
+
+    .menu-item.open .arrow-icon {
+      transform: rotate(180deg);
+    }
+
+    /* Submenu (Dropdown) */
+    .submenu {
+      list-style: none;
+      padding-left: 2.2rem;
+      padding-right: 0.5rem;
+      margin: 0;
+      display: none;
+    }
+
+    .menu-item.open .submenu {
+      display: block;
+    }
+
+    .submenu-link {
+      display: block;
+      padding: 0.5rem 0.8rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      border-radius: 6px;
+      transition: var(--transition);
+      margin-top: 0.1rem;
+    }
+
+    .submenu-link:hover {
+      color: var(--primary);
+      background-color: #F9FAFB;
+      transform: translateX(3px);
+    }
+
+    /* Sidebar Recolhida (Collapsed) */
+    .sidebar.collapsed {
+      width: var(--sidebar-collapsed);
+    }
+
+    .sidebar.collapsed .logo-text,
+    .sidebar.collapsed .link-text,
+    .sidebar.collapsed .arrow-icon,
+    .sidebar.collapsed .submenu {
+      display: none !important;
+    }
+
+    .sidebar.collapsed .toggle-collapse i {
+      transform: rotate(180deg);
+    }
+
+    .sidebar.collapsed .menu-link {
+      justify-content: center;
+      padding: 0.75rem 0;
+    }
+
+    .sidebar.collapsed .menu-link-content {
+      gap: 0;
+    }
+
+    /* ==========================================
+       3. CONTEÚDO PRINCIPAL (MAIN CONTENT)
+       ========================================== */
+    .main-wrapper {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    /* Cabeçalho Mobile / Topo */
+    .mobile-header {
+      display: none;
+      background-color: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.8rem 1rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mobile-toggle {
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      color: var(--text-main);
+      cursor: pointer;
+    }
+
+    .content-area {
+      padding: 2rem;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, #4F46E5 0%, #3730A3 100%);
+      color: white;
+      padding: 2.5rem 2rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 2rem;
+    }
+
+    .hero-card h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-card p {
+      opacity: 0.9;
+      font-size: 0.95rem;
+      max-width: 600px;
+    }
+
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      background-color: var(--bg-card);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-icon {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 0.8rem;
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* ==========================================
+       4. BOTÕES FLUTUANTES
+       ========================================== */
+    .floating-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 999;
+    }
+
+    .float-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 1.2rem;
+      box-shadow: var(--shadow-lg);
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-whatsapp { background-color: var(--accent); }
+    .btn-top { 
+      background-color: var(--primary); 
+      opacity: 0; 
+      pointer-events: none; 
+    }
+    .btn-top.visible { opacity: 1; pointer-events: auto; }
+
+    /* ==========================================
+       5. RESPONSIVIDADE (DISPOSITIVOS MÓVEIS)
+       ========================================== */
+    @media (max-width: 900px) {
+      .app-container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        display: none; /* Oculta a sidebar desktop */
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .sidebar.mobile-open {
+        display: flex;
+      }
+
+      .sidebar-header {
+        display: none; /* Usa apenas o mobile-header */
+      }
+
+      .mobile-header {
+        display: flex;
+      }
+
+      .content-area {
+        padding: 1.2rem 1rem;
+      }
+
+      .hero-card {
+        padding: 1.5rem;
+      }
+
+      .hero-card h1 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Menu de Navegação -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">MWM 2.8 Sprint</a>
-            <button class="menu-toggle" id="mobile-menu" aria-label="Abrir menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-            <ul class="nav-menu">
-                <li><a href="#visao-geral">Visão Geral</a></li>
-                <li><a href="#especificacoes">Especificações</a></li>
-                <li><a href="#pinagem">Pinagem</a></li>
-                <li><a href="#falhas">Falhas Comuns</a></li>
-            </ul>
-        </div>
-    </nav>
+  <div class="app-container">
+    
+    <!-- CABEÇALHO APENAS NO TELEFONE -->
+    <div class="mobile-header">
+      <a href="#" class="logo">
+        <i class="fa-solid fa-gears"></i>
+        <span>Guia Técnico</span>
+      </a>
+      <button class="mobile-toggle" id="mobile-toggle-btn">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
 
-    <header>
-        <h1>Sensor de Rotação - Motor MWM 2.8 Sprint</h1>
-        <p>Documentação técnica de diagnóstico, pinagem e especificações de sinal</p>
-    </header>
+    <!-- SIDEBAR (MENU LATERAL DESSKTOP / MENU SANFONA MOBILE) -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="#" class="logo">
+          <i class="fa-solid fa-gears"></i>
+          <span class="logo-text">Guia Técnico</span>
+        </a>
+        <button class="toggle-collapse" id="collapse-btn" title="Recolher Menu">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+      </div>
 
-    <main class="container">
-        <section id="visao-geral" class="card">
-            <h2>Visão Geral do Componente</h2>
-            <p>O sensor de rotação (CKP) do motor MWM 2.8 Sprint eletrônico é responsável por enviar à central (ECU) a posição e a velocidade angular da árvore de manivelas, sendo essencial para o sincronismo da injeção.</p>
-        </section>
-
-        <section id="especificacoes" class="card">
-            <h2>Especificações Técnicas</h2>
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Parâmetro</th>
-                            <th>Especificação</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Tipo de Sensor</strong></td>
-                            <td>Indutivo (2 vias ou 3 vias com blindagem)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Resistência Média</strong></td>
-                            <td>~800 Ω a 1200 Ω (a 20°C)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Sinal de Saída</strong></td>
-                            <td>Tensão Alternada (Senoidal)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Roda Fônica</strong></td>
-                            <td>60-2 dentes</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Folga (GAP)</strong></td>
-                            <td>0,8 mm a 1,2 mm</td>
-                        </tr>
-                    </tbody>
-                </table>
+      <ul class="sidebar-menu">
+        
+        <!-- 1. Lubrificação -->
+        <li class="menu-item has-submenu">
+          <div class="menu-link">
+            <div class="menu-link-content">
+              <i class="fa-solid fa-oil-can icon-main"></i>
+              <span class="link-text">Lubrificação</span>
             </div>
-        </section>
+            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+          </div>
+          <ul class="submenu">
+            <li><a href="#" class="submenu-link">Tabela de Lubrificação</a></li>
+            <li><a href="#" class="submenu-link">Luz e Pressão</a></li>
+          </ul>
+        </li>
 
-        <section id="pinagem" class="card">
-            <h2>Pinagem e Teste Elétrico</h2>
-            <ul>
-                <li><strong>Pino 1:</strong> Sinal do Sensor (+)</li>
-                <li><strong>Pino 2:</strong> Sinal do Sensor (-) / Retorno</li>
-                <li><strong>Pino 3:</strong> Malha de Blindagem (Shield / Aterramento)</li>
-            </ul>
-        </section>
+        <!-- 2. Elétrico -->
+        <li class="menu-item has-submenu">
+          <div class="menu-link">
+            <div class="menu-link-content">
+              <i class="fa-solid fa-bolt icon-main"></i>
+              <span class="link-text">Elétrico</span>
+            </div>
+            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+          </div>
+          <ul class="submenu">
+            <li><a href="#" class="submenu-link">Fusíveis e Lâmpadas</a></li>
+            <li><a href="#" class="submenu-link">Farol e Seta</a></li>
+          </ul>
+        </li>
 
-        <section id="falhas" class="card">
-            <h2>Sintomas de Falha Frequentes</h2>
-            <ul>
-                <li>Motor gira mas não entra em funcionamento.</li>
-                <li>Corte repentino do motor em aquecimento.</li>
-                <li>Código de falha gravado na ECU referente ao sensor CKP.</li>
-                <li>Oscilação no ponteiro do conta-giros.</li>
-            </ul>
-        </section>
-    </main>
+        <!-- 3. Combustível -->
+        <li class="menu-item has-submenu">
+          <div class="menu-link">
+            <div class="menu-link-content">
+              <i class="fa-solid fa-gas-pump icon-main"></i>
+              <span class="link-text">Combustível</span>
+            </div>
+            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+          </div>
+          <ul class="submenu">
+            <li><a href="#" class="submenu-link">Tanque, Filtro, Mang.</a></li>
+            <li><a href="#" class="submenu-link">Bomba Elétrica</a></li>
+            <li><a href="#" class="submenu-link">Bomba Engrenagem</a></li>
+            <li><a href="#" class="submenu-link">Válvula KUV</a></li>
+            <li><a href="#" class="submenu-link">Bomba Alta Pressão</a></li>
+            <li><a href="#" class="submenu-link">Tubo Rail</a></li>
+          </ul>
+        </li>
 
-    <footer>
-        <p>&copy; Documentação Técnica - MWM 2.8 Sprint Eletrônico</p>
-    </footer>
+        <!-- 4. Sensores e Atuadores -->
+        <li class="menu-item has-submenu">
+          <div class="menu-link">
+            <div class="menu-link-content">
+              <i class="fa-solid fa-microchip icon-main"></i>
+              <span class="link-text">Sensores/Atuadores</span>
+            </div>
+            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+          </div>
+          <ul class="submenu">
+            <li><a href="#" class="submenu-link">Válvula MProp</a></li>
+            <li><a href="#" class="submenu-link">Sensor Rotação</a></li>
+            <li><a href="#" class="submenu-link">Sensor Fase</a></li>
+            <li><a href="#" class="submenu-link">Sensor Pres. Adm</a></li>
+            <li><a href="#" class="submenu-link">Pedal Acelerador</a></li>
+            <li><a href="#" class="submenu-link">Sensor Temp. ECM</a></li>
+            <li><a href="#" class="submenu-link">Modulador Turbina</a></li>
+            <li><a href="#" class="submenu-link">Sensor Pres. Rail</a></li>
+            <li><a href="#" class="submenu-link">Bicos Injetores</a></li>
+          </ul>
+        </li>
 
-    <script src="script.js"></script>
+        <!-- 5. Admissão e Escape -->
+        <li class="menu-item has-submenu">
+          <div class="menu-link">
+            <div class="menu-link-content">
+              <i class="fa-solid fa-wind icon-main"></i>
+              <span class="link-text">Admissão/Escape</span>
+            </div>
+            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+          </div>
+          <ul class="submenu">
+            <li><a href="#" class="submenu-link">Filtros e Mangueiras</a></li>
+            <li><a href="#" class="submenu-link">Turbina</a></li>
+          </ul>
+        </li>
+
+        <!-- 6. Direção -->
+        <li class="menu-item has-submenu">
+          <div class="menu-link">
+            <div class="menu-link-content">
+              <i class="fa-solid fa-dharmachakra icon-main"></i>
+              <span class="link-text">Direção</span>
+            </div>
+            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+          </div>
+          <ul class="submenu">
+            <li><a href="#" class="submenu-link">Bomba de Direção</a></li>
+            <li><a href="#" class="submenu-link">Caixa de Direção</a></li>
+            <li><a href="#" class="submenu-link">Óleo de Direção</a></li>
+          </ul>
+        </li>
+
+        <!-- 7. Freios -->
+        <li class="menu-item has-submenu">
+          <div class="menu-link">
+            <div class="menu-link-content">
+              <i class="fa-solid fa-circle-stop icon-main"></i>
+              <span class="link-text">Freios</span>
+            </div>
+            <i class="fa-solid fa-chevron-down arrow-icon"></i>
+          </div>
+          <ul class="submenu">
+            <li><a href="#" class="submenu-link">Bomba de Vácuo</a></li>
+            <li><a href="#" class="submenu-link">Freios Traseiros / Mão</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </aside>
+
+    <!-- ÁREA DE CONTEÚDO PRINCIPAL -->
+    <div class="main-wrapper">
+      <main class="content-area">
+        <div class="hero-card">
+          <h1>Painel Técnico de Manutenção</h1>
+          <p>Selecione um dos sistemas no menu para visualizar parâmetros, testes e especificações técnicas.</p>
+        </div>
+
+        <div class="grid-cards">
+          <div class="card">
+            <div class="card-icon"><i class="fa-solid fa-oil-can"></i></div>
+            <h3>Lubrificação</h3>
+            <p>Tabelas de óleos recomendados e diagnósticos do circuito de lubrificação.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon"><i class="fa-solid fa-microchip"></i></div>
+            <h3>Injeção Eletrônica</h3>
+            <p>Valores de referência para sensores, atuadores e bicos injetores.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon"><i class="fa-solid fa-gauge-high"></i></div>
+            <h3>Pressão & Turbo</h3>
+            <p>Verificação do tubo Rail, bombas de pressão e modulador do turbo.</p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+  </div>
+
+  <!-- BOTÕES FLUTUANTES -->
+  <div class="floating-container">
+    <a href="https://wa.me/5500000000000" target="_blank" class="float-btn btn-whatsapp" title="Fale no WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+    <button class="float-btn btn-top" id="btn-top" title="Voltar ao Topo">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const collapseBtn = document.getElementById('collapse-btn');
+    const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
+    const mobileToggleIcon = mobileToggleBtn.querySelector('i');
+
+    // 1. Encolher/Expandir Sidebar no Desktop
+    collapseBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+      
+      // Se fechar a sidebar, fecha também os submenus abertos
+      if (sidebar.classList.contains('collapsed')) {
+        document.querySelectorAll('.menu-item.open').forEach(item => {
+          item.classList.remove('open');
+        });
+      }
+    });
+
+    // 2. Abrir/Fechar Menu no Telefone
+    mobileToggleBtn.addEventListener('click', () => {
+      const isOpen = sidebar.classList.toggle('mobile-open');
+      if (isOpen) {
+        mobileToggleIcon.classList.remove('fa-bars');
+        mobileToggleIcon.classList.add('fa-xmark');
+      } else {
+        mobileToggleIcon.classList.remove('fa-xmark');
+        mobileToggleIcon.classList.add('fa-bars');
+      }
+    });
+
+    // 3. Submenus em Sanfona (Accordion)
+    const menuItems = document.querySelectorAll('.menu-item.has-submenu');
+
+    menuItems.forEach(item => {
+      const link = item.querySelector('.menu-link');
+      link.addEventListener('click', () => {
+        // Se a sidebar estiver recolhida no desktop, reabre ela ao clicar
+        if (sidebar.classList.contains('collapsed')) {
+          sidebar.classList.remove('collapsed');
+        }
+
+        // Alterna entre abrir/fechar o item clicado
+        const isOpen = item.classList.contains('open');
+        
+        // Fecha outros abertos para manter visual clean
+        menuItems.forEach(otherItem => otherItem.classList.remove('open'));
+
+        if (!isOpen) {
+          item.classList.add('open');
+        }
+      });
+    });
+
+    // 4. Botão Voltar ao Topo
+    const btnTop = document.getElementById('btn-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 150) {
+        btnTop.classList.add('visible');
+      } else {
+        btnTop.classList.remove('visible');
+      }
+    });
+
+    btnTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
 </body>
 </html>
