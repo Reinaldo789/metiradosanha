@@ -8,52 +8,72 @@
 </head>
 <body>
 
+    <!-- Menu de Navegação -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">MWM 2.8 Sprint</a>
+            <button class="menu-toggle" id="mobile-menu" aria-label="Abrir menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="#visao-geral">Visão Geral</a></li>
+                <li><a href="#especificacoes">Especificações</a></li>
+                <li><a href="#pinagem">Pinagem</a></li>
+                <li><a href="#falhas">Falhas Comuns</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <header>
         <h1>Sensor de Rotação - Motor MWM 2.8 Sprint</h1>
         <p>Documentação técnica de diagnóstico, pinagem e especificações de sinal</p>
     </header>
 
-    <main>
-        <section class="card">
+    <main class="container">
+        <section id="visao-geral" class="card">
             <h2>Visão Geral do Componente</h2>
-            <p>O sensor de rotação (CKP) do motor MWM 2.8 Sprint eletrônico é responsável por enviar à central (ECU) a posição e a velocidade angular da árvore de manivelas (virabrequim), sendo essencial para o sincronismo da injeção.</p>
+            <p>O sensor de rotação (CKP) do motor MWM 2.8 Sprint eletrônico é responsável por enviar à central (ECU) a posição e a velocidade angular da árvore de manivelas, sendo essencial para o sincronismo da injeção.</p>
         </section>
 
-        <section class="card">
+        <section id="especificacoes" class="card">
             <h2>Especificações Técnicas</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Parâmetro</th>
-                        <th>Especificação</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Tipo de Sensor</strong></td>
-                        <td>Indutivo (2 vias ou 3 vias com blindagem)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Resistência Média</strong></td>
-                        <td>~800 Ω a 1200 Ω (a 20°C)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Sinal de Saída</strong></td>
-                        <td>Tensão Alternada (Senoidal)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Roda Fônica</strong></td>
-                        <td>60-2 dentes</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Folga (GAP)</strong></td>
-                        <td>0,8 mm a 1,2 mm</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parâmetro</th>
+                            <th>Especificação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Tipo de Sensor</strong></td>
+                            <td>Indutivo (2 vias ou 3 vias com blindagem)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Resistência Média</strong></td>
+                            <td>~800 Ω a 1200 Ω (a 20°C)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sinal de Saída</strong></td>
+                            <td>Tensão Alternada (Senoidal)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Roda Fônica</strong></td>
+                            <td>60-2 dentes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Folga (GAP)</strong></td>
+                            <td>0,8 mm a 1,2 mm</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
-        <section class="card">
+        <section id="pinagem" class="card">
             <h2>Pinagem e Teste Elétrico</h2>
             <ul>
                 <li><strong>Pino 1:</strong> Sinal do Sensor (+)</li>
@@ -62,7 +82,7 @@
             </ul>
         </section>
 
-        <section class="card">
+        <section id="falhas" class="card">
             <h2>Sintomas de Falha Frequentes</h2>
             <ul>
                 <li>Motor gira mas não entra em funcionamento.</li>
@@ -77,5 +97,6 @@
         <p>&copy; Documentação Técnica - MWM 2.8 Sprint Eletrônico</p>
     </footer>
 
+    <script src="script.js"></script>
 </body>
 </html>
