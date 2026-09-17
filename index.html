@@ -3,29 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Projeto no GitHub Pages</title>
+    <title>Sensor de Rotação - MWM 2.8 Sprint</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <h1>Bem-vindo ao Meu Projeto</h1>
-        <p>Página configurada e pronta para o GitHub Pages</p>
+        <h1>Sensor de Rotação - Motor MWM 2.8 Sprint</h1>
+        <p>Documentação técnica de diagnóstico, pinagem e especificações de sinal</p>
     </header>
 
     <main>
         <section class="card">
-            <h2>Sobre o Projeto</h2>
-            <p>Este é um modelo básico pronto para publicação. Você pode editar este conteúdo e adicionar seus próprios elementos.</p>
-            <button id="btn-interativo">Clique aqui</button>
-            <p id="mensagem" class="oculto"></p>
+            <h2>Visão Geral do Componente</h2>
+            <p>O sensor de rotação (CKP) do motor MWM 2.8 Sprint eletrônico é responsável por enviar à central (ECU) a posição e a velocidade angular da árvore de manivelas (virabrequim), sendo essencial para o sincronismo da injeção.</p>
+        </section>
+
+        <section class="card">
+            <h2>Especificações Técnicas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Parâmetro</th>
+                        <th>Especificação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Tipo de Sensor</strong></td>
+                        <td>Indutivo (2 vias ou 3 vias com blindagem)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Resistência Média</strong></td>
+                        <td>~800 Ω a 1200 Ω (a 20°C)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sinal de Saída</strong></td>
+                        <td>Tensão Alternada (Senoidal)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Roda Fônica</strong></td>
+                        <td>60-2 dentes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Folga (GAP)</strong></td>
+                        <td>0,8 mm a 1,2 mm</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="card">
+            <h2>Pinagem e Teste Elétrico</h2>
+            <ul>
+                <li><strong>Pino 1:</strong> Sinal do Sensor (+)</li>
+                <li><strong>Pino 2:</strong> Sinal do Sensor (-) / Retorno</li>
+                <li><strong>Pino 3:</strong> Malha de Blindagem (Shield / Aterramento)</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>Sintomas de Falha Frequentes</h2>
+            <ul>
+                <li>Motor gira mas não entra em funcionamento.</li>
+                <li>Corte repentino do motor em aquecimento.</li>
+                <li>Código de falha gravado na ECU referente ao sensor CKP.</li>
+                <li>Oscilação no ponteiro do conta-giros.</li>
+            </ul>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 - Publicado via GitHub Pages</p>
+        <p>&copy; Documentação Técnica - MWM 2.8 Sprint Eletrônico</p>
     </footer>
 
-    <script src="script.js"></script>
 </body>
 </html>
