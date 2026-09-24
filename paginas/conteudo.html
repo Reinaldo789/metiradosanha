@@ -1,0 +1,205 @@
+<script>
+  let historicoNavegacao = [];
+
+  // BANCO DE DADOS COMPLETO COM TODOS OS ITENS
+  const bancoDeDados = {
+    // SISTEMA ELÉTRICO
+    "fuse-lamp": { titulo: "⚡ Fusíveis e Lâmpadas", conteudo: "<p>Tabela de mapeamento de fusíveis e especificação das lâmpadas do veículo.</p>" },
+    "farol-pos": { titulo: "💡 Luz de Farol e Posição", conteudo: "<p>Esquema elétrico e alinhamento dos circuitos dos faróis e luzes de posição.</p>" },
+    "seta-alerta": { titulo: "🚨 Luz de Seta e Alerta", conteudo: "<p>Diagrama de relés de pisca e interruptor do pisca-alerta.</p>" },
+    "parabrisa": { titulo: "🌧️ Limpador de Para-brisa", conteudo: "<p>Verificação do temporizador, motor e ligações da palheta do para-brisa.</p>" },
+    "painel-inst": { titulo: "📊 Painel de Instrumentos", conteudo: "<p>Pinagem dos conectores e mapeamento do painel principal de instrumentos.</p>" },
+    "luz-oleo": { titulo: "🛢️ Luz e Pressão de Óleo", conteudo: "<p>Parâmetros do interruptor de pressão do óleo e sinalização do painel.</p>" },
+    "luz-diag": { titulo: "🔍 Luzes de Diagnóstico", conteudo: "<p>Mapeamento das luzes de falha e códigos de aviso no painel.</p>" },
+    "partida": { titulo: "🔑 Motor de Partida", conteudo: "<p>Testes de consumo de corrente e circuito da chave magnética de partida.</p>" },
+    "alternador": { titulo: "🔋 Alternador", conteudo: "<p>Tensão de carga, regulador de voltagem e teste do diodo do alternador.</p>" },
+
+    // ALIMENTAÇÃO DE COMBUSTÍVEL
+    "linha-comb": { titulo: "⛽ Linha Combustível", conteudo: "<p>Visão geral da linha de combustível de baixa e alta pressão.</p>" },
+    "tanque-filtro": { titulo: "🛢️ Tanque, Filtro e Mangueiras", conteudo: "<p>Procedimentos de sangria e substituição dos elementos filtrantes.</p>" },
+    "bomba-eletrica": { 
+      titulo: "⚡ Bomba Elétrica", 
+      conteudo: `<p>A bomba elétrica atua na pré-alimentação do sistema, enviando o combustível sob baixa pressão até o filtro e a bomba de alta pressão.</p>
+                 <p style="margin-top: 10px;"><strong>Procedimentos e Testes Principais:</strong></p>
+                 <table>
+                   <thead>
+                     <tr><th>Verificação</th><th>Procedimento / Parâmetro</th></tr>
+                   </thead>
+                   <tbody>
+                     <tr><td>Medição de Pressão</td><td>Instalar manômetro na linha de alimentação. Pressão esperada em torno de 3,5 a 5 bar.</td></tr>
+                     <tr><td>Teste de Vazão</td><td>Verificar o volume fornecido na saída da linha de combustível em intervalo fixo.</td></tr>
+                     <tr><td>Alimentação Elétrica</td><td>Conferir tensão no conector (12V durante a partida ou pré-carga da chave).</td></tr>
+                   </tbody>
+                 </table>` 
+    },
+    "bomba-engrenagem": { titulo: "⚙️ Bomba Engrenagem", conteudo: "<p>Inspeção mecânica e teste de sucção da bomba de engrenagens.</p>" },
+    "kuv": { 
+      titulo: "🛢️ Válvula Cascata (KUV)", 
+      conteudo: `<p><strong>Remoção:</strong> Utilizar soquete de 16mm. Localizada na carcaça da bomba de alta pressão.</p>
+                 <p style="margin-top: 10px;"><strong>Curso do Êmbolo Interno:</strong></p>
+                 <table>
+                   <thead><tr><th>Condição do Teste</th><th>Medida de Referência</th></tr></thead>
+                   <tbody>
+                     <tr><td>Êmbolo sem pressionar</td><td><strong>17 mm</strong></td></tr>
+                     <tr><td>Êmbolo totalmente pressionado</td><td><strong>26 mm</strong></td></tr>
+                   </tbody>
+                 </table>`
+    },
+    "bomba-alta": { titulo: "🏗️ Bomba Alta Pressão", conteudo: "<p>Instruções de desmontagem e teste da bomba de alta pressão Common Rail.</p>" },
+    "tubo-rail": { titulo: "🛑 Tubo Rail", conteudo: "<p>Verificação da estanqueidade do tubo distribuidor e válvula de alívio.</p>" },
+
+    // SENSORES E ATUADORES
+    "ckp": { titulo: "⚙️ Sensor de Rotação (CKP)", conteudo: "<p>Monitora a rotação e a posição angular do virabrequim para sincronismo da injeção Common Rail.</p>" },
+    "cmp": { titulo: "📷 Sensor de Fase (CMP)", conteudo: "<p>Medição de resistência e sinal do sensor de posição de comando de válvulas.</p>" },
+    "pres-adm": { titulo: "🌬️ Sensor Pres. Adm", conteudo: "<p>Verificação do sensor MAP / Pressão no coletor de admissão.</p>" },
+    "temp-ecm": { titulo: "🌡️ Sensor Temp. ECM", conteudo: "<p>Tabela de resistência NTC x Temperatura do motor para o módulo ECM.</p>" },
+    "pres-rail": { titulo: "📈 Sensor Pres. Rail", conteudo: "<p>Tensão de sinal de retorno do sensor de pressão do tubo Rail.</p>" },
+    "mprop": { 
+      titulo: "🔌 Válvula MProp (Reguladora de Pressão)", 
+      conteudo: `
+        <p>A válvula <strong>MProp</strong> atua no circuito de baixa pressão (antes do estágio de pressurização), garantindo que a bomba de alta forneça apenas a pressão necessária exigida pelo ECM.</p>
+
+        <p style="margin-top:15px;"><strong>1. Pinagem e Teste Elétrico:</strong></p>
+        <table>
+          <thead>
+            <tr><th>Pino Válvula</th><th>Função</th><th>Pino ECM</th><th>Parâmetro de Teste</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Pino 1</strong></td><td>Negativo (Sinal PWM)</td><td><strong>A49</strong></td><td>Pulso negativo controlado</td></tr>
+            <tr><td><strong>Pino 2</strong></td><td>Alimentação +12V</td><td><strong>A18</strong></td><td>12V com chave ligada</td></tr>
+            <tr><td colspan="3"><strong>Resistência Elétrica (Terminais desconectados)</strong></td><td><strong>2,6 a 3,5 Ω</strong></td></tr>
+          </tbody>
+        </table>
+
+        <p style="margin-top:15px;"><strong>2. Teste Mecânico do Êmbolo / Cilindro:</strong></p>
+        <ul>
+          <li>Ao bater a válvula contra a palma da mão ou pneu, ouve-se o movimento livre do êmbolo.</li>
+          <li>Inserindo um objeto pontiagudo na ponta:
+            <ul>
+              <li><strong>15 mm:</strong> Cilindro destravado (Operação normal).</li>
+              <li><strong>10 mm:</strong> Cilindro travado aberto.</li>
+            </ul>
+          </li>
+        </ul>
+
+        <p style="margin-top:15px;"><strong>3. Leitura do Sensor no Tubo Rail (Tensão no Pino 02):</strong></p>
+        <table>
+          <thead>
+            <tr><th>Condição de Teste</th><th>Tensão no Sensor</th><th>Pressão Esperada</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Chave ligada (Sem partida)</td><td><strong>0,5 V</strong></td><td>0 bar</td></tr>
+            <tr><td>Marcha Lenta (~750 rpm)</td><td><strong>~1,2 V</strong></td><td>200 a 500 bar</td></tr>
+            <tr><td>Alta Rotação / Carga</td><td><strong>Até 4,5 V</strong></td><td>Até ~1200+ bar</td></tr>
+          </tbody>
+        </table>
+      ` 
+    },
+    "acelerador": { titulo: "🦶 Pedal Acelerador", conteudo: "<p>Leitura dos dois potenciômetros de sinal do pedal de aceleração.</p>" },
+    "modulador-turbina": { titulo: "🌀 Modulador Turbina", conteudo: "<p>Eletroválvula de controle de vácuo para a geometria da turbina.</p>" },
+    "injetores": { titulo: "💉 Bicos Injetores", conteudo: "<p>Códigos IMA, teste de estanqueidade e retorno dos injetores piezoelétricos.</p>" },
+    "lampada-painel": { titulo: "💡 Lâmpada Painel", conteudo: "<p>Circuito do atuador da lâmpada de aviso de injeção no painel.</p>" },
+
+    // MOTOR E CHASSI
+    "arrefecimento": { titulo: "🌡️ Arrefecimento", conteudo: "<p>Esquema do circuito de arrefecimento e proporção de aditivo.</p>" },
+    "lubrificacao": { titulo: "🛢️ Lubrificação", conteudo: "<p>Especificações de viscosidade de óleo e pressão mínima de trabalho.</p>" },
+    "bomba-agua": { titulo: "💧 Bomba de Água", conteudo: "<p>Procedimento de inspeção de folga do rotor e troca do conjunto.</p>" },
+    "trocador-calor": { titulo: "🔥 Trocador de Calor", conteudo: "<p>Teste de estanqueidade do trocador de calor do óleo lubrificante.</p>" },
+    "termostatica": { titulo: "🚪 Válvula Termostática", conteudo: "<p>Temperatura de início de abertura e abertura total da termostática.</p>" },
+    "sistema-direcao": { titulo: "🎯 Sistema de Direção", conteudo: "<p>Verificação de folgas na caixa hidráulica e bomba de direção.</p>" },
+    "sistemas-freios": { titulo: "🛑 Sistemas de Freios", conteudo: "<p>Diagnóstico da bomba de vácuo, cilindro mestre e regulagens de freio.</p>" }
+  };
+
+  // EXIBE O CONTEÚDO
+  function showTab(id, isNavigatingBack = false) {
+    const dados = bancoDeDados[id];
+    const areaConteudo = document.getElementById('painel-conteudo');
+
+    if (dados) {
+      areaConteudo.innerHTML = `
+        <div class="card">
+          <h2>${dados.titulo}</h2>
+          ${dados.conteudo}
+        </div>
+      `;
+      
+      // Atualiza o hash da URL para permitir links diretos
+      window.location.hash = id;
+    } else {
+      areaConteudo.innerHTML = `
+        <div class="card">
+          <h2>⚠️ Conteúdo não encontrado</h2>
+          <p>O item solicitado não está disponível ou foi movido.</p>
+        </div>
+      `;
+    }
+
+    // Regista no histórico apenas se não for uma ação do botão "Voltar"
+    if (!isNavigatingBack) {
+      if (historicoNavegacao[historicoNavegacao.length - 1] !== id) {
+        historicoNavegacao.push(id);
+      }
+    }
+
+    scrollToTop();
+  }
+
+  // BOTÃO INÍCIO (Reseta o histórico e abre o item inicial 'mprop')
+  function goHome() {
+    historicoNavegacao = ['mprop'];
+    showTab('mprop', true);
+  }
+
+  // BOTÃO VOLTAR
+  function goBack() {
+    if (historicoNavegacao.length > 1) {
+      historicoNavegacao.pop(); // Remove a página atual do histórico
+      const tabAnterior = historicoNavegacao[historicoNavegacao.length - 1];
+      showTab(tabAnterior, true);
+    } else {
+      // Se não houver histórico anterior, tenta voltar na navegação do próprio navegador
+      if (window.history.length > 1) {
+        window.history.back();
+      }
+    }
+  }
+
+  // ROLAGEM
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  window.onscroll = function() {
+    const btn = document.getElementById('scrollTopBtn');
+    if (window.scrollY > 150) {
+      btn.style.display = 'flex';
+    } else {
+      btn.style.display = 'none';
+    }
+  };
+
+  // INICIALIZAÇÃO DA PÁGINA
+  function inicializarPagina() {
+    // Detecta se a URL traz um hash (ex: #fuse-lamp)
+    const hash = window.location.hash.replace('#', '');
+    
+    if (hash && bancoDeDados[hash]) {
+      showTab(hash);
+    } else {
+      showTab('mprop');
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", inicializarPagina);
+
+  // Escuta alterações na URL (caso o utilizador mude o hash manualmente ou via menu)
+  window.addEventListener('hashchange', function() {
+    const hash = window.location.hash.replace('#', '');
+    if (hash && bancoDeDados[hash]) {
+      const atual = historicoNavegacao[historicoNavegacao.length - 1];
+      if (atual !== hash) {
+        showTab(hash);
+      }
+    }
+  });
+</script>
