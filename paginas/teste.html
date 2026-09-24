@@ -3,157 +3,296 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Ícones Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    :root {
+      --bg-main: #f8fafc;
+      --card-bg: #ffffff;
+      --primary-purple: #3b38c2;
+      --light-purple: #e0e7ff;
+      --text-dark: #1e293b;
+      --border-color: #e2e8f0;
     }
 
-    body {
-      background-color: #F3F4F6;
-      padding: 20px;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: var(--bg-main); color: var(--text-dark); padding: 20px; }
 
-    /* Container Principal */
-    .dashboard-container {
-      max-width: 1200px;
-      margin: 0 auto;
+    .container { max-width: 900px; margin: 0 auto; position: relative; }
+
+    /* BARRA DE NAVEGAÇÃO SUPERIOR */
+    .nav-bar-top {
       display: flex;
-      flex-direction: column;
-      gap: 24px;
+      gap: 12px;
+      margin-bottom: 20px;
     }
 
-    /* 1. Card Principal (Banner Roxo) */
-    .hero-card {
-      background: linear-gradient(135deg, #3B30C8 0%, #3228A8 100%);
-      color: #FFFFFF;
-      padding: 40px 32px;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    .nav-btn {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-dark);
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
 
-    .hero-card h1 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      letter-spacing: -0.5px;
+    .nav-btn:hover {
+      background-color: var(--light-purple);
+      color: var(--primary-purple);
+      border-color: var(--primary-purple);
     }
 
-    .hero-card p {
-      font-size: 0.95rem;
-      color: #E0E0FF;
-      max-width: 650px;
-      line-height: 1.5;
-    }
-
-    /* 2. Grid de Cards Secundários */
-    .cards-grid {
-      display: grid;
-      /* Responsividade Automática: cria quantas colunas couberem de no mínimo 260px */
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-    }
-
-    /* Estilo dos Cards Brancos */
-    .card {
-      background-color: #FFFFFF;
-      padding: 28px 24px;
+    .hero-banner {
+      background-color: var(--primary-purple);
+      color: #ffffff;
+      padding: 24px;
       border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
     }
 
-    /* Efeito de destaque ao passar o mouse */
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    .hero-banner h1 { font-size: 1.6rem; margin-bottom: 6px; }
+    .hero-banner p { font-size: 0.95rem; opacity: 0.9; }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
 
-    .card-icon {
-      font-size: 1.6rem;
-      color: #3B30C8;
-      margin-bottom: 18px;
+    .card h2 { font-size: 1.3rem; color: var(--primary-purple); margin-bottom: 16px; border-bottom: 2px solid var(--light-purple); padding-bottom: 8px; }
+    
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-top: 14px; margin-bottom: 14px; }
+    th, td { padding: 12px; border: 1px solid var(--border-color); text-align: left; }
+    th { color: var(--primary-purple); background: #f1f5f9; font-weight: 600; }
+    ul { margin-left: 20px; margin-top: 8px; }
+    li { margin-bottom: 6px; }
+
+    /* BOTÃO ROLAR PARA O TOPO (FLUTUANTE) */
+    .btn-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background-color: var(--primary-purple);
+      color: #ffffff;
+      border: none;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 99;
     }
 
-    .card h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #1F2937;
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      font-size: 0.88rem;
-      color: #6B7280;
-      line-height: 1.5;
-    }
-
-    /* Ajustes para telas móveis (Celulares) */
-    @media (max-width: 600px) {
-      body {
-        padding: 10px;
-      }
-
-      .hero-card {
-        padding: 28px 20px;
-      }
-
-      .hero-card h1 {
-        font-size: 1.4rem;
-      }
-
-      .cards-grid {
-        grid-template-columns: 1fr; /* 1 card por linha no celular */
-      }
+    .btn-top:hover {
+      transform: translateY(-2px);
+      opacity: 0.95;
     }
   </style>
 </head>
 <body>
 
-  <div class="dashboard-container">
+  <div class="container">
     
-    <!-- Banner Principal -->
-    <div class="hero-card">
+    <!-- BARRA DE NAVEGAÇÃO SUPERIOR -->
+    <div class="nav-bar-top">
+      <button class="nav-btn" onclick="goHome()">🏠 Início</button>
+      <button class="nav-btn" onclick="goBack()">⬅️ Voltar</button>
+    </div>
+
+    <!-- BANNER DE TÍTULO -->
+    <div class="hero-banner">
       <h1>Painel Técnico de Manutenção</h1>
-      <p>Selecione um dos sistemas no menu para visualizar parâmetros, testes e especificações técnicas.</p>
+      <p>MWM 2.8 Eletrônico (Common Rail)</p>
     </div>
 
-    <!-- Grid com os 3 Cards -->
-    <div class="cards-grid">
-      
-      <!-- Card 1 -->
-      <div class="card">
-        <div class="card-icon"><i class="fa-solid fa-oil-can"></i></div>
-        <h3>Lubrificação</h3>
-        <p>Tabelas de óleos recomendados e diagnósticos do circuito de lubrificação.</p>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="card">
-        <div class="card-icon"><i class="fa-solid fa-microchip"></i></div>
-        <h3>Injeção Eletrônica</h3>
-        <p>Valores de referência para sensores, atuadores e bicos injetores.</p>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="card">
-        <div class="card-icon"><i class="fa-solid fa-gauge-high"></i></div>
-        <h3>Pressão & Turbo</h3>
-        <p>Verificação do tubo Rail, bombas de pressão e modulador do turbo.</p>
-      </div>
-
-    </div>
+    <!-- ÁREA DE CONTEÚDO -->
+    <div id="painel-conteudo"></div>
 
   </div>
+
+  <!-- BOTÃO FLUTUANTE DE ROLAR PARA O TOPO -->
+  <button class="btn-top" id="scrollTopBtn" onclick="scrollToTop()">▲</button>
+
+  <script>
+    let historicoNavegacao = [];
+
+    // BANCO DE DADOS COMPLETO COM TODOS OS ITENS
+    const bancoDeDados = {
+      // SISTEMA ELÉTRICO
+      "fuse-lamp": { titulo: "⚡ Fusíveis e Lâmpadas", conteudo: "<p>Tabela de mapeamento de fusíveis e especificação das lâmpadas do veículo.</p>" },
+      "farol-pos": { titulo: "💡 Luz de Farol e Posição", conteudo: "<p>Esquema elétrico e alinhamento dos circuitos dos faróis e luzes de posição.</p>" },
+      "seta-alerta": { titulo: "🚨 Luz de Seta e Alerta", conteudo: "<p>Diagrama de relés de pisca e interruptor do pisca-alerta.</p>" },
+      "parabrisa": { titulo: "🌧️ Limpador de Para-brisa", conteudo: "<p>Verificação do temporizador, motor e ligações da palheta do para-brisa.</p>" },
+      "painel-inst": { titulo: "📊 Painel de Instrumentos", conteudo: "<p>Pinagem dos conectores e mapeamento do painel principal de instrumentos.</p>" },
+      "luz-oleo": { titulo: "🛢️ Luz e Pressão de Óleo", conteudo: "<p>Parâmetros do interruptor de pressão do óleo e sinalização do painel.</p>" },
+      "luz-diag": { titulo: "🔍 Luzes de Diagnóstico", conteudo: "<p>Mapeamento das luzes de falha e códigos de aviso no painel.</p>" },
+      "partida": { titulo: "🔑 Motor de Partida", conteudo: "<p>Testes de consumo de corrente e circuito da chave magnética de partida.</p>" },
+      "alternador": { titulo: "🔋 Alternador", conteudo: "<p>Tensão de carga, regulador de voltagem e teste do diodo do alternador.</p>" },
+
+      // ALIMENTAÇÃO DE COMBUSTÍVEL
+      "linha-comb": { titulo: "⛽ Linha Combustível", conteudo: "<p>Visão geral da linha de combustível de baixa e alta pressão.</p>" },
+      "tanque-filtro": { titulo: "🛢️ Tanque, Filtro e Mangueiras", conteudo: "<p>Procedimentos de sangria e substituição dos elementos filtrantes.</p>" },
+      "bomba-eletrica": { 
+        titulo: "⚡ Bomba Elétrica", 
+        conteudo: `<p>A bomba elétrica atua na pré-alimentação do sistema, enviando o combustível sob baixa pressão até o filtro e a bomba de alta pressão.</p>
+                   <p style="margin-top: 10px;"><strong>Procedimentos e Testes Principais:</strong></p>
+                   <table>
+                     <thead>
+                       <tr><th>Verificação</th><th>Procedimento / Parâmetro</th></tr>
+                     </thead>
+                     <tbody>
+                       <tr><td>Medição de Pressão</td><td>Instalar manômetro na linha de alimentação. Pressão esperada em torno de 3,5 a 5 bar.</td></tr>
+                       <tr><td>Teste de Vazão</td><td>Verificar o volume fornecido na saída da linha de combustível em intervalo fixo.</td></tr>
+                       <tr><td>Alimentação Elétrica</td><td>Conferir tensão no conector (12V durante a partida ou pré-carga da chave).</td></tr>
+                     </tbody>
+                   </table>` 
+      },
+      "bomba-engrenagem": { titulo: "⚙️ Bomba Engrenagem", conteudo: "<p>Inspeção mecânica e teste de sucção da bomba de engrenagens.</p>" },
+      "kuv": { 
+        titulo: "🛢️ Válvula Cascata (KUV)", 
+        conteudo: `<p><strong>Remoção:</strong> Utilizar soquete de 16mm. Localizada na carcaça da bomba de alta pressão.</p>
+                   <p style="margin-top: 10px;"><strong>Curso do Êmbolo Interno:</strong></p>
+                   <table>
+                     <thead><tr><th>Condição do Teste</th><th>Medida de Referência</th></tr></thead>
+                     <tbody>
+                       <tr><td>Êmbolo sem pressionar</td><td><strong>17 mm</strong></td></tr>
+                       <tr><td>Êmbolo totalmente pressionado</td><td><strong>26 mm</strong></td></tr>
+                     </tbody>
+                   </table>`
+      },
+      "bomba-alta": { titulo: "🏗️ Bomba Alta Pressão", conteudo: "<p>Instruções de desmontagem e teste da bomba de alta pressão Common Rail.</p>" },
+      "tubo-rail": { titulo: "🛑 Tubo Rail", conteudo: "<p>Verificação da estanqueidade do tubo distribuidor e válvula de alívio.</p>" },
+
+      // SENSORES E ATUADORES
+      "ckp": { titulo: "⚙️ Sensor de Rotação (CKP)", conteudo: "<p>Monitora a rotação e a posição angular do virabrequim para sincronismo da injeção Common Rail.</p>" },
+      "cmp": { titulo: "📷 Sensor de Fase (CMP)", conteudo: "<p>Medição de resistência e sinal do sensor de posição de comando de válvulas.</p>" },
+      "pres-adm": { titulo: "🌬️ Sensor Pres. Adm", conteudo: "<p>Verificação do sensor MAP / Pressão no coletor de admissão.</p>" },
+      "temp-ecm": { titulo: "🌡️ Sensor Temp. ECM", conteudo: "<p>Tabela de resistência NTC x Temperatura do motor para o módulo ECM.</p>" },
+      "pres-rail": { titulo: "📈 Sensor Pres. Rail", conteudo: "<p>Tensão de sinal de retorno do sensor de pressão do tubo Rail.</p>" },
+      "mprop": { 
+        titulo: "🔌 Válvula MProp (Reguladora de Pressão)", 
+        conteudo: `
+          <p>A válvula <strong>MProp</strong> atua no circuito de baixa pressão (antes do estágio de pressurização)[cite: 1], garantindo que a bomba de alta forneça apenas a pressão necessária exigida pelo ECM[cite: 1].</p>
+
+          <p style="margin-top:15px;"><strong>1. Pinagem e Teste Elétrico:</strong></p>
+          <table>
+            <thead>
+              <tr><th>Pino Válvula</th><th>Função</th><th>Pino ECM</th><th>Parâmetro de Teste</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Pino 1</strong></td><td>Negativo (Sinal PWM)[cite: 1]</td><td><strong>A49</strong>[cite: 1]</td><td>Pulso negativo controlado[cite: 1]</td></tr>
+              <tr><td><strong>Pino 2</strong></td><td>Alimentação +12V[cite: 1]</td><td><strong>A18</strong>[cite: 1]</td><td>12V com chave ligada[cite: 1]</td></tr>
+              <tr><td colspan="3"><strong>Resistência Elétrica (Terminais desconectados)</strong></td><td><strong>2,6 a 3,5 Ω</strong>[cite: 1]</td></tr>
+            </tbody>
+          </table>
+
+          <p style="margin-top:15px;"><strong>2. Teste Mecânico do Êmbolo / Cilindro:</strong></p>
+          <ul>
+            <li>Ao bater a válvula contra a palma da mão ou pneu, ouve-se o movimento livre do êmbolo[cite: 1].</li>
+            <li>Inserindo um objeto pontiagudo na ponta:
+              <ul>
+                <li><strong>15 mm:</strong> Cilindro destravado (Operação normal)[cite: 1].</li>
+                <li><strong>10 mm:</strong> Cilindro travado aberto[cite: 1].</li>
+              </ul>
+            </li>
+          </ul>
+
+          <p style="margin-top:15px;"><strong>3. Leitura do Sensor no Tubo Rail (Tensão no Pino 02):</strong></p>
+          <table>
+            <thead>
+              <tr><th>Condição de Teste</th><th>Tensão no Sensor</th><th>Pressão Esperada</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Chave ligada (Sem partida)[cite: 1]</td><td><strong>0,5 V</strong>[cite: 1]</td><td>0 bar</td></tr>
+              <tr><td>Marcha Lenta (~750 rpm)[cite: 1]</td><td><strong>~1,2 V</strong>[cite: 1]</td><td>200 a 500 bar[cite: 1]</td></tr>
+              <tr><td>Alta Rotação / Carga[cite: 1]</td><td><strong>Até 4,5 V</strong>[cite: 1]</td><td>Até ~1200+ bar[cite: 1]</td></tr>
+            </tbody>
+          </table>
+        ` 
+      },
+      "acelerador": { titulo: "🦶 Pedal Acelerador", conteudo: "<p>Leitura dos dois potenciômetros de sinal do pedal de aceleração.</p>" },
+      "modulador-turbina": { titulo: "🌀 Modulador Turbina", conteudo: "<p>Eletroválvula de controle de vácuo para a geometria da turbina.</p>" },
+      "injetores": { titulo: "💉 Bicos Injetores", conteudo: "<p>Códigos IMA, teste de estanqueidade e retorno dos injetores piezoelétricos.</p>" },
+      "lampada-painel": { titulo: "💡 Lâmpada Painel", conteudo: "<p>Circuito do atuador da lâmpada de aviso de injeção no painel.</p>" },
+
+      // MOTOR E CHASSI
+      "arrefecimento": { titulo: "🌡️ Arrefecimento", conteudo: "<p>Esquema do circuito de arrefecimento e proporção de aditivo.</p>" },
+      "lubrificacao": { titulo: "🛢️ Lubrificação", conteudo: "<p>Especificações de viscosidade de óleo e pressão mínima de trabalho.</p>" },
+      "bomba-agua": { titulo: "💧 Bomba de Água", conteudo: "<p>Procedimento de inspeção de folga do rotor e troca do conjunto.</p>" },
+      "trocador-calor": { titulo: "🔥 Trocador de Calor", conteudo: "<p>Teste de estanqueidade do trocador de calor do óleo lubrificante.</p>" },
+      "termostatica": { titulo: "🚪 Válvula Termostática", conteudo: "<p>Temperatura de início de abertura e abertura total da termostática.</p>" },
+      "sistema-direcao": { titulo: "🎯 Sistema de Direção", conteudo: "<p>Verificação de folgas na caixa hidráulica e bomba de direção.</p>" },
+      "sistemas-freios": { titulo: "🛑 Sistemas de Freios", conteudo: "<p>Diagnóstico da bomba de vácuo, cilindro mestre e regulagens de freio.</p>" }
+    };
+
+    // EXIBE O CONTEÚDO
+    function showTab(id, isNavigatingBack = false) {
+      const dados = bancoDeDados[id];
+      const areaConteudo = document.getElementById('painel-conteudo');
+
+      if (dados) {
+        areaConteudo.innerHTML = `
+          <div class="card">
+            <h2>${dados.titulo}</h2>
+            ${dados.conteudo}
+          </div>
+        `;
+      }
+
+      if (!isNavigatingBack) {
+        historicoNavegacao.push(id);
+      }
+
+      scrollToTop();
+    }
+
+    // NAVEGAÇÃO
+    function goHome() {
+      showTab('mprop');
+    }
+
+    function goBack() {
+      if (historicoNavegacao.length > 1) {
+        historicoNavegacao.pop();
+        const tabAnterior = historicoNavegacao[historicoNavegacao.length - 1];
+        showTab(tabAnterior, true);
+      }
+    }
+
+    // ROLAGEM
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.onscroll = function() {
+      const btn = document.getElementById('scrollTopBtn');
+      if (window.scrollY > 150) {
+        btn.style.display = 'flex';
+      } else {
+        btn.style.display = 'none';
+      }
+    };
+
+    // INICIA NAVEGAÇÃO NA MPROP
+    document.addEventListener("DOMContentLoaded", function() {
+      showTab('mprop');
+    });
+  </script>
 
 </body>
 </html>
