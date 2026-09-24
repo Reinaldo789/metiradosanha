@@ -1,205 +1,468 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+/* ==========================================
+   1. ESTILOS BASE E CORES
+   ========================================== */
+:root {
+  --bg-page: #eef2ff;
+  --card-bg: #ffffff;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-light: #f5f3ff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+  --transition: all 0.2s ease-in-out;
 }
 
-body {
-    background-color: #f4f6f9;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
-/* NAVBAR RESPONSIVA */
-.navbar {
-    background-color: #111827;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+*, *:before, *:after { box-sizing: inherit; }
+
+.site-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================
+   2. CABEÇALHO SUPERIOR (NAVBAR)
+   ========================================== */
+header {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
 }
 
 .nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 1rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  position: relative;
 }
 
 .logo {
-    color: #ffffff;
-    font-size: 1.2rem;
-    font-weight: bold;
-    text-decoration: none;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.nav-menu {
-    display: flex;
-    list-style: none;
-    gap: 1.5rem;
+.main-nav {
+  display: flex;
+  list-style: none;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
 }
 
-.nav-menu a {
-    color: #d1d5db;
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: color 0.2s;
+.nav-item {
+  position: static;
+  padding-bottom: 10px;
+  margin-bottom: -10px;
 }
 
-.nav-menu a:hover {
-    color: #3b82f6;
+.nav-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 0.6rem 0.7rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: var(--transition);
+  text-decoration: none;
 }
 
-.menu-toggle {
-    display: none;
-    flex-direction: column;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    gap: 5px;
+.nav-btn i.fa-chevron-down {
+  font-size: 0.75rem;
+  transition: var(--transition);
 }
 
-.bar {
-    width: 25px;
-    height: 3px;
-    background-color: #ffffff;
-    border-radius: 2px;
-    transition: 0.3s;
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--text-main);
+  cursor: pointer;
 }
 
-/* HEADER & LAYOUT */
-header {
-    background-color: #1f2937;
-    color: #ffffff;
-    text-align: center;
-    padding: 2.5rem 1rem;
+/* ==========================================
+   3. MEGA MENU DROPDOWN (DESKTOP)
+   ========================================== */
+.mega-menu {
+  position: absolute;
+  top: 100%;
+  left: 1.5rem;
+  right: 1.5rem;
+  width: auto;
+  max-width: 1200px;
+  margin: 0 auto;
+  max-height: calc(85vh - 70px);
+  overflow-y: auto;
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: var(--transition);
+  z-index: 1001;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 1.5rem;
 }
 
-header h1 {
-    font-size: 1.6rem;
-    margin-bottom: 0.5rem;
+.mega-menu::-webkit-scrollbar {
+  width: 6px;
+}
+.mega-menu::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
 }
 
-header p {
-    color: #9ca3af;
-    font-size: 0.95rem;
+/* HOVER DESKTOP */
+@media (min-width: 961px) {
+  .nav-item:hover > .nav-btn {
+    background-color: var(--primary-light);
+    color: var(--primary);
+  }
+
+  .nav-item:hover > .nav-btn i.fa-chevron-down {
+    transform: rotate(180deg);
+  }
+
+  .nav-item:hover .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
 }
 
-.container {
-    flex: 1;
-    max-width: 900px;
-    width: 100%;
-    margin: 1.5rem auto;
-    padding: 0 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
+.mega-categories-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
-.card {
+.category-group {
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 1rem;
+}
+
+.category-group:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.category-title {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primary);
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.mega-links-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.mega-link-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--text-main);
+  font-size: 0.85rem;
+  transition: var(--transition);
+}
+
+.mega-link-item:hover {
+  background-color: var(--primary-light);
+  color: var(--primary);
+}
+
+.mega-link-item i {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.mega-link-item:hover i {
+  color: var(--primary);
+}
+
+/* Painel Lateral Explore */
+.mega-explore-side {
+  background-color: #fafafa;
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.explore-header-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+
+.explore-banner {
+  background-color: #312e81;
+  color: white;
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  margin-bottom: 0.8rem;
+}
+
+.explore-banner i {
+  font-size: 1.8rem;
+  margin-bottom: 0.4rem;
+  color: #818cf8;
+}
+
+.explore-banner h5 {
+  margin: 0 0 0.2rem 0;
+  font-size: 0.9rem;
+}
+
+.explore-banner p {
+  margin: 0;
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.explore-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* ==========================================
+   4. CONTEÚDO DA PÁGINA
+   ========================================== */
+main {
+  flex-grow: 1;
+  padding: 3rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-box {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+}
+
+.hero-title-bg {
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 900;
+  color: rgba(79, 70, 229, 0.15);
+  margin: 0;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.hero-title-main {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  color: var(--text-main);
+  margin-top: -1rem;
+  font-weight: 800;
+}
+
+.hero-sub {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  max-width: 600px;
+  margin: 0.8rem auto 0 auto;
+}
+
+/* ==========================================
+   5. BOTÃO FLUTUANTE (VOLTAR AO TOPO)
+   ========================================== */
+.floating-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+}
+
+.float-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.2rem;
+  background-color: var(--primary);
+  box-shadow: var(--shadow-lg);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.float-btn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-3px);
+}
+
+.float-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ==========================================
+   6. ESTILOS MOBILE (COM ROLAGEM CORRIGIDA)
+   ========================================== */
+@media (max-width: 960px) {
+ /* Atualize a classe do botão mobile */
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  align-items: center;
+  gap: 0.5rem; /* Espaçamento entre a palavra "Menu" e o ícone */
+}
+
+.mobile-toggle i {
+  font-size: 1.4rem; /* Mantém o ícone no tamanho original */
+}
+
+/* Garante a exibição correta no modo mobile */
+@media (max-width: 960px) {
+  .mobile-toggle { 
+    display: flex; /* Exibe o botão com alinhamento flex (texto + ícone lado a lado) */
+  }
+}
+
+  .main-nav.active { 
+    display: flex; 
+  }
+
+  .nav-item {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    position: relative;
     background: #ffffff;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
-}
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    flex-shrink: 0;
+  }
 
-.card h2 {
-    margin-bottom: 0.8rem;
-    color: #2563eb;
-    border-bottom: 2px solid #f3f4f6;
-    padding-bottom: 0.4rem;
-    font-size: 1.25rem;
-}
-
-.card p, .card ul {
-    line-height: 1.6;
-    color: #4b5563;
+  .nav-btn {
+    width: 100%;
+    justify-content: space-between;
+    padding: 1rem 1.2rem;
     font-size: 0.95rem;
-}
+    background: white;
+    border-radius: 0;
+  }
 
-.card ul {
-    padding-left: 1.2rem;
-}
+  .nav-item.active .nav-btn {
+    background-color: var(--primary-light);
+    color: var(--primary);
+    font-weight: 700;
+  }
 
-/* TABELA RESPONSIVA */
-.table-responsive {
+  .mega-menu {
+    position: static;
+    left: auto;
+    right: auto;
+    transform: none !important;
     width: 100%;
-    overflow-x: auto;
-}
+    box-shadow: none;
+    border: none;
+    border-top: 1px solid var(--border-color);
+    padding: 1rem;
+    display: none;
+    grid-template-columns: 1fr;
+    opacity: 1;
+    visibility: visible;
+    max-height: 55vh; /* Limite de altura para acionar a rolagem interna no submenu */
+    overflow-y: auto; /* Permite rolar o conteúdo interno do submenu */
+    -webkit-overflow-scrolling: touch;
+    background: #ffffff;
+  }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 0.5rem;
-    min-width: 300px;
-}
+  .nav-item.active .mega-menu {
+    display: block;
+  }
 
-table th, table td {
-    text-align: left;
-    padding: 0.75rem;
-    border-bottom: 1px solid #e5e7eb;
-    font-size: 0.9rem;
-}
+  .nav-item.active > .nav-btn i.fa-chevron-down {
+    transform: rotate(180deg);
+  }
 
-table th {
-    background-color: #f9fafb;
-    color: #374151;
-}
+  .mega-links-grid {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
 
-footer {
-    text-align: center;
-    padding: 1.2rem;
-    background-color: #e5e7eb;
-    color: #6b7280;
-    font-size: 0.85rem;
-    margin-top: auto;
-}
+  .mega-link-item {
+    padding: 0.65rem 0.8rem;
+    background: #f8fafc;
+    border-radius: 6px;
+  }
 
-/* MEDIA QUERIES (MOBILE) */
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: flex;
-    }
-
-    .nav-menu {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background-color: #111827;
-        flex-direction: column;
-        align-items: center;
-        gap: 0;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease-out;
-    }
-
-    .nav-menu li {
-        width: 100%;
-        text-align: center;
-    }
-
-    .nav-menu a {
-        display: block;
-        padding: 1rem;
-        border-top: 1px solid #1f2937;
-    }
-
-    .nav-menu.active {
-        max-height: 300px;
-    }
-
-    header h1 {
-        font-size: 1.3rem;
-    }
-
-    .card {
-        padding: 1.2rem;
-    }
+  .mega-explore-side {
+    margin-top: 1.2rem;
+  }
 }
