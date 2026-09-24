@@ -3,76 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guia Técnico - Dashboard</title>
+  <title>Mega Menu - Guia Técnico</title>
 
   <!-- Ícones Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     /* ==========================================
-       1. VARIÁVEIS E ESTILOS INSPIRADOS NA IMAGEM
+       1. ESTILOS BASE E CORES
        ========================================== */
     :root {
-      --primary: #4F46E5;         /* Roxo/Azul do layout */
-      --primary-light: #EEF2FF;
-      --bg-body: #F3F4F6;         /* Fundo cinza suave de Dashboard */
-      --bg-card: #FFFFFF;         /* Cards e Sidebar brancos */
-      --text-main: #1F2937;       
-      --text-muted: #6B7280;      
-      --accent: #10B981;          /* Verde WhatsApp */
-      --border-color: #E5E7EB;
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      --sidebar-width: 260px;
-      --sidebar-collapsed: 70px;
+      --bg-page: #eef2ff;
+      --card-bg: #ffffff;
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-light: #f5f3ff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --transition: all 0.2s ease-in-out;
     }
 
     html, body {
       width: 100%;
-      height: 100%;
+      min-height: 100vh;
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      background-color: var(--bg-body);
+      background-color: var(--bg-page);
       color: var(--text-main);
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      overflow-x: hidden;
     }
 
     *, *:before, *:after { box-sizing: inherit; }
 
-    /* Layout Principal em Grid/Flex */
-    .app-container {
-      display: flex;
-      min-height: 100vh;
-      width: 100%;
+    .site-wrapper {
       position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     /* ==========================================
-       2. SIDEBAR LATERAL (DESKTOP)
+       2. CABEÇALHO SUPERIOR (NAVBAR)
        ========================================== */
-    .sidebar {
-      width: var(--sidebar-width);
-      background-color: var(--bg-card);
-      border-right: 1px solid var(--border-color);
-      display: flex;
-      flex-direction: column;
-      transition: var(--transition);
-      z-index: 100;
-      position: relative;
-      flex-shrink: 0;
+    header {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      width: 100%;
     }
 
-    /* Topo da Sidebar (Logo & Botão de Encolher) */
-    .sidebar-header {
-      padding: 1.2rem 1rem;
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid var(--border-color);
+      padding: 0.75rem 1.5rem;
+      position: relative;
     }
 
     .logo {
@@ -82,546 +77,768 @@
       text-decoration: none;
       display: flex;
       align-items: center;
-      gap: 0.6rem;
-      white-space: nowrap;
-      overflow: hidden;
+      gap: 0.5rem;
     }
 
-    .toggle-collapse {
-      background: var(--primary-light);
-      color: var(--primary);
-      border: none;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      cursor: pointer;
+    .main-nav {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: var(--transition);
-    }
-
-    .toggle-collapse:hover {
-      background-color: var(--primary);
-      color: #FFF;
-    }
-
-    /* Lista de Navegação */
-    .sidebar-menu {
       list-style: none;
-      padding: 1rem 0.6rem;
+      gap: 0.4rem;
       margin: 0;
-      overflow-y: auto;
-      flex-grow: 1;
+      padding: 0;
     }
 
-    .menu-item {
-      margin-bottom: 0.3rem;
+    .nav-item {
+      position: static;
+      padding-bottom: 10px;
+      margin-bottom: -10px;
     }
 
-    .menu-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.75rem 0.9rem;
-      color: var(--text-muted);
-      text-decoration: none;
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-main);
       font-weight: 600;
-      font-size: 0.9rem;
-      border-radius: 10px;
-      transition: var(--transition);
+      font-size: 0.88rem;
+      padding: 0.6rem 0.7rem;
+      border-radius: 8px;
       cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .menu-link-content {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 0.4rem;
+      transition: var(--transition);
+      text-decoration: none;
     }
 
-    .menu-link i.icon-main {
-      font-size: 1.1rem;
-      width: 20px;
-      text-align: center;
-    }
-
-    .menu-link:hover, .menu-item.open > .menu-link {
-      background-color: var(--primary-light);
-      color: var(--primary);
-    }
-
-    .arrow-icon {
+    .nav-btn i.fa-chevron-down {
       font-size: 0.75rem;
       transition: var(--transition);
     }
 
-    .menu-item.open .arrow-icon {
-      transform: rotate(180deg);
-    }
-
-    /* Submenu (Dropdown) */
-    .submenu {
-      list-style: none;
-      padding-left: 2.2rem;
-      padding-right: 0.5rem;
-      margin: 0;
-      display: none;
-    }
-
-    .menu-item.open .submenu {
-      display: block;
-    }
-
-    .submenu-link {
-      display: block;
-      padding: 0.5rem 0.8rem;
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.85rem;
-      border-radius: 6px;
-      transition: var(--transition);
-      margin-top: 0.1rem;
-    }
-
-    .submenu-link:hover {
-      color: var(--primary);
-      background-color: #F9FAFB;
-      transform: translateX(3px);
-    }
-
-    /* Sidebar Recolhida (Collapsed) */
-    .sidebar.collapsed {
-      width: var(--sidebar-collapsed);
-    }
-
-    .sidebar.collapsed .logo-text,
-    .sidebar.collapsed .link-text,
-    .sidebar.collapsed .arrow-icon,
-    .sidebar.collapsed .submenu {
-      display: none !important;
-    }
-
-    .sidebar.collapsed .toggle-collapse i {
-      transform: rotate(180deg);
-    }
-
-    .sidebar.collapsed .menu-link {
-      justify-content: center;
-      padding: 0.75rem 0;
-    }
-
-    .sidebar.collapsed .menu-link-content {
-      gap: 0;
-    }
-
-    /* ==========================================
-       3. CONTEÚDO PRINCIPAL (MAIN CONTENT)
-       ========================================== */
-    .main-wrapper {
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-    }
-
-    /* Cabeçalho Mobile / Topo */
-    .mobile-header {
-      display: none;
-      background-color: var(--bg-card);
-      border-bottom: 1px solid var(--border-color);
-      padding: 0.8rem 1rem;
-      justify-content: space-between;
-      align-items: center;
-    }
-
     .mobile-toggle {
+      display: none;
       background: none;
       border: none;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       color: var(--text-main);
       cursor: pointer;
     }
 
-    .content-area {
-      padding: 2rem;
-      max-width: 1100px;
-      width: 100%;
+    /* ==========================================
+       3. MEGA MENU DROPDOWN (DESKTOP)
+       ========================================== */
+    .mega-menu {
+      position: absolute;
+      top: 100%;
+      left: 1.5rem;
+      right: 1.5rem;
+      width: auto;
+      max-width: 1200px;
       margin: 0 auto;
-    }
-
-    .hero-card {
-      background: linear-gradient(135deg, #4F46E5 0%, #3730A3 100%);
-      color: white;
-      padding: 2.5rem 2rem;
+      max-height: calc(85vh - 70px);
+      overflow-y: auto;
+      background: var(--card-bg);
       border-radius: 16px;
-      box-shadow: var(--shadow-md);
-      margin-bottom: 2rem;
-    }
-
-    .hero-card h1 {
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .hero-card p {
-      opacity: 0.9;
-      font-size: 0.95rem;
-      max-width: 600px;
-    }
-
-    .grid-cards {
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-color);
+      padding: 1.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: var(--transition);
+      z-index: 1001;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: 3fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .mega-menu::-webkit-scrollbar {
+      width: 6px;
+    }
+    .mega-menu::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    /* HOVER DESKTOP */
+    @media (min-width: 961px) {
+      .nav-item:hover > .nav-btn {
+        background-color: var(--primary-light);
+        color: var(--primary);
+      }
+
+      .nav-item:hover > .nav-btn i.fa-chevron-down {
+        transform: rotate(180deg);
+      }
+
+      .nav-item:hover .mega-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+    }
+
+    .mega-categories-container {
+      display: flex;
+      flex-direction: column;
       gap: 1.2rem;
     }
 
-    .card {
-      background-color: var(--bg-card);
-      padding: 1.5rem;
-      border-radius: 12px;
-      border: 1px solid var(--border-color);
-      box-shadow: var(--shadow-sm);
+    .category-group {
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 1rem;
     }
 
-    .card-icon {
-      font-size: 1.5rem;
+    .category-group:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .category-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
       color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .mega-links-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+
+    .mega-link-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      transition: var(--transition);
+    }
+
+    .mega-link-item:hover {
+      background-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .mega-link-item i {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .mega-link-item:hover i {
+      color: var(--primary);
+    }
+
+    /* Painel Lateral Explore */
+    .mega-explore-side {
+      background-color: #fafafa;
+      border-radius: 12px;
+      padding: 1rem;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .explore-header-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 700;
       margin-bottom: 0.8rem;
     }
 
-    .card h3 {
-      font-size: 1.05rem;
-      margin-bottom: 0.3rem;
+    .explore-banner {
+      background-color: #312e81;
+      color: white;
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+      margin-bottom: 0.8rem;
     }
 
-    .card p {
-      color: var(--text-muted);
+    .explore-banner i {
+      font-size: 1.8rem;
+      margin-bottom: 0.4rem;
+      color: #818cf8;
+    }
+
+    .explore-banner h5 {
+      margin: 0 0 0.2rem 0;
+      font-size: 0.9rem;
+    }
+
+    .explore-banner p {
+      margin: 0;
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+
+    .explore-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 700;
       font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
     }
 
     /* ==========================================
-       4. BOTÕES FLUTUANTES
+       4. CONTEÚDO DA PÁGINA
+       ========================================== */
+    main {
+      flex-grow: 1;
+      padding: 3rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-box {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: white;
+      border-radius: 20px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+    }
+
+    .hero-title-bg {
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 900;
+      color: rgba(79, 70, 229, 0.15);
+      margin: 0;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .hero-title-main {
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      color: var(--text-main);
+      margin-top: -1rem;
+      font-weight: 800;
+    }
+
+    .hero-sub {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 600px;
+      margin: 0.8rem auto 0 auto;
+    }
+
+    /* ==========================================
+       5. BOTÃO FLUTUANTE (VOLTAR AO TOPO)
        ========================================== */
     .floating-container {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
       z-index: 999;
     }
 
     .float-btn {
-      width: 46px;
-      height: 46px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
       font-size: 1.2rem;
+      background-color: var(--primary);
       box-shadow: var(--shadow-lg);
-      text-decoration: none;
       border: none;
       cursor: pointer;
       transition: var(--transition);
+      opacity: 0;
+      pointer-events: none;
     }
 
-    .btn-whatsapp { background-color: var(--accent); }
-    .btn-top { 
-      background-color: var(--primary); 
-      opacity: 0; 
-      pointer-events: none; 
+    .float-btn:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-3px);
     }
-    .btn-top.visible { opacity: 1; pointer-events: auto; }
+
+    .float-btn.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
     /* ==========================================
-       5. RESPONSIVIDADE (DISPOSITIVOS MÓVEIS)
+       6. ESTILOS MOBILE (COM ROLAGEM CORRIGIDA)
        ========================================== */
-    @media (max-width: 900px) {
-      .app-container {
-        flex-direction: column;
-      }
+    @media (max-width: 960px) {
+      .mobile-toggle { display: block; }
 
-      .sidebar {
+      .main-nav {
+        display: none;
+        position: fixed;
+        top: 60px; /* Altura do cabeçalho */
+        left: 0;
+        right: 0;
+        bottom: 0;
         width: 100%;
-        display: none; /* Oculta a sidebar desktop */
-        border-right: none;
+        height: calc(100vh - 60px);
+        background: #f8fafc;
+        flex-direction: column;
+        padding: 1rem 1rem 3rem 1rem;
         border-bottom: 1px solid var(--border-color);
+        box-shadow: var(--shadow-lg);
+        overflow-y: auto; /* Rolagem geral da lista mobile */
+        -webkit-overflow-scrolling: touch;
+        gap: 0.8rem;
+        z-index: 999;
       }
 
-      .sidebar.mobile-open {
-        display: flex;
+      .main-nav.active { 
+        display: flex; 
       }
 
-      .sidebar-header {
-        display: none; /* Usa apenas o mobile-header */
+      .nav-item {
+        padding-bottom: 0;
+        margin-bottom: 0;
+        position: relative;
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        flex-shrink: 0;
       }
 
-      .mobile-header {
-        display: flex;
+      .nav-btn {
+        width: 100%;
+        justify-content: space-between;
+        padding: 1rem 1.2rem;
+        font-size: 0.95rem;
+        background: white;
+        border-radius: 0;
       }
 
-      .content-area {
-        padding: 1.2rem 1rem;
+      .nav-item.active .nav-btn {
+        background-color: var(--primary-light);
+        color: var(--primary);
+        font-weight: 700;
       }
 
-      .hero-card {
-        padding: 1.5rem;
+      .mega-menu {
+        position: static;
+        left: auto;
+        right: auto;
+        transform: none !important;
+        width: 100%;
+        box-shadow: none;
+        border: none;
+        border-top: 1px solid var(--border-color);
+        padding: 1rem;
+        display: none;
+        grid-template-columns: 1fr;
+        opacity: 1;
+        visibility: visible;
+        max-height: 55vh; /* Limite de altura para acionar a rolagem interna no submenu */
+        overflow-y: auto; /* Permite rolar o conteúdo interno do submenu */
+        -webkit-overflow-scrolling: touch;
+        background: #ffffff;
       }
 
-      .hero-card h1 {
-        font-size: 1.4rem;
+      .nav-item.active .mega-menu {
+        display: block;
+      }
+
+      .nav-item.active > .nav-btn i.fa-chevron-down {
+        transform: rotate(180deg);
+      }
+
+      .mega-links-grid {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+      }
+
+      .mega-link-item {
+        padding: 0.65rem 0.8rem;
+        background: #f8fafc;
+        border-radius: 6px;
+      }
+
+      .mega-explore-side {
+        margin-top: 1.2rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="app-container">
-    
-    <!-- CABEÇALHO APENAS NO TELEFONE -->
-    <div class="mobile-header">
-      <a href="#" class="logo">
-        <i class="fa-solid fa-gears"></i>
-        <span>Guia Técnico</span>
-      </a>
-      <button class="mobile-toggle" id="mobile-toggle-btn">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-    </div>
+  <div class="site-wrapper">
 
-    <!-- SIDEBAR (MENU LATERAL DESSKTOP / MENU SANFONA MOBILE) -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
+    <!-- NAVBAR -->
+    <header>
+      <div class="nav-container">
         <a href="#" class="logo">
           <i class="fa-solid fa-gears"></i>
-          <span class="logo-text">Guia Técnico</span>
+          <span>Guia Técnico</span>
         </a>
-        <button class="toggle-collapse" id="collapse-btn" title="Recolher Menu">
-          <i class="fa-solid fa-chevron-left"></i>
+
+        <button class="mobile-toggle" id="mobile-toggle-btn" aria-label="Abrir Menu">
+          <i class="fa-solid fa-bars"></i>
         </button>
+
+        <ul class="main-nav" id="main-nav">
+          
+          <!-- 1. SISTEMA ELÉTRICO -->
+          <li class="nav-item">
+            <button class="nav-btn">
+              <span><i class="fa-solid fa-bolt" style="margin-right:6px; color:var(--primary);"></i> Sistema Elétrico</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+
+            <div class="mega-menu">
+              <div class="mega-categories-container">
+                
+                <!-- Luzes -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-lightbulb"></i> Luzes</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Fusíveis e Lampadas</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Luz de Farol e Posição</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Luz de Seta e alerta</a>
+                  </div>
+                </div>
+
+                <!-- Painel de Instrumentos -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-gauge"></i> Painel de Instrumentos</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Luz e Pressão de óleo</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Luzes de Injeção</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Agua no Combustível</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Agua de Arrefecimento</a>
+                  </div>
+                </div>
+
+                <!-- Acessórios -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-car-battery"></i> Acessórios</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Bateria</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Alternador</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Motor de Partida</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Limpador de Parabriza</a>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Destaque Lateral -->
+              <div class="mega-explore-side">
+                <div class="explore-header-title">Esquema Elétrico</div>
+                <div class="explore-banner">
+                  <i class="fa-solid fa-bolt"></i>
+                  <h5>Painel & Fusíveis</h5>
+                  <p>Consulte a caixa de fusíveis e luzes de alerta do painel.</p>
+                </div>
+                <a href="#" class="explore-link">Ver Diagramas <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </li>
+
+          <!-- 2. ALIMENTAÇÃO DE COMBUSTÍVEL -->
+          <li class="nav-item">
+            <button class="nav-btn">
+              <span><i class="fa-solid fa-gas-pump" style="margin-right:6px; color:var(--primary);"></i> Alimentação de Combustível</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+
+            <div class="mega-menu">
+              <div class="mega-categories-container">
+                
+                <!-- Linha Combustível -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-filter"></i> Linha Combustível</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Tanque, Filtro, Mang.</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Bomba Elétrica</a>
+                  </div>
+                </div>
+
+                <!-- Linha de Alta -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-gauge-high"></i> Linha de Alta</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Bomba Engrenagem</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Válvula KUV</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Bomba Alta Pressão</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Tubo Rail</a>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Destaque Lateral -->
+              <div class="mega-explore-side">
+                <div class="explore-header-title">Linha de Combustível</div>
+                <div class="explore-banner" style="background-color: #0284c7;">
+                  <i class="fa-solid fa-gas-pump"></i>
+                  <h5>Baixa e Alta Pressão</h5>
+                  <p>Esquemas da linha de combustível e bomba elétrica.</p>
+                </div>
+                <a href="#" class="explore-link">Consultar Linha <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </li>
+
+          <!-- 3. SISTEMA DE INJEÇÃO -->
+          <li class="nav-item">
+            <button class="nav-btn">
+              <span><i class="fa-solid fa-microchip" style="margin-right:6px; color:var(--primary);"></i> Sistema de Injeção</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+
+            <div class="mega-menu">
+              <div class="mega-categories-container">
+                
+                <!-- Sensores -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-microchip"></i> Sensores</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Sensor Rotação</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Sensor Fase</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Sensor Pres. Adm</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Sensor Temp. ECM</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Sensor Pres. Rail</a>
+                  </div>
+                </div>
+
+                <!-- Atuadores -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-sliders"></i> Atuadores</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Válvula MProp</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Pedal Acelerador</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Modulador Turbina</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Bicos Injetores</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Lampada Painel</a>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Destaque Lateral -->
+              <div class="mega-explore-side">
+                <div class="explore-header-title">Diagnóstico de Injeção</div>
+                <div class="explore-banner" style="background-color: #065f46;">
+                  <i class="fa-solid fa-syringe"></i>
+                  <h5>Sensores & Atuadores</h5>
+                  <p>Tabela de testes da MProp, Tubo Rail e Bicos Injetores.</p>
+                </div>
+                <a href="#" class="explore-link">Consultar Testes <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </li>
+
+          <!-- 4. TRANSMISSÃO E TRAÇÃO (NOVO ITEM) -->
+          <li class="nav-item">
+            <button class="nav-btn">
+              <span><i class="fa-solid fa-truck-monster" style="margin-right:6px; color:var(--primary);"></i> Transmissão e Tração</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+
+            <div class="mega-menu">
+              <div class="mega-categories-container">
+                
+                <!-- Embreagem & Câmbio -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-gear"></i> Embreagem & Câmbio</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Disco e Platô</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Cilindro Mestre/Atuador</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Caixas de Marcha (Manual/Auto)</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Óleo de Câmbio</a>
+                  </div>
+                </div>
+
+                <!-- Sistema 4x4 & Transferência -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-arrows-split-up-and-left"></i> Sistema 4x4 & Transferência</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Caixa de Transferência (T-Case)</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Motor / Atuador da Tração</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Cardãs e Cruzetas</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Éster / Roda Livre</a>
+                  </div>
+                </div>
+
+                <!-- Diferenciais e Eixos -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-ring"></i> Diferenciais e Eixos</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Diferencial Dianteiro / Traseiro</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Semi-eixos e Homocinéticas</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Bloqueio de Diferencial</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Valvolina / Óleo do Diferencial</a>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Destaque Lateral -->
+              <div class="mega-explore-side">
+                <div class="explore-header-title">Transmissão & 4x4</div>
+                <div class="explore-banner" style="background-color: #b45309;">
+                  <i class="fa-solid fa-truck-monster"></i>
+                  <h5>Sistemas de Tração</h5>
+                  <p>Manutenção da caixa de transferência, acoplamento e diferenciais.</p>
+                </div>
+                <a href="#" class="explore-link">Ver Guias <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </li>
+
+          <!-- 5. MOTOR E CHASSI -->
+          <li class="nav-item">
+            <button class="nav-btn">
+              <span><i class="fa-solid fa-wrench" style="margin-right:6px; color:var(--primary);"></i> Motor e Chassi</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+
+            <div class="mega-menu">
+              <div class="mega-categories-container">
+                
+                <!-- Sistema de Arrefecimento -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-snowflake"></i> Sistema de Arrefecimento</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Correia e Ventoinha</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Bomba de Agua</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Trocador de calor</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Válvula termostática</a>
+                  </div>
+                </div>
+
+                <!-- Sistema de Direção -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-dharmachakra"></i> Sistema de Direção</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Bomba de Direção</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Caixa de direção</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Oleo de direção</a>
+                  </div>
+                </div>
+
+                <!-- Sistemas de Freios -->
+                <div class="category-group">
+                  <div class="category-title"><i class="fa-solid fa-circle-stop"></i> Sistemas de Freios</div>
+                  <div class="mega-links-grid">
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Bomba de Vácuo</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Cilindro de Freio</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Óleo de Freio</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Pinças de Freio</a>
+                    <a href="#" class="mega-link-item"><i class="fa-solid fa-chevron-right"></i> Regulagem Freio de mão</a>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Destaque Lateral -->
+              <div class="mega-explore-side">
+                <div class="explore-header-title">Manutenção Mecânica</div>
+                <div class="explore-banner" style="background-color: #1e1b4b;">
+                  <i class="fa-solid fa-wrench"></i>
+                  <h5>Torques e Fluídos</h5>
+                  <p>Especificações técnicas de fluidos de freio e direção.</p>
+                </div>
+                <a href="#" class="explore-link">Ver Especificações <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </li>
+
+        </ul>
       </div>
+    </header>
 
-      <ul class="sidebar-menu">
-        
-        <!-- 1. Lubrificação -->
-        <li class="menu-item has-submenu">
-          <div class="menu-link">
-            <div class="menu-link-content">
-              <i class="fa-solid fa-oil-can icon-main"></i>
-              <span class="link-text">Lubrificação</span>
-            </div>
-            <i class="fa-solid fa-chevron-down arrow-icon"></i>
-          </div>
-          <ul class="submenu">
-            <li><a href="#" class="submenu-link">Tabela de Lubrificação</a></li>
-            <li><a href="#" class="/paginas/teste.html">Luz e Pressão</a></li>
-          </ul>
-        </li>
-
-        <!-- 2. Elétrico -->
-        <li class="menu-item has-submenu">
-          <div class="menu-link">
-            <div class="menu-link-content">
-              <i class="fa-solid fa-bolt icon-main"></i>
-              <span class="link-text">Elétrico</span>
-            </div>
-            <i class="fa-solid fa-chevron-down arrow-icon"></i>
-          </div>
-          <ul class="submenu">
-            <li><a href="#" class="submenu-link">Fusíveis e Lâmpadas</a></li>
-            <li><a href="#" class="submenu-link">Farol e Seta</a></li>
-          </ul>
-        </li>
-
-        <!-- 3. Combustível -->
-        <li class="menu-item has-submenu">
-          <div class="menu-link">
-            <div class="menu-link-content">
-              <i class="fa-solid fa-gas-pump icon-main"></i>
-              <span class="link-text">Combustível</span>
-            </div>
-            <i class="fa-solid fa-chevron-down arrow-icon"></i>
-          </div>
-          <ul class="submenu">
-            <li><a href="#" class="submenu-link">Tanque, Filtro, Mang.</a></li>
-            <li><a href="#" class="submenu-link">Bomba Elétrica</a></li>
-            <li><a href="#" class="submenu-link">Bomba Engrenagem</a></li>
-            <li><a href="#" class="submenu-link">Válvula KUV</a></li>
-            <li><a href="#" class="submenu-link">Bomba Alta Pressão</a></li>
-            <li><a href="#" class="submenu-link">Tubo Rail</a></li>
-          </ul>
-        </li>
-
-        <!-- 4. Sensores e Atuadores -->
-        <li class="menu-item has-submenu">
-          <div class="menu-link">
-            <div class="menu-link-content">
-              <i class="fa-solid fa-microchip icon-main"></i>
-              <span class="link-text">Sensores/Atuadores</span>
-            </div>
-            <i class="fa-solid fa-chevron-down arrow-icon"></i>
-          </div>
-          <ul class="submenu">
-            <li><a href="#" class="submenu-link">Válvula MProp</a></li>
-            <li><a href="#" class="submenu-link">Sensor Rotação</a></li>
-            <li><a href="#" class="submenu-link">Sensor Fase</a></li>
-            <li><a href="#" class="submenu-link">Sensor Pres. Adm</a></li>
-            <li><a href="#" class="submenu-link">Pedal Acelerador</a></li>
-            <li><a href="#" class="submenu-link">Sensor Temp. ECM</a></li>
-            <li><a href="#" class="submenu-link">Modulador Turbina</a></li>
-            <li><a href="#" class="submenu-link">Sensor Pres. Rail</a></li>
-            <li><a href="#" class="submenu-link">Bicos Injetores</a></li>
-          </ul>
-        </li>
-
-        <!-- 5. Admissão e Escape -->
-        <li class="menu-item has-submenu">
-          <div class="menu-link">
-            <div class="menu-link-content">
-              <i class="fa-solid fa-wind icon-main"></i>
-              <span class="link-text">Admissão/Escape</span>
-            </div>
-            <i class="fa-solid fa-chevron-down arrow-icon"></i>
-          </div>
-          <ul class="submenu">
-            <li><a href="#" class="submenu-link">Filtros e Mangueiras</a></li>
-            <li><a href="#" class="submenu-link">Turbina</a></li>
-          </ul>
-        </li>
-
-        <!-- 6. Direção -->
-        <li class="menu-item has-submenu">
-          <div class="menu-link">
-            <div class="menu-link-content">
-              <i class="fa-solid fa-dharmachakra icon-main"></i>
-              <span class="link-text">Direção</span>
-            </div>
-            <i class="fa-solid fa-chevron-down arrow-icon"></i>
-          </div>
-          <ul class="submenu">
-            <li><a href="#" class="submenu-link">Bomba de Direção</a></li>
-            <li><a href="#" class="submenu-link">Caixa de Direção</a></li>
-            <li><a href="#" class="submenu-link">Óleo de Direção</a></li>
-          </ul>
-        </li>
-
-        <!-- 7. Freios -->
-        <li class="menu-item has-submenu">
-          <div class="menu-link">
-            <div class="menu-link-content">
-              <i class="fa-solid fa-circle-stop icon-main"></i>
-              <span class="link-text">Freios</span>
-            </div>
-            <i class="fa-solid fa-chevron-down arrow-icon"></i>
-          </div>
-          <ul class="submenu">
-            <li><a href="#" class="submenu-link">Bomba de Vácuo</a></li>
-            <li><a href="#" class="submenu-link">Freios Traseiros / Mão</a></li>
-          </ul>
-        </li>
-
-      </ul>
-    </aside>
-
-    <!-- ÁREA DE CONTEÚDO PRINCIPAL -->
-    <div class="main-wrapper">
-      <main class="content-area">
-        <div class="hero-card">
-          <h1>Painel Técnico de Manutenção</h1>
-          <p>Selecione um dos sistemas no menu para visualizar parâmetros, testes e especificações técnicas.</p>
-        </div>
-
-        <div class="grid-cards">
-          <div class="card">
-            <div class="card-icon"><i class="fa-solid fa-oil-can"></i></div>
-            <h3>Lubrificação</h3>
-            <p>Tabelas de óleos recomendados e diagnósticos do circuito de lubrificação.</p>
-          </div>
-          <div class="card">
-            <div class="card-icon"><i class="fa-solid fa-microchip"></i></div>
-            <h3>Injeção Eletrônica</h3>
-            <p>Valores de referência para sensores, atuadores e bicos injetores.</p>
-          </div>
-          <div class="card">
-            <div class="card-icon"><i class="fa-solid fa-gauge-high"></i></div>
-            <h3>Pressão & Turbo</h3>
-            <p>Verificação do tubo Rail, bombas de pressão e modulador do turbo.</p>
-          </div>
-        </div>
-      </main>
-    </div>
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main>
+      <div class="hero-box">
+        <h1 class="hero-title-bg">Mega Menu</h1>
+        <div class="hero-title-main">Portal de Especificações Técnicas</div>
+        <p class="hero-sub">Menu mobile corrigido com suporte a rolagem completa para todos os subitens.</p>
+      </div>
+    </main>
 
   </div>
 
-  <!-- BOTÕES FLUTUANTES -->
+  <!-- BOTÃO FLUTUANTE DE ROLAR PARA CIMA -->
   <div class="floating-container">
-    <a href="https://wa.me/5500000000000" target="_blank" class="float-btn btn-whatsapp" title="Fale no WhatsApp">
-      <i class="fa-brands fa-whatsapp"></i>
-    </a>
-    <button class="float-btn btn-top" id="btn-top" title="Voltar ao Topo">
+    <button class="float-btn" id="btn-top" title="Voltar ao Topo" aria-label="Voltar ao topo">
       <i class="fa-solid fa-arrow-up"></i>
     </button>
   </div>
 
   <!-- JAVASCRIPT -->
   <script>
-    const sidebar = document.getElementById('sidebar');
-    const collapseBtn = document.getElementById('collapse-btn');
+    const navItems = document.querySelectorAll('.nav-item');
     const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
-    const mobileToggleIcon = mobileToggleBtn.querySelector('i');
+    const mainNav = document.getElementById('main-nav');
+    const toggleIcon = mobileToggleBtn.querySelector('i');
 
-    // 1. Encolher/Expandir Sidebar no Desktop
-    collapseBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('collapsed');
+    // Lógica para alternar a abertura dos Cards no Mobile (Efeito Sanfona/Accordion)
+    navItems.forEach(item => {
+      const btn = item.querySelector('.nav-btn');
       
-      // Se fechar a sidebar, fecha também os submenus abertos
-      if (sidebar.classList.contains('collapsed')) {
-        document.querySelectorAll('.menu-item.open').forEach(item => {
-          item.classList.remove('open');
-        });
-      }
-    });
+      btn.addEventListener('click', (e) => {
+        if (window.innerWidth <= 960) {
+          e.preventDefault();
+          const isActive = item.classList.contains('active');
+          
+          // Fecha todas as outras caixas abertas
+          navItems.forEach(otherItem => otherItem.classList.remove('active'));
 
-    // 2. Abrir/Fechar Menu no Telefone
-    mobileToggleBtn.addEventListener('click', () => {
-      const isOpen = sidebar.classList.toggle('mobile-open');
-      if (isOpen) {
-        mobileToggleIcon.classList.remove('fa-bars');
-        mobileToggleIcon.classList.add('fa-xmark');
-      } else {
-        mobileToggleIcon.classList.remove('fa-xmark');
-        mobileToggleIcon.classList.add('fa-bars');
-      }
-    });
-
-    // 3. Submenus em Sanfona (Accordion)
-    const menuItems = document.querySelectorAll('.menu-item.has-submenu');
-
-    menuItems.forEach(item => {
-      const link = item.querySelector('.menu-link');
-      link.addEventListener('click', () => {
-        // Se a sidebar estiver recolhida no desktop, reabre ela ao clicar
-        if (sidebar.classList.contains('collapsed')) {
-          sidebar.classList.remove('collapsed');
-        }
-
-        // Alterna entre abrir/fechar o item clicado
-        const isOpen = item.classList.contains('open');
-        
-        // Fecha outros abertos para manter visual clean
-        menuItems.forEach(otherItem => otherItem.classList.remove('open'));
-
-        if (!isOpen) {
-          item.classList.add('open');
+          // Se não estava ativo, ativa o clicado e faz um leve ajuste de scroll
+          if (!isActive) {
+            item.classList.add('active');
+            setTimeout(() => {
+              item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+          }
         }
       });
     });
 
-    // 4. Botão Voltar ao Topo
+    // Toggle Menu Hamburguer Mobile (Garante que tudo abre recolhido)
+    mobileToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = mainNav.classList.toggle('active');
+      
+      // Bloqueia a rolagem do fundo do site quando o menu está aberto no celular
+      if (isOpen) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+
+      // Sempre fecha todas as caixas ao abrir/fechar o menu hambúrguer
+      navItems.forEach(item => item.classList.remove('active'));
+
+      if (isOpen) {
+        toggleIcon.classList.remove('fa-bars');
+        toggleIcon.classList.add('fa-xmark');
+      } else {
+        toggleIcon.classList.remove('fa-xmark');
+        toggleIcon.classList.add('fa-bars');
+      }
+    });
+
+    // Botão Voltar ao Topo
     const btnTop = document.getElementById('btn-top');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 150) {
