@@ -288,7 +288,7 @@
        ========================================== */
     main {
       flex-grow: 1;
-      padding: 2rem 1.2rem;
+      padding: 3rem 1.5rem;
       max-width: 1200px;
       margin: 0 auto;
       width: 100%;
@@ -490,7 +490,7 @@
     .mega-link-item.active { background-color: var(--primary-light); color: var(--primary); font-weight: 700; }
     /* depois de clicar num item, o painel fecha até o mouse sair e voltar */
     .nav-item.closed .mega-menu { opacity: 0 !important; visibility: hidden !important; }
-    @media (max-width: 960px) { .page-card { padding: 0.8rem; border-radius: 14px; } }
+    @media (max-width: 960px) { .page-card { padding: 1.2rem; border-radius: 14px; } }
 
     /* Índice interno, avisos e listas dos artigos */
     .page-card [id] { scroll-margin-top: 80px; }
@@ -506,3 +506,28 @@
     .toc a:hover { text-decoration: underline; }
     .aviso { background: #fff7ed; border-left: 4px solid #f59e0b; border-radius: 8px; padding: 0.8rem 1rem; margin: 1.2rem 0; }
     .aviso p { margin: 0.3rem 0 0; }
+
+    /* ==========================================
+       8. MEGA MENU COMPACTO (somente desktop)
+       Ajuste os valores abaixo para deixar mais apertado ou mais folgado.
+       ========================================== */
+    @media (min-width: 961px) {
+      .mega-menu {
+        max-width: 1000px;                 /* largura do painel */
+        padding: 1rem 1.2rem;              /* espaço interno do painel */
+        grid-template-columns: 1fr 230px;  /* itens | cartão de destaque */
+        gap: 1rem;
+      }
+      .mega-categories-container { gap: 0.5rem; }
+      .category-group { padding-bottom: 0.5rem; }
+      .category-title { margin-bottom: 0.25rem; font-size: 0.75rem; }
+      .mega-links-grid {
+        grid-template-columns: repeat(4, 1fr);  /* 4 itens por linha */
+        gap: 0 0.4rem;
+      }
+      .mega-link-item { padding: 0.25rem 0.5rem; font-size: 0.82rem; }
+      .mega-explore-side { padding: 0.8rem; justify-content: flex-start; gap: 0.6rem; }
+      .explore-header-title { margin-bottom: 0; }
+      .explore-banner { padding: 0.8rem; margin-bottom: 0; }
+      .explore-banner i { font-size: 1.4rem; margin-bottom: 0.2rem; }
+    }
