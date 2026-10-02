@@ -1,134 +1,130 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const mobileToggle = document.getElementById('mobile-toggle');
-    const sidebar = document.getElementById('sidebar');
-    const dropdownItems = document.querySelectorAll('li[data-dropdown]');
-    const pageCard = document.getElementById('page-card');
-    const links = document.querySelectorAll('.dropdown-menu a');
-    const homeBtns = document.querySelectorAll('.home-trigger');
-    const topBtn = document.getElementById('top-btn');
-    const topoMenuBtn = document.querySelector('.topo-menu-btn');
+    const navItems = document.querySelectorAll('.nav-item');
+    const mobileToggleBtn = document.getElementById('mobile-toggle-btn');
+    const mainNav = document.getElementById('main-nav');
+    const toggleIcon = mobileToggleBtn.querySelector('i');
 
-    // Guarda o conteúdo inicial da página para o botão "Home" poder restaurar
-    const defaultContent = pageCard ? pageCard.innerHTML : '';
+    // Lógica para alternar a abertura dos Cards no Mobile (Efeito Sanfona/Accordion)
+    navItems.forEach(item => {
+      const btn = item.querySelector('.nav-btn');
+      
+      btn.addEventListener('click', (e) => {
+        if (window.innerWidth <= 960) {
+          e.preventDefault();
+          const isActive = item.classList.contains('active');
+          
+          // Fecha todas as outras caixas abertas
+          navItems.forEach(otherItem => otherItem.classList.remove('active'));
 
-    // Controla a visibilidade do botão flutuante "Topo"
-    const SCROLL_THRESHOLD = 300;
-    const toggleTopBtn = () => {
-        if (!topBtn) return;
-        const menuAberto = sidebar && sidebar.classList.contains('open') && window.innerWidth <= 768;
-        topBtn.classList.toggle('visible', window.scrollY > SCROLL_THRESHOLD && !menuAberto);
-    };
-
-    // 1. ABRIR E FECHAR O MENU MOBILE NO BOTAO ☰
-    if (mobileToggle && sidebar) {
-        mobileToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            sidebar.classList.toggle('open');
-            toggleTopBtn();
-        });
-    }
-
-    // 2. COMPORTAMENTO DOS SUBMENUS NO MOBILE (CLIQUE/TOQUE)
-    dropdownItems.forEach(item => {
-        const linkPai = item.querySelector('.link');
-        const submenu = item.querySelector('.dropdown-menu');
-
-        if (linkPai && submenu) {
-            linkPai.addEventListener('click', (e) => {
-                // Apenas se estiver em tela mobile
-                if (window.innerWidth <= 768) {
-                    e.preventDefault();
-                    
-                    // Fecha outros submenus que possam estar abertos
-                    dropdownItems.forEach(outroItem => {
-                        if (outroItem !== item) {
-                            outroItem.classList.remove('is-open');
-                            outroItem.querySelector('.dropdown-menu')?.classList.remove('show');
-                        }
-                    });
-
-                    // Alterna visibilidade do submenu atual (e gira a seta)
-                    submenu.classList.toggle('show');
-                    item.classList.toggle('is-open', submenu.classList.contains('show'));
-                }
-            });
+          // Se não estava ativo, ativa o clicado e faz um leve ajuste de scroll
+          if (!isActive) {
+            item.classList.add('active');
+            setTimeout(() => {
+              item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+          }
         }
+      });
     });
 
-    // 3. CARREGAMENTO DAS PÁGINAS E FECHAMENTO DO MENU AO SELECIONAR
-    links.forEach(link => {
-        link.addEventListener('click', async (e) => {
-            e.preventDefault();
+    // Toggle Menu Hamburguer Mobile (Garante que tudo abre recolhido)
+    mobileToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = mainNav.classList.toggle('active');
+      
+      // Bloqueia a rolagem do fundo do site quando o menu está aberto no celular
+      if (isOpen) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
 
-            const pageUrl = link.getAttribute('data-page');
-            if (!pageUrl) return;
+      // Sempre fecha todas as caixas ao abrir/fechar o menu hambúrguer
+      navItems.forEach(item => item.classList.remove('active'));
 
-            if (pageCard) {
-                pageCard.innerHTML = '<p style="color: var(--color-text-muted);">Carregando...</p>';
-
-                try {
-                    const response = await fetch(pageUrl);
-                    if (!response.ok) throw new Error(`Erro (${response.status})`);
-                    const html = await response.text();
-                    pageCard.innerHTML = html;
-                } catch (err) {
-                    pageCard.innerHTML = `<h3 style="color: var(--color-accent);">Erro</h3><p>${err.message}</p>`;
-                }
-            }
-
-            // Fecha a barra lateral no mobile após selecionar um item
-            if (sidebar && window.innerWidth <= 768) {
-                sidebar.classList.remove('open');
-                toggleTopBtn();
-            }
-        });
+      if (isOpen) {
+        toggleIcon.classList.remove('fa-bars');
+        toggleIcon.classList.add('fa-xmark');
+      } else {
+        toggleIcon.classList.remove('fa-xmark');
+        toggleIcon.classList.add('fa-bars');
+      }
     });
 
-    // 5. BOTÃO "HOME" — volta para o conteúdo inicial, fecha o menu e rola para o topo
-    homeBtns.forEach(homeBtn => {
-        homeBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            if (pageCard) pageCard.innerHTML = defaultContent;
-
-            // Fecha todos os submenus abertos
-            dropdownItems.forEach(item => {
-                item.classList.remove('is-open');
-                item.querySelector('.dropdown-menu')?.classList.remove('show');
-            });
-
-            if (sidebar) sidebar.classList.remove('open');
-            toggleTopBtn();
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+    // Botão Voltar ao Topo
+    const btnTop = document.getElementById('btn-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 150) {
+        btnTop.classList.add('visible');
+      } else {
+        btnTop.classList.remove('visible');
+      }
     });
 
-    // 5b. BOTÃO "TOPO" dentro do menu mobile — sempre visível ali, só rola a página
-    if (topoMenuBtn) {
-        topoMenuBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+    btnTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  
+
+    // ==========================================
+    // CARREGAR PÁGINAS DE conteudo/<menu>/<item>.html
+    // ==========================================
+    const home = document.getElementById('home-box');
+    const card = document.getElementById('page-card');
+
+    async function abrirPagina() {
+      const path = decodeURIComponent(location.hash.slice(1)).replace(/^\/+/, '');
+      document.querySelectorAll('.mega-link-item.active').forEach(a => a.classList.remove('active'));
+
+      // sem rota válida = Home
+      if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(path)) {
+        card.hidden = true; home.hidden = false;
+        return;
+      }
+
+      const link = document.querySelector(`a[href="#${path}"]`);
+      if (link && link.classList.contains('mega-link-item')) link.classList.add('active');
+      const menu = link ? link.closest('.nav-item').querySelector('.nav-btn span').textContent.trim() : '';
+      const titulo = !link ? '' :
+        link.classList.contains('explore-link')
+          ? link.closest('.mega-explore-side').querySelector('h5').textContent.trim()
+          : link.textContent.trim();
+
+      home.hidden = true; card.hidden = false;
+      card.innerHTML = '<p class="page-loading">Carregando...</p>';
+      window.scrollTo({ top: 0 });
+
+      try {
+        const resp = await fetch(`conteudo/${path}.html`);
+        if (!resp.ok) throw new Error(`Página não encontrada (${resp.status})`);
+        const corpo = await resp.text();
+        if (decodeURIComponent(location.hash.slice(1)) !== path) return; // usuário já foi para outra página
+        card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
+      } catch (err) {
+        card.innerHTML = `<h1>Erro</h1><p>${err.message}. Se estiver abrindo o arquivo direto no computador, use um servidor (GitHub Pages ou <code>python -m http.server</code>).</p>`;
+      }
     }
 
-    // 6. BOTÃO "TOPO" — aparece só quando a página é rolada (e some se o menu estiver aberto)
-    if (topBtn) {
-        toggleTopBtn();
-        window.addEventListener('scroll', toggleTopBtn);
-        window.addEventListener('resize', toggleTopBtn);
-
-        topBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
-
-    // 4. FECHAR MENU AO CLICAR FORA DELE
-    document.addEventListener('click', (e) => {
-        if (sidebar && window.innerWidth <= 768) {
-            if (!sidebar.contains(e.target) && !mobileToggle.contains(e.target)) {
-                sidebar.classList.remove('open');
-                toggleTopBtn();
-            }
+    // clicou num item: fecha o menu (celular) ou o painel (desktop)
+    document.querySelectorAll('.mega-menu a').forEach(a => {
+      a.addEventListener('click', () => {
+        if (window.innerWidth <= 960) {
+          if (mainNav.classList.contains('active')) mobileToggleBtn.click();
+        } else {
+          const item = a.closest('.nav-item');
+          item.classList.add('closed');
+          item.addEventListener('mouseleave', () => item.classList.remove('closed'), { once: true });
         }
+      });
     });
-});
+
+    window.addEventListener('hashchange', abrirPagina);
+    abrirPagina();
+
+    // índice interno dos artigos: <a data-goto="id"> rola até o título (não usa # para não confundir a rota)
+    card.addEventListener('click', (e) => {
+      const alvo = e.target.closest('[data-goto]');
+      if (!alvo) return;
+      e.preventDefault();
+      const el = document.getElementById(alvo.dataset.goto);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
