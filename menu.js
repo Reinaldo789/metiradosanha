@@ -93,6 +93,7 @@ async function abrirPagina() {
     const corpo = await resp.text();
     if (decodeURIComponent(location.hash.slice(1)) !== path) return;
     card.innerHTML = `<div class="page-crumb"><a href="#">Início</a> › ${menu}</div><h1>${titulo}</h1>${corpo}`;
+    melhorarArtigo();
   } catch (err) {
     card.innerHTML = `<h1>Erro</h1><p>${err.message}. Se estiver abrindo o arquivo direto no computador, use um servidor (GitHub Pages ou <code>python -m http.server</code>).</p>`;
   }
@@ -147,3 +148,127 @@ if (busca) {
   resultados.addEventListener('click', () => { resultados.hidden = true; busca.value = ''; });
   document.addEventListener('click', e => { if (!e.target.closest('.home-search')) resultados.hidden = true; });
 }
+
+// ==========================================
+// ARTIGOS: abas, acordeão, imagens e caixa de diálogo
+// ==========================================
+const lb = document.createElement('dialog');
+lb.className = 'lightbox';
+lb.innerHTML = '<button type="button" class="lb-close" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button><img alt=""><p></p>';
+document.body.append(lb);
+const lbImg = lb.querySelector('img');
+const lbTxt = lb.querySelector('p');
+
+function abrirImagem(src, legenda) {
+  lbImg.hidden = false;
+  lbImg.src = src;
+  lbImg.alt = legenda;
+  lbTxt.textContent = legenda;
+  lb.showModal();
+}
+lbImg.addEventListener('error', () => {
+  lbImg.hidden = true;
+  lbTxt.textContent = 'Imagem ainda não adicionada: ' + lbTxt.textContent;
+});
+lb.addEventListener('click', e => {
+  if (e.target === lb || e.target.closest('.lb-close')) lb.close();
+});
+
+function ativarAba(bar, panels, i) {
+  [...bar.children].forEach((b, j) => b.classList.toggle('on', j === i));
+  panels.forEach((p, j) => p.classList.toggle('on', j === i));
+}
+
+function melhorarArtigo() {
+  // o artigo já traz o próprio título
+  if (card.querySelector('.art-head')) card.querySelector(':scope > h1')?.remove();
+
+  // imagem que não existe vira uma caixa com a legenda
+  card.querySelectorAll('img').forEach(img => {
+    img.addEventListener('error', () => {
+      const d = document.createElement('div');
+      d.className = 'img-falta';
+      d.innerHTML = '<i class="fa-regular fa-image"></i><span></span>';
+      d.querySelector('span').textContent = img.alt || 'Imagem';
+      img.replaceWith(d);
+    }, { once: true });
+  });
+
+  // blocos de 2-3 colunas viram mini abas
+  card.querySelectorAll('.trio').forEach(trio => {
+    const cols = [...trio.children];
+    const bar = document.createElement('div');
+    bar.className = 'mini-tabs';
+    cols.forEach(c => {
+      const h = c.querySelector('h4');
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = h.textContent;
+      bar.append(b);
+      c.classList.add('mini-panel');
+      h.hidden = true;
+    });
+    trio.prepend(bar);
+    trio.classList.add('enh');
+    ativarAba(bar, cols, 0);
+  });
+
+  // códigos de falha em acordeão
+  card.querySelectorAll('.codigos').forEach(c => c.classList.add('enh'));
+
+  // cada título h2 vira uma aba
+  const h2s = [...card.querySelectorAll(':scope > h2')];
+  if (h2s.length >= 3) {
+    const bar = document.createElement('div');
+    bar.className = 'art-tabs';
+    bar.setAttribute('role', 'tablist');
+    const panels = h2s.map((h, i) => {
+      const sec = document.createElement('section');
+      sec.className = 'art-panel';
+      h.before(sec);
+      let n = h;
+      do { const nx = n.nextElementSibling; sec.append(n); n = nx; } while (n && !n.matches('h2'));
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = h.textContent;
+      bar.append(b);
+      return sec;
+    });
+    panels.forEach((p, i) => {
+      const nav = document.createElement('div');
+      nav.className = 'aba-nav';
+      nav.innerHTML =
+        (i > 0 ? `<button type="button" data-aba="${i - 1}">← ${h2s[i - 1].textContent}</button>` : '<span></span>') +
+        (i < panels.length - 1 ? `<button type="button" data-aba="${i + 1}">${h2s[i + 1].textContent} →</button>` : '');
+      p.append(nav);
+    });
+    panels[0].before(bar);
+    card.querySelector('.toc')?.remove();
+    ativarAba(bar, panels, 0);
+  }
+}
+
+card.addEventListener('click', e => {
+  const tab = e.target.closest('.mini-tabs button, .art-tabs button');
+  if (tab) {
+    const bar = tab.parentElement;
+    const principal = bar.classList.contains('art-tabs');
+    const panels = [...bar.parentElement.querySelectorAll(principal ? ':scope > .art-panel' : ':scope > .mini-panel')];
+    ativarAba(bar, panels, [...bar.children].indexOf(tab));
+    if (principal) bar.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+  const nav = e.target.closest('[data-aba]');
+  if (nav) {
+    const bar = card.querySelector('.art-tabs');
+    ativarAba(bar, [...card.querySelectorAll(':scope > .art-panel')], +nav.dataset.aba);
+    bar.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+  const cod = e.target.closest('.codigos.enh .codigo');
+  if (cod && !e.target.closest('a')) { cod.classList.toggle('open'); return; }
+  const link = e.target.closest('a.img-link');
+  if (link) { e.preventDefault(); abrirImagem(link.href, link.textContent.trim()); return; }
+  const im = e.target.closest('img');
+  if (im) abrirImagem(im.currentSrc || im.src, im.alt);
+});
