@@ -860,3 +860,6 @@ a.img-link::after { content: "\f03e"; font-family: "Font Awesome 6 Free"; font-w
   .aba-nav span { display: none; }
   .mini-tabs button { flex: 1 1 auto; }
 }
+
+/* Índice sem barra de rolagem: as abas quebram em várias linhas */
+.art-tabs { flex-wrap: wrap; overflow: visible; gap: 0.5rem; padding-bottom: 1rem; }
