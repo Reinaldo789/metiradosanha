@@ -174,6 +174,8 @@ lb.addEventListener('click', e => {
   if (e.target === lb || e.target.closest('.lb-close')) lb.close();
 });
 
+function rolarPara(el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+
 function ativarAba(bar, panels, i) {
   [...bar.children].forEach((b, j) => b.classList.toggle('on', j === i));
   panels.forEach((p, j) => p.classList.toggle('on', j === i));
@@ -230,7 +232,9 @@ function melhorarArtigo() {
       do { const nx = n.nextElementSibling; sec.append(n); n = nx; } while (n && !n.matches('h2'));
       const b = document.createElement('button');
       b.type = 'button';
-      b.textContent = h.textContent;
+      const num = document.createElement('em');
+      num.textContent = i + 1;
+      b.append(num, h.textContent);
       bar.append(b);
       return sec;
     });
@@ -239,10 +243,14 @@ function melhorarArtigo() {
       nav.className = 'aba-nav';
       nav.innerHTML =
         (i > 0 ? `<button type="button" data-aba="${i - 1}">← ${h2s[i - 1].textContent}</button>` : '<span></span>') +
-        (i < panels.length - 1 ? `<button type="button" data-aba="${i + 1}">${h2s[i + 1].textContent} →</button>` : '');
+        '<button type="button" data-indice>↑ Índice</button>' +
+        (i < panels.length - 1 ? `<button type="button" data-aba="${i + 1}">${h2s[i + 1].textContent} →</button>` : '<span></span>');
       p.append(nav);
     });
-    panels[0].before(bar);
+    const lab = document.createElement('p');
+    lab.className = 'art-index-title';
+    lab.textContent = 'Neste artigo — toque numa seção';
+    panels[0].before(lab, bar);
     card.querySelector('.toc')?.remove();
     ativarAba(bar, panels, 0);
   }
@@ -254,17 +262,20 @@ card.addEventListener('click', e => {
     const bar = tab.parentElement;
     const principal = bar.classList.contains('art-tabs');
     const panels = [...bar.parentElement.querySelectorAll(principal ? ':scope > .art-panel' : ':scope > .mini-panel')];
-    ativarAba(bar, panels, [...bar.children].indexOf(tab));
-    if (principal) bar.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const idx = [...bar.children].indexOf(tab);
+    ativarAba(bar, panels, idx);
+    if (principal) rolarPara(window.innerWidth <= 960 ? panels[idx] : bar);
     return;
   }
   const nav = e.target.closest('[data-aba]');
   if (nav) {
     const bar = card.querySelector('.art-tabs');
-    ativarAba(bar, [...card.querySelectorAll(':scope > .art-panel')], +nav.dataset.aba);
-    bar.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const panels = [...card.querySelectorAll(':scope > .art-panel')];
+    ativarAba(bar, panels, +nav.dataset.aba);
+    rolarPara(panels[+nav.dataset.aba]);
     return;
   }
+  if (e.target.closest('[data-indice]')) { rolarPara(card.querySelector('.art-index-title')); return; }
   const cod = e.target.closest('.codigos.enh .codigo');
   if (cod && !e.target.closest('a')) { cod.classList.toggle('open'); return; }
   const link = e.target.closest('a.img-link');
