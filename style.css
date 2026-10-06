@@ -840,3 +840,23 @@ a.img-link::after { content: "\f03e"; font-family: "Font Awesome 6 Free"; font-w
 .lightbox p { margin: 0; padding: 0.8rem 1.2rem 1rem; font-size: 0.88rem; text-align: center; }
 .lb-close { position: absolute; top: 0.6rem; right: 0.6rem; width: 36px; height: 36px; border-radius: 50%; border: 0; cursor: pointer; background: rgba(255,255,255,0.9); color: #0f172a; font-size: 1rem; z-index: 2; }
 @media (max-width: 960px) { .page-card .art-head { padding: 1.1rem; } .codigo { padding: 0.8rem; } }
+
+/* ==========================================
+   12. ÍNDICE DO ARTIGO (abas numeradas, claro no celular)
+   ========================================== */
+.art-index-title { margin: 1.2rem 0 0.4rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); scroll-margin-top: 72px; }
+.art-tabs { margin-top: 0; }
+.art-panel { scroll-margin-top: 72px; }
+.art-tabs button { display: inline-flex; align-items: center; gap: 0.5rem; }
+.art-tabs button em { font-style: normal; font-size: 0.72rem; font-weight: 800; width: 1.4rem; height: 1.4rem; flex: none; border-radius: 50%; display: grid; place-items: center; background: var(--primary-light); color: var(--primary); }
+.art-tabs button.on em { background: rgba(255,255,255,0.25); color: #fff; }
+
+@media (max-width: 960px) {
+  .art-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; overflow: visible; padding-bottom: 1rem; }
+  .art-tabs button { border-radius: 12px; text-align: left; justify-content: flex-start; padding: 0.55rem 0.6rem; font-size: 0.82rem; line-height: 1.25; white-space: normal; }
+  .art-tabs button:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .aba-nav { flex-direction: column; }
+  .aba-nav button { width: 100%; text-align: left; }
+  .aba-nav span { display: none; }
+  .mini-tabs button { flex: 1 1 auto; }
+}
