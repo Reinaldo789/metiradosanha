@@ -1,13 +1,49 @@
-<!-- Escreva aqui o artigo: Sensor Temp. ECM -->
-<p>Texto de introdução sobre Sensor Temp. ECM.</p>
+<!-- Artigo: Sensor de Temperatura do Líquido de Arrefecimento (ECT / ECM) -->
+<p>O <strong>Sensor de Temperatura do Líquido de Arrefecimento</strong> (conhecido como <em>ECT - Engine Coolant Temperature Sensor</em> ou simplesmente Sensor Temp. ECM) é um componente vital no sistema de gestão eletrónica do motor. A sua principal função é monitorizar a temperatura do fluido de arrefecimento e enviar um sinal elétrico contínuo à Unidade de Comando do Motor (ECM). Com base nessa informação, a ECM ajusta em tempo real parâmetros críticos como a dosagem de combustível, o ponto de ignição, o avanço da injeção e o acionamento da ventoinha do radiador.</p>
 
 <h2>Como funciona</h2>
-<p>...</p>
+<p>O sensor de temperatura opera, na sua maioria, através de um <strong>termístor do tipo NTC</strong> (<em>Negative Temperature Coefficient</em>). Isto significa que a sua resistência elétrica varia de forma inversamente proporcional à temperatura: à medida que a temperatura do líquido de arrefecimento aumenta, a resistência interna do sensor diminui.</p>
+
+<p>A ECM envia uma tensão de referência (habitualmente 5V) ao sensor e mede a queda de tensão no circuito. Quando o motor está frio, a resistência do sensor é alta, resultando num sinal de tensão elevado para a ECM, que enriquece a mistura ar/combustível para facilitar a partida. À medida que o motor atinge a temperatura ideal de funcionamento, a resistência cai, a tensão do sinal diminui e a ECM ajusta a mistura para um regime económico e de baixas emissões.</p>
 
 <h2>Sintomas de falha</h2>
+<p>Quando o sensor de temperatura do ECM apresenta defeito ou envia leituras incorretas, o comportamento do veículo é diretamente afetado. Os sintomas mais comuns incluem:</p>
 <ul>
-  <li>...</li>
+  <li><strong>Dificuldade na partida a frio ou a quente:</strong> A ECM não consegue determinar a quantidade correta de combustível necessária para o arranque.</li>
+  <li><strong>Consumo excessivo de combustível:</strong> Se o sensor falhar indicando que o motor está sempre frio, a ECM manterá a mistura ar/combustível rica continuamente.</li>
+  <li><strong>Luz de avaria do motor (Check Engine) acesa:</strong> Registando códigos de falha genéricos do sistema OBD-II (como P0115, P0117 ou P0118).</li>
+  <li><strong>Instabilidade na marcha lenta:</strong> O motor pode oscilar a rotação ou ir abaixo quando em ponto morto.</li>
+  <li><strong>Fumo negro no escape:</strong> Provocado pelo excesso de combustível não queimado na câmara de combustão.</li>
+  <li><strong>Sobreaquecimento do motor:</strong> Caso o sensor falhe e não envie o sinal para a ECM acionar a ventoinha (eletroventilador) do radiador.</li>
+  <li><strong>Funcionamento constante da ventoinha:</strong> Em modo de emergência, a ECM pode manter a ventoinha ligada na velocidade máxima para evitar danos mecânicos.</li>
 </ul>
 
 <h2>Como testar</h2>
-<p>...</p>
+<p>Para diagnosticar o sensor de temperatura da ECM de forma precisa, podem ser realizados os seguintes testes com o auxílio de um multímetro e de uma ferramenta de diagnóstico (scanner OBD-II):</p>
+
+<ol class="custom-list" style="list-style-type: decimal; padding-left: 1.2rem;">
+  <li><strong>Inspeção Visual e Diagnóstico via Scanner:</strong>
+    <br>Conecte o scanner OBD-II e verifique a leitura de temperatura enviada pela ECM com o motor frio. A leitura deve coincidir aproximadamente com a temperatura ambiente. Verifique também a presença de códigos de erro gravados.
+  </li>
+  <li><strong>Teste de Tensão de Alimentação (Chave Ligada / Motor Desligado):</strong>
+    <br>Desconecte o conector elétrico do sensor. Com o multímetro na escala de tensão contínua (VDC), meça a tensão entre o pino de sinal do chicote e o massa. Deve encontrar o valor de referência do fabricante (geralmente <strong>5.0 Volts</strong>).
+  </li>
+  <li><strong>Teste de Resistência Elétrica (Termístor NTC):</strong>
+    <br>Com o conector desligado e o multímetro na escala de resistência (Ohms - Ω), meça os pinos do próprio sensor:
+    <ul>
+      <li><em>Motor frio (~20°C):</em> A resistência deve apresentar um valor elevado (tipicamente entre 2.000 Ω e 3.000 Ω, dependendo da tabela do fabricante).</li>
+      <li><em>Motor quente (~80°C - 90°C):</em> A resistência deve cair significativamente (tipicamente entre 200 Ω e 400 Ω).</li>
+    </ul>
+  </li>
+  <li><strong>Teste de Continuidade e Curto-circuito:</strong>
+    <br>Verifique se não existe curto-circuito entre os pinos do sensor e a sua carcaça metálica (massa).
+  </li>
+</ol>
+
+<div class="highlight-card warning">
+  <i class="fa-solid fa-triangle-exclamation card-icon"></i>
+  <div class="card-body">
+    <h4>Atenção ao Substituir</h4>
+    <p>Nunca remova o sensor de temperatura com o motor quente ou com o sistema de arrefecimento sob pressão. Ao instalar um sensor novo, substitua sempre o anel de vedação (O-ring) e verifique a necessidade de efetuar a sangria do ar do sistema de arrefecimento.</p>
+  </div>
+</div>
