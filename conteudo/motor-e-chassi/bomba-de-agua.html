@@ -1,13 +1,159 @@
-<!-- Escreva aqui o artigo: Bomba de Água -->
-<p>Texto de introdução sobre Bomba de Água.</p>
+<p style="color: var(--text-muted); font-size: 0.9rem; font-weight: 600; text-transform: uppercase;">
+  Transmissão & Caixa de Mudanças
+</p>
 
-<h2>Como funciona</h2>
-<p>...</p>
+<h1>Caixa de Mudanças Eaton FS-5406A</h1>
+<p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+  Manual de serviço, características técnicas, dados de torque, componentes e procedimentos de montagem e regulagem.
+</p>
 
-<h2>Sintomas de falha</h2>
-<ul>
-  <li>...</li>
-</ul>
+<!-- QUADRO DE DESTAQUE DE RESUMO TÉCNICO -->
+<div class="highlight-card info">
+  <i class="fa-solid fa-circle-info card-icon"></i>
+  <div class="card-body">
+    <h4>Ficha Técnica Simplificada</h4>
+    <p>• <strong>Fabricante:</strong> Eaton[cite: 11]<br>
+    • <strong>Capacidade de Torque:</strong> 706 N.m (72 kgf.m)[cite: 10, 11]<br>
+    • <strong>Velocidades:</strong> 6 sincronizadas à frente e 1 à ré[cite: 11]<br>
+    • <strong>Volume de Óleo:</strong> 8,5 Litros (API-CD SAE 40 ou 50)[cite: 11, 13]<br>
+    • <strong>Peso Aproximado:</strong> 157 kg[cite: 11]</p>
+  </div>
+</div>
 
-<h2>Como testar</h2>
-<p>...</p>
+<!-- MENU DE ABAS EM CAIXAS INTERNAS -->
+<div class="tabs-container">
+  <button class="tab-btn active" onclick="switchTab(event, 'tab-especificacoes')">
+    <i class="fa-solid fa-sliders"></i>
+    <span>Dados & Torques</span>
+  </button>
+
+  <button class="tab-btn" onclick="switchTab(event, 'tab-diagnostico')">
+    <i class="fa-solid fa-stethoscope"></i>
+    <span>Diagnóstico de Falhas</span>
+  </button>
+
+  <button class="tab-btn" onclick="switchTab(event, 'tab-regulagem')">
+    <i class="fa-solid fa-wrench"></i>
+    <span>Regulagem da Alavanca</span>
+  </button>
+
+  <button class="tab-btn" onclick="switchTab(event, 'tab-arvores')">
+    <i class="fa-solid fa-gears"></i>
+    <span>Árvores & Folgas</span>
+  </button>
+</div>
+
+<!-- ==================== ABA 1: DADOS TÉCNICOS E TORQUES ==================== -->
+<div id="tab-especificacoes" class="tab-content active">
+  <h2>Especificações de Redução e Torques de Aperto</h2>
+
+  <h3>Relação de Redução das Marchas</h3>
+  <ul class="custom-list">
+    <li><strong>1ª marcha:</strong> 9,01 : 1[cite: 11]</li>
+    <li><strong>2ª marcha:</strong> 5,27 : 1[cite: 11]</li>
+    <li><strong>3ª marcha:</strong> 3,22 : 1[cite: 11]</li>
+    <li><strong>4ª marcha:</strong> 2,04 : 1[cite: 11]</li>
+    <li><strong>5ª marcha:</strong> 1,36 : 1[cite: 11]</li>
+    <li><strong>6ª marcha:</strong> 1,00 : 1[cite: 11]</li>
+    <li><strong>Marcha à Ré:</strong> 8,63 : 1[cite: 11]</li>
+  </ul>
+
+  <h3>Tabela de Torques Principais</h3>
+  <div class="highlight-card success">
+    <i class="fa-solid fa-circle-check card-icon"></i>
+    <div class="card-body">
+      <h4>Valores de Aperto Recomendados</h4>
+      <p>• <strong>Bujão de Drenagem e Enchimento:</strong> 70 N.m (7 kgf.m)[cite: 13]<br>
+      • <strong>Porca do Garfo da Junta Universal (Saída):</strong> 450 N.m (45 kgf.m)[cite: 61, 83]<br>
+      • <strong>Fixação da Caixa à Carcaça de Embreagem:</strong> 200 N.m (20 kgf.m)[cite: 35]<br>
+      • <strong>Parafusos da Tampa de Comando:</strong> 50 N.m (5 kgf.m)[cite: 44, 59]<br>
+      • <strong>Mancal Central da Árvore de Transmissão:</strong> 120 N.m (12 kgf.m)[cite: 35]<br>
+      • <strong>Porca do Flange da Árvore Secundária:</strong> 90 N.m (9 kgf.m)[cite: 61, 83]</p>
+    </div>
+  </div>
+
+  <div class="highlight-card warning">
+    <i class="fa-solid fa-triangle-exclamation card-icon"></i>
+    <div class="card-body">
+      <h4>Aviso de Lubrificação</h4>
+      <p>Sempre abasteça a caixa até a borda inferior do orifício do bujão de enchimento[cite: 13]. Utilize travas químicas (Loctite 262 para roscas e Loctite 510 para superfícies de contato de vedação) nos locais indicados pelo fabricante[cite: 38, 59, 60].</p>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ABA 2: DIAGNÓSTICO DE OCORRÊNCIAS ==================== -->
+<div id="tab-diagnostico" class="tab-content">
+  <h2>Análise de Ocorrências e Defeitos Comuns</h2>
+
+  <div class="highlight-card warning">
+    <i class="fa-solid fa-bug card-icon"></i>
+    <div class="card-body">
+      <h4>Dificuldade ou 'Raspagem' ao Engatar Marchas</h4>
+      <p>• Embreagem com mau funcionamento (não desacopla totalmente)[cite: 15, 16].<br>
+      • Ajuste incorreto do curso do pedal da embreagem[cite: 16].<br>
+      • Desgaste excessivo nas cristas das roscas dos anéis sincronizadores[cite: 16].<br>
+      • Rotação de marcha lenta do motor elevada[cite: 16].<br>
+      • Óleo lubrificante incorreto ou com nível baixo[cite: 15].</p>
+    </div>
+  </div>
+
+  <div class="highlight-card warning">
+    <i class="fa-solid fa-arrows-spin card-icon"></i>
+    <div class="card-body">
+      <h4>Escape de Marchas (Desengate Involuntário)</h4>
+      <p>• Desalinhamento entre a transmissão, carcaça da embreagem e o motor[cite: 17].<br>
+      • Dentes de engate da capa/engrenagem desgastados ou com excentricidade[cite: 17].<br>
+      • Folga axial excessiva das engrenagens da árvore secundária[cite: 17].<br>
+      • Intervenção / pressão do protetor de pó (coifa) sobre a alavanca[cite: 17].</p>
+    </div>
+  </div>
+
+  <div class="highlight-card info">
+    <i class="fa-solid fa-volume-high card-icon"></i>
+    <div class="card-body">
+      <h4>Ruídos Estranhos em Ponto Neutro</h4>
+      <p>• Desalinhamento decorrente de parafusos de montagem soltos[cite: 14].<br>
+      • Nível baixo de óleo lubrificante ou óleo contaminado com limalha metálica[cite: 14].<br>
+      • Rolamentos ou engrenagens com desgaste excessivo[cite: 14].</p>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ABA 3: REGULAGEM DA ALAVANCA ==================== -->
+<div id="tab-regulagem" class="tab-content">
+  <h2>Procedimento de Regulagem da Alavanca de Mudanças</h2>
+  
+  <p>Realize as operações de regulagem com a caixa montada e posicionada no veículo[cite: 27].</p>
+
+  <ul class="custom-list">
+    <li>1. Posicione a alavanca de mudanças na posição de **Neutro** (entre a 2ª e a 3ª marcha)[cite: 27].</li>
+    <li>2. Trave o garfo inserindo um pino de regulagem calibrado (Ø 6,0 mm) através dos furos do suporte e do garfo[cite: 27].</li>
+    <li>3. Solte a porca de fixação para permitir o livre movimento entre a haste de comando e o garfo[cite: 27].</li>
+    <li>4. Verifique a distância da articulação da haste de comando (medida padrão: **275 ± 1 mm**)[cite: 28].</li>
+    <li>5. Gire a haste de comando no sentido anti-horário até encostar no batente, segure a posição e aplique o torque de 70 N.m (7,0 kgf.m) na porca de fixação[cite: 29].</li>
+    <li>6. Remova o pino de trava do suporte antes de operar o sistema[cite: 29].</li>
+  </ul>
+</div>
+
+<!-- ==================== ABA 4: ÁRVORES E VERIFICAÇÃO DE FOLGAS ==================== -->
+<div id="tab-arvores" class="tab-content">
+  <h2>Ajuste da Folga Axial das Árvores</h2>
+
+  <div class="highlight-card info">
+    <i class="fa-solid fa-microchip card-icon"></i>
+    <div class="card-body">
+      <h4>Parâmetro Único de Folga Axial</h4>
+      <p>Tanto a <strong>Árvore Intermediária</strong> quanto a <strong>Árvore Secundária</strong> exigem a mesma tolerância de folga axial:</p>
+      <p style="font-size: 1.2rem; font-weight: bold; color: var(--primary);">Folga Axial Especificada: 0,15 a 0,25 mm[cite: 30, 31, 54, 60]</p>
+    </div>
+  </div>
+
+  <h3>Passo a Passo de Verificação:</h3>
+  <ul class="custom-list">
+    <li>1. Monte calços de teste sob a capa do rolamento traseiro[cite: 53, 59].</li>
+    <li>2. Instale a tampa e aplique o torque de aperto adequado nos parafusos[cite: 53, 59].</li>
+    <li>3. Gire os eixos repetidas vezes para ambos os lados para que os cones e capas de rolamento se assentem corretamente[cite: 54, 60].</li>
+    <li>4. Fixe um relógio comparador com suporte magnético (Ferramenta BR-566) na carcaça e meça o deslocamento do eixo[cite: 54, 60].</li>
+    <li>5. **Ajuste:** Adicione calços para reduzir a folga ou retire calços para aumentar a folga axial até atingir a margem entre 0,15 e 0,25 mm[cite: 54, 60].</li>
+  </ul>
+</div>
