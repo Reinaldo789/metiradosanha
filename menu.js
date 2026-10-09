@@ -282,15 +282,4 @@ card.addEventListener('click', e => {
   if (link) { e.preventDefault(); abrirImagem(link.href, link.textContent.trim()); return; }
   const im = e.target.closest('img');
   if (im) abrirImagem(im.currentSrc || im.src, im.alt);
-
-  // Alterna a classe 'scrolled' no header ao rolar a página
-window.addEventListener('scroll', function() {
-  const header = document.querySelector('header');
-  if (header) {
-    if (window.scrollY > 20) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  }
 });

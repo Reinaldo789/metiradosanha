@@ -40,7 +40,7 @@ html, body {
 }
 
 /* ==========================================
-   2. CABEÇALHO SUPERIOR (NAVBAR)
+   2. CABEÇALHO SUPERIOR (NAVBAR) - MELHORADO
    ========================================== */
 .site-wrapper > header {
   background: rgba(255, 255, 255, 0.85);
@@ -141,7 +141,7 @@ html, body {
 }
 
 /* ==========================================
-   3. MEGA MENU DROPDOWN (DESKTOP)
+   3. MEGA MENU DROPDOWN (DESKTOP) - MELHORADO
    ========================================== */
 .mega-menu {
   position: absolute;
@@ -176,6 +176,7 @@ html, body {
   border-radius: 4px;
 }
 
+/* HOVER DESKTOP */
 @media (min-width: 961px) {
   .nav-item:hover > .nav-btn {
     background-color: var(--primary-light);
@@ -199,6 +200,7 @@ html, body {
   gap: 1.2rem;
 }
 
+/* --- LINHA DE DIVISÃO PERSONALIZADA --- */
 .category-group {
   padding-bottom: 1rem;
   position: relative;
@@ -279,6 +281,7 @@ html, body {
   border-color: #c7d2fe;
 }
 
+/* Painel Lateral Explore - MELHORADO */
 .mega-explore-side {
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   border-radius: 14px;
@@ -440,13 +443,9 @@ main {
 }
 
 /* ==========================================
-   6. ESTILOS MOBILE
+   6. ESTILOS MOBILE - MELHORADO
    ========================================== */
 @media (max-width: 960px) {
-  main {
-    padding: 1rem 0.5rem;
-  }
-
   .mobile-toggle { display: block; }
 
   .main-nav {
@@ -565,11 +564,6 @@ main {
   .category-group::after {
     width: 100%;
   }
-
-  .page-card { 
-    padding: 0.8rem; 
-    border-radius: 12px; 
-  }
 }
 
 /* ==========================================
@@ -594,9 +588,11 @@ main {
 .page-card table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; }
 .page-card td, .page-card th { border: 1px solid var(--border-color); padding: 0.4rem 0.7rem; }
 .page-loading { color: var(--text-muted); }
+/* depois de clicar num item, o painel fecha até o mouse sair e voltar */
 .nav-item.closed .mega-menu { opacity: 0 !important; visibility: hidden !important; }
+@media (max-width: 960px) { .page-card { padding: 1.2rem; border-radius: 14px; } }
 
-/* Detalhes de conteúdo do artigo */
+/* Índice interno, avisos e listas dos artigos */
 .page-card [id] { scroll-margin-top: 80px; }
 .page-card h3 { margin: 1.4rem 0 0.3rem; font-size: 1.05rem; }
 .page-card ul { padding-left: 1.3rem; }
@@ -637,7 +633,8 @@ main {
 }
 
 /* ==========================================
-   9. MENUS ELEGANTES
+   9. MENUS ELEGANTES (sem mega menu)
+   Dropdown simples, uma coluna, abaixo de cada botão
    ========================================== */
 .explore-header-title, .explore-banner { display: none; }
 .mega-link-item i { display: none; }
@@ -677,6 +674,7 @@ main {
   .category-title { padding: 0; }
 }
 
+/* Cabeçalho do artigo nunca herda o comportamento do cabeçalho do site */
 .page-card header {
   position: static; z-index: auto; top: auto; width: auto;
   background: none; border: 0;
@@ -761,7 +759,7 @@ main {
 }
 
 /* ==========================================
-   11. ARTIGOS (componentes)
+   11. ARTIGOS (abas, caixas, diálogo)
    ========================================== */
 .page-card .art-head {
   background: linear-gradient(135deg, #312e81 0%, #4f46e5 100%); color: #fff;
@@ -773,8 +771,8 @@ main {
 .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .chips span { font-size: 0.78rem; padding: 0.25rem 0.7rem; border-radius: 99px; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.25); }
 
-/* abas / menu de artigos */
-.art-tabs { display: flex; gap: 0.4rem; overflow-x: auto; padding: 0.3rem 0 0.6rem; margin: 1rem 0; border-bottom: 1px solid var(--border-color); scroll-margin-top: 70px; scrollbar-width: thin; flex-wrap: wrap; }
+/* abas principais */
+.art-tabs { display: flex; gap: 0.4rem; overflow-x: auto; padding: 0.3rem 0 0.6rem; margin: 1rem 0; border-bottom: 1px solid var(--border-color); scroll-margin-top: 70px; scrollbar-width: thin; }
 .art-tabs button, .mini-tabs button {
   flex: none; font: inherit; font-size: 0.86rem; font-weight: 600; cursor: pointer;
   padding: 0.5rem 0.95rem; border-radius: 99px; border: 1px solid var(--border-color);
@@ -789,7 +787,7 @@ main {
 .aba-nav button { font: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; padding: 0.5rem 0.9rem; border-radius: 10px; border: 1px solid var(--border-color); background: #fff; color: var(--primary); transition: var(--transition); }
 .aba-nav button:hover { background: var(--primary-light); }
 
-/* mini abas */
+/* mini abas (sintomas / causas / soluções) */
 .trio { border: 1px solid var(--border-color); border-radius: 14px; padding: 1rem; margin: 1rem 0; background: #fafbff; }
 .trio.enh .mini-panel { display: none; }
 .trio.enh .mini-panel.on { display: block; animation: slideDown 0.2s ease; }
@@ -844,7 +842,7 @@ a.img-link::after { content: "\f03e"; font-family: "Font Awesome 6 Free"; font-w
 @media (max-width: 960px) { .page-card .art-head { padding: 1.1rem; } .codigo { padding: 0.8rem; } }
 
 /* ==========================================
-   12. ÍNDICE DO ARTIGO (FORMATO NORMAL)
+   12. ÍNDICE DO ARTIGO (abas numeradas, claro no celular)
    ========================================== */
 .art-index-title { margin: 1.2rem 0 0.4rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); scroll-margin-top: 72px; }
 .art-tabs { margin-top: 0; }
@@ -863,19 +861,5 @@ a.img-link::after { content: "\f03e"; font-family: "Font Awesome 6 Free"; font-w
   .mini-tabs button { flex: 1 1 auto; }
 }
 
-/* Tabelas e listas numeradas dos artigos */
-.page-card th { background: var(--primary-light); color: var(--primary); text-align: left; font-size: 0.85rem; }
-.page-card tr:nth-child(even) td { background: #f8fafc; }
-.page-card ol { padding-left: 1.4rem; }
-.page-card li { margin: 0.35rem 0; }
-
-/* Transição suave no header para troca de cor e sombra */
-header {
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Estado escurecido do menu ativado via JavaScript ao rolar a página */
-header.scrolled {
-  background-color: #83bde2; /* Tom de azul mais escuro */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra para destacar o menu */
-}
+/* Índice sem barra de rolagem: as abas quebram em várias linhas */
+.art-tabs { flex-wrap: wrap; overflow: visible; gap: 0.5rem; padding-bottom: 1rem; }
