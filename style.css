@@ -868,3 +868,14 @@ a.img-link::after { content: "\f03e"; font-family: "Font Awesome 6 Free"; font-w
 .page-card tr:nth-child(even) td { background: #f8fafc; }
 .page-card ol { padding-left: 1.4rem; }
 .page-card li { margin: 0.35rem 0; }
+
+/* Transição suave no header para troca de cor e sombra */
+header {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Estado escurecido do menu ativado via JavaScript ao rolar a página */
+header.scrolled {
+  background-color: #83bde2; /* Tom de azul mais escuro */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra para destacar o menu */
+}
