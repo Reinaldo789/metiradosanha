@@ -43,10 +43,10 @@ html, body {
    2. CABEÇALHO SUPERIOR (NAVBAR) - MELHORADO
    ========================================== */
 .site-wrapper > header {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(#312e81);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1.5px solid var(--border-color);
   position: sticky;
   top: 0;
   z-index: 1000;
