@@ -874,7 +874,7 @@ a.img-link::after { content: "\f03e"; font-family: "Font Awesome 6 Free"; font-w
    13. BARRA ESCURA AO ROLAR A PÁGINA
    ========================================== */
 .site-wrapper > header { transition: background 0.3s ease, border-color 0.3s ease; }
-.site-wrapper > header.scrolled { background: #f0f8ff; border-bottom-color: #6366f1; }
+.site-wrapper > header.scrolled { background: rgba(79, 70, 229, 0.95); border-bottom-color: #ffedd5; }
 header.scrolled .logo { color: #fff; }
 header.scrolled .mobile-toggle { color: #fff; }
 header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color: #fff; }
@@ -895,7 +895,7 @@ header.scrolled .mobile-toggle:hover { background: rgba(255,255,255,0.12); color
   .main-nav {
     height: auto;
     bottom: 0;
-    padding-bottom: calc(7rem + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(8rem + env(safe-area-inset-bottom, 0px));
     overscroll-behavior: contain;
   }
 }
