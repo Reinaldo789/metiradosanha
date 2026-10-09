@@ -14,8 +14,13 @@ navItems.forEach(item => {
     if (window.innerWidth <= 960) {
       e.preventDefault();
       
-      // Apenas alterna o item clicado (não fecha os outros)
-      item.classList.toggle('active');
+      // Sanfona: ao abrir um item, fecha os outros
+      const abrir = !item.classList.contains('active');
+      navItems.forEach(i => i.classList.remove('active'));
+      if (abrir) {
+        item.classList.add('active');
+        item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
     }
   });
 });
@@ -47,7 +52,9 @@ mobileToggleBtn.addEventListener('click', (e) => {
 // BOTÃO VOLTAR AO TOPO
 // ==========================================
 const btnTop = document.getElementById('btn-top');
+const cabecalho = document.querySelector('.site-wrapper > header');
 window.addEventListener('scroll', () => {
+  cabecalho.classList.toggle('scrolled', window.scrollY > 20);
   if (window.scrollY > 150) {
     btnTop.classList.add('visible');
   } else {
@@ -283,3 +290,5 @@ card.addEventListener('click', e => {
   const im = e.target.closest('img');
   if (im) abrirImagem(im.currentSrc || im.src, im.alt);
 });
+
+cabecalho.classList.toggle('scrolled', window.scrollY > 20);
