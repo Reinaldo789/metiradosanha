@@ -1,13 +1,239 @@
-<!-- Escreva aqui o artigo: Pedal Acelerador -->
-<p>Texto de introdução sobre Pedal Acelerador.</p>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluxograma — Motor não responde ao acelerador (MWM 2.8)</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .flow-container { background: var(--card-bg); border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid var(--border); overflow-x: auto; }
+        .flow-title { background: #1a3a8f; color: #fff; padding: 1rem 1.5rem; border-radius: 8px 8px 0 0; font-weight: 700; font-size: 1.05rem; margin-bottom: 1.5rem; border: 2px solid #0d2464; text-align: center; }
+        .flowchart { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; min-width: 700px; padding: 0.5rem; }
+        .node { background: #fff; border: 2px solid #1a3a8f; border-radius: 6px; padding: 0.8rem 1rem; font-size: 0.85rem; line-height: 1.5; max-width: 420px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        .node ul { padding-left: 1rem; margin: 0; list-style: none; }
+        .node ul li { position: relative; padding-left: 0.8rem; margin-bottom: 0.2rem; font-size: 0.82rem; }
+        .node ul li::before { content: "•"; position: absolute; left: 0; color: #1a3a8f; font-weight: 700; }
+        .action-box { border-color: #16a34a; background: #f0fdf4; }
+        .error-box { border-color: #dc2626; background: #fef2f2; }
+        .warning-box { border-color: #d97706; background: #fffbeb; }
+        .arrow-down { width: 2px; height: 24px; background: #1a3a8f; position: relative; }
+        .arrow-down::after { content: ""; position: absolute; bottom: -6px; left: -4px; border: 5px solid transparent; border-top-color: #1a3a8f; }
+        .label-line { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-size: 0.8rem; font-weight: 700; color: #1a3a8f; text-align: center; flex-wrap: wrap; }
+        .label-sim { color: #16a34a; }
+        .label-nao { color: #dc2626; }
+        .flow-footer { background: #1a3a8f; color: #fff; padding: 0.8rem 1.5rem; border-radius: 0 0 8px 8px; font-size: 0.82rem; text-align: center; margin-top: 1.5rem; border: 2px solid #0d2464; }
+        .solucao-real { background: #e0f2fe; border: 2px dashed #0284c7; border-radius: 8px; padding: 1rem; margin: 1rem 0; font-size: 0.85rem; }
+        .solucao-real h4 { color: #0369a1; margin-bottom: 0.5rem; }
+        @media (max-width: 900px) { .flowchart { min-width: auto; } .node { max-width: 100%; } }
+    </style>
+</head>
+<body>
 
-<h2>Como funciona</h2>
-<p>...</p>
+<div class="topbar">
+    <a href="../index.html" class="logo">🔧 Guia Técnico</a>
+    <button class="menu-toggle">☰</button>
+    <nav>
+        <a href="../index.html">Início</a>
+        <a href="../sistema-eletrico/index.html">Elétrico</a>
+        <a href="../alimentacao-combustivel/index.html">Combustível</a>
+        <a href="index.html" class="active">Injeção</a>
+        <a href="../motor-chassi/index.html">Motor & Chassi</a>
+    </nav>
+</div>
 
-<h2>Sintomas de falha</h2>
-<ul>
-  <li>...</li>
-</ul>
+<div class="layout">
+    <aside class="sidebar">
+        <a href="../index.html" class="back-home">← Voltar ao início</a>
+        <h3>Injeção — Sensores</h3>
+        <ul>
+            <li><a href="sensor-rotacao.html">🔄 Sensor de Rotação</a></li>
+            <li><a href="sensor-fase.html">🎯 Sensor de Fase</a></li>
+            <li><a href="sensor-pressao-adm.html">🌬️ Sensor de Pressão Adm.</a></li>
+            <li><a href="sensor-temp-ecm.html">🌡️ Sensor de Temperatura</a></li>
+            <li><a href="sensor-pressao-rail.html">⛽ Sensor de Pressão Rail</a></li>
+        </ul>
+        <h3 style="margin-top:1rem;">Fluxogramas</h3>
+        <ul>
+            <li><a href="fluxo-acelerador.html" class="active">🚀 Acelerador (MWM 2.8)</a></li>
+        </ul>
+    </aside>
 
-<h2>Como testar</h2>
-<p>...</p>
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../index.html">Início</a><span>›</span>
+            <a href="index.html">Sistema de Injeção</a><span>›</span>Fluxograma Acelerador
+        </div>
+
+        <div class="page-header">
+            <h1>🚀 Fluxograma — Motor não responde ao acelerador</h1>
+            <p>Luz amarela de advertência apagada. Roteiro completo para o motor MWM 2.8 Sprint (S10 até 2011).</p>
+        </div>
+
+        <div class="flow-container">
+            <div class="flow-title">Motor não responde ao comando do acelerador — Luz amarela de advertência apagada</div>
+
+            <div class="flowchart">
+
+                <!-- NÓ 1 -->
+                <div class="node">
+                    <ul>
+                        <li>Verificar se o conector do sensor do pedal do acelerador está ligado adequadamente.</li>
+                        <li>Conector do sensor do pedal do acelerador ligado?</li>
+                    </ul>
+                </div>
+                <div class="label-line"><span class="label-sim">SIM ↓</span><span>|</span><span class="label-nao">NÃO → Ligar o conector</span></div>
+                <div class="arrow-down"></div>
+
+                <!-- NÓ 2 -->
+                <div class="node">
+                    <ul>
+                        <li>Ligar a ferramenta de diagnose e verificar as falhas.</li>
+                        <li>Alguma falha apresentada?</li>
+                    </ul>
+                </div>
+                <div class="label-line"><span class="label-sim">SIM →</span><span>Verificar o fluxograma do respectivo código de falha (P0120, P0122, P0123, P0220, P0222, P0223)</span></div>
+                <div class="arrow-down"></div>
+
+                <!-- NÓ 3 -->
+                <div class="node">
+                    <ul>
+                        <li>Desligar o conector do sensor do pedal do acelerador.</li>
+                        <li>Ligar o contato sem dar partida no motor.</li>
+                        <li>Medir a tensão entre os pinos 2-3 e 1-5.</li>
+                        <li>O valor encontrado é 5V?</li>
+                    </ul>
+                </div>
+                <div class="label-line"><span class="label-sim">SIM ↓</span><span>|</span><span class="label-nao">NÃO → Verificar continuidade do chicote</span></div>
+                <div class="arrow-down"></div>
+
+                <!-- NÓ 4 -->
+                <div class="node">
+                    <ul>
+                        <li>Ligar o conector do sensor do pedal do acelerador.</li>
+                        <li>Verificar a tensão do acelerador 1 na tela status da ferramenta de diagnose.</li>
+                        <li>Ligar o motor.</li>
+                        <li>O valor encontrado é de aproximadamente 0,7V?</li>
+                    </ul>
+                </div>
+                <div class="label-line"><span class="label-sim">SIM ↓</span><span>|</span><span class="label-nao">NÃO → Verificar curto-circuito no conector do sensor</span></div>
+                <div class="arrow-down"></div>
+
+                <!-- NÓ 5 -->
+                <div class="node">
+                    <ul>
+                        <li>Movimentar o pedal do acelerador lentamente até o final do curso e verificar a variação da tensão.</li>
+                        <li>A tensão variou gradativamente de aproximadamente 0,7 a 4,1V?</li>
+                    </ul>
+                </div>
+                <div class="label-line"><span class="label-sim">SIM ↓</span><span>|</span><span class="label-nao">NÃO → Substituir sensor do pedal</span></div>
+                <div class="arrow-down"></div>
+
+                <!-- NÓ 6 -->
+                <div class="node">
+                    <ul>
+                        <li>Com o conector ligado.</li>
+                        <li>Verificar a tensão do acelerador 2 na tela status da ferramenta de diagnose.</li>
+                        <li>O valor encontrado é de aproximadamente 0,3V?</li>
+                    </ul>
+                </div>
+                <div class="label-line"><span class="label-sim">SIM ↓</span><span>|</span><span class="label-nao">NÃO → Verificar curto-circuito no conector (acelerador 2)</span></div>
+                <div class="arrow-down"></div>
+
+                <!-- NÓ 7 -->
+                <div class="node">
+                    <ul>
+                        <li>Movimentar o pedal do acelerador lentamente até o final do curso e verificar a variação da tensão.</li>
+                        <li>A tensão variou gradativamente de aproximadamente 0,3 a 2,0V?</li>
+                    </ul>
+                </div>
+                <div class="label-line"><span class="label-sim">SIM ↓</span><span>|</span><span class="label-nao">NÃO → Substituir sensor do pedal</span></div>
+                <div class="arrow-down"></div>
+
+                <!-- NÓ FINAL -->
+                <div class="node action-box">
+                    <ul>
+                        <li><strong>Sensor do pedal do acelerador OK.</strong></li>
+                        <li>Verificar fixação dos conectores do sensor e do ECM.</li>
+                        <li>Verificar oxidação nos contatos dos conectores do sensor e do ECM.</li>
+                        <li>Apagar os códigos de falhas.</li>
+                        <li>Verificar códigos de falhas.</li>
+                        <li>Alguma falha apresentada?</li>
+                    </ul>
+                </div>
+                <div class="label-line"><span class="label-sim">SIM → Verificar o fluxograma do respectivo código de falha</span><span>|</span><span class="label-nao">NÃO → Liberar o veículo</span></div>
+
+            </div>
+
+            <div class="flow-footer">Roteiro para Localização de Falhas — Sistema Sprint Eletrônico (MWM 2.8)</div>
+        </div>
+
+        <!-- SOLUÇÕES REAIS ENCONTRADAS NA INTERNET -->
+        <div class="section">
+            <h2>🔍 Soluções Reais Encontradas na Internet (MWM 2.8 — S10 até 2011)</h2>
+            <p>Baseado em fóruns de reparadores, artigos técnicos e relatos de casos resolvidos, estas são as <strong>causas mais comuns</strong> quando o motor não responde ao acelerador e a luz amarela está apagada:</p>
+
+            <!-- SOLUÇÃO 1 -->
+            <div class="solucao-real">
+                <h4>🔧 1. Molas das Válvulas do Cabeçote (DEFEITO CRÔNICO)</h4>
+                <p><strong>Relato:</strong> Vários reparadores relatam que a S10 2.8 apresenta perda de potência após revisão da bomba de alta pressão. A solução comprovada foi <strong>remover o cabeçote e substituir as molas das válvulas</strong> pelas molas da S10 de 200cv [citation:17].</p>
+                <p><strong>Solução:</strong> Remover o cabeçote e trocar as molas das válvulas.</p>
+            </div>
+
+            <!-- SOLUÇÃO 2 -->
+            <div class="solucao-real">
+                <h4>🔧 2. Bomba de Alta Pressão (CP3) com Desgaste</h4>
+                <p><strong>Relato:</strong> A falta de estanqueidade na bomba CP3 causa pressão insuficiente, resultando em falhas na aceleração e potência reduzida [citation:4].</p>
+                <p><strong>Teste:</strong> 100 bar (mín. 80 bar), 200 bar (mín. 180 bar), 400 bar (mín. 380 bar).</p>
+                <p><strong>Solução:</strong> Reparar ou substituir a bomba de alta pressão.</p>
+            </div>
+
+            <!-- SOLUÇÃO 3 -->
+            <div class="solucao-real">
+                <h4>🔧 3. Sensor do Pedal do Acelerador (Potenciômetros 1 e 2)</h4>
+                <p><strong>Relato:</strong> A diferença de tensão entre os potenciômetros 1 e 2 não pode passar de <strong>415mV</strong>. Se houver curto ou circuito aberto nos terminais K09, K30, K45, K46, K08, o ECM limita a rotação a <strong>820 rpm</strong> [citation:5].</p>
+                <p><strong>Verificação:</strong> Resistência entre 0,9KΩ e 1,2KΩ entre os pinos 3-4 e 5-6.</p>
+                <p><strong>Solução:</strong> Substituir o sensor do pedal do acelerador.</p>
+            </div>
+
+            <!-- SOLUÇÃO 4 -->
+            <div class="solucao-real">
+                <h4>🔧 4. Atuador Elétrico da Turbina</h4>
+                <p><strong>Relato:</strong> Reparadores apontam o atuador elétrico da turbina como um componente que falha com frequência na S10 2.8, causando perda de potência [citation:17].</p>
+                <p><strong>Solução:</strong> Verificar funcionamento do atuador e substituir se necessário.</p>
+            </div>
+
+            <!-- SOLUÇÃO 5 -->
+            <div class="solucao-real">
+                <h4>🔧 5. Filtro Desgasificador/Derivador de Combustível</h4>
+                <p><strong>Relato:</strong> Este componente é crítico no sistema Common Rail. Ele elimina vapores e bolhas de combustível, evitando falhas na pressão do sistema. Se estiver entupido, o motor falha e apaga [citation:10].</p>
+                <p><strong>Solução:</strong> Verificar e substituir o filtro desgasificador (GM 93380939).</p>
+            </div>
+
+            <!-- SOLUÇÃO 6 -->
+            <div class="solucao-real">
+                <h4>🔧 6. Sensor de Fase ou Rotação com Defeito</h4>
+                <p><strong>Relato:</strong> Se o sensor de fase falhar, a rotação é limitada a <strong>2500 rpm</strong> e não é possível nova partida [citation:7].</p>
+                <p><strong>Verificação:</strong> Resistência do sensor de fase entre 240Ω e 250Ω.</p>
+                <p><strong>Solução:</strong> Substituir o sensor.</p>
+            </div>
+
+            <!-- SOLUÇÃO 7 -->
+            <div class="solucao-real">
+                <h4>🔧 7. Bomba de Vácuo (caso haja óleo no servofreio)</h4>
+                <p><strong>Relato:</strong> Em alguns casos, a bomba de vácuo pode permitir passagem de óleo para o servofreio, causando funcionamento irregular [citation:6].</p>
+                <p><strong>Solução:</strong> Substituir a bomba de vácuo.</p>
+            </div>
+
+        </div>
+
+    </main>
+</div>
+
+<footer>
+    <p>Guia Técnico — Fluxograma Motor não responde ao Acelerador (MWM 2.8)</p>
+    <p><a href="../index.html">← Voltar ao início</a></p>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>
