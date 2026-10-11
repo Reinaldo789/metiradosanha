@@ -1,13 +1,423 @@
-<!-- Escreva aqui o artigo: Sensor Fase -->
-<p>Texto de introdução sobre Sensor Fase.</p>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluxograma — Motor não responde ao acelerador</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* ============ FLUXOGRAMA ============ */
+        .flow-container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+            overflow-x: auto;
+        }
 
-<h2>Como funciona</h2>
-<p>...</p>
+        .flow-title {
+            background: #1a3a8f;
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 8px 8px 0 0;
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid #0d2464;
+            text-align: center;
+        }
 
-<h2>Sintomas de falha</h2>
-<ul>
-  <li>...</li>
-</ul>
+        .flowchart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            min-width: 700px;
+            padding: 0.5rem;
+        }
 
-<h2>Como testar</h2>
-<p>...</p>
+        /* Caixas do fluxograma */
+        .node {
+            background: #fff;
+            border: 2px solid #1a3a8f;
+            border-radius: 6px;
+            padding: 0.8rem 1rem;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            max-width: 400px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .node ul {
+            padding-left: 1rem;
+            margin: 0;
+            list-style: none;
+        }
+
+        .node ul li {
+            position: relative;
+            padding-left: 0.8rem;
+            margin-bottom: 0.2rem;
+            font-size: 0.82rem;
+        }
+
+        .node ul li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #1a3a8f;
+            font-weight: 700;
+        }
+
+        /* Caixa de decisão */
+        .decision-box {
+            border-color: #d97706;
+            background: #fffbeb;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .decision-box::before {
+            content: "❓";
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Caixa de ação (Sim) */
+        .action-box {
+            border-color: #16a34a;
+            background: #f0fdf4;
+        }
+
+        /* Caixa de erro (Não) */
+        .error-box {
+            border-color: #dc2626;
+            background: #fef2f2;
+        }
+
+        /* Setas de conexão */
+        .arrow-down {
+            width: 2px;
+            height: 24px;
+            background: #1a3a8f;
+            position: relative;
+        }
+        .arrow-down::after {
+            content: "";
+            position: absolute;
+            bottom: -6px;
+            left: -4px;
+            border: 5px solid transparent;
+            border-top-color: #1a3a8f;
+        }
+
+        /* Rótulos de Sim / Não */
+        .label-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #1a3a8f;
+        }
+
+        .label-sim { color: #16a34a; }
+        .label-nao { color: #dc2626; }
+
+        /* Layout com ramificações (Sim / Não) */
+        .branch {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin: 0.5rem 0;
+        }
+
+        .branch-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            flex: 1;
+        }
+
+        /* Setas horizontais */
+        .arrow-right {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #1a3a8f;
+        }
+
+        .arrow-right::after {
+            content: "→";
+            font-size: 1.2rem;
+        }
+
+        .arrow-right.nao::after { color: #dc2626; }
+        .arrow-right.sim::after { color: #16a34a; }
+
+        /* Rodapé do fluxo */
+        .flow-footer {
+            background: #1a3a8f;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0 0 8px 8px;
+            font-size: 0.82rem;
+            text-align: center;
+            margin-top: 1.5rem;
+            border: 2px solid #0d2464;
+        }
+
+        /* Mobile: transforma em layout vertical simples */
+        @media (max-width: 900px) {
+            .flowchart { min-width: auto; }
+            .branch { flex-direction: column; }
+            .node { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="topbar">
+    <a href="../index.html" class="logo">🔧 Guia Técnico</a>
+    <button class="menu-toggle">☰</button>
+    <nav>
+        <a href="../index.html">Início</a>
+        <a href="../sistema-eletrico/index.html">Elétrico</a>
+        <a href="../alimentacao-combustivel/index.html">Combustível</a>
+        <a href="index.html" class="active">Injeção</a>
+        <a href="../motor-chassi/index.html">Motor & Chassi</a>
+    </nav>
+</div>
+
+<div class="layout">
+    <aside class="sidebar">
+        <a href="../index.html" class="back-home">← Voltar ao início</a>
+        <h3>Injeção — Sensores</h3>
+        <ul>
+            <li><a href="sensor-rotacao.html">🔄 Sensor de Rotação</a></li>
+            <li><a href="sensor-fase.html">🎯 Sensor de Fase</a></li>
+            <li><a href="sensor-pressao-adm.html">🌬️ Sensor de Pressão Adm.</a></li>
+            <li><a href="sensor-temp-ecm.html">🌡️ Sensor de Temperatura</a></li>
+            <li><a href="sensor-pressao-rail.html">⛽ Sensor de Pressão Rail</a></li>
+        </ul>
+        <h3 style="margin-top:1rem;">Fluxogramas</h3>
+        <ul>
+            <li><a href="fluxo-acelerador.html" class="active">🚀 Acelerador</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="../index.html">Início</a><span>›</span>
+            <a href="index.html">Sistema de Injeção</a><span>›</span>Fluxograma Acelerador
+        </div>
+
+        <div class="page-header">
+            <h1>🚀 Fluxograma — Motor não responde ao acelerador</h1>
+            <p>Luz amarela de advertência apagada. Roteiro completo para localização de falhas.</p>
+        </div>
+
+        <div class="flow-container">
+            <div class="flow-title">
+                Motor não responde ao comando do acelerador — Luz amarela de advertência apagada
+            </div>
+
+            <div class="flowchart">
+
+                <!-- NÓ 1 -->
+                <div class="node">
+                    <ul>
+                        <li>Verificar se o conector do sensor do pedal do acelerador está ligado adequadamente.</li>
+                        <li>Conector do sensor do pedal do acelerador ligado?</li>
+                    </ul>
+                </div>
+
+                <div class="label-line">
+                    <span class="label-sim">SIM ↓</span>
+                    <span>|</span>
+                    <span class="label-nao">NÃO → Ligar o conector</span>
+                </div>
+
+                <div class="arrow-down"></div>
+
+                <!-- NÓ 2 -->
+                <div class="node">
+                    <ul>
+                        <li>Ligar a ferramenta de diagnose e verificar as falhas.</li>
+                        <li>Alguma falha apresentada?</li>
+                    </ul>
+                </div>
+
+                <div class="label-line">
+                    <span class="label-sim">SIM →</span>
+                    <span>Verificar o fluxograma do respectivo código de falha</span>
+                </div>
+
+                <div class="arrow-down"></div>
+
+                <!-- NÓ 3 -->
+                <div class="node">
+                    <ul>
+                        <li>Desligar o conector do sensor do pedal do acelerador.</li>
+                        <li>Ligar o contato sem dar partida no motor.</li>
+                        <li>Medir a tensão entre os pinos 2-3 e 1-5.</li>
+                        <li>O valor encontrado é 5V?</li>
+                    </ul>
+                </div>
+
+                <div class="label-line">
+                    <span class="label-sim">SIM ↓</span>
+                    <span>|</span>
+                    <span class="label-nao">NÃO → Ir para verificação de continuidade</span>
+                </div>
+
+                <div class="arrow-down"></div>
+
+                <!-- NÓ 4 -->
+                <div class="node">
+                    <ul>
+                        <li>Ligar o conector do sensor do pedal do acelerador.</li>
+                        <li>Verificar a tensão do acelerador 1 na tela status da ferramenta de diagnose.</li>
+                        <li>Ligar o motor.</li>
+                        <li>O valor encontrado é de aproximadamente 0,7V?</li>
+                    </ul>
+                </div>
+
+                <div class="label-line">
+                    <span class="label-sim">SIM ↓</span>
+                    <span>|</span>
+                    <span class="label-nao">NÃO → Verificar curto-circuito no conector</span>
+                </div>
+
+                <div class="arrow-down"></div>
+
+                <!-- NÓ 5 -->
+                <div class="node">
+                    <ul>
+                        <li>Movimentar o pedal do acelerador lentamente até o final do curso e verificar a variação da tensão.</li>
+                        <li>A tensão variou gradativamente de aproximadamente 0,7 a 4,1V?</li>
+                    </ul>
+                </div>
+
+                <div class="label-line">
+                    <span class="label-sim">SIM ↓</span>
+                    <span>|</span>
+                    <span class="label-nao">NÃO → Substituir sensor do pedal</span>
+                </div>
+
+                <div class="arrow-down"></div>
+
+                <!-- NÓ 6 -->
+                <div class="node">
+                    <ul>
+                        <li>Com o conector ligado.</li>
+                        <li>Verificar a tensão do acelerador 2 na tela status da ferramenta de diagnose.</li>
+                        <li>O valor encontrado é de aproximadamente 0,3V?</li>
+                    </ul>
+                </div>
+
+                <div class="label-line">
+                    <span class="label-sim">SIM ↓</span>
+                    <span>|</span>
+                    <span class="label-nao">NÃO → Verificar curto-circuito no conector</span>
+                </div>
+
+                <div class="arrow-down"></div>
+
+                <!-- NÓ 7 -->
+                <div class="node">
+                    <ul>
+                        <li>Movimentar o pedal do acelerador lentamente até o final do curso e verificar a variação da tensão.</li>
+                        <li>A tensão variou gradativamente de aproximadamente 0,3 a 2,0V?</li>
+                    </ul>
+                </div>
+
+                <div class="label-line">
+                    <span class="label-sim">SIM ↓</span>
+                    <span>|</span>
+                    <span class="label-nao">NÃO → Substituir sensor do pedal</span>
+                </div>
+
+                <div class="arrow-down"></div>
+
+                <!-- NÓ FINAL -->
+                <div class="node action-box">
+                    <ul>
+                        <li><strong>Sensor do pedal do acelerador OK.</strong></li>
+                        <li>Verificar fixação dos conectores do sensor e do ECM.</li>
+                        <li>Verificar oxidação nos contatos dos conectores do sensor e do ECM.</li>
+                        <li>Apagar os códigos de falhas.</li>
+                        <li>Verificar códigos de falhas.</li>
+                        <li>Alguma falha apresentada?</li>
+                    </ul>
+                </div>
+
+                <div class="label-line">
+                    <span class="label-sim">SIM → Verificar o fluxograma do respectivo código de falha</span>
+                    <span>|</span>
+                    <span class="label-nao">NÃO → Liberar o veículo</span>
+                </div>
+
+            </div>
+
+            <div class="flow-footer">
+                Roteiro para Localização de Falhas — Sistema Sprint Eletrônico
+            </div>
+        </div>
+
+        <!-- BLOCO DE RAMIFICAÇÕES LATERAIS -->
+        <div class="section">
+            <h2>🔀 Verificações Complementares (ramos "Não")</h2>
+
+            <h3>1. Verificar continuidade entre pinos</h3>
+            <ul>
+                <li>Pino 2 do conector do sensor / pino K45 (ECM lado K)</li>
+                <li>Pino 3 do conector do sensor / pino K30 (ECM lado K)</li>
+                <li>Pino 1 do conector do sensor / pino K46 (ECM lado K)</li>
+                <li>Pino 5 do conector do sensor / pino K08 (ECM lado K)</li>
+                <li>O valor é menor que 1Ω?</li>
+            </ul>
+            <div class="alert alert-info">
+                <strong>Sim →</strong> Verificar alimentação positiva e aterramento do ECM (folha 4). Apagar códigos e repetir o teste.<br>
+                <strong>Não →</strong> Verificar mau contato ou interrupções no chicote e conectores. Reparar ou substituir o chicote. Apagar códigos e repetir o teste.
+            </div>
+
+            <h3>2. Verificar curto-circuito no conector do sensor</h3>
+            <ul>
+                <li>Desligar o conector e medir a resistência entre os pinos 3 e 4 do pedal do acelerador (lado do sensor).</li>
+                <li>O valor encontrado está entre 0,9KΩ e 1,2KΩ?</li>
+            </ul>
+            <div class="alert alert-info">
+                <strong>Sim →</strong> Substituir o sensor do pedal do acelerador.<br>
+                <strong>Não →</strong> Verificar mau contato nos conectores do sensor e do ECM. Reparar ou substituir o chicote.
+            </div>
+
+            <h3>3. Verificar curto-circuito no conector (acelerador 2)</h3>
+            <ul>
+                <li>Desligar o conector e medir a resistência entre os pinos 5 e 6 do pedal do acelerador (lado do sensor).</li>
+                <li>O valor encontrado está entre 0,9KΩ e 1,2KΩ?</li>
+            </ul>
+            <div class="alert alert-info">
+                <strong>Sim →</strong> Substituir o sensor do pedal do acelerador.<br>
+                <strong>Não →</strong> Verificar mau contato nos conectores do sensor e do ECM. Reparar ou substituir o chicote.
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<footer>
+    <p>Guia Técnico — Fluxograma Motor não responde ao Acelerador</p>
+    <p><a href="../index.html">← Voltar ao início</a></p>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>
