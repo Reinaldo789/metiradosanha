@@ -56,6 +56,33 @@
   <li>É alimentada pela ECM com sinal PWM de 12 V e trabalha com duty cycle. <!-- Vídeo: cole aqui o link --></li>
   <li>Se durante os testes não houver tensão, verifique os fusíveis F25, F26, F27 e F28 e o relé principal.</li>
 </ul>
+
+<h3>Esquema Elétrico da Válvula MPROP</h3>
+<!-- O código abaixo desenha o diagrama na tela -->
+<div class="mermaid">
+graph LR
+    classDef bat fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef chave fill:#bbf,stroke:#333,stroke-width:2px;
+    classDef rele fill:#ffb,stroke:#333,stroke-width:2px;
+    classDef comp fill:#bfb,stroke:#333,stroke-width:2px;
+    classDef ecu fill:#fbb,stroke:#333,stroke-width:2px;
+
+    Bateria[Bateria 12V]:::bat
+    Chave_15[Chave Ignição - Terminal 15]:::chave
+    Relé_Y9[Relé Principal Y9]:::rele
+    MPROP_P1[MPROP - Pino 1]:::comp
+    MPROP_P2[MPROP - Pino 2]:::comp
+    ECU[ECU EDC16]:::ecu
+
+    Bateria -- Positivo (+30) --> Relé_Y9
+    Chave_15 -- Sinal ON --> Relé_Y9
+    Relé_Y9 -- 12V Pós-Chave --> MPROP_P1
+    
+    ECU -- Sinal PWM --> MPROP_P2
+    
+    MPROP_P1 & MPROP_P2 --- MPROP((Válvula MPROP)):::comp
+</div>
+
 <figure>
   <img src="conteudo/sistema-de-injecao/imagens/05-parte-eletrica.jpg" alt="Circuito elétrico da válvula MProp" loading="lazy">
 </figure>
