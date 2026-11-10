@@ -3,89 +3,44 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Pesquisa básica de Manutenção.">
-  <title>Metiradosanha</title>
-  <link rel="stylesheet" href="css/estilo.css">
+  <meta name="description" content="Acervo técnico MWM: conteúdo recuperado de um material interativo antigo, organizado para consulta. Confira sempre a aplicação e a documentação oficial.">
+  <title>Acervo Técnico MWM</title>
+  <link rel="stylesheet" href="assets/style.css">
   <script src="js/menu.js" defer></script>
 </head>
-
-
 <body>
-  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
-  <header class="topo">
-    <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="menuLateral" aria-label="Abrir menu">☰</button>
-    <a class="marca" href="index.html"><span class="marca-icone">⚙</span><span>Manual Técnico<br><small>MWM 2.8 Eletrônico · Euro 3</small></span></a>
-    <span class="topo-tag">Agrale Marruá</span>
-  </header>
-
-  <div class="fundo-menu" id="fundoMenu"></div>
-  <aside class="menu-lateral" id="menuLateral" aria-label="Menu principal">
-    <div class="menu-cabecalho"><strong>Guia Técnico</strong><button id="fecharMenu" aria-label="Fechar menu">×</button></div>
-    <nav>
-      <a class="item-menu ativo" href="index.html">Home</a>
-      <button class="grupo-menu" aria-expanded="true" aria-controls="grupoSensores">▦ Sensores <span>⌄</span></button>
-      <div class="sub-menu aberto" id="grupoSensores">
-        <a href="sensores/sensor-rotacao.html">Sensor de rotação</a>
-        <a href="#em-breve">Sensor de fase <small>Em preparação</small></a>
-        <a href="#em-breve">Pressão/temperatura do ar (MAP/IAT) <small>Em preparação</small></a>
-        <a href="#em-breve">Temperatura do líquido <small>Em preparação</small></a>
-        <a href="#em-breve">Pressão do Rail <small>Em preparação</small></a>
-      </div>
-      <button class="grupo-menu" aria-expanded="false" aria-controls="grupoAtuadores">☷ Atuadores <span>⌄</span></button>
-      <div class="sub-menu" id="grupoAtuadores">
-        <a href="#em-breve">Válvula MProp <small>Em preparação</small></a>
-        <a href="#em-breve">Pedal do acelerador <small>Em preparação</small></a>
-        <a href="#em-breve">Modulador da turbina <small>Em preparação</small></a>
-        <a href="#em-breve">Bicos injetores <small>Em preparação</small></a>
-        <a href="#em-breve">Válvula KUV <small>Em preparação</small></a>
-      </div>
-      <button class="grupo-menu" aria-expanded="false" aria-controls="grupoDiagnostico">⌕ Diagnóstico <span>⌄</span></button>
-      <div class="sub-menu" id="grupoDiagnostico">
-        <a href="#seguranca">Segurança elétrica</a>
-        <a href="#referencias">Referências técnicas</a>
-      </div>
-    </nav>
-    <div class="menu-rodape">Conteúdo didático. Confirme sempre a versão do veículo e o esquema elétrico aplicável.</div>
-  </aside>
-
-  <main id="conteudo" class="conteudo">
-    <section class="hero">
-      <div class="sobretitulo">BIBLIOTECA DE DIAGNÓSTICO</div>
-      <h1>Manual Técnico<br><span>MWM 2.8 Eletrônico</span></h1>
-      <p>Guia de estudo e diagnóstico do Agrale Marruá Euro 3, com explicações progressivas, testes com multímetro e interpretação dos resultados.</p>
-      <div class="hero-acoes"><a class="botao principal" href="sensores/sensor-rotacao.html">Começar pelo sensor de rotação →</a><a class="botao secundario" href="#metodo">Como usar o manual</a></div>
-      <div class="avisos-hero"><strong>Aplicação de referência:</strong> Agrale Marruá 2.8 TDi, sistema eletrônico Bosch. A identificação exata da ECU e do chicote deve ser conferida no veículo.</div>
-    </section>
-
-    <section class="secao" id="metodo">
-      <div class="cabecalho-secao"><div><div class="sobretitulo">COMO ESTUDAR</div><h2>Aprenda o componente e depois teste</h2></div></div>
-      <div class="cartoes">
-        <article class="cartao"><span class="numero">01</span><h3>Entender</h3><p>Função, princípio elétrico, localização e relação com a ECM.</p></article>
-        <article class="cartao"><span class="numero">02</span><h3>Medir</h3><p>Escala do multímetro, condições do teste e cuidados com os terminais.</p></article>
-        <article class="cartao"><span class="numero">03</span><h3>Diagnosticar</h3><p>Comparar os resultados, separar falha do sensor, chicote, alimentação ou módulo.</p></article>
-      </div>
-    </section>
-
-    <section class="secao">
-      <div class="cabecalho-secao"><div><div class="sobretitulo">PRIMEIRA AULA</div><h2>Sensores do motor</h2><p>Comece pelo sinal que informa à central a rotação e a posição da árvore de manivelas.</p></div></div>
-      <a class="linha-componente" href="sensores/sensor-rotacao.html"><span class="componente-icone">↻</span><span><strong>Sensor de rotação (CKP)</strong><small>Funcionamento · testes com multímetro · defeitos · diagnóstico passo a passo</small></span><span class="seta">→</span></a>
-    </section>
-
-    <section class="secao" id="seguranca">
-      <div class="alerta"><strong>Segurança antes de medir</strong><p>Não faça teste de resistência em circuito energizado. Não aplique 12 V em sensores ou pinos da ECM. Evite perfurar a isolação dos fios; prefira pontas de back-probe apropriadas. Nunca solte tubulações de alta pressão do Common Rail com o motor funcionando.</p></div>
-    </section>
-
-    <section class="secao" id="referencias">
-      <div class="cabecalho-secao"><div><div class="sobretitulo">BASE TÉCNICA</div><h2>Referências para conferência</h2></div></div>
-      <ul class="referencias">
-        <li><a href="https://www.bosch-repair-service.com/pt/aparelhos-de-comando-do-motor/bosch/edc16c9-0281012384001/" target="_blank" rel="noopener">Bosch Electronic Service — EDC16C9 para Agrale Marruá 2.8 TDi (2006–2011)</a></li>
-        <li><a href="https://pt.scribd.com/document/598915185/Apostila-Marrua" target="_blank" rel="noopener">Apostila de treinamento Marruá — descrição do sistema eletrônico (fonte secundária; confirmar com manual aplicável)</a></li>
-        <li><a href="https://s3-sa-east-1.amazonaws.com/bd-sp.canaldapeca.com.br/BOSCH/17.11.15/original-catalogo_sensores_2013_2014_rev.pdf" target="_blank" rel="noopener">Catálogo Bosch de sensores — aplicação Marruá 2.8 TDi</a></li>
-      </ul>
-      <p class="nota">Este site é material didático independente. Não substitui o manual de oficina, o diagrama elétrico correspondente ao chassi nem os procedimentos oficiais do fabricante.</p>
-    </section>
-    <footer class="rodape"><span>Manual Técnico MWM 2.8 · Agrale Marruá</span><button id="voltarTopo" class="voltar-topo">↑ Voltar ao início</button></footer>
-  </main>
-
+<header class="site-header">
+  <a class="brand" href="index.html">Manual Técnico <span>MWM</span></a>
+  <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">☰ Menu</button>
+  <nav id="main-nav" class="main-nav" aria-label="Menu principal">
+    <a href="index.html" aria-current="page">Início</a>
+    <a href="pages/acteon.html">Motor ACTEON</a>
+    <a href="pages/common-rail.html">Common Rail</a>
+    <a href="#arquivos">Arquivos recuperados</a>
+  </nav>
+</header>
+<main class="container">
+  <section class="hero">
+    <p class="eyebrow">Acervo técnico • versão inicial</p>
+    <h1>Material técnico MWM recuperado</h1>
+    <p>Este site organiza textos identificados no executável antigo, sem executar o programa original. O conteúdo foi separado por assunto para facilitar a migração para o GitHub Pages.</p>
+    <p class="notice"><strong>Importante:</strong> esta é uma transcrição inicial. Não substitui o manual de serviço da aplicação exata. Confira motor, ano, calibração e versão antes de usar qualquer especificação de reparo.</p>
+  </section>
+  <section class="cards" aria-label="Seções técnicas">
+    <article class="card"><h2>Motor MWM ACTEON</h2><p>Descrição geral, bloco, cabeçotes, camisas, pistões, bielas e componentes mecânicos encontrados no material.</p><a class="link" href="pages/acteon.html">Consultar página →</a></article>
+    <article class="card"><h2>Sistema Common Rail</h2><p>Descrição do circuito de baixa e alta pressão, bomba de alta, bomba de engrenagens, Rail e regulagem de pressão.</p><a class="link" href="pages/common-rail.html">Consultar página →</a></article>
+    <article class="card"><h2>Transcrições recuperadas</h2><p>Arquivos de texto com trechos identificados no material original, incluindo itens que ainda precisam de revisão.</p><a class="link" href="documentacao/index.html">Ver pasta de documentação</a></article>
+  </section>
+  <section id="arquivos" class="section">
+    <h2>Estado da recuperação</h2>
+    <ul>
+      <li>Foram recuperados arquivos internos do projeto Macromedia Director.</li>
+      <li>Foram exportados trechos de texto legíveis para arquivos separados.</li>
+      <li>O arquivo não contém assinaturas de PDF identificáveis; os nomes de PDFs encontrados parecem ser referências a documentos externos ou links do projeto.</li>
+      <li>As imagens e diagramas parecem estar armazenados em formato interno do Director. A extração binária inicial ainda não os converteu em imagens utilizáveis no navegador.</li>
+    </ul>
+  </section>
+</main>
+<footer class="site-footer"><p>Acervo de referência. Confirme os dados técnicos na documentação oficial MWM/Bosch aplicável ao motor.</p></footer>
 </body>
 </html>
