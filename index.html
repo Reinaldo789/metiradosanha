@@ -3,11 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Manual técnico didático do MWM 2.8 eletrônico Euro 3 do Agrale Marruá: sensores, atuadores, testes e diagnóstico.">
-  <title>Manual Técnico MWM 2.8 | Agrale Marruá</title>
+  <meta name="description" content="Pesquisa básica de Manutenção.">
+  <title>Metiradosanha</title>
   <link rel="stylesheet" href="css/estilo.css">
   <script src="js/menu.js" defer></script>
 </head>
+
+<div class="nav-container">
+        <a href="#" class="logo">
+          <i class="fa-solid fa-house"></i>
+          <span>Início</span>
+        </a>
 <body>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
   <header class="topo">
@@ -20,7 +26,7 @@
   <aside class="menu-lateral" id="menuLateral" aria-label="Menu principal">
     <div class="menu-cabecalho"><strong>Guia Técnico</strong><button id="fecharMenu" aria-label="Fechar menu">×</button></div>
     <nav>
-      <a class="item-menu ativo" href="index.html">⌂ Visão geral</a>
+      <a class="item-menu ativo" href="index.html">Home</a>
       <button class="grupo-menu" aria-expanded="true" aria-controls="grupoSensores">▦ Sensores <span>⌄</span></button>
       <div class="sub-menu aberto" id="grupoSensores">
         <a href="sensores/sensor-rotacao.html">Sensor de rotação</a>
@@ -84,5 +90,12 @@
     </section>
     <footer class="rodape"><span>Manual Técnico MWM 2.8 · Agrale Marruá</span><button id="voltarTopo" class="voltar-topo">↑ Voltar ao início</button></footer>
   </main>
+
+<!-- BOTÃO FLUTUANTE DE ROLAR PARA CIMA -->
+  <div class="floating-container">
+    <button class="float-btn" id="btn-top" title="Voltar ao Topo" aria-label="Voltar ao topo">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+  </div>
 </body>
 </html>
