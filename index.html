@@ -12,37 +12,18 @@
     body { margin: 0; font-family: Segoe UI, Arial, sans-serif; background: #f6f7fb; color: #1f2430; overflow-x: hidden; }
     .w { max-width: 1000px; margin: 0 auto; padding: 24px 16px; }
     
-    /* Cabeçalho da Home */
+    /* Header da Home */
     .home-header { margin-bottom: 32px; text-align: center; }
     h1 { color: #3730a3; font-size: 32px; margin: 0 0 8px; }
     .home-header p { color: #5b6275; font-size: 16px; margin: 0; }
 
-    /* Títulos das Seções Principais */
-    .secao-titulo { 
-      font-size: 22px; 
-      color: #3730a3; 
-      margin: 40px 0 20px; 
-      display: flex; 
-      align-items: center; 
-      gap: 10px;
-      padding-bottom: 12px;
-      border-bottom: 2px solid #e3e6ef;
-    }
+    /* Títulos das Telas (Sistema) */
+    .titulo-tela { font-size: 24px; color: #3730a3; margin: 0 0 24px; display: flex; align-items: center; gap: 10px; }
 
-    /* Subtítulos de Grupos (ex: Sensores, Atuadores) */
-    .grupo-titulo {
-      font-size: 15px;
-      color: #5b6275;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin: 24px 0 12px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+    /* Títulos de Grupos (Luzes, Painel, Sensores...) */
+    .grupo-titulo { font-size: 15px; color: #5b6275; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin: 32px 0 12px; display: flex; align-items: center; gap: 6px; }
 
-    /* Topo (Caminho) */
+    /* Caminho (Breadcrumb) */
     .topo-tela { display: flex; align-items: center; margin-bottom: 24px; }
     .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #5b6275; flex-wrap: wrap; }
     .breadcrumb .crumb { background: #fff; border: 1px solid #e3e6ef; padding: 8px 12px; border-radius: 10px; text-decoration: none; color: #5b6275; cursor: pointer; transition: border-color .15s, color .15s, transform .15s; }
@@ -51,13 +32,13 @@
     .breadcrumb .sep { color: #a0a7b8; font-size: 14px; }
 
     /* Grid e Cards */
-    .g { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+    .g { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
     .c { display: block; background: #fff; border: 1px solid #e3e6ef; border-radius: 12px; padding: 16px; text-decoration: none; color: inherit; cursor: pointer; transition: border-color .15s, transform .15s, box-shadow .15s; }
     .c:hover { border-color: #4f46e5; transform: translateY(-2px); box-shadow: 0 4px 14px rgba(79,70,229,.12); }
-    .c b { display: block; color: #3730a3; margin-bottom: 4px; font-size: 15px; }
+    .c b { display: block; color: #3730a3; margin-bottom: 4px; font-size: 16px; }
     .c span { font-size: 13px; color: #5b6275; line-height: 1.3; display: block; }
 
-    /* Card de Construção */
+    /* Card de Construção (Conteúdo) */
     .card-construcao { background: #fff; border: 1px solid #e3e6ef; border-radius: 12px; padding: 24px; margin-top: 16px; }
     .card-construcao b { font-size: 18px; color: #3730a3; display: block; margin-bottom: 8px; }
     .card-construcao span { color: #5b6275; font-size: 15px; }
@@ -73,153 +54,207 @@
 <body>
   <div class="w">
 
-    <!-- ================= TELA 1: HOME (TODOS OS CARDS) ================= -->
+    <!-- ================= NÍVEL 1: HOME ================= -->
     <section id="tela-principal" class="tela ativa" data-titulo="Início">
-      
       <div class="home-header">
         <h1>Marrua MWM 2.8</h1>
         <p>Esquemas, testes e especificações para diagnosticar e manter o veículo.</p>
       </div>
 
-      <!-- 1. SISTEMA ELÉTRICO -->
-      <h2 class="secao-titulo"><i class="fa-solid fa-bolt" style="color:#eab308;"></i> Sistema Elétrico</h2>
+      <div class="g">
+        <a class="c" data-abrir="sistema-eletrico" data-titulo="Sistema Elétrico">
+          <b><i class="fa-solid fa-bolt" style="color:#eab308;"></i> Sistema Elétrico</b>
+          <span>Fusíveis, luzes, painel, bateria...</span>
+        </a>
+        <a class="c" data-abrir="sistema-combustivel" data-titulo="Alimentação de Combustível">
+          <b><i class="fa-solid fa-gas-pump" style="color:#0284c7;"></i> Alimentação de Combustível</b>
+          <span>Linha de baixa e alta pressão...</span>
+        </a>
+        <a class="c" data-abrir="sistema-injecao" data-titulo="Sistema de Injeção">
+          <b><i class="fa-solid fa-microchip" style="color:#065f46;"></i> Sistema de Injeção</b>
+          <span>Sensores e atuadores do ECM...</span>
+        </a>
+        <a class="c" data-abrir="sistema-motor" data-titulo="Motor e Chassi">
+          <b><i class="fa-solid fa-wrench" style="color:#1e1b4b;"></i> Motor e Chassi</b>
+          <span>Arrefecimento, direção e freios...</span>
+        </a>
+        <a class="c" data-abrir="sistema-diagnostico" data-titulo="Diagnóstico Interativo">
+          <b><i class="fa-solid fa-stethoscope" style="color:#7c2d12;"></i> Diagnóstico</b>
+          <span>Fluxogramas passo a passo...</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ================= NÍVEL 2: SISTEMA ELÉTRICO ================= -->
+    <section id="tela-sistema-eletrico" class="tela" data-pai="principal" data-titulo="Sistema Elétrico">
+      <div class="topo-tela"><div class="breadcrumb"></div></div>
+      <h2 class="titulo-tela"><i class="fa-solid fa-bolt" style="color:#eab308;"></i> Sistema Elétrico</h2>
       
       <div class="grupo-titulo"><i class="fa-solid fa-lightbulb"></i> Luzes</div>
       <div class="g">
-        <a class="c" data-abrir="ele-fusiveis" data-titulo="Fusíveis e Lâmpadas" data-categoria="Sistema Elétrico"><b>Fusíveis e Lâmpadas</b><span>Diagrama da caixa de fusíveis.</span></a>
-        <a class="c" data-abrir="ele-farol" data-titulo="Luz de Farol e Posição" data-categoria="Sistema Elétrico"><b>Luz de Farol e Posição</b><span>Faróis, lanternas e posição.</span></a>
-        <a class="c" data-abrir="ele-seta" data-titulo="Luz de Seta e Alerta" data-categoria="Sistema Elétrico"><b>Luz de Seta e Alerta</b><span>Pisca-alerta e setas.</span></a>
+        <a class="c" data-abrir="ele-fusiveis" data-titulo="Fusíveis e Lâmpadas"><b>Fusíveis e Lâmpadas</b><span>Diagrama da caixa de fusíveis.</span></a>
+        <a class="c" data-abrir="ele-farol" data-titulo="Luz de Farol e Posição"><b>Luz de Farol e Posição</b><span>Faróis, lanternas e posição.</span></a>
+        <a class="c" data-abrir="ele-seta" data-titulo="Luz de Seta e Alerta"><b>Luz de Seta e Alerta</b><span>Pisca-alerta e setas.</span></a>
       </div>
 
       <div class="grupo-titulo"><i class="fa-solid fa-gauge"></i> Painel de Instrumentos</div>
       <div class="g">
-        <a class="c" data-abrir="ele-oleo" data-titulo="Luz e Pressão de Óleo" data-categoria="Sistema Elétrico"><b>Luz e Pressão de Óleo</b><span>Alerta e sensor de pressão.</span></a>
-        <a class="c" data-abrir="ele-injecao" data-titulo="Luzes de Injeção" data-categoria="Sistema Elétrico"><b>Luzes de Injeção</b><span>Alerta do sistema de injeção.</span></a>
-        <a class="c" data-abrir="ele-agua-comb" data-titulo="Água no Combustível" data-categoria="Sistema Elétrico"><b>Água no Combustível</b><span>Sensor de água no filtro.</span></a>
-        <a class="c" data-abrir="ele-agua-arr" data-titulo="Água de Arrefecimento" data-categoria="Sistema Elétrico"><b>Água de Arrefecimento</b><span>Temperatura do motor.</span></a>
+        <a class="c" data-abrir="ele-oleo" data-titulo="Luz e Pressão de Óleo"><b>Luz e Pressão de Óleo</b><span>Alerta e sensor.</span></a>
+        <a class="c" data-abrir="ele-injecao" data-titulo="Luzes de Injeção"><b>Luzes de Injeção</b><span>Alerta do sistema.</span></a>
+        <a class="c" data-abrir="ele-agua-comb" data-titulo="Água no Combustível"><b>Água no Combustível</b><span>Sensor do filtro.</span></a>
+        <a class="c" data-abrir="ele-agua-arr" data-titulo="Água de Arrefecimento"><b>Água de Arrefecimento</b><span>Temperatura do motor.</span></a>
       </div>
 
       <div class="grupo-titulo"><i class="fa-solid fa-car-battery"></i> Acessórios</div>
       <div class="g">
-        <a class="c" data-abrir="ele-diagrama" data-titulo="Diagrama Elétrico" data-categoria="Sistema Elétrico"><b>Diagrama Elétrico</b><span>Esquema completo do veículo.</span></a>
-        <a class="c" data-abrir="ele-bateria" data-titulo="Bateria e Alternador" data-categoria="Sistema Elétrico"><b>Bateria e Alternador</b><span>Testes de carga e partida.</span></a>
-        <a class="c" data-abrir="ele-partida" data-titulo="Motor de Partida" data-categoria="Sistema Elétrico"><b>Motor de Partida</b><span>Diagnóstico de arranque.</span></a>
-        <a class="c" data-abrir="ele-limpador" data-titulo="Limpador de Para-brisa" data-categoria="Sistema Elétrico"><b>Limpador de Para-brisa</b><span>Motor e palhetas.</span></a>
+        <a class="c" data-abrir="ele-diagrama" data-titulo="Diagrama Elétrico"><b>Diagrama Elétrico</b><span>Esquema do veículo.</span></a>
+        <a class="c" data-abrir="ele-bateria" data-titulo="Bateria e Alternador"><b>Bateria e Alternador</b><span>Testes de carga.</span></a>
+        <a class="c" data-abrir="ele-partida" data-titulo="Motor de Partida"><b>Motor de Partida</b><span>Diagnóstico de arranque.</span></a>
+        <a class="c" data-abrir="ele-limpador" data-titulo="Limpador de Para-brisa"><b>Limpador de Para-brisa</b><span>Motor e palhetas.</span></a>
       </div>
+    </section>
 
-      <!-- 2. ALIMENTAÇÃO DE COMBUSTÍVEL -->
-      <h2 class="secao-titulo"><i class="fa-solid fa-gas-pump" style="color:#0284c7;"></i> Alimentação de Combustível</h2>
+    <!-- ================= NÍVEL 2: ALIMENTAÇÃO DE COMBUSTÍVEL ================= -->
+    <section id="tela-sistema-combustivel" class="tela" data-pai="principal" data-titulo="Alimentação de Combustível">
+      <div class="topo-tela"><div class="breadcrumb"></div></div>
+      <h2 class="titulo-tela"><i class="fa-solid fa-gas-pump" style="color:#0284c7;"></i> Combustível</h2>
       
       <div class="grupo-titulo"><i class="fa-solid fa-filter"></i> Linha de Baixa</div>
       <div class="g">
-        <a class="c" data-abrir="comb-tanque" data-titulo="Tanque, Filtro, Mangueiras" data-categoria="Alimentação de Combustível"><b>Tanque, Filtro, Mang.</b><span>Linha de baixa e sangria.</span></a>
-        <a class="c" data-abrir="comb-bomba-eletrica" data-titulo="Bomba Elétrica" data-categoria="Alimentação de Combustível"><b>Bomba Elétrica</b><span>Teste de vazão e pressão.</span></a>
-        <a class="c" data-abrir="comb-bomba-engrenagem" data-titulo="Bomba Engrenagem" data-categoria="Alimentação de Combustível"><b>Bomba Engrenagem</b><span>Alimentação de baixa pressão.</span></a>
-        <a class="c" data-abrir="comb-valvula-kuv" data-titulo="Válvula KUV" data-categoria="Alimentação de Combustível"><b>Válvula KUV</b><span>Válvula de corte de combustível.</span></a>
+        <a class="c" data-abrir="comb-tanque" data-titulo="Tanque, Filtro, Mangueiras"><b>Tanque, Filtro, Mang.</b><span>Linha de baixa e sangria.</span></a>
+        <a class="c" data-abrir="comb-bomba-eletrica" data-titulo="Bomba Elétrica"><b>Bomba Elétrica</b><span>Teste de vazão e pressão.</span></a>
+        <a class="c" data-abrir="comb-bomba-engrenagem" data-titulo="Bomba Engrenagem"><b>Bomba Engrenagem</b><span>Alimentação de baixa pressão.</span></a>
+        <a class="c" data-abrir="comb-valvula-kuv" data-titulo="Válvula KUV"><b>Válvula KUV</b><span>Válvula de corte de combustível.</span></a>
       </div>
 
       <div class="grupo-titulo"><i class="fa-solid fa-gauge-high"></i> Linha de Alta</div>
       <div class="g">
-        <a class="c" data-abrir="comb-bomba-alta" data-titulo="Bomba Alta Pressão" data-categoria="Alimentação de Combustível"><b>Bomba Alta Pressão</b><span>Testes de pressão.</span></a>
-        <a class="c" data-abrir="comb-tubo-rail" data-titulo="Tubo Rail" data-categoria="Alimentação de Combustível"><b>Tubo Rail</b><span>Linha de alta pressão.</span></a>
+        <a class="c" data-abrir="comb-bomba-alta" data-titulo="Bomba Alta Pressão"><b>Bomba Alta Pressão</b><span>Testes de pressão.</span></a>
+        <a class="c" data-abrir="comb-tubo-rail" data-titulo="Tubo Rail"><b>Tubo Rail</b><span>Linha de alta pressão.</span></a>
       </div>
+    </section>
 
-      <!-- 3. SISTEMA DE INJEÇÃO -->
-      <h2 class="secao-titulo"><i class="fa-solid fa-microchip" style="color:#065f46;"></i> Sistema de Injeção</h2>
+    <!-- ================= NÍVEL 2: SISTEMA DE INJEÇÃO ================= -->
+    <section id="tela-sistema-injecao" class="tela" data-pai="principal" data-titulo="Sistema de Injeção">
+      <div class="topo-tela"><div class="breadcrumb"></div></div>
+      <h2 class="titulo-tela"><i class="fa-solid fa-microchip" style="color:#065f46;"></i> Sistema de Injeção</h2>
       
       <div class="grupo-titulo"><i class="fa-solid fa-microchip"></i> Sensores</div>
       <div class="g">
-        <a class="c" data-abrir="inj-sensor-rotacao" data-titulo="Sensor Rotação" data-categoria="Sistema de Injeção"><b>Sensor Rotação</b><span>Teste e diagnóstico.</span></a>
-        <a class="c" data-abrir="inj-sensor-fase" data-titulo="Sensor Fase" data-categoria="Sistema de Injeção"><b>Sensor Fase</b><span>Sincronismo do motor.</span></a>
-        <a class="c" data-abrir="inj-sensor-pres-adm" data-titulo="Sensor Pres. Adm" data-categoria="Sistema de Injeção"><b>Sensor Pres. Adm</b><span>Pressão de admissão.</span></a>
-        <a class="c" data-abrir="inj-sensor-temp-ecm" data-titulo="Sensor Temp. ECM" data-categoria="Sistema de Injeção"><b>Sensor Temp. ECM</b><span>Temperatura do módulo.</span></a>
-        <a class="c" data-abrir="inj-sensor-pres-rail" data-titulo="Sensor Pres. Rail" data-categoria="Sistema de Injeção"><b>Sensor Pres. Rail</b><span>Pressão do tubo rail.</span></a>
+        <a class="c" data-abrir="inj-sensor-rotacao" data-titulo="Sensor Rotação"><b>Sensor Rotação</b><span>Teste e diagnóstico.</span></a>
+        <a class="c" data-abrir="inj-sensor-fase" data-titulo="Sensor Fase"><b>Sensor Fase</b><span>Sincronismo do motor.</span></a>
+        <a class="c" data-abrir="inj-sensor-pres-adm" data-titulo="Sensor Pres. Adm"><b>Sensor Pres. Adm</b><span>Pressão de admissão.</span></a>
+        <a class="c" data-abrir="inj-sensor-temp-ecm" data-titulo="Sensor Temp. ECM"><b>Sensor Temp. ECM</b><span>Temperatura do módulo.</span></a>
+        <a class="c" data-abrir="inj-sensor-pres-rail" data-titulo="Sensor Pres. Rail"><b>Sensor Pres. Rail</b><span>Pressão do tubo rail.</span></a>
       </div>
 
       <div class="grupo-titulo"><i class="fa-solid fa-sliders"></i> Atuadores</div>
       <div class="g">
-        <a class="c" data-abrir="inj-valvula-mprop" data-titulo="Válvula MProp" data-categoria="Sistema de Injeção"><b>Válvula MProp</b><span>Controle de pressão.</span></a>
-        <a class="c" data-abrir="inj-pedal-acel" data-titulo="Pedal Acelerador" data-categoria="Sistema de Injeção"><b>Pedal Acelerador</b><span>Sinal de aceleração.</span></a>
-        <a class="c" data-abrir="inj-mod-turbina" data-titulo="Modulador Turbina" data-categoria="Sistema de Injeção"><b>Modulador Turbina</b><span>Pressão do turbo.</span></a>
-        <a class="c" data-abrir="inj-bicos" data-titulo="Bicos Injetores" data-categoria="Sistema de Injeção"><b>Bicos Injetores</b><span>Injeção de combustível.</span></a>
-        <a class="c" data-abrir="inj-lampada-painel" data-titulo="Lâmpada Painel" data-categoria="Sistema de Injeção"><b>Lâmpada Painel</b><span>Alerta de injeção.</span></a>
+        <a class="c" data-abrir="inj-valvula-mprop" data-titulo="Válvula MProp"><b>Válvula MProp</b><span>Controle de pressão.</span></a>
+        <a class="c" data-abrir="inj-pedal-acel" data-titulo="Pedal Acelerador"><b>Pedal Acelerador</b><span>Sinal de aceleração.</span></a>
+        <a class="c" data-abrir="inj-mod-turbina" data-titulo="Modulador Turbina"><b>Modulador Turbina</b><span>Pressão do turbo.</span></a>
+        <a class="c" data-abrir="inj-bicos" data-titulo="Bicos Injetores"><b>Bicos Injetores</b><span>Injeção de combustível.</span></a>
+        <a class="c" data-abrir="inj-lampada-painel" data-titulo="Lâmpada Painel"><b>Lâmpada Painel</b><span>Alerta de injeção.</span></a>
       </div>
+    </section>
 
-      <!-- 4. MOTOR E CHASSI -->
-      <h2 class="secao-titulo"><i class="fa-solid fa-wrench" style="color:#1e1b4b;"></i> Motor e Chassi</h2>
+    <!-- ================= NÍVEL 2: MOTOR E CHASSI ================= -->
+    <section id="tela-sistema-motor" class="tela" data-pai="principal" data-titulo="Motor e Chassi">
+      <div class="topo-tela"><div class="breadcrumb"></div></div>
+      <h2 class="titulo-tela"><i class="fa-solid fa-wrench" style="color:#1e1b4b;"></i> Motor e Chassi</h2>
       
       <div class="grupo-titulo"><i class="fa-solid fa-gear"></i> Motor</div>
       <div class="g">
-        <a class="c" data-abrir="mot-dados" data-titulo="Dados do Motor" data-categoria="Motor e Chassi"><b>Dados do Motor</b><span>Especificações técnicas.</span></a>
-        <a class="c" data-abrir="mot-lubrificacao" data-titulo="Lubrificação e Revisão" data-categoria="Motor e Chassi"><b>Lubrificação e Revisão</b><span>Trocas e intervalos.</span></a>
-        <a class="c" data-abrir="mot-oleo" data-titulo="Tipos e Classificação do Óleo" data-categoria="Motor e Chassi"><b>Tipos e Classificação</b><span>Viscosidade do óleo.</span></a>
-        <a class="c" data-abrir="mot-torque" data-titulo="Tabela de Torque - Nm" data-categoria="Motor e Chassi"><b>Tabela de Torque</b><span>Aperto em Nm.</span></a>
+        <a class="c" data-abrir="mot-dados" data-titulo="Dados do Motor"><b>Dados do Motor</b><span>Especificações técnicas.</span></a>
+        <a class="c" data-abrir="mot-lubrificacao" data-titulo="Lubrificação e Revisão"><b>Lubrificação e Revisão</b><span>Trocas e intervalos.</span></a>
+        <a class="c" data-abrir="mot-oleo" data-titulo="Tipos e Classificação do Óleo"><b>Tipos e Classificação</b><span>Viscosidade do óleo.</span></a>
+        <a class="c" data-abrir="mot-torque" data-titulo="Tabela de Torque - Nm"><b>Tabela de Torque</b><span>Aperto em Nm.</span></a>
       </div>
 
       <div class="grupo-titulo"><i class="fa-solid fa-snowflake"></i> Sistema de Arrefecimento</div>
       <div class="g">
-        <a class="c" data-abrir="mot-correia" data-titulo="Correia e Ventoinha" data-categoria="Motor e Chassi"><b>Correia e Ventoinha</b><span>Tensor e ventoinha.</span></a>
-        <a class="c" data-abrir="mot-bomba-agua" data-titulo="Bomba de Água" data-categoria="Motor e Chassi"><b>Bomba de Água</b><span>Circulação do líquido.</span></a>
-        <a class="c" data-abrir="mot-trocador" data-titulo="Trocador de Calor" data-categoria="Motor e Chassi"><b>Trocador de Calor</b><span>Radiador e trocas.</span></a>
-        <a class="c" data-abrir="mot-valvula-termo" data-titulo="Válvula Termostática" data-categoria="Motor e Chassi"><b>Válvula Termostática</b><span>Controle de temperatura.</span></a>
+        <a class="c" data-abrir="mot-correia" data-titulo="Correia e Ventoinha"><b>Correia e Ventoinha</b><span>Tensor e ventoinha.</span></a>
+        <a class="c" data-abrir="mot-bomba-agua" data-titulo="Bomba de Água"><b>Bomba de Água</b><span>Circulação do líquido.</span></a>
+        <a class="c" data-abrir="mot-trocador" data-titulo="Trocador de Calor"><b>Trocador de Calor</b><span>Radiador e trocas.</span></a>
+        <a class="c" data-abrir="mot-valvula-termo" data-titulo="Válvula Termostática"><b>Válvula Termostática</b><span>Controle de temperatura.</span></a>
       </div>
 
       <div class="grupo-titulo"><i class="fa-solid fa-dharmachakra"></i> Eixo e Direção</div>
       <div class="g">
-        <a class="c" data-abrir="mot-bomba-direcao" data-titulo="Bomba de Direção" data-categoria="Motor e Chassi"><b>Bomba de Direção</b><span>Hidráulica e testes.</span></a>
-        <a class="c" data-abrir="mot-caixa-direcao" data-titulo="Caixa de Direção" data-categoria="Motor e Chassi"><b>Caixa de Direção</b><span>Regulagem e folgas.</span></a>
-        <a class="c" data-abrir="mot-eixo" data-titulo="Eixo Dianteiro" data-categoria="Motor e Chassi"><b>Eixo Dianteiro</b><span>Componentes e lubrificação.</span></a>
+        <a class="c" data-abrir="mot-bomba-direcao" data-titulo="Bomba de Direção"><b>Bomba de Direção</b><span>Hidráulica e testes.</span></a>
+        <a class="c" data-abrir="mot-caixa-direcao" data-titulo="Caixa de Direção"><b>Caixa de Direção</b><span>Regulagem e folgas.</span></a>
+        <a class="c" data-abrir="mot-eixo" data-titulo="Eixo Dianteiro"><b>Eixo Dianteiro</b><span>Componentes e lubrificação.</span></a>
       </div>
 
       <div class="grupo-titulo"><i class="fa-solid fa-circle-stop"></i> Sistemas de Freios</div>
       <div class="g">
-        <a class="c" data-abrir="mot-bomba-vacuo" data-titulo="Bomba de Vácuo" data-categoria="Motor e Chassi"><b>Bomba de Vácuo</b><span>Assistência de frenagem.</span></a>
-        <a class="c" data-abrir="mot-cilindro" data-titulo="Cilindro de Freio" data-categoria="Motor e Chassi"><b>Cilindro de Freio</b><span>Cilindro mestre e rodas.</span></a>
-        <a class="c" data-abrir="mot-oleo-freio" data-titulo="Óleo de Freio" data-categoria="Motor e Chassi"><b>Óleo de Freio</b><span>Tipos e troca.</span></a>
-        <a class="c" data-abrir="mot-pincas" data-titulo="Pinças de Freio" data-categoria="Motor e Chassi"><b>Pinças de Freio</b><span>Pastilhas e discos.</span></a>
-        <a class="c" data-abrir="mot-freio-mao" data-titulo="Regulagem Freio de Mão" data-categoria="Motor e Chassi"><b>Regulagem Freio de Mão</b><span>Ajuste do cabo.</span></a>
+        <a class="c" data-abrir="mot-bomba-vacuo" data-titulo="Bomba de Vácuo"><b>Bomba de Vácuo</b><span>Assistência de frenagem.</span></a>
+        <a class="c" data-abrir="mot-cilindro" data-titulo="Cilindro de Freio"><b>Cilindro de Freio</b><span>Cilindro mestre e rodas.</span></a>
+        <a class="c" data-abrir="mot-oleo-freio" data-titulo="Óleo de Freio"><b>Óleo de Freio</b><span>Tipos e troca.</span></a>
+        <a class="c" data-abrir="mot-pincas" data-titulo="Pinças de Freio"><b>Pinças de Freio</b><span>Pastilhas e discos.</span></a>
+        <a class="c" data-abrir="mot-freio-mao" data-titulo="Regulagem Freio de Mão"><b>Regulagem Freio de Mão</b><span>Ajuste do cabo.</span></a>
       </div>
 
       <div class="grupo-titulo"><i class="fa-solid fa-gears"></i> Transmissão</div>
       <div class="g">
-        <a class="c" data-abrir="mot-caixa-mudanca" data-titulo="Caixa de Mudanças" data-categoria="Motor e Chassi"><b>Caixa de Mudanças</b><span>Engrenagens e trambulador.</span></a>
+        <a class="c" data-abrir="mot-caixa-mudanca" data-titulo="Caixa de Mudanças"><b>Caixa de Mudanças</b><span>Engrenagens e trambulador.</span></a>
       </div>
-
-      <!-- 5. DIAGNÓSTICO -->
-      <h2 class="secao-titulo"><i class="fa-solid fa-stethoscope" style="color:#7c2d12;"></i> Diagnóstico</h2>
-      
-      <div class="grupo-titulo"><i class="fa-solid fa-triangle-exclamation"></i> Sintomas do Motor</div>
-      <div class="g">
-        <a class="c" data-abrir="diag-nao-pega" data-titulo="Motor Não Pega" data-categoria="Diagnóstico"><b>Motor Não Pega</b><span>Partida e combustível.</span></a>
-        <a class="c" data-abrir="diag-limitacao" data-titulo="Limitação de Rotação" data-categoria="Diagnóstico"><b>Limitação de Rotação</b><span>Modo de proteção.</span></a>
-        <a class="c" data-abrir="diag-fumaca" data-titulo="Fumaça Preta" data-categoria="Diagnóstico"><b>Fumaça Preta</b><span>Queima de combustível.</span></a>
-        <a class="c" data-abrir="diag-acelerador" data-titulo="Falha do Acelerador" data-categoria="Diagnóstico"><b>Falha do Acelerador</b><span>Sensor do pedal.</span></a>
-        <a class="c" data-abrir="diag-superaquecimento" data-titulo="Superaquecimento" data-categoria="Diagnóstico"><b>Superaquecimento</b><span>Sistema de arrefecimento.</span></a>
-        <a class="c" data-abrir="diag-oleo" data-titulo="Baixa Pressão de Óleo" data-categoria="Diagnóstico"><b>Baixa Pressão de Óleo</b><span>Bomba e sensor.</span></a>
-      </div>
-
-      <div class="grupo-titulo"><i class="fa-solid fa-microchip"></i> Testes em Sensores</div>
-      <div class="g">
-        <a class="c" data-abrir="diag-rotacao" data-titulo="Sensor de Rotação" data-categoria="Diagnóstico"><b>Sensor de Rotação</b><span>Sinal e curva.</span></a>
-        <a class="c" data-abrir="diag-fase" data-titulo="Sensor de Fase" data-categoria="Diagnóstico"><b>Sensor de Fase</b><span>Ponto morto.</span></a>
-        <a class="c" data-abrir="diag-pres-rail" data-titulo="Pressão do Rail" data-categoria="Diagnóstico"><b>Pressão do Rail</b><span>Alta pressão.</span></a>
-        <a class="c" data-abrir="diag-pres-adm" data-titulo="Pressão Admissão" data-categoria="Diagnóstico"><b>Pressão Admissão</b><span>Turbina e admissão.</span></a>
-        <a class="c" data-abrir="diag-temp" data-titulo="Temperatura Líquido" data-categoria="Diagnóstico"><b>Temperatura Líquido</b><span>NTC.</span></a>
-      </div>
-      
-      <div class="grupo-titulo"><i class="fa-solid fa-bolt"></i> Testes Elétricos</div>
-      <div class="g">
-        <a class="c" data-abrir="diag-rele-k15" data-titulo="Relé Principal K15" data-categoria="Diagnóstico"><b>Relé Principal K15</b><span>Alimentação do sistema.</span></a>
-        <a class="c" data-abrir="diag-bateria" data-titulo="Tensão da Bateria" data-categoria="Diagnóstico"><b>Tensão da Bateria</b><span>Teste de carga.</span></a>
-        <a class="c" data-abrir="diag-pedal-freio" data-titulo="Interruptor Pedal Freio" data-categoria="Diagnóstico"><b>Interruptor Pedal Freio</b><span>Sinal de frenagem.</span></a>
-        <a class="c" data-abrir="diag-pedal-emb" data-titulo="Interruptor Pedal Embreagem" data-categoria="Diagnóstico"><b>Interruptor Embreagem</b><span>Partida segura.</span></a>
-      </div>
-
     </section>
 
-    <!-- ================= TELAS DE CONTEÚDO FINAL ================= -->
-    <!-- Exemplo: Sensor Rotação -->
-    <section id="tela-inj-sensor-rotacao" class="tela" data-titulo="Sensor Rotação" data-categoria="Sistema de Injeção">
+    <!-- ================= NÍVEL 2: DIAGNÓSTICO ================= -->
+    <section id="tela-sistema-diagnostico" class="tela" data-pai="principal" data-titulo="Diagnóstico">
+      <div class="topo-tela"><div class="breadcrumb"></div></div>
+      <h2 class="titulo-tela"><i class="fa-solid fa-stethoscope" style="color:#7c2d12;"></i> Diagnóstico Interativo</h2>
+      
+      <div class="grupo-titulo"><i class="fa-solid fa-microchip"></i> Sensores</div>
+      <div class="g">
+        <a class="c" data-abrir="diag-sensor-rotacao" data-titulo="Sensor de Rotação"><b>Sensor de Rotação</b><span>Teste de sinal.</span></a>
+        <a class="c" data-abrir="diag-sensor-fase" data-titulo="Sensor de Fase"><b>Sensor de Fase</b><span>Sincronismo.</span></a>
+        <a class="c" data-abrir="diag-sensor-pres-rail" data-titulo="Sensor de Pressão do Rail"><b>Sensor Pres. Rail</b><span>Alta pressão.</span></a>
+        <a class="c" data-abrir="diag-sensor-pres-adm" data-titulo="Sensor de Pressão Admissão"><b>Sensor Pres. Adm</b><span>Turbina.</span></a>
+        <a class="c" data-abrir="diag-sensor-temp-ecm" data-titulo="Sensor de Temperatura"><b>Sensor de Temperatura</b><span>Líquido de arrefecimento.</span></a>
+      </div>
+
+      <div class="grupo-titulo"><i class="fa-solid fa-sliders"></i> Atuadores</div>
+      <div class="g">
+        <a class="c" data-abrir="diag-valvula-mprop" data-titulo="Válvula MProp"><b>Válvula MProp</b><span>Controle de pressão.</span></a>
+        <a class="c" data-abrir="diag-mod-turbina" data-titulo="Modulador do Turbo"><b>Modulador do Turbo</b><span>Pressão do turbo.</span></a>
+        <a class="c" data-abrir="diag-bicos" data-titulo="Bicos Injetores"><b>Bicos Injetores</b><span>Vazão e retorno.</span></a>
+        <a class="c" data-abrir="diag-rele-bomba" data-titulo="Relé Bomba Combustível"><b>Relé Bomba Combustível</b><span>Acionamento.</span></a>
+      </div>
+
+      <div class="grupo-titulo"><i class="fa-solid fa-bolt"></i> Sistema Elétrico</div>
+      <div class="g">
+        <a class="c" data-abrir="diag-rele-k15" data-titulo="Relé Principal K15"><b>Relé Principal K15</b><span>Alimentação geral.</span></a>
+        <a class="c" data-abrir="diag-lampada" data-titulo="Lâmpada do Painel"><b>Lâmpada do Painel</b><span>Alerta de injeção.</span></a>
+        <a class="c" data-abrir="diag-tensao-bat" data-titulo="Tensão da Bateria"><b>Tensão da Bateria</b><span>Carga e partida.</span></a>
+        <a class="c" data-abrir="diag-tensao-sens" data-titulo="Tensão dos Sensores"><b>Tensão dos Sensores</b><span>Linha de 5V.</span></a>
+        <a class="c" data-abrir="diag-pedal-freio" data-titulo="Interruptor Pedal Freio"><b>Interruptor Pedal Freio</b><span>Sinal de frenagem.</span></a>
+        <a class="c" data-abrir="diag-pedal-emb" data-titulo="Interruptor Pedal Embreagem"><b>Interruptor Pedal Embreagem</b><span>Partida segura.</span></a>
+      </div>
+
+      <div class="grupo-titulo"><i class="fa-solid fa-triangle-exclamation"></i> Sintomas do Motor</div>
+      <div class="g">
+        <a class="c" data-abrir="diag-nao-pega" data-titulo="Motor Não Pega"><b>Motor Não Pega</b><span>Partida e combustível.</span></a>
+        <a class="c" data-abrir="diag-limitacao" data-titulo="Limitação de Rotação"><b>Limitação de Rotação</b><span>Modo de proteção.</span></a>
+        <a class="c" data-abrir="diag-fumaca" data-titulo="Fumaça Preta"><b>Fumaça Preta</b><span>Queima de combustível.</span></a>
+        <a class="c" data-abrir="diag-acelerador" data-titulo="Falha do Acelerador"><b>Falha do Acelerador</b><span>Sensor do pedal.</span></a>
+        <a class="c" data-abrir="diag-superaquecimento" data-titulo="Superaquecimento"><b>Superaquecimento</b><span>Arrefecimento.</span></a>
+        <a class="c" data-abrir="diag-baixa-oleo" data-titulo="Baixa Pressão de Óleo"><b>Baixa Pressão de Óleo</b><span>Bomba e sensor.</span></a>
+      </div>
+    </section>
+
+    <!-- ================= TELAS DE CONTEÚDO (EXEMPLOS) ================= -->
+    <section id="tela-ele-fusiveis" class="tela" data-pai="sistema-eletrico" data-titulo="Fusíveis e Lâmpadas">
+      <div class="topo-tela"><div class="breadcrumb"></div></div>
+      <h1>🔌 Fusíveis e Lâmpadas</h1>
+      <div class="card-construcao">
+        <b>Conteúdo em construção</b>
+        <span>Aqui entrará o texto, as imagens e os esquemas do sistema elétrico.</span>
+      </div>
+    </section>
+
+    <section id="tela-inj-sensor-rotacao" class="tela" data-pai="sistema-injecao" data-titulo="Sensor Rotação">
       <div class="topo-tela"><div class="breadcrumb"></div></div>
       <h1>🔧 Sensor Rotação</h1>
       <div class="card-construcao">
@@ -228,7 +263,16 @@
       </div>
     </section>
 
-    <!-- ================= TELA PLACEHOLDER (FALLBACK) ================= -->
+    <section id="tela-mot-bomba-agua" class="tela" data-pai="sistema-motor" data-titulo="Bomba de Água">
+      <div class="topo-tela"><div class="breadcrumb"></div></div>
+      <h1>💧 Bomba de Água</h1>
+      <div class="card-construcao">
+        <b>Conteúdo em construção</b>
+        <span>Diagnóstico, vazamentos e substituição da bomba d'água.</span>
+      </div>
+    </section>
+
+    <!-- ================= PLACEHOLDER ================= -->
     <section id="tela-placeholder" class="tela" data-titulo="Em construção" data-categoria="Geral">
       <div class="topo-tela"><div class="breadcrumb"></div></div>
       <h1>Conteúdo</h1>
@@ -241,77 +285,103 @@
   </div>
 
   <script>
+    const pilha = ['principal'];
+    let paiDoPlaceholder = 'principal';
+    let tituloPlaceholder = 'Em construção';
+
     function gerarBreadcrumb(telaAtiva) {
       const container = telaAtiva.querySelector('.breadcrumb');
       if (!container) return; 
 
-      const titulo = telaAtiva.getAttribute('data-titulo');
-      const categoria = telaAtiva.getAttribute('data-categoria') || 'Sistema';
+      let historico = [];
+      let atual = (telaAtiva.id === 'tela-placeholder') 
+        ? document.getElementById('tela-' + paiDoPlaceholder) 
+        : telaAtiva;
+
+      while (atual) {
+        historico.unshift(atual);
+        const paiId = atual.getAttribute('data-pai');
+        atual = paiId ? document.getElementById('tela-' + paiId) : null;
+      }
+      
+      if (telaAtiva.id === 'tela-placeholder') {
+        const fakeCurrent = document.createElement('span');
+        fakeCurrent.setAttribute('data-titulo', tituloPlaceholder);
+        fakeCurrent.className = 'tela';
+        historico.push(fakeCurrent);
+      }
 
       container.innerHTML = '';
+      
+      historico.forEach((tela, index) => {
+        const isUltimo = index === historico.length - 1;
+        let titulo = tela.getAttribute('data-titulo') || 'Início';
 
-      // 1. Início
-      const crumbInicio = document.createElement('span');
-      crumbInicio.className = 'crumb';
-      crumbInicio.innerHTML = '🏠 Início';
-      crumbInicio.onclick = () => mostrarTela('principal');
-      container.appendChild(crumbInicio);
+        const crumb = document.createElement('span');
+        crumb.className = 'crumb' + (isUltimo ? ' atual' : '');
+        
+        if (tela.id === 'tela-principal') {
+          crumb.innerHTML = '🏠 Início';
+        } else {
+          crumb.textContent = titulo;
+        }
 
-      const sep1 = document.createElement('span');
-      sep1.className = 'sep';
-      sep1.textContent = '›';
-      container.appendChild(sep1);
+        if (!isUltimo) {
+          crumb.onclick = () => {
+            const idLimpo = tela.id.replace('tela-', '');
+            const idx = pilha.indexOf(idLimpo);
+            if (idx !== -1) {
+              pilha.splice(idx + 1);
+              mostrarTela(idLimpo, false);
+            }
+          };
+        }
 
-      // 2. Categoria
-      const crumbCategoria = document.createElement('span');
-      crumbCategoria.className = 'crumb';
-      crumbCategoria.textContent = categoria;
-      crumbCategoria.onclick = () => mostrarTela('principal');
-      container.appendChild(crumbCategoria);
+        container.appendChild(crumb);
 
-      const sep2 = document.createElement('span');
-      sep2.className = 'sep';
-      sep2.textContent = '›';
-      container.appendChild(sep2);
-
-      // 3. Atual
-      const crumbAtual = document.createElement('span');
-      crumbAtual.className = 'crumb atual';
-      crumbAtual.textContent = titulo;
-      container.appendChild(crumbAtual);
+        if (!isUltimo) {
+          const sep = document.createElement('span');
+          sep.className = 'sep';
+          sep.textContent = '›';
+          container.appendChild(sep);
+        }
+      });
     }
 
-    function mostrarTela(idDestino) {
+    function mostrarTela(id, empilhar = true) {
       const atual = document.querySelector('.tela.ativa');
-      const alvo = document.getElementById('tela-' + idDestino);
-      const alvoFinal = alvo || document.getElementById('tela-placeholder');
+      const alvoReal = document.getElementById('tela-' + id);
+      const alvo = alvoReal || document.getElementById('tela-placeholder');
       
-      if (!alvoFinal || atual === alvoFinal) return;
+      if (!alvo || atual === alvo) return;
 
-      if (!alvo) {
-        alvoFinal.setAttribute('data-titulo', window.tituloClicado || 'Em construção');
-        alvoFinal.setAttribute('data-categoria', window.categoriaClicada || 'Geral');
+      if (!alvoReal) {
+        paiDoPlaceholder = (atual.id === 'tela-principal') ? 'principal' : atual.id.replace('tela-', '');
       }
+
+      if (empilhar) pilha.push(id);
 
       if (atual) {
         atual.classList.add('saindo');
         setTimeout(() => {
           atual.classList.remove('ativa', 'saindo');
-          alvoFinal.classList.add('ativa');
+          alvo.classList.add('ativa');
           window.scrollTo({ top: 0, behavior: 'smooth' });
           
-          if (alvoFinal.id !== 'tela-principal') {
-            gerarBreadcrumb(alvoFinal); 
+          if (alvo.id !== 'tela-principal') {
+            gerarBreadcrumb(alvo); 
           }
         }, 220);
+      } else {
+        alvo.classList.add('ativa');
+        if (alvo.id !== 'tela-principal') gerarBreadcrumb(alvo);
       }
     }
 
     document.querySelectorAll('[data-abrir]').forEach(card => {
       card.addEventListener('click', (e) => {
         e.preventDefault();
-        window.tituloClicado = card.getAttribute('data-titulo');
-        window.categoriaClicada = card.getAttribute('data-categoria');
+        tituloPlaceholder = card.getAttribute('data-titulo') || 'Conteúdo';
         mostrarTela(card.getAttribute('data-abrir'));
       });
     });
