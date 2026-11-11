@@ -5,17 +5,22 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Manual Guardian</title>
   <style>
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: Segoe UI, Arial, sans-serif;
       background: #f6f7fb;
       color: #1f2430;
+      overflow-x: hidden;
     }
+
     .w {
       max-width: 900px;
       margin: 0 auto;
       padding: 24px 16px;
     }
+
     h1 {
       color: #3730a3;
       font-size: 24px;
@@ -35,15 +40,18 @@
       cursor: pointer;
       font-size: 14px;
       margin-bottom: 16px;
+      transition: border-color .15s, transform .15s;
     }
-    .voltar:hover { border-color: #4f46e5; }
+    .voltar:hover { border-color: #4f46e5; transform: translateX(-2px); }
 
-    /* Grid de cards */
+    /* Grid */
     .g {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 12px;
     }
+
+    /* Card */
     .c {
       display: block;
       background: #fff;
@@ -53,11 +61,12 @@
       text-decoration: none;
       color: inherit;
       cursor: pointer;
-      transition: border-color .15s, transform .15s;
+      transition: border-color .15s, transform .15s, box-shadow .15s;
     }
     .c:hover {
       border-color: #4f46e5;
-      transform: translateY(-1px);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(79,70,229,.12);
     }
     .c b {
       display: block;
@@ -69,51 +78,65 @@
       color: #5b6275;
     }
 
-    /* Controle de telas */
-    .tela { display: none; }
-    .tela.ativa { display: block; }
+    /* ============ ANIMAÇÃO DE TELAS ============ */
+    .tela {
+      display: none;
+      animation: entrar .35s ease both;
+    }
+    .tela.ativa {
+      display: block;
+    }
+    .tela.saindo {
+      animation: sair .25s ease both;
+    }
+
+    @keyframes entrar {
+      from { opacity: 0; transform: translateX(24px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes sair {
+      from { opacity: 1; transform: translateX(0); }
+      to   { opacity: 0; transform: translateX(-24px); }
+    }
   </style>
 </head>
 <body>
   <div class="w">
 
-    <!-- ============ TELA 1 — MENU PRINCIPAL ============ -->
+    <!-- =====================================================
+         TELA 1 — MENU PRINCIPAL
+    ===================================================== -->
     <section id="tela-principal" class="tela ativa">
       <h1>Manual do Operador — Barco Guardian</h1>
 
       <div class="g">
 
-        <!-- CARD 1 — Segurança -->
         <a class="c" data-abrir="seguranca">
           <b>🛟 Segurança</b>
           <span>Seção 1 — flutuação, extintores, incêndio, mau tempo, capotamento, carga e rótulos</span>
         </a>
 
-        <!-- CARD 2 — Operação -->
         <a class="c" data-abrir="operacao">
           <b>🧭 Operação do Barco</b>
           <span>Seção 2 — verificações, partida, câmbio, medidores, hélices, manobra, reboque e içamento</span>
         </a>
 
-        <!-- CARD 3 — Combustível (exemplo com submenu) -->
         <a class="c" data-abrir="combustivel">
           <b>⛽ Sistema de Combustível</b>
           <span>Seção 3 — tanque, respirador, abastecimento, mangueiras, separadores de água</span>
         </a>
 
-        <!-- CARD 4 — Sistemas -->
         <a class="c" data-abrir="sistemas">
           <b>⚙️ Sistemas do Barco</b>
           <span>Seção 4 — direção, luzes, bombas de porão, flaps, bússola, reboque</span>
         </a>
 
-        <!-- CARD 5 — Elétrico -->
         <a class="c" data-abrir="eletrico">
           <b>⚡ Sistema Elétrico 12 VCC</b>
           <span>Seção 5 — baterias, carga, aterramento, circuitos e fusíveis</span>
         </a>
 
-        <!-- CARD 6 — Manutenção -->
         <a class="c" data-abrir="manutencao">
           <b>🔧 Manutenção do Barco</b>
           <span>Seção 6 — especificações, casco, direção, baterias, armazenamento</span>
@@ -122,73 +145,208 @@
       </div>
     </section>
 
-    <!-- ============ TELA 2 — COMBUSTÍVEL ============ -->
-    <section id="tela-combustivel" class="tela">
+    <!-- =====================================================
+         TELA — SEGURANÇA
+    ===================================================== -->
+    <section id="tela-seguranca" class="tela" data-pai="principal">
       <button class="voltar" data-voltar>← Voltar</button>
-      <h1>⛽ Sistema de Combustível</h1>
-
+      <h1>🛟 Segurança</h1>
       <div class="g">
-
-        <a class="c" href="combustivel.html#bomba-injetora">
-          <b>🔧 Bomba Injetora</b>
-          <span>Funcionamento, ajustes e manutenção da bomba injetora</span>
-        </a>
-
-        <a class="c" href="combustivel.html#common-rail">
-          <b>⚙️ Common Rail</b>
-          <span>Sistema de alta pressão, sensores e diagnóstico</span>
-        </a>
-
-        <a class="c" href="combustivel.html#marrua">
-          <b>🚙 Marruá</b>
-          <span>Especificidades do sistema de combustível do Marruá</span>
-        </a>
-
-        <a class="c" href="combustivel.html#5ton">
-          <b>🚚 5 Ton</b>
-          <span>Particularidades do sistema de combustível do 5 Ton</span>
-        </a>
-
+        <a class="c" data-abrir="seg-flutuacao"><b>Flutuação</b><span>Colete, boias e dispositivos de flutuação</span></a>
+        <a class="c" data-abrir="seg-extintores"><b>Extintores</b><span>Tipos, quantidade e validade</span></a>
+        <a class="c" data-abrir="seg-incendio"><b>Incêndio a bordo</b><span>Prevenção e combate</span></a>
+        <a class="c" data-abrir="seg-mau-tempo"><b>Mau tempo</b><span>Procedimentos em tempestades</span></a>
+        <a class="c" data-abrir="seg-capotamento"><b>Capotamento</b><span>Como agir em caso de virada</span></a>
+        <a class="c" data-abrir="seg-carga"><b>Carga e rótulos</b><span>Distribuição de peso e sinalização</span></a>
       </div>
     </section>
 
-    <!-- ============ OUTRAS TELAS (se precisar no futuro) ============ -->
-    <!--
-    <section id="tela-seguranca" class="tela"> ... </section>
-    <section id="tela-operacao" class="tela"> ... </section>
-    -->
+    <!-- =====================================================
+         TELA — OPERAÇÃO
+    ===================================================== -->
+    <section id="tela-operacao" class="tela" data-pai="principal">
+      <button class="voltar" data-voltar>← Voltar</button>
+      <h1>🧭 Operação do Barco</h1>
+      <div class="g">
+        <a class="c" data-abrir="op-verificacoes"><b>Verificações pré-partida</b><span>Checklist do operador</span></a>
+        <a class="c" data-abrir="op-partida"><b>Partida do motor</b><span>Procedimento e cuidados</span></a>
+        <a class="c" data-abrir="op-cambio"><b>Câmbio</b><span>Uso da alavanca e ré</span></a>
+        <a class="c" data-abrir="op-medidores"><b>Medidores</b><span>Leitura dos instrumentos</span></a>
+        <a class="c" data-abrir="op-helices"><b>Hélices</b><span>Cuidados e inspeção</span></a>
+        <a class="c" data-abrir="op-manobra"><b>Manobra</b><span>Atracação e desatracação</span></a>
+        <a class="c" data-abrir="op-reboque"><b>Reboque</b><span>Como rebocar com segurança</span></a>
+        <a class="c" data-abrir="op-icamento"><b>Içamento</b><span>Pontos de içamento corretos</span></a>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         TELA — COMBUSTÍVEL
+    ===================================================== -->
+    <section id="tela-combustivel" class="tela" data-pai="principal">
+      <button class="voltar" data-voltar>← Voltar</button>
+      <h1>⛽ Sistema de Combustível</h1>
+      <div class="g">
+        <a class="c" data-abrir="comb-bomba"><b>🔧 Bomba Injetora</b><span>Funcionamento, ajustes e manutenção</span></a>
+        <a class="c" data-abrir="comb-rail"><b>⚙️ Common Rail</b><span>Alta pressão, sensores e diagnóstico</span></a>
+        <a class="c" data-abrir="comb-marrua"><b>🚙 Marruá</b><span>Sistema do Marruá</span></a>
+        <a class="c" data-abrir="comb-5ton"><b>🚚 5 Ton</b><span>Sistema do 5 Ton</span></a>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         TELA — SISTEMAS DO BARCO
+    ===================================================== -->
+    <section id="tela-sistemas" class="tela" data-pai="principal">
+      <button class="voltar" data-voltar>← Voltar</button>
+      <h1>⚙️ Sistemas do Barco</h1>
+      <div class="g">
+        <a class="c" data-abrir="sis-direcao"><b>Direção</b><span>Comando e cabos</span></a>
+        <a class="c" data-abrir="sis-luzes"><b>Luzes</b><span>Navegação e iluminação</span></a>
+        <a class="c" data-abrir="sis-bombas"><b>Bombas de porão</b><span>Funcionamento e teste</span></a>
+        <a class="c" data-abrir="sis-flaps"><b>Flaps</b><span>Ajuste e uso</span></a>
+        <a class="c" data-abrir="sis-bussola"><b>Bússola</b><span>Calibração e leitura</span></a>
+        <a class="c" data-abrir="sis-reboque"><b>Reboque</b><span>Sistema de reboque</span></a>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         TELA — ELÉTRICO
+    ===================================================== -->
+    <section id="tela-eletrico" class="tela" data-pai="principal">
+      <button class="voltar" data-voltar>← Voltar</button>
+      <h1>⚡ Sistema Elétrico 12 VCC</h1>
+      <div class="g">
+        <a class="c" data-abrir="ele-baterias"><b>Baterias</b><span>Tipos e cuidados</span></a>
+        <a class="c" data-abrir="ele-carga"><b>Carga</b><span>Alternador e carregador</span></a>
+        <a class="c" data-abrir="ele-aterramento"><b>Aterramento</b><span>Pontos e verificação</span></a>
+        <a class="c" data-abrir="ele-circuitos"><b>Circuitos</b><span>Distribuição</span></a>
+        <a class="c" data-abrir="ele-fusiveis"><b>Fusíveis</b><span>Troca e valores</span></a>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         TELA — MANUTENÇÃO
+    ===================================================== -->
+    <section id="tela-manutencao" class="tela" data-pai="principal">
+      <button class="voltar" data-voltar>← Voltar</button>
+      <h1>🔧 Manutenção do Barco</h1>
+      <div class="g">
+        <a class="c" data-abrir="man-especificacoes"><b>Especificações</b><span>Dados técnicos</span></a>
+        <a class="c" data-abrir="man-casco"><b>Casco</b><span>Limpeza e reparos</span></a>
+        <a class="c" data-abrir="man-direcao"><b>Direção</b><span>Manutenção do sistema</span></a>
+        <a class="c" data-abrir="man-baterias"><b>Baterias</b><span>Manutenção periódica</span></a>
+        <a class="c" data-abrir="man-armazenamento"><b>Armazenamento</b><span>Guardar o barco</span></a>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         TELAS DE CONTEÚDO FINAL (exemplos — placeholders)
+         Basta duplicar uma delas para cada subitem.
+    ===================================================== -->
+
+    <!-- Conteúdo exemplo: Bomba Injetora -->
+    <section id="tela-comb-bomba" class="tela" data-pai="combustivel">
+      <button class="voltar" data-voltar>← Voltar</button>
+      <h1>🔧 Bomba Injetora</h1>
+      <div class="c" style="cursor:default">
+        <b>Conteúdo em construção</b>
+        <span>Aqui entrará o texto detalhado sobre bomba injetora: funcionamento, ajustes, diagnóstico e manutenção.</span>
+      </div>
+    </section>
+
+    <!-- Conteúdo exemplo: Common Rail -->
+    <section id="tela-comb-rail" class="tela" data-pai="combustivel">
+      <button class="voltar" data-voltar>← Voltar</button>
+      <h1>⚙️ Common Rail</h1>
+      <div class="c" style="cursor:default">
+        <b>Conteúdo em construção</b>
+        <span>Detalhes do sistema Common Rail: pressão, sensores, diagnóstico.</span>
+      </div>
+    </section>
+
+    <!-- Conteúdo exemplo: Marruá -->
+    <section id="tela-comb-marrua" class="tela" data-pai="combustivel">
+      <button class="voltar" data-voltar>← Voltar</button>
+      <h1>🚙 Marruá</h1>
+      <div class="c" style="cursor:default">
+        <b>Conteúdo em construção</b>
+        <span>Especificidades do sistema de combustível do Marruá.</span>
+      </div>
+    </section>
+
+    <!-- Conteúdo exemplo: 5 Ton -->
+    <section id="tela-comb-5ton" class="tela" data-pai="combustivel">
+      <button class="voltar" data-voltar>← Voltar</button>
+      <h1>🚚 5 Ton</h1>
+      <div class="c" style="cursor:default">
+        <b>Conteúdo em construção</b>
+        <span>Especificidades do sistema de combustível do 5 Ton.</span>
+      </div>
+    </section>
+
+    <!-- Placeholder genérico: qualquer subitem sem tela própria cai aqui -->
+    <section id="tela-placeholder" class="tela">
+      <button class="voltar" data-voltar>← Voltar</button>
+      <h1>Conteúdo</h1>
+      <div class="c" style="cursor:default">
+        <b>Página em construção</b>
+        <span>Este subitem ainda não tem conteúdo. Em breve será preenchido.</span>
+      </div>
+    </section>
 
   </div>
 
   <script>
-    // Mostra apenas uma tela por vez
-    function mostrarTela(id) {
-      document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
-      const alvo = document.getElementById('tela-' + id);
-      if (alvo) {
+    // ============================================================
+    // Pilha de navegação (para o botão "Voltar" saber pra onde ir)
+    // ============================================================
+    const pilha = ['principal'];
+
+    // Mostra uma tela com transição (sai a atual → entra a nova)
+    function mostrarTela(id, empilhar = true) {
+      const atual = document.querySelector('.tela.ativa');
+      const alvo = document.getElementById('tela-' + id) || document.getElementById('tela-placeholder');
+      if (!alvo || atual === alvo) return;
+
+      // Se a tela de destino for o placeholder, ele não vira "histórico" real
+      if (empilhar) pilha.push(id);
+
+      if (atual) {
+        atual.classList.add('saindo');
+        setTimeout(() => {
+          atual.classList.remove('ativa', 'saindo');
+          alvo.classList.add('ativa');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 220);
+      } else {
         alvo.classList.add('ativa');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
 
-    // Clique nos cards principais (só abre se existir a tela correspondente)
+    // Voltar para a tela anterior na pilha
+    function voltar() {
+      if (pilha.length <= 1) return;
+      pilha.pop(); // remove a atual
+      const anterior = pilha[pilha.length - 1];
+      mostrarTela(anterior, false);
+    }
+
+    // Clique nos cards
     document.querySelectorAll('[data-abrir]').forEach(card => {
       card.addEventListener('click', () => {
         const destino = card.getAttribute('data-abrir');
-        const existe = document.getElementById('tela-' + destino);
-        if (existe) {
-          mostrarTela(destino);
-        } else {
-          // Se não houver submenu criado, segue o link normal (se houver href)
-          const href = card.getAttribute('href');
-          if (href) window.location.href = href;
-        }
+        mostrarTela(destino);
       });
     });
 
     // Botão voltar
     document.querySelectorAll('[data-voltar]').forEach(btn => {
-      btn.addEventListener('click', () => mostrarTela('principal'));
+      btn.addEventListener('click', voltar);
+    });
+
+    // Atalho: tecla ESC também volta
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') voltar();
     });
   </script>
 </body>
