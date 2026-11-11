@@ -19,7 +19,26 @@
     h1 {
       color: #3730a3;
       font-size: 24px;
+      margin: 0 0 16px;
     }
+
+    /* Botão voltar */
+    .voltar {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      border: 1px solid #e3e6ef;
+      color: #3730a3;
+      padding: 8px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+    .voltar:hover { border-color: #4f46e5; }
+
+    /* Grid de cards */
     .g {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -33,9 +52,12 @@
       padding: 16px;
       text-decoration: none;
       color: inherit;
+      cursor: pointer;
+      transition: border-color .15s, transform .15s;
     }
     .c:hover {
       border-color: #4f46e5;
+      transform: translateY(-1px);
     }
     .c b {
       display: block;
@@ -46,51 +68,128 @@
       font-size: 13px;
       color: #5b6275;
     }
+
+    /* Controle de telas */
+    .tela { display: none; }
+    .tela.ativa { display: block; }
   </style>
 </head>
 <body>
   <div class="w">
-    <h1>Manual de pesquisas básicas</h1>
 
-    <div class="g">
+    <!-- ============ TELA 1 — MENU PRINCIPAL ============ -->
+    <section id="tela-principal" class="tela ativa">
+      <h1>Manual do Operador — Barco Guardian</h1>
 
-      <!-- CARD 1 — Segurança -->
-      <a class="c" href="seguranca.html">
-        <b>🛟 Segurança</b>
-        <span>Seção 1 — flutuação, extintores, incêndio, mau tempo, capotamento, carga e rótulos</span>
-      </a>
+      <div class="g">
 
-      <!-- CARD 2 — Operação do Barco -->
-      <a class="c" href="operacao.html">
-        <b>🧭 Operação do Barco</b>
-        <span>Seção 2 — verificações, partida, câmbio, medidores, hélices, manobra, reboque e içamento</span>
-      </a>
+        <!-- CARD 1 — Segurança -->
+        <a class="c" data-abrir="seguranca">
+          <b>🛟 Segurança</b>
+          <span>Seção 1 — flutuação, extintores, incêndio, mau tempo, capotamento, carga e rótulos</span>
+        </a>
 
-      <!-- CARD 3 — Sistema de Combustível -->
-      <a class="c" href="combustivel.html">
-        <b>⛽ Sistema de Combustível</b>
-        <span>Seção 3 — tanque, respirador, abastecimento, mangueiras, separadores de água</span>
-      </a>
+        <!-- CARD 2 — Operação -->
+        <a class="c" data-abrir="operacao">
+          <b>🧭 Operação do Barco</b>
+          <span>Seção 2 — verificações, partida, câmbio, medidores, hélices, manobra, reboque e içamento</span>
+        </a>
 
-      <!-- CARD 4 — Sistemas do Barco -->
-      <a class="c" href="sistemas-barco.html">
-        <b>⚙️ Sistemas do Barco</b>
-        <span>Seção 4 — direção, luzes, bombas de porão, flaps, bússola, reboque</span>
-      </a>
+        <!-- CARD 3 — Combustível (exemplo com submenu) -->
+        <a class="c" data-abrir="combustivel">
+          <b>⛽ Sistema de Combustível</b>
+          <span>Seção 3 — tanque, respirador, abastecimento, mangueiras, separadores de água</span>
+        </a>
 
-      <!-- CARD 5 — Sistema Elétrico -->
-      <a class="c" href="../eletrico/guardian-sistema-eletrico.html">
-        <b>⚡ Sistema Elétrico 12 VCC</b>
-        <span>Seção 5 — baterias, carga, aterramento, circuitos e fusíveis</span>
-      </a>
+        <!-- CARD 4 — Sistemas -->
+        <a class="c" data-abrir="sistemas">
+          <b>⚙️ Sistemas do Barco</b>
+          <span>Seção 4 — direção, luzes, bombas de porão, flaps, bússola, reboque</span>
+        </a>
 
-      <!-- CARD 6 — Manutenção -->
-      <a class="c" href="manutencao.html">
-        <b>🔧 Manutenção do Barco</b>
-        <span>Seção 6 — especificações, casco, direção, baterias, armazenamento</span>
-      </a>
+        <!-- CARD 5 — Elétrico -->
+        <a class="c" data-abrir="eletrico">
+          <b>⚡ Sistema Elétrico 12 VCC</b>
+          <span>Seção 5 — baterias, carga, aterramento, circuitos e fusíveis</span>
+        </a>
 
-    </div>
+        <!-- CARD 6 — Manutenção -->
+        <a class="c" data-abrir="manutencao">
+          <b>🔧 Manutenção do Barco</b>
+          <span>Seção 6 — especificações, casco, direção, baterias, armazenamento</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ============ TELA 2 — COMBUSTÍVEL ============ -->
+    <section id="tela-combustivel" class="tela">
+      <button class="voltar" data-voltar>← Voltar</button>
+      <h1>⛽ Sistema de Combustível</h1>
+
+      <div class="g">
+
+        <a class="c" href="combustivel.html#bomba-injetora">
+          <b>🔧 Bomba Injetora</b>
+          <span>Funcionamento, ajustes e manutenção da bomba injetora</span>
+        </a>
+
+        <a class="c" href="combustivel.html#common-rail">
+          <b>⚙️ Common Rail</b>
+          <span>Sistema de alta pressão, sensores e diagnóstico</span>
+        </a>
+
+        <a class="c" href="combustivel.html#marrua">
+          <b>🚙 Marruá</b>
+          <span>Especificidades do sistema de combustível do Marruá</span>
+        </a>
+
+        <a class="c" href="combustivel.html#5ton">
+          <b>🚚 5 Ton</b>
+          <span>Particularidades do sistema de combustível do 5 Ton</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ============ OUTRAS TELAS (se precisar no futuro) ============ -->
+    <!--
+    <section id="tela-seguranca" class="tela"> ... </section>
+    <section id="tela-operacao" class="tela"> ... </section>
+    -->
+
   </div>
+
+  <script>
+    // Mostra apenas uma tela por vez
+    function mostrarTela(id) {
+      document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
+      const alvo = document.getElementById('tela-' + id);
+      if (alvo) {
+        alvo.classList.add('ativa');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // Clique nos cards principais (só abre se existir a tela correspondente)
+    document.querySelectorAll('[data-abrir]').forEach(card => {
+      card.addEventListener('click', () => {
+        const destino = card.getAttribute('data-abrir');
+        const existe = document.getElementById('tela-' + destino);
+        if (existe) {
+          mostrarTela(destino);
+        } else {
+          // Se não houver submenu criado, segue o link normal (se houver href)
+          const href = card.getAttribute('href');
+          if (href) window.location.href = href;
+        }
+      });
+    });
+
+    // Botão voltar
+    document.querySelectorAll('[data-voltar]').forEach(btn => {
+      btn.addEventListener('click', () => mostrarTela('principal'));
+    });
+  </script>
 </body>
 </html>
