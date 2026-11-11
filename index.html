@@ -10,15 +10,32 @@
     .w { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
     h1 { color: #3730a3; font-size: 24px; margin: 0 0 16px; }
 
-    .topo-tela { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
-    .voltar { display: inline-flex; align-items: center; gap: 6px; background: #fff; border: 1px solid #e3e6ef; color: #3730a3; padding: 8px 14px; border-radius: 10px; cursor: pointer; font-size: 14px; transition: border-color .15s, transform .15s; }
-    .voltar:hover { border-color: #4f46e5; transform: translateX(-2px); }
+    .topo-tela { display: flex; align-items: center; margin-bottom: 24px; }
 
     .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #5b6275; flex-wrap: wrap; }
-    .breadcrumb .crumb { background: #fff; border: 1px solid #e3e6ef; padding: 6px 10px; border-radius: 8px; text-decoration: none; color: #5b6275; cursor: pointer; transition: border-color .15s, color .15s; }
-    .breadcrumb .crumb:hover:not(.atual) { border-color: #4f46e5; color: #3730a3; }
-    .breadcrumb .crumb.atual { background: #eef2ff; border-color: #c7d2fe; color: #3730a3; font-weight: 600; cursor: default; }
-    .breadcrumb .sep { color: #a0a7b8; font-size: 12px; }
+    .breadcrumb .crumb { 
+      background: #fff; 
+      border: 1px solid #e3e6ef; 
+      padding: 8px 12px; 
+      border-radius: 10px; 
+      text-decoration: none; 
+      color: #5b6275; 
+      cursor: pointer; 
+      transition: border-color .15s, color .15s, transform .15s; 
+    }
+    .breadcrumb .crumb:hover:not(.atual) { 
+      border-color: #4f46e5; 
+      color: #3730a3; 
+      transform: translateY(-1px);
+    }
+    .breadcrumb .crumb.atual { 
+      background: #eef2ff; 
+      border-color: #c7d2fe; 
+      color: #3730a3; 
+      font-weight: 600; 
+      cursor: default; 
+    }
+    .breadcrumb .sep { color: #a0a7b8; font-size: 14px; }
 
     .g { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
     .c { display: block; background: #fff; border: 1px solid #e3e6ef; border-radius: 12px; padding: 16px; text-decoration: none; color: inherit; cursor: pointer; transition: border-color .15s, transform .15s, box-shadow .15s; }
@@ -36,140 +53,61 @@
 <body>
   <div class="w">
 
-    <!-- ================= TELA 1 — MENU PRINCIPAL ================= -->
+    <!-- TELA 1 — MENU PRINCIPAL -->
     <section id="tela-principal" class="tela ativa" data-titulo="Início">
-      <h1>Manual Básico de Pesquisa v1.0</h1>
+      <h1>Manual do Operador — Barco Guardian</h1>
       <div class="g">
-        <a class="c" data-abrir="seguranca" data-titulo="Segurança"><b>🛟 Segurança</b><span>Seção 1 — flutuação, extintores, incêndio, mau tempo, capotamento, carga e rótulos</span></a>
-        <a class="c" data-abrir="operacao" data-titulo="Operação"><b>🧭 Operação do Barco</b><span>Seção 2 — verificações, partida, câmbio, medidores, hélices, manobra, reboque e içamento</span></a>
-        <a class="c" data-abrir="combustivel" data-titulo="Combustível"><b>⛽ Sistema de Combustível</b><span>Seção 3 — tanque, respirador, abastecimento, mangueiras, separadores de água</span></a>
-        <a class="c" data-abrir="sistemas" data-titulo="Sistemas"><b>⚙️ Sistemas do Barco</b><span>Seção 4 — direção, luzes, bombas de porão, flaps, bússola, reboque</span></a>
-        <a class="c" data-abrir="eletrico" data-titulo="Elétrico"><b>⚡ Sistema Elétrico 12 VCC</b><span>Seção 5 — baterias, carga, aterramento, circuitos e fusíveis</span></a>
-        <a class="c" data-abrir="manutencao" data-titulo="Manutenção"><b>🔧 Manutenção do Barco</b><span>Seção 6 — especificações, casco, direção, baterias, armazenamento</span></a>
+        <a class="c" data-abrir="seguranca" data-titulo="Segurança"><b>🛟 Segurança</b><span>Seção 1</span></a>
+        <a class="c" data-abrir="operacao" data-titulo="Operação"><b>🧭 Operação do Barco</b><span>Seção 2</span></a>
+        <a class="c" data-abrir="combustivel" data-titulo="Combustível"><b>⛽ Sistema de Combustível</b><span>Seção 3</span></a>
+        <a class="c" data-abrir="sistemas" data-titulo="Sistemas"><b>⚙️ Sistemas do Barco</b><span>Seção 4</span></a>
+        <a class="c" data-abrir="eletrico" data-titulo="Elétrico"><b>⚡ Sistema Elétrico 12 VCC</b><span>Seção 5</span></a>
+        <a class="c" data-abrir="manutencao" data-titulo="Manutenção"><b>🔧 Manutenção do Barco</b><span>Seção 6</span></a>
       </div>
     </section>
 
-    <!-- ================= TELAS DE SUBMENUS ================= -->
-
-    <!-- Segurança -->
+    <!-- SUBMENUS -->
     <section id="tela-seguranca" class="tela" data-pai="principal" data-titulo="Segurança">
-      <div class="topo-tela"><button class="voltar" data-voltar>← Voltar</button><div class="breadcrumb"></div></div>
+      <div class="topo-tela"><div class="breadcrumb"></div></div>
       <h1>🛟 Segurança</h1>
       <div class="g">
-        <a class="c" data-abrir="seg-flutuacao" data-titulo="Flutuação"><b>Flutuação</b><span>Colete, boias e dispositivos de flutuação</span></a>
-        <a class="c" data-abrir="seg-extintores" data-titulo="Extintores"><b>Extintores</b><span>Tipos, quantidade e validade</span></a>
-        <a class="c" data-abrir="seg-incendio" data-titulo="Incêndio"><b>Incêndio a bordo</b><span>Prevenção e combate</span></a>
-        <a class="c" data-abrir="seg-mau-tempo" data-titulo="Mau tempo"><b>Mau tempo</b><span>Procedimentos em tempestades</span></a>
-        <a class="c" data-abrir="seg-capotamento" data-titulo="Capotamento"><b>Capotamento</b><span>Como agir em caso de virada</span></a>
-        <a class="c" data-abrir="seg-carga" data-titulo="Carga"><b>Carga e rótulos</b><span>Distribuição de peso e sinalização</span></a>
+        <a class="c" data-abrir="seg-flutuacao" data-titulo="Flutuação"><b>Flutuação</b><span>Colete, boias e dispositivos</span></a>
+        <a class="c" data-abrir="seg-extintores" data-titulo="Extintores"><b>Extintores</b><span>Tipos e validade</span></a>
       </div>
     </section>
 
-    <!-- Operação -->
     <section id="tela-operacao" class="tela" data-pai="principal" data-titulo="Operação">
-      <div class="topo-tela"><button class="voltar" data-voltar>← Voltar</button><div class="breadcrumb"></div></div>
+      <div class="topo-tela"><div class="breadcrumb"></div></div>
       <h1>🧭 Operação do Barco</h1>
       <div class="g">
         <a class="c" data-abrir="op-verificacoes" data-titulo="Verificações"><b>Verificações</b><span>Checklist pré-partida</span></a>
-        <a class="c" data-abrir="op-partida" data-titulo="Partida"><b>Partida do motor</b><span>Procedimento e cuidados</span></a>
-        <a class="c" data-abrir="op-cambio" data-titulo="Câmbio"><b>Câmbio</b><span>Uso da alavanca e ré</span></a>
-        <a class="c" data-abrir="op-medidores" data-titulo="Medidores"><b>Medidores</b><span>Leitura dos instrumentos</span></a>
-        <a class="c" data-abrir="op-helices" data-titulo="Hélices"><b>Hélices</b><span>Cuidados e inspeção</span></a>
-        <a class="c" data-abrir="op-manobra" data-titulo="Manobra"><b>Manobra</b><span>Atracação e desatracação</span></a>
-        <a class="c" data-abrir="op-reboque" data-titulo="Reboque"><b>Reboque</b><span>Como rebocar com segurança</span></a>
-        <a class="c" data-abrir="op-icamento" data-titulo="Içamento"><b>Içamento</b><span>Pontos de içamento corretos</span></a>
+        <a class="c" data-abrir="op-partida" data-titulo="Partida"><b>Partida do motor</b><span>Procedimento</span></a>
       </div>
     </section>
 
-    <!-- Combustível -->
     <section id="tela-combustivel" class="tela" data-pai="principal" data-titulo="Combustível">
-      <div class="topo-tela"><button class="voltar" data-voltar>← Voltar</button><div class="breadcrumb"></div></div>
+      <div class="topo-tela"><div class="breadcrumb"></div></div>
       <h1>⛽ Sistema de Combustível</h1>
       <div class="g">
-        <a class="c" data-abrir="comb-bomba" data-titulo="Bomba Injetora"><b>🔧 Bomba Injetora</b><span>Funcionamento, ajustes e manutenção</span></a>
-        <a class="c" data-abrir="comb-rail" data-titulo="Common Rail"><b>⚙️ Common Rail</b><span>Alta pressão, sensores e diagnóstico</span></a>
-        <a class="c" data-abrir="comb-marrua" data-titulo="Marruá"><b>🚙 Marruá</b><span>Sistema do Marruá</span></a>
-        <a class="c" data-abrir="comb-5ton" data-titulo="5 Ton"><b>🚚 5 Ton</b><span>Sistema do 5 Ton</span></a>
+        <a class="c" data-abrir="comb-bomba" data-titulo="Bomba Injetora"><b>🔧 Bomba Injetora</b><span>Funcionamento</span></a>
+        <a class="c" data-abrir="comb-rail" data-titulo="Common Rail"><b>⚙️ Common Rail</b><span>Alta pressão</span></a>
       </div>
     </section>
 
-    <!-- Sistemas -->
-    <section id="tela-sistemas" class="tela" data-pai="principal" data-titulo="Sistemas">
-      <div class="topo-tela"><button class="voltar" data-voltar>← Voltar</button><div class="breadcrumb"></div></div>
-      <h1>⚙️ Sistemas do Barco</h1>
-      <div class="g">
-        <a class="c" data-abrir="sis-direcao" data-titulo="Direção"><b>Direção</b><span>Comando e cabos</span></a>
-        <a class="c" data-abrir="sis-luzes" data-titulo="Luzes"><b>Luzes</b><span>Navegação e iluminação</span></a>
-        <a class="c" data-abrir="sis-bombas" data-titulo="Bombas de porão"><b>Bombas de porão</b><span>Funcionamento e teste</span></a>
-        <a class="c" data-abrir="sis-flaps" data-titulo="Flaps"><b>Flaps</b><span>Ajuste e uso</span></a>
-        <a class="c" data-abrir="sis-bussola" data-titulo="Bússola"><b>Bússola</b><span>Calibração e leitura</span></a>
-        <a class="c" data-abrir="sis-reboque" data-titulo="Reboque"><b>Reboque</b><span>Sistema de reboque</span></a>
-      </div>
-    </section>
-
-    <!-- Elétrico -->
-    <section id="tela-eletrico" class="tela" data-pai="principal" data-titulo="Elétrico">
-      <div class="topo-tela"><button class="voltar" data-voltar>← Voltar</button><div class="breadcrumb"></div></div>
-      <h1>⚡ Sistema Elétrico 12 VCC</h1>
-      <div class="g">
-        <a class="c" data-abrir="ele-baterias" data-titulo="Baterias"><b>Baterias</b><span>Tipos e cuidados</span></a>
-        <a class="c" data-abrir="ele-carga" data-titulo="Carga"><b>Carga</b><span>Alternador e carregador</span></a>
-        <a class="c" data-abrir="ele-aterramento" data-titulo="Aterramento"><b>Aterramento</b><span>Pontos e verificação</span></a>
-        <a class="c" data-abrir="ele-circuitos" data-titulo="Circuitos"><b>Circuitos</b><span>Distribuição</span></a>
-        <a class="c" data-abrir="ele-fusiveis" data-titulo="Fusíveis"><b>Fusíveis</b><span>Troca e valores</span></a>
-      </div>
-    </section>
-
-    <!-- Manutenção -->
-    <section id="tela-manutencao" class="tela" data-pai="principal" data-titulo="Manutenção">
-      <div class="topo-tela"><button class="voltar" data-voltar>← Voltar</button><div class="breadcrumb"></div></div>
-      <h1>🔧 Manutenção do Barco</h1>
-      <div class="g">
-        <a class="c" data-abrir="man-especificacoes" data-titulo="Especificações"><b>Especificações</b><span>Dados técnicos</span></a>
-        <a class="c" data-abrir="man-casco" data-titulo="Casco"><b>Casco</b><span>Limpeza e reparos</span></a>
-        <a class="c" data-abrir="man-direcao" data-titulo="Direção"><b>Direção</b><span>Manutenção do sistema</span></a>
-        <a class="c" data-abrir="man-baterias" data-titulo="Baterias"><b>Baterias</b><span>Manutenção periódica</span></a>
-        <a class="c" data-abrir="man-armazenamento" data-titulo="Armazenamento"><b>Armazenamento</b><span>Guardar o barco</span></a>
-      </div>
-    </section>
-
-    <!-- ================= TELAS DE CONTEÚDO FINAL ================= -->
-    
-    <!-- Combustível: Bomba Injetora -->
-    <section id="tela-comb-bomba" class="tela" data-pai="combustivel" data-titulo="Bomba Injetora">
-      <div class="topo-tela"><button class="voltar" data-voltar>← Voltar</button><div class="breadcrumb"></div></div>
-      <h1>🔧 Bomba Injetora</h1>
-      <div class="c" style="cursor:default"><b>Conteúdo em construção</b><span>Aqui entrará o texto detalhado sobre bomba injetora.</span></div>
-    </section>
-
-    <!-- Combustível: Common Rail -->
+    <!-- CONTEÚDO FINAL -->
     <section id="tela-comb-rail" class="tela" data-pai="combustivel" data-titulo="Common Rail">
-      <div class="topo-tela"><button class="voltar" data-voltar>← Voltar</button><div class="breadcrumb"></div></div>
+      <div class="topo-tela"><div class="breadcrumb"></div></div>
       <h1>⚙️ Common Rail</h1>
       <div class="c" style="cursor:default"><b>Conteúdo em construção</b><span>Detalhes do sistema Common Rail.</span></div>
     </section>
 
-    <!-- Combustível: Marruá -->
-    <section id="tela-comb-marrua" class="tela" data-pai="combustivel" data-titulo="Marruá">
-      <div class="topo-tela"><button class="voltar" data-voltar>← Voltar</button><div class="breadcrumb"></div></div>
-      <h1>🚙 Marruá</h1>
-      <div class="c" style="cursor:default"><b>Conteúdo em construção</b><span>Sistema de combustível do Marruá.</span></div>
-    </section>
-
-    <!-- Combustível: 5 Ton -->
-    <section id="tela-comb-5ton" class="tela" data-pai="combustivel" data-titulo="5 Ton">
-      <div class="topo-tela"><button class="voltar" data-voltar>← Voltar</button><div class="breadcrumb"></div></div>
-      <h1>🚚 5 Ton</h1>
-      <div class="c" style="cursor:default"><b>Conteúdo em construção</b><span>Sistema de combustível do 5 Ton.</span></div>
-    </section>
-
-    <!-- Placeholder Genérico (Para qualquer item sem tela criada) -->
+    <!-- PLACEHOLDER -->
     <section id="tela-placeholder" class="tela">
-      <div class="topo-tela"><button class="voltar" data-voltar>← Voltar</button><div class="breadcrumb"></div></div>
+      <div class="topo-tela"><div class="breadcrumb"></div></div>
       <h1>Conteúdo</h1>
       <div class="c" style="cursor:default">
         <b>Página em construção</b>
-        <span>Este subitem ainda não tem conteúdo. Em breve será preenchido.</span>
+        <span>Este subitem ainda não tem conteúdo.</span>
       </div>
     </section>
 
@@ -177,7 +115,7 @@
 
   <script>
     const pilha = ['principal'];
-    let paiDoPlaceholder = 'principal'; // Guarda de onde o usuário veio ao cair no "Em construção"
+    let paiDoPlaceholder = 'principal';
 
     function gerarBreadcrumb() {
       const telaAtiva = document.querySelector('.tela.ativa');
@@ -187,22 +125,21 @@
       if (!container) return; 
 
       let historico = [];
-      let atual = telaAtiva;
       
-      // Se estiver no placeholder, monta o caminho baseado em onde ele clicou
-      if (telaAtiva.id === 'tela-placeholder') {
-        const telaPaiReal = document.getElementById('tela-' + paiDoPlaceholder);
-        if (telaPaiReal) historico.unshift(telaPaiReal);
-      } else {
-        // Se for tela normal, sobe pelos data-pai
-        while (atual) {
-          historico.unshift(atual);
-          const paiId = atual.getAttribute('data-pai');
-          atual = paiId ? document.getElementById('tela-' + paiId) : null;
-        }
+      // MÁGICA CORRIGIDA AQUI:
+      // Se estamos no placeholder, começamos a busca a partir do "paiDoPlaceholder"
+      let atual = (telaAtiva.id === 'tela-placeholder') 
+        ? document.getElementById('tela-' + paiDoPlaceholder) 
+        : telaAtiva;
+
+      // Agora sobe a árvore toda (Início > Pai > Filho)
+      while (atual) {
+        historico.unshift(atual);
+        const paiId = atual.getAttribute('data-pai');
+        atual = paiId ? document.getElementById('tela-' + paiId) : null;
       }
       
-      // Adiciona o placeholder no final
+      // Se for a tela de placeholder, adiciona ela no final do histórico
       if (telaAtiva.id === 'tela-placeholder') {
         historico.push(telaAtiva);
       }
@@ -252,7 +189,6 @@
       
       if (!alvo || atual === alvo) return;
 
-      // Se a tela não existir e formos para o placeholder, memoriza o pai
       if (!alvoReal) {
         paiDoPlaceholder = atual.id.replace('tela-', '');
       }
@@ -273,19 +209,17 @@
       }
     }
 
-    function voltar() {
-      if (pilha.length <= 1) return;
-      pilha.pop();
-      const anterior = pilha[pilha.length - 1];
-      mostrarTela(anterior, false);
-    }
+    // Atalho ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && pilha.length > 1) {
+        pilha.pop();
+        const anterior = pilha[pilha.length - 1];
+        mostrarTela(anterior, false);
+      }
+    });
 
     document.querySelectorAll('[data-abrir]').forEach(card => {
       card.addEventListener('click', () => mostrarTela(card.getAttribute('data-abrir')));
-    });
-
-    document.querySelectorAll('[data-voltar]').forEach(btn => {
-      btn.addEventListener('click', voltar);
     });
   </script>
 </body>
