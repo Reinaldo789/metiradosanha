@@ -3,46 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Manual Guardian</title>
+  <title>Marrua MWM 2.8</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
     * { box-sizing: border-box; }
     body { margin: 0; font-family: Segoe UI, Arial, sans-serif; background: #f6f7fb; color: #1f2430; overflow-x: hidden; }
-    .w { max-width: 900px; margin: 0 auto; padding: 24px 16px; }
-    h1 { color: #3730a3; font-size: 24px; margin: 0 0 16px; }
+    .w { max-width: 1000px; margin: 0 auto; padding: 24px 16px; }
+    
+    /* Cabeçalho da Home */
+    .home-header { margin-bottom: 32px; text-align: center; }
+    h1 { color: #3730a3; font-size: 32px; margin: 0 0 8px; }
+    .home-header p { color: #5b6275; font-size: 16px; margin: 0; }
 
+    /* Títulos das Seções Principais */
+    .secao-titulo { 
+      font-size: 22px; 
+      color: #3730a3; 
+      margin: 40px 0 20px; 
+      display: flex; 
+      align-items: center; 
+      gap: 10px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e3e6ef;
+    }
+
+    /* Subtítulos de Grupos (ex: Sensores, Atuadores) */
+    .grupo-titulo {
+      font-size: 15px;
+      color: #5b6275;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 24px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Topo (Caminho) */
     .topo-tela { display: flex; align-items: center; margin-bottom: 24px; }
-
     .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #5b6275; flex-wrap: wrap; }
-    .breadcrumb .crumb { 
-      background: #fff; 
-      border: 1px solid #e3e6ef; 
-      padding: 8px 12px; 
-      border-radius: 10px; 
-      text-decoration: none; 
-      color: #5b6275; 
-      cursor: pointer; 
-      transition: border-color .15s, color .15s, transform .15s; 
-    }
-    .breadcrumb .crumb:hover:not(.atual) { 
-      border-color: #4f46e5; 
-      color: #3730a3; 
-      transform: translateY(-1px);
-    }
-    .breadcrumb .crumb.atual { 
-      background: #eef2ff; 
-      border-color: #c7d2fe; 
-      color: #3730a3; 
-      font-weight: 600; 
-      cursor: default; 
-    }
+    .breadcrumb .crumb { background: #fff; border: 1px solid #e3e6ef; padding: 8px 12px; border-radius: 10px; text-decoration: none; color: #5b6275; cursor: pointer; transition: border-color .15s, color .15s, transform .15s; }
+    .breadcrumb .crumb:hover:not(.atual) { border-color: #4f46e5; color: #3730a3; transform: translateY(-1px); }
+    .breadcrumb .crumb.atual { background: #eef2ff; border-color: #c7d2fe; color: #3730a3; font-weight: 600; cursor: default; }
     .breadcrumb .sep { color: #a0a7b8; font-size: 14px; }
 
-    .g { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+    /* Grid e Cards */
+    .g { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
     .c { display: block; background: #fff; border: 1px solid #e3e6ef; border-radius: 12px; padding: 16px; text-decoration: none; color: inherit; cursor: pointer; transition: border-color .15s, transform .15s, box-shadow .15s; }
     .c:hover { border-color: #4f46e5; transform: translateY(-2px); box-shadow: 0 4px 14px rgba(79,70,229,.12); }
-    .c b { display: block; color: #3730a3; margin-bottom: 4px; }
-    .c span { font-size: 13px; color: #5b6275; }
+    .c b { display: block; color: #3730a3; margin-bottom: 4px; font-size: 15px; }
+    .c span { font-size: 13px; color: #5b6275; line-height: 1.3; display: block; }
 
+    /* Card de Construção */
+    .card-construcao { background: #fff; border: 1px solid #e3e6ef; border-radius: 12px; padding: 24px; margin-top: 16px; }
+    .card-construcao b { font-size: 18px; color: #3730a3; display: block; margin-bottom: 8px; }
+    .card-construcao span { color: #5b6275; font-size: 15px; }
+
+    /* Animações */
     .tela { display: none; animation: entrar .35s ease both; }
     .tela.ativa { display: block; }
     .tela.saindo { animation: sair .25s ease both; }
@@ -53,173 +73,247 @@
 <body>
   <div class="w">
 
-    <!-- TELA 1 — MENU PRINCIPAL -->
+    <!-- ================= TELA 1: HOME (TODOS OS CARDS) ================= -->
     <section id="tela-principal" class="tela ativa" data-titulo="Início">
-      <h1>Manual de Pesquisa Básica 1.1</h1>
+      
+      <div class="home-header">
+        <h1>Marrua MWM 2.8</h1>
+        <p>Esquemas, testes e especificações para diagnosticar e manter o veículo.</p>
+      </div>
+
+      <!-- 1. SISTEMA ELÉTRICO -->
+      <h2 class="secao-titulo"><i class="fa-solid fa-bolt" style="color:#eab308;"></i> Sistema Elétrico</h2>
+      
+      <div class="grupo-titulo"><i class="fa-solid fa-lightbulb"></i> Luzes</div>
       <div class="g">
-        <a class="c" data-abrir="seguranca" data-titulo="Segurança"><b>🛟 Segurança</b><span>Seção 1</span></a>
-        <a class="c" data-abrir="operacao" data-titulo="Operação"><b>🧭 Operação do Barco</b><span>Seção 2</span></a>
-        <a class="c" data-abrir="combustivel" data-titulo="Combustível"><b>⛽ Sistema de Combustível</b><span>Seção 3</span></a>
-        <a class="c" data-abrir="sistemas" data-titulo="Sistemas"><b>⚙️ Sistemas do Barco</b><span>Seção 4</span></a>
-        <a class="c" data-abrir="eletrico" data-titulo="Elétrico"><b>⚡ Sistema Elétrico 12 VCC</b><span>Seção 5</span></a>
-        <a class="c" data-abrir="manutencao" data-titulo="Manutenção"><b>🔧 Manutenção do Barco</b><span>Seção 6</span></a>
+        <a class="c" data-abrir="ele-fusiveis" data-titulo="Fusíveis e Lâmpadas" data-categoria="Sistema Elétrico"><b>Fusíveis e Lâmpadas</b><span>Diagrama da caixa de fusíveis.</span></a>
+        <a class="c" data-abrir="ele-farol" data-titulo="Luz de Farol e Posição" data-categoria="Sistema Elétrico"><b>Luz de Farol e Posição</b><span>Faróis, lanternas e posição.</span></a>
+        <a class="c" data-abrir="ele-seta" data-titulo="Luz de Seta e Alerta" data-categoria="Sistema Elétrico"><b>Luz de Seta e Alerta</b><span>Pisca-alerta e setas.</span></a>
+      </div>
+
+      <div class="grupo-titulo"><i class="fa-solid fa-gauge"></i> Painel de Instrumentos</div>
+      <div class="g">
+        <a class="c" data-abrir="ele-oleo" data-titulo="Luz e Pressão de Óleo" data-categoria="Sistema Elétrico"><b>Luz e Pressão de Óleo</b><span>Alerta e sensor de pressão.</span></a>
+        <a class="c" data-abrir="ele-injecao" data-titulo="Luzes de Injeção" data-categoria="Sistema Elétrico"><b>Luzes de Injeção</b><span>Alerta do sistema de injeção.</span></a>
+        <a class="c" data-abrir="ele-agua-comb" data-titulo="Água no Combustível" data-categoria="Sistema Elétrico"><b>Água no Combustível</b><span>Sensor de água no filtro.</span></a>
+        <a class="c" data-abrir="ele-agua-arr" data-titulo="Água de Arrefecimento" data-categoria="Sistema Elétrico"><b>Água de Arrefecimento</b><span>Temperatura do motor.</span></a>
+      </div>
+
+      <div class="grupo-titulo"><i class="fa-solid fa-car-battery"></i> Acessórios</div>
+      <div class="g">
+        <a class="c" data-abrir="ele-diagrama" data-titulo="Diagrama Elétrico" data-categoria="Sistema Elétrico"><b>Diagrama Elétrico</b><span>Esquema completo do veículo.</span></a>
+        <a class="c" data-abrir="ele-bateria" data-titulo="Bateria e Alternador" data-categoria="Sistema Elétrico"><b>Bateria e Alternador</b><span>Testes de carga e partida.</span></a>
+        <a class="c" data-abrir="ele-partida" data-titulo="Motor de Partida" data-categoria="Sistema Elétrico"><b>Motor de Partida</b><span>Diagnóstico de arranque.</span></a>
+        <a class="c" data-abrir="ele-limpador" data-titulo="Limpador de Para-brisa" data-categoria="Sistema Elétrico"><b>Limpador de Para-brisa</b><span>Motor e palhetas.</span></a>
+      </div>
+
+      <!-- 2. ALIMENTAÇÃO DE COMBUSTÍVEL -->
+      <h2 class="secao-titulo"><i class="fa-solid fa-gas-pump" style="color:#0284c7;"></i> Alimentação de Combustível</h2>
+      
+      <div class="grupo-titulo"><i class="fa-solid fa-filter"></i> Linha de Baixa</div>
+      <div class="g">
+        <a class="c" data-abrir="comb-tanque" data-titulo="Tanque, Filtro, Mangueiras" data-categoria="Alimentação de Combustível"><b>Tanque, Filtro, Mang.</b><span>Linha de baixa e sangria.</span></a>
+        <a class="c" data-abrir="comb-bomba-eletrica" data-titulo="Bomba Elétrica" data-categoria="Alimentação de Combustível"><b>Bomba Elétrica</b><span>Teste de vazão e pressão.</span></a>
+        <a class="c" data-abrir="comb-bomba-engrenagem" data-titulo="Bomba Engrenagem" data-categoria="Alimentação de Combustível"><b>Bomba Engrenagem</b><span>Alimentação de baixa pressão.</span></a>
+        <a class="c" data-abrir="comb-valvula-kuv" data-titulo="Válvula KUV" data-categoria="Alimentação de Combustível"><b>Válvula KUV</b><span>Válvula de corte de combustível.</span></a>
+      </div>
+
+      <div class="grupo-titulo"><i class="fa-solid fa-gauge-high"></i> Linha de Alta</div>
+      <div class="g">
+        <a class="c" data-abrir="comb-bomba-alta" data-titulo="Bomba Alta Pressão" data-categoria="Alimentação de Combustível"><b>Bomba Alta Pressão</b><span>Testes de pressão.</span></a>
+        <a class="c" data-abrir="comb-tubo-rail" data-titulo="Tubo Rail" data-categoria="Alimentação de Combustível"><b>Tubo Rail</b><span>Linha de alta pressão.</span></a>
+      </div>
+
+      <!-- 3. SISTEMA DE INJEÇÃO -->
+      <h2 class="secao-titulo"><i class="fa-solid fa-microchip" style="color:#065f46;"></i> Sistema de Injeção</h2>
+      
+      <div class="grupo-titulo"><i class="fa-solid fa-microchip"></i> Sensores</div>
+      <div class="g">
+        <a class="c" data-abrir="inj-sensor-rotacao" data-titulo="Sensor Rotação" data-categoria="Sistema de Injeção"><b>Sensor Rotação</b><span>Teste e diagnóstico.</span></a>
+        <a class="c" data-abrir="inj-sensor-fase" data-titulo="Sensor Fase" data-categoria="Sistema de Injeção"><b>Sensor Fase</b><span>Sincronismo do motor.</span></a>
+        <a class="c" data-abrir="inj-sensor-pres-adm" data-titulo="Sensor Pres. Adm" data-categoria="Sistema de Injeção"><b>Sensor Pres. Adm</b><span>Pressão de admissão.</span></a>
+        <a class="c" data-abrir="inj-sensor-temp-ecm" data-titulo="Sensor Temp. ECM" data-categoria="Sistema de Injeção"><b>Sensor Temp. ECM</b><span>Temperatura do módulo.</span></a>
+        <a class="c" data-abrir="inj-sensor-pres-rail" data-titulo="Sensor Pres. Rail" data-categoria="Sistema de Injeção"><b>Sensor Pres. Rail</b><span>Pressão do tubo rail.</span></a>
+      </div>
+
+      <div class="grupo-titulo"><i class="fa-solid fa-sliders"></i> Atuadores</div>
+      <div class="g">
+        <a class="c" data-abrir="inj-valvula-mprop" data-titulo="Válvula MProp" data-categoria="Sistema de Injeção"><b>Válvula MProp</b><span>Controle de pressão.</span></a>
+        <a class="c" data-abrir="inj-pedal-acel" data-titulo="Pedal Acelerador" data-categoria="Sistema de Injeção"><b>Pedal Acelerador</b><span>Sinal de aceleração.</span></a>
+        <a class="c" data-abrir="inj-mod-turbina" data-titulo="Modulador Turbina" data-categoria="Sistema de Injeção"><b>Modulador Turbina</b><span>Pressão do turbo.</span></a>
+        <a class="c" data-abrir="inj-bicos" data-titulo="Bicos Injetores" data-categoria="Sistema de Injeção"><b>Bicos Injetores</b><span>Injeção de combustível.</span></a>
+        <a class="c" data-abrir="inj-lampada-painel" data-titulo="Lâmpada Painel" data-categoria="Sistema de Injeção"><b>Lâmpada Painel</b><span>Alerta de injeção.</span></a>
+      </div>
+
+      <!-- 4. MOTOR E CHASSI -->
+      <h2 class="secao-titulo"><i class="fa-solid fa-wrench" style="color:#1e1b4b;"></i> Motor e Chassi</h2>
+      
+      <div class="grupo-titulo"><i class="fa-solid fa-gear"></i> Motor</div>
+      <div class="g">
+        <a class="c" data-abrir="mot-dados" data-titulo="Dados do Motor" data-categoria="Motor e Chassi"><b>Dados do Motor</b><span>Especificações técnicas.</span></a>
+        <a class="c" data-abrir="mot-lubrificacao" data-titulo="Lubrificação e Revisão" data-categoria="Motor e Chassi"><b>Lubrificação e Revisão</b><span>Trocas e intervalos.</span></a>
+        <a class="c" data-abrir="mot-oleo" data-titulo="Tipos e Classificação do Óleo" data-categoria="Motor e Chassi"><b>Tipos e Classificação</b><span>Viscosidade do óleo.</span></a>
+        <a class="c" data-abrir="mot-torque" data-titulo="Tabela de Torque - Nm" data-categoria="Motor e Chassi"><b>Tabela de Torque</b><span>Aperto em Nm.</span></a>
+      </div>
+
+      <div class="grupo-titulo"><i class="fa-solid fa-snowflake"></i> Sistema de Arrefecimento</div>
+      <div class="g">
+        <a class="c" data-abrir="mot-correia" data-titulo="Correia e Ventoinha" data-categoria="Motor e Chassi"><b>Correia e Ventoinha</b><span>Tensor e ventoinha.</span></a>
+        <a class="c" data-abrir="mot-bomba-agua" data-titulo="Bomba de Água" data-categoria="Motor e Chassi"><b>Bomba de Água</b><span>Circulação do líquido.</span></a>
+        <a class="c" data-abrir="mot-trocador" data-titulo="Trocador de Calor" data-categoria="Motor e Chassi"><b>Trocador de Calor</b><span>Radiador e trocas.</span></a>
+        <a class="c" data-abrir="mot-valvula-termo" data-titulo="Válvula Termostática" data-categoria="Motor e Chassi"><b>Válvula Termostática</b><span>Controle de temperatura.</span></a>
+      </div>
+
+      <div class="grupo-titulo"><i class="fa-solid fa-dharmachakra"></i> Eixo e Direção</div>
+      <div class="g">
+        <a class="c" data-abrir="mot-bomba-direcao" data-titulo="Bomba de Direção" data-categoria="Motor e Chassi"><b>Bomba de Direção</b><span>Hidráulica e testes.</span></a>
+        <a class="c" data-abrir="mot-caixa-direcao" data-titulo="Caixa de Direção" data-categoria="Motor e Chassi"><b>Caixa de Direção</b><span>Regulagem e folgas.</span></a>
+        <a class="c" data-abrir="mot-eixo" data-titulo="Eixo Dianteiro" data-categoria="Motor e Chassi"><b>Eixo Dianteiro</b><span>Componentes e lubrificação.</span></a>
+      </div>
+
+      <div class="grupo-titulo"><i class="fa-solid fa-circle-stop"></i> Sistemas de Freios</div>
+      <div class="g">
+        <a class="c" data-abrir="mot-bomba-vacuo" data-titulo="Bomba de Vácuo" data-categoria="Motor e Chassi"><b>Bomba de Vácuo</b><span>Assistência de frenagem.</span></a>
+        <a class="c" data-abrir="mot-cilindro" data-titulo="Cilindro de Freio" data-categoria="Motor e Chassi"><b>Cilindro de Freio</b><span>Cilindro mestre e rodas.</span></a>
+        <a class="c" data-abrir="mot-oleo-freio" data-titulo="Óleo de Freio" data-categoria="Motor e Chassi"><b>Óleo de Freio</b><span>Tipos e troca.</span></a>
+        <a class="c" data-abrir="mot-pincas" data-titulo="Pinças de Freio" data-categoria="Motor e Chassi"><b>Pinças de Freio</b><span>Pastilhas e discos.</span></a>
+        <a class="c" data-abrir="mot-freio-mao" data-titulo="Regulagem Freio de Mão" data-categoria="Motor e Chassi"><b>Regulagem Freio de Mão</b><span>Ajuste do cabo.</span></a>
+      </div>
+
+      <div class="grupo-titulo"><i class="fa-solid fa-gears"></i> Transmissão</div>
+      <div class="g">
+        <a class="c" data-abrir="mot-caixa-mudanca" data-titulo="Caixa de Mudanças" data-categoria="Motor e Chassi"><b>Caixa de Mudanças</b><span>Engrenagens e trambulador.</span></a>
+      </div>
+
+      <!-- 5. DIAGNÓSTICO -->
+      <h2 class="secao-titulo"><i class="fa-solid fa-stethoscope" style="color:#7c2d12;"></i> Diagnóstico</h2>
+      
+      <div class="grupo-titulo"><i class="fa-solid fa-triangle-exclamation"></i> Sintomas do Motor</div>
+      <div class="g">
+        <a class="c" data-abrir="diag-nao-pega" data-titulo="Motor Não Pega" data-categoria="Diagnóstico"><b>Motor Não Pega</b><span>Partida e combustível.</span></a>
+        <a class="c" data-abrir="diag-limitacao" data-titulo="Limitação de Rotação" data-categoria="Diagnóstico"><b>Limitação de Rotação</b><span>Modo de proteção.</span></a>
+        <a class="c" data-abrir="diag-fumaca" data-titulo="Fumaça Preta" data-categoria="Diagnóstico"><b>Fumaça Preta</b><span>Queima de combustível.</span></a>
+        <a class="c" data-abrir="diag-acelerador" data-titulo="Falha do Acelerador" data-categoria="Diagnóstico"><b>Falha do Acelerador</b><span>Sensor do pedal.</span></a>
+        <a class="c" data-abrir="diag-superaquecimento" data-titulo="Superaquecimento" data-categoria="Diagnóstico"><b>Superaquecimento</b><span>Sistema de arrefecimento.</span></a>
+        <a class="c" data-abrir="diag-oleo" data-titulo="Baixa Pressão de Óleo" data-categoria="Diagnóstico"><b>Baixa Pressão de Óleo</b><span>Bomba e sensor.</span></a>
+      </div>
+
+      <div class="grupo-titulo"><i class="fa-solid fa-microchip"></i> Testes em Sensores</div>
+      <div class="g">
+        <a class="c" data-abrir="diag-rotacao" data-titulo="Sensor de Rotação" data-categoria="Diagnóstico"><b>Sensor de Rotação</b><span>Sinal e curva.</span></a>
+        <a class="c" data-abrir="diag-fase" data-titulo="Sensor de Fase" data-categoria="Diagnóstico"><b>Sensor de Fase</b><span>Ponto morto.</span></a>
+        <a class="c" data-abrir="diag-pres-rail" data-titulo="Pressão do Rail" data-categoria="Diagnóstico"><b>Pressão do Rail</b><span>Alta pressão.</span></a>
+        <a class="c" data-abrir="diag-pres-adm" data-titulo="Pressão Admissão" data-categoria="Diagnóstico"><b>Pressão Admissão</b><span>Turbina e admissão.</span></a>
+        <a class="c" data-abrir="diag-temp" data-titulo="Temperatura Líquido" data-categoria="Diagnóstico"><b>Temperatura Líquido</b><span>NTC.</span></a>
+      </div>
+      
+      <div class="grupo-titulo"><i class="fa-solid fa-bolt"></i> Testes Elétricos</div>
+      <div class="g">
+        <a class="c" data-abrir="diag-rele-k15" data-titulo="Relé Principal K15" data-categoria="Diagnóstico"><b>Relé Principal K15</b><span>Alimentação do sistema.</span></a>
+        <a class="c" data-abrir="diag-bateria" data-titulo="Tensão da Bateria" data-categoria="Diagnóstico"><b>Tensão da Bateria</b><span>Teste de carga.</span></a>
+        <a class="c" data-abrir="diag-pedal-freio" data-titulo="Interruptor Pedal Freio" data-categoria="Diagnóstico"><b>Interruptor Pedal Freio</b><span>Sinal de frenagem.</span></a>
+        <a class="c" data-abrir="diag-pedal-emb" data-titulo="Interruptor Pedal Embreagem" data-categoria="Diagnóstico"><b>Interruptor Embreagem</b><span>Partida segura.</span></a>
+      </div>
+
+    </section>
+
+    <!-- ================= TELAS DE CONTEÚDO FINAL ================= -->
+    <!-- Exemplo: Sensor Rotação -->
+    <section id="tela-inj-sensor-rotacao" class="tela" data-titulo="Sensor Rotação" data-categoria="Sistema de Injeção">
+      <div class="topo-tela"><div class="breadcrumb"></div></div>
+      <h1>🔧 Sensor Rotação</h1>
+      <div class="card-construcao">
+        <b>Conteúdo em construção</b>
+        <span>Esquemas elétricos, valores de resistência e testes do Sensor de Rotação.</span>
       </div>
     </section>
 
-    <!-- SUBMENUS -->
-    <section id="tela-seguranca" class="tela" data-pai="principal" data-titulo="Segurança">
-      <div class="topo-tela"><div class="breadcrumb"></div></div>
-      <h1>🛟 Segurança</h1>
-      <div class="g">
-        <a class="c" data-abrir="seg-flutuacao" data-titulo="Flutuação"><b>Flutuação</b><span>Colete, boias e dispositivos</span></a>
-        <a class="c" data-abrir="seg-extintores" data-titulo="Extintores"><b>Extintores</b><span>Tipos e validade</span></a>
-      </div>
-    </section>
-
-    <section id="tela-operacao" class="tela" data-pai="principal" data-titulo="Operação">
-      <div class="topo-tela"><div class="breadcrumb"></div></div>
-      <h1>🧭 Operação do Barco</h1>
-      <div class="g">
-        <a class="c" data-abrir="op-verificacoes" data-titulo="Verificações"><b>Verificações</b><span>Checklist pré-partida</span></a>
-        <a class="c" data-abrir="op-partida" data-titulo="Partida"><b>Partida do motor</b><span>Procedimento</span></a>
-      </div>
-    </section>
-
-    <section id="tela-combustivel" class="tela" data-pai="principal" data-titulo="Combustível">
-      <div class="topo-tela"><div class="breadcrumb"></div></div>
-      <h1>⛽ Sistema de Combustível</h1>
-      <div class="g">
-        <a class="c" data-abrir="comb-bomba" data-titulo="Bomba Injetora"><b>🔧 Bomba Injetora</b><span>Funcionamento</span></a>
-        <a class="c" data-abrir="comb-rail" data-titulo="Common Rail"><b>⚙️ Common Rail</b><span>Alta pressão</span></a>
-      </div>
-    </section>
-
-    <!-- CONTEÚDO FINAL -->
-    <section id="tela-comb-rail" class="tela" data-pai="combustivel" data-titulo="Common Rail">
-      <div class="topo-tela"><div class="breadcrumb"></div></div>
-      <h1>⚙️ Common Rail</h1>
-      <div class="c" style="cursor:default"><b>Conteúdo em construção</b><span>Detalhes do sistema Common Rail.</span></div>
-    </section>
-
-    <!-- PLACEHOLDER -->
-    <section id="tela-placeholder" class="tela">
+    <!-- ================= TELA PLACEHOLDER (FALLBACK) ================= -->
+    <section id="tela-placeholder" class="tela" data-titulo="Em construção" data-categoria="Geral">
       <div class="topo-tela"><div class="breadcrumb"></div></div>
       <h1>Conteúdo</h1>
-      <div class="c" style="cursor:default">
+      <div class="card-construcao">
         <b>Página em construção</b>
-        <span>Este subitem ainda não tem conteúdo.</span>
+        <span>Este subitem ainda não tem conteúdo. Em breve será preenchido.</span>
       </div>
     </section>
 
   </div>
 
   <script>
-    const pilha = ['principal'];
-    let paiDoPlaceholder = 'principal';
-
-    function gerarBreadcrumb() {
-      const telaAtiva = document.querySelector('.tela.ativa');
-      if (!telaAtiva) return;
-
+    function gerarBreadcrumb(telaAtiva) {
       const container = telaAtiva.querySelector('.breadcrumb');
       if (!container) return; 
 
-      let historico = [];
-      
-      // MÁGICA CORRIGIDA AQUI:
-      // Se estamos no placeholder, começamos a busca a partir do "paiDoPlaceholder"
-      let atual = (telaAtiva.id === 'tela-placeholder') 
-        ? document.getElementById('tela-' + paiDoPlaceholder) 
-        : telaAtiva;
-
-      // Agora sobe a árvore toda (Início > Pai > Filho)
-      while (atual) {
-        historico.unshift(atual);
-        const paiId = atual.getAttribute('data-pai');
-        atual = paiId ? document.getElementById('tela-' + paiId) : null;
-      }
-      
-      // Se for a tela de placeholder, adiciona ela no final do histórico
-      if (telaAtiva.id === 'tela-placeholder') {
-        historico.push(telaAtiva);
-      }
+      const titulo = telaAtiva.getAttribute('data-titulo');
+      const categoria = telaAtiva.getAttribute('data-categoria') || 'Sistema';
 
       container.innerHTML = '';
-      
-      historico.forEach((tela, index) => {
-        const isUltimo = index === historico.length - 1;
-        let titulo = tela.getAttribute('data-titulo') || 'Em construção';
-        if (tela.id === 'tela-placeholder') titulo = 'Em construção';
 
-        const crumb = document.createElement('span');
-        crumb.className = 'crumb' + (isUltimo ? ' atual' : '');
-        
-        if (tela.id === 'tela-principal') {
-          crumb.innerHTML = '🏠 Início';
-        } else {
-          crumb.textContent = titulo;
-        }
+      // 1. Início
+      const crumbInicio = document.createElement('span');
+      crumbInicio.className = 'crumb';
+      crumbInicio.innerHTML = '🏠 Início';
+      crumbInicio.onclick = () => mostrarTela('principal');
+      container.appendChild(crumbInicio);
 
-        if (!isUltimo) {
-          crumb.onclick = () => {
-            const idLimpo = tela.id.replace('tela-', '');
-            const idx = pilha.indexOf(idLimpo);
-            if (idx !== -1) {
-              pilha.splice(idx + 1);
-              mostrarTela(idLimpo, false);
-            }
-          };
-        }
+      const sep1 = document.createElement('span');
+      sep1.className = 'sep';
+      sep1.textContent = '›';
+      container.appendChild(sep1);
 
-        container.appendChild(crumb);
+      // 2. Categoria
+      const crumbCategoria = document.createElement('span');
+      crumbCategoria.className = 'crumb';
+      crumbCategoria.textContent = categoria;
+      crumbCategoria.onclick = () => mostrarTela('principal');
+      container.appendChild(crumbCategoria);
 
-        if (!isUltimo) {
-          const sep = document.createElement('span');
-          sep.className = 'sep';
-          sep.textContent = '›';
-          container.appendChild(sep);
-        }
-      });
+      const sep2 = document.createElement('span');
+      sep2.className = 'sep';
+      sep2.textContent = '›';
+      container.appendChild(sep2);
+
+      // 3. Atual
+      const crumbAtual = document.createElement('span');
+      crumbAtual.className = 'crumb atual';
+      crumbAtual.textContent = titulo;
+      container.appendChild(crumbAtual);
     }
 
-    function mostrarTela(id, empilhar = true) {
+    function mostrarTela(idDestino) {
       const atual = document.querySelector('.tela.ativa');
-      const alvoReal = document.getElementById('tela-' + id);
-      const alvo = alvoReal || document.getElementById('tela-placeholder');
+      const alvo = document.getElementById('tela-' + idDestino);
+      const alvoFinal = alvo || document.getElementById('tela-placeholder');
       
-      if (!alvo || atual === alvo) return;
+      if (!alvoFinal || atual === alvoFinal) return;
 
-      if (!alvoReal) {
-        paiDoPlaceholder = atual.id.replace('tela-', '');
+      if (!alvo) {
+        alvoFinal.setAttribute('data-titulo', window.tituloClicado || 'Em construção');
+        alvoFinal.setAttribute('data-categoria', window.categoriaClicada || 'Geral');
       }
-
-      if (empilhar) pilha.push(id);
 
       if (atual) {
         atual.classList.add('saindo');
         setTimeout(() => {
           atual.classList.remove('ativa', 'saindo');
-          alvo.classList.add('ativa');
+          alvoFinal.classList.add('ativa');
           window.scrollTo({ top: 0, behavior: 'smooth' });
-          gerarBreadcrumb(); 
+          
+          if (alvoFinal.id !== 'tela-principal') {
+            gerarBreadcrumb(alvoFinal); 
+          }
         }, 220);
-      } else {
-        alvo.classList.add('ativa');
-        gerarBreadcrumb();
       }
     }
 
-    // Atalho ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && pilha.length > 1) {
-        pilha.pop();
-        const anterior = pilha[pilha.length - 1];
-        mostrarTela(anterior, false);
-      }
-    });
-
     document.querySelectorAll('[data-abrir]').forEach(card => {
-      card.addEventListener('click', () => mostrarTela(card.getAttribute('data-abrir')));
+      card.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.tituloClicado = card.getAttribute('data-titulo');
+        window.categoriaClicada = card.getAttribute('data-categoria');
+        mostrarTela(card.getAttribute('data-abrir'));
+      });
     });
   </script>
 </body>
