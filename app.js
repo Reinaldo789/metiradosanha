@@ -1,5 +1,5 @@
 /* ==========================================================
-   MANUAL AUTOMOTIVO — app.js (Lógica Principal)
+   MANUAL AUTOMOTIVO — app.js (Lógica da Página)
    ========================================================== */
 
 const CATEGORIAS = [
@@ -29,6 +29,35 @@ function criarCard({ icone, cor = '#4f46e5', titulo, texto, aoClicar }) {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); aoClicar(); }
   });
   return a;
+}
+
+function iconeSistema(nome) {
+  const n = nome.toLowerCase();
+  if (n.includes('motor')) return 'fa-oil-can';
+  if (n.includes('câmbio') || n.includes('transmiss')) return 'fa-gears';
+  if (n.includes('transferência') || n.includes('tração')) return 'fa-random';
+  if (n.includes('diferencial')) return 'fa-gear';
+  return 'fa-droplet';
+}
+
+// Organiza os dados em sistemas para renderizar com o design padrão `.sis`
+function normalizarBanco() {
+  for (const modelo in especificacoesOleos) {
+    const spec = especificacoesOleos[modelo];
+    if (Array.isArray(spec.sistemas)) continue;
+    const lista = [];
+    const add = (nome, o, obs) => lista.push({ sistema: nome, especificacao: o.tipo, norma: '-', capacidade: o.qtd || '-', intervalo: o.intervalo || '-', observacao: obs });
+    
+    const dif = spec.diferencial;
+    const semDif = dif && /^não se aplica/i.test(dif.tipo || '');
+
+    if (spec.motor && spec.motor.tipo) add('Motor', spec.motor);
+    if (spec.cambio && spec.cambio.tipo) add('Câmbio', spec.cambio, semDif ? 'Diferencial: ' + dif.tipo : undefined);
+    if (spec.transferencia && spec.transferencia.tipo) add('Caixa de Transferência / Tração', spec.transferencia);
+    if (dif && dif.tipo && !semDif) add('Diferencial', dif);
+    
+    spec.sistemas = lista;
+  }
 }
 
 function mudarTela(id) {
@@ -88,14 +117,29 @@ function abrirMarca(marca) {
   bancoDeDados[estado.cat.slug].marcas[marca].forEach(modelo => {
     grid.append(criarCard({
       icone: 'fa-wrench', cor: estado.cat.cor, titulo: modelo,
-      texto: 'Ver fluidos e filtros.',
+      texto: 'Ver fluidos e referências de filtros.',
       aoClicar: () => abrirConteudo(modelo)
     }));
   });
   mudarTela('lista');
 }
 
-function renderizarTabelaFiltros(filtros) {
+function fichaSistema(s) {
+  const norma = (s.norma && s.norma !== '-') ? `<div class="sis-nota"><span class="rotulo">Norma</span>${s.norma}</div>` : '';
+  const obs = s.observacao ? `<div class="sis-nota"><span class="rotulo obs">Obs.</span>${s.observacao}</div>` : '';
+  return `
+    <article class="sis">
+      <div class="sis-titulo"><i class="fa-solid ${iconeSistema(s.sistema)}"></i>${s.sistema}</div>
+      <dl class="sis-dados">
+        <div><dt>Especificação</dt><dd class="destaque">${s.especificacao || '-'}</dd></div>
+        <div><dt>Capacidade</dt><dd>${s.capacidade || '-'}</dd></div>
+        <div><dt>Intervalo de troca</dt><dd>${s.intervalo || '-'}</dd></div>
+      </dl>
+      ${norma}${obs}
+    </article>`;
+}
+
+function tabelaFiltros(filtros) {
   if (!filtros) return '';
   const marcas = [['tecfil', 'Tecfil'], ['mann', 'Mann'], ['wega', 'Wega'], ['fram', 'Fram']];
   const tipos = [
@@ -120,14 +164,11 @@ function renderizarTabelaFiltros(filtros) {
   if (!linhasHtml) return '';
 
   return `
-    <div class="card spec-card mb-3">
-      <div class="card-header d-flex align-items-center">
-        <i class="fa-solid fa-filter me-2"></i>
-        <h5 class="mb-0">Referência Cruzada de Filtros</h5>
-      </div>
-      <div class="card-body p-0">
+    <div class="sis mb-3">
+      <div class="sis-titulo"><i class="fa-solid fa-filter"></i> Referência Cruzada de Filtros</div>
+      <div class="p-3">
         <div class="table-responsive">
-          <table class="table table-striped mb-0">
+          <table class="table tabela-filtros w-100">
             <thead>
               <tr>
                 <th>Aplicação</th>
@@ -147,68 +188,28 @@ function abrirConteudo(modelo) {
   estado.modelo = modelo;
   $('titulo-conteudo').textContent = modelo;
   const spec = especificacoesOleos[modelo];
-  const container = $('conteudo-dinamico');
+  const alvo = $('conteudo-dinamico');
 
-  if (!container) return;
-  container.innerHTML = '';
+  if (!alvo) return;
 
-  if (!spec) {
-    container.innerHTML = `<div class="card-construcao"><i class="fa-solid fa-screwdriver-wrench"></i><b>Em construção</b><span>Especificações em breve.</span></div>`;
-    mudarTela('conteudo');
-    return;
+  if (spec && spec.sistemas && spec.sistemas.length) {
+    alvo.innerHTML = `
+      <p class="intro">Especificações de fluidos e referência cruzada de filtros:</p>
+      ${spec.sistemas.map(fichaSistema).join('')}
+      ${spec.filtros ? tabelaFiltros(spec.filtros) : ''}
+      <p class="aviso"><i class="fa-solid fa-triangle-exclamation"></i><span><b>Atenção:</b> os códigos originais e de marcas paralelas podem variar conforme o ano e a versão do motor. Sempre confirme a aplicação no momento da compra.</span></p>`;
+  } else {
+    alvo.innerHTML = `
+      <div class="card-construcao">
+        <i class="fa-solid fa-screwdriver-wrench"></i><b>Conteúdo em construção</b>
+        <span>As especificações para o <strong>${modelo}</strong> estarão disponíveis em breve.</span>
+      </div>`;
   }
-
-  // Blocos de Fluidos
-  const secoes = [
-    { chave: 'motor', titulo: 'Motor', icone: 'fa-oil-can' },
-    { chave: 'cambio', titulo: 'Câmbio', icone: 'fa-cogs' },
-    { chave: 'transferencia', titulo: 'Caixa de Transferência / Tração', icone: 'fa-random' },
-    { chave: 'diferencial', titulo: 'Diferencial', icone: 'fa-gears' }
-  ];
-
-  secoes.forEach(s => {
-    if (spec[s.chave]) {
-      const info = spec[s.chave];
-      const card = document.createElement('div');
-      card.className = 'card spec-card mb-3';
-      card.innerHTML = `
-        <div class="card-header d-flex align-items-center">
-          <i class="fa-solid ${s.icone} me-2"></i>
-          <h5 class="mb-0">${s.titulo}</h5>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-4">
-              <span class="text-muted small text-uppercase fw-bold">Especificação</span>
-              <p class="mb-0 fw-semibold">${info.tipo || info.especificacao || '-'}</p>
-            </div>
-            <div class="col-md-4">
-              <span class="text-muted small text-uppercase fw-bold">Capacidade</span>
-              <p class="mb-0 fw-semibold">${info.qtd || info.capacidade || '-'}</p>
-            </div>
-            <div class="col-md-4">
-              <span class="text-muted small text-uppercase fw-bold">Intervalo de Troca</span>
-              <p class="mb-0 fw-semibold">${info.intervalo || '-'}</p>
-            </div>
-          </div>
-        </div>
-      `;
-      container.appendChild(card);
-    }
-  });
-
-  // Renderiza a Tabela de Filtros se existir
-  if (spec.filtros) {
-    container.insertAdjacentHTML('beforeend', renderizarTabelaFiltros(spec.filtros));
-  }
-
   mudarTela('conteudo');
 }
 
-// Inicialização
-CATEGORIAS.filter(cat => bancoDeDados[cat.slug]).forEach(cat => {
-  $('grid-home').append(criarCard({
-    icone: cat.icone, cor: cat.cor, titulo: cat.titulo, texto: cat.resumo,
-    aoClicar: () => abrirCategoria(cat)
-  }));
-});
+/* ---------- INÍCIO ---------- */
+normalizarBanco();
+CATEGORIAS.filter(cat => bancoDeDados[cat.slug]).forEach(cat => $('grid-home').append(criarCard({
+  icone: cat.icone, cor: cat.cor, titulo: cat.titulo, texto: cat.resumo, aoClicar: () => abrirCategoria(cat)
+})));
