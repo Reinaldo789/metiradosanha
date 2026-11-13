@@ -22,43 +22,13 @@
 
     .titulo-tela { font-size: 24px; color: #3730a3; margin: 0 0 24px; display: flex; align-items: center; gap: 10px; }
     
-    /* --- BREADCRUMB (CORRIGIDO CONFORME SEU MODELO) --- */
+    /* --- BREADCRUMB --- */
     .topo-tela { display: flex; align-items: center; margin-bottom: 24px; }
     .breadcrumb { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text-light); flex-wrap: wrap; }
-    
-    .breadcrumb .crumb { 
-      background: #fff; 
-      border: 1px solid var(--border); 
-      padding: 8px 16px; 
-      border-radius: 10px; 
-      text-decoration: none; 
-      color: var(--text-light); 
-      cursor: pointer; 
-      transition: border-color .15s, color .15s, transform .15s, box-shadow .15s; 
-    }
-    .breadcrumb .crumb:hover:not(.atual) { 
-      border-color: var(--primary); 
-      color: #3730a3; 
-      transform: translateY(-1px); 
-      box-shadow: 0 2px 6px rgba(79,70,229,.1);
-    }
-    .breadcrumb .crumb.atual { 
-      background: #eef2ff; 
-      border-color: #c7d2fe; 
-      color: #3730a3; 
-      font-weight: 600; 
-      cursor: default; 
-    }
-    
-    /* A BARRINHA (SETINHA) AGORA BEM VISÍVEL */
-    .breadcrumb .sep { 
-      color: #6b7280; 
-      font-size: 18px; 
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    .breadcrumb .crumb { background: #fff; border: 1px solid var(--border); padding: 8px 16px; border-radius: 10px; text-decoration: none; color: var(--text-light); cursor: pointer; transition: border-color .15s, color .15s, transform .15s, box-shadow .15s; }
+    .breadcrumb .crumb:hover:not(.atual) { border-color: var(--primary); color: #3730a3; transform: translateY(-1px); box-shadow: 0 2px 6px rgba(79,70,229,.1); }
+    .breadcrumb .crumb.atual { background: #eef2ff; border-color: #c7d2fe; color: #3730a3; font-weight: 600; cursor: default; }
+    .breadcrumb .sep { color: #6b7280; font-size: 18px; font-weight: bold; display: flex; align-items: center; justify-content: center; }
 
     /* --- GRID E CARDS --- */
     .g { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
@@ -71,18 +41,27 @@
     .c-arrow { margin-top: auto; align-self: flex-end; color: var(--primary); opacity: 0; transition: opacity 0.2s, transform 0.2s; }
     .c:hover .c-arrow { opacity: 1; transform: translateX(4px); }
 
-    /* Animações de Tela */
+    /* --- ANIMAÇÕES DE TELA --- */
     .tela { display: none; animation: entrar .35s ease both; }
     .tela.ativa { display: block; }
     .tela.saindo { animation: sair .25s ease both; }
     @keyframes entrar { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
     @keyframes sair { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(-24px); } }
 
-    /* Card de Construção (Final) */
-    .card-construcao { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin-top: 16px; text-align: center; }
-    .card-construcao i { font-size: 48px; color: #a0a7b8; margin-bottom: 16px; }
+    /* --- CARD DE CONSTRUÇÃO --- */
+    .card-construcao { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin-top: 16px; }
+    .card-construcao i { font-size: 48px; color: #a0a7b8; margin-bottom: 16px; display: block; }
     .card-construcao b { font-size: 20px; color: #3730a3; display: block; margin-bottom: 8px; }
     .card-construcao span { color: var(--text-light); font-size: 15px; }
+
+    /* --- ESTILOS DA TABELA DE ÓLEO --- */
+    .tabela-container { overflow-x: auto; margin-top: 20px; border-radius: 8px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; background: #fff; }
+    th { background-color: #f0f2f5; color: #3730a3; padding: 14px; border-bottom: 2px solid var(--border); font-weight: 600; }
+    td { padding: 14px; border-bottom: 1px solid var(--border); color: var(--text-dark); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover { background-color: #fafafa; }
+    .tag-obs { font-size: 12px; color: #b45309; background: #fef3c7; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-top: 4px; }
   </style>
 </head>
 <body>
@@ -97,48 +76,24 @@
 
       <div class="g">
         <a class="c" onclick="abrirCategoria('Veículos Passeio', 'veiculos-passeio', 'fa-car', '#4f46e5')">
-          <div class="c-header">
-            <div class="c-icone" style="color:#4f46e5;"><i class="fa-solid fa-car"></i></div>
-            <b>Veículos Passeio</b>
-          </div>
-          <span>Chevrolet, Fiat, Ford, Nissan, VW...</span>
-          <div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="c-header"><div class="c-icone" style="color:#4f46e5;"><i class="fa-solid fa-car"></i></div><b>Veículos Passeio</b></div>
+          <span>Chevrolet, Fiat, Ford, Nissan, VW...</span><div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
         </a>
-        
         <a class="c" onclick="abrirCategoria('Veículos Utilitários', 'veiculos-utilitarios', 'fa-truck-pickup', '#0284c7')">
-          <div class="c-header">
-            <div class="c-icone" style="color:#0284c7;"><i class="fa-solid fa-truck-pickup"></i></div>
-            <b>Veículos Utilitários</b>
-          </div>
-          <span>Agrale, Ford, Mitsubishi, Toyota...</span>
-          <div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="c-header"><div class="c-icone" style="color:#0284c7;"><i class="fa-solid fa-truck-pickup"></i></div><b>Veículos Utilitários</b></div>
+          <span>Agrale, Ford, Mitsubishi, Toyota...</span><div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
         </a>
-
         <a class="c" onclick="abrirCategoria('Caminhões', 'caminhoes', 'fa-truck', '#065f46')">
-          <div class="c-header">
-            <div class="c-icone" style="color:#065f46;"><i class="fa-solid fa-truck"></i></div>
-            <b>Caminhões</b>
-          </div>
-          <span>Ford, Mercedes-Benz, Volkswagen...</span>
-          <div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="c-header"><div class="c-icone" style="color:#065f46;"><i class="fa-solid fa-truck"></i></div><b>Caminhões</b></div>
+          <span>Ford, Mercedes-Benz, Volkswagen...</span><div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
         </a>
-
         <a class="c" onclick="abrirCategoria('Ônibus e Vans', 'onibus-e-vans', 'fa-bus', '#1e1b4b')">
-          <div class="c-header">
-            <div class="c-icone" style="color:#1e1b4b;"><i class="fa-solid fa-bus"></i></div>
-            <b>Ônibus e Vans</b>
-          </div>
-          <span>Agrale, Mercedes, Fiat, Iveco...</span>
-          <div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="c-header"><div class="c-icone" style="color:#1e1b4b;"><i class="fa-solid fa-bus"></i></div><b>Ônibus e Vans</b></div>
+          <span>Agrale, Mercedes, Fiat, Iveco...</span><div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
         </a>
-
         <a class="c" onclick="abrirCategoria('Náuticos', 'nauticos', 'fa-ship', '#0369a1')">
-          <div class="c-header">
-            <div class="c-icone" style="color:#0369a1;"><i class="fa-solid fa-ship"></i></div>
-            <b>Náuticos</b>
-          </div>
-          <span>Motores Marítimos, Guardian...</span>
-          <div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="c-header"><div class="c-icone" style="color:#0369a1;"><i class="fa-solid fa-ship"></i></div><b>Náuticos</b></div>
+          <span>Motores Marítimos, Guardian...</span><div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
         </a>
       </div>
     </section>
@@ -153,19 +108,18 @@
     <!-- ================= NÍVEL 3: CONTEÚDO FINAL ================= -->
     <section id="tela-conteudo" class="tela" data-titulo="Conteúdo">
       <div class="topo-tela"><div class="breadcrumb"></div></div>
-      <h1 id="titulo-conteudo" style="color: #3730a3;"></h1>
+      <h1 id="titulo-conteudo" style="color: #3730a3; margin-bottom: 20px;"></h1>
       
-      <div class="card-construcao">
-        <i class="fa-solid fa-screwdriver-wrench"></i>
-        <b>Conteúdo em construção</b>
-        <span id="texto-conteudo">Os manuais e esquemas deste veículo estarão disponíveis aqui em breve.</span>
-      </div>
+      <!-- O conteúdo será injetado aqui pelo JavaScript -->
+      <div id="conteudo-dinamico"></div>
     </section>
 
   </div>
 
   <script>
-    // 1. BANCO DE DADOS
+    // =====================================================================
+    // 1. BANCO DE DADOS DE VEÍCULOS (ESTRUTURA DO MENU)
+    // =====================================================================
     const bancoDeDados = {
       'veiculos-passeio': {
         titulo: 'Veículos Passeio',
@@ -209,17 +163,65 @@
       }
     };
 
-    // Variáveis de Estado para o Breadcrumb
+    // =====================================================================
+    // 2. BANCO DE DADOS DE FLUIDOS E ÓLEOS
+    // (Adicione os outros veículos aqui seguindo este modelo)
+    // =====================================================================
+    const especificacoes = {
+      'Chevrolet SPIN': {
+        motor: { tipo: '5W-30 (dexos1)', qtd: '4,2 L (com filtro)', intervalo: '10.000 km ou 1 ano' },
+        cambio: { tipo: 'Automático: Dexron VI / Manual: 75W-90', qtd: 'Automático: 9,2 L / Manual: 2 L', intervalo: 'Automático: 50.000-80.000 km / Manual: 60.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira)', qtd: '-', intervalo: '-' }
+      },
+      'Fiat Palio 1.4': {
+        motor: { tipo: '15W-40 semissintético', qtd: '3,2 L (com filtro)', intervalo: '7.500 km (severo) ou 10.000 km' },
+        cambio: { tipo: '75W-90', qtd: '2 L', intervalo: 'Verificar a cada 60.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira)', qtd: '-', intervalo: '-' }
+      },
+      'Ford Fiesta 1.0': {
+        motor: { tipo: '5W-30 sintético', qtd: '4,6 L', intervalo: '10.000 km ou 1 ano' },
+        cambio: { tipo: '75W-90 (verificar manual)', qtd: '2 L (aprox.)', intervalo: '50.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira)', qtd: '-', intervalo: '-' }
+      },
+      'VW Gol 1.6 G5': {
+        motor: { tipo: '5W-30 sintético', qtd: '3,5 L (com filtro)', intervalo: '10.000 km' },
+        cambio: { tipo: '75W-90 GL-4', qtd: '2 L', intervalo: '60.000 - 80.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira)', qtd: '-', intervalo: '-' }
+      },
+      'Agrale Marruá - AM21': {
+        motor: { tipo: '15W-40 (API CI-4 ou superior)', qtd: 'Consultar manual (aprox. 6-7 L)', intervalo: '5.000 - 10.000 km (uso severo)' },
+        cambio: { tipo: '75W-90 ou similar (consultar manual)', qtd: 'Consultar manual', intervalo: 'Consultar manual' },
+        diferencial: { tipo: '80W-90 ou 75W-90 (consultar manual)', qtd: 'Consultar manual (Diant. e Tras.)', intervalo: 'Consultar manual (ex: 20.000 - 40.000 km)' }
+      },
+      'Ford Ranger 3.0 NGD': {
+        motor: { tipo: '15W-40 API CH-4 ou superior', qtd: '9 L (com filtro)', intervalo: '10.000 km (ou 5.000 km severo)' },
+        cambio: { tipo: 'Mercon ATF', qtd: '2,8 L', intervalo: '50.000 km' },
+        diferencial: { tipo: 'Dianteiro: 80W-90 / Traseiro: 75W-90 ou 85W-140', qtd: 'Diant.: 1,4 L / Tras.: 1,52 L', intervalo: '40.000 km' }
+      },
+      'Toyota Hilux 2.8 - Nova': {
+        motor: { tipo: '5W-30 ou 15W-40 (conforme manual)', qtd: '8 L (seco)', intervalo: '10.000 km (ou 7.500 km severo)' },
+        cambio: { tipo: 'ATF WS (Automático)', qtd: '9,3 L', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Dianteiro: 75W-90 / Traseiro: 75W-90 LSD', qtd: 'Diant.: 1,4 L / Tras.: 3 L', intervalo: '30.000 - 40.000 km' }
+      },
+      'Mercedes-Benz AXOR 3344': {
+        motor: { tipo: '15W-40 mineral (CK-4)', qtd: '38 L', intervalo: '40.000 km (ou conforme análise)' },
+        cambio: { tipo: 'Óleo de transmissão MB 235.1', qtd: '15 L', intervalo: '100.000 km (ou 2 anos)' },
+        diferencial: { tipo: '85W-140 ou 75W-90 sintético', qtd: 'Consultar manual', intervalo: '40.000 - 60.000 km (uso severo)' }
+      }
+    };
+
+    // =====================================================================
+    // 3. LÓGICA DE NAVEGAÇÃO E CRIAÇÃO DE CARDS
+    // =====================================================================
     let categoriaAtualSlug = '';
     let categoriaAtualTitulo = '';
     let marcaAtual = '';
     let modeloAtual = '';
 
-    // 2. LÓGICA DE NAVEGAÇÃO
     function abrirCategoria(titulo, slug, icone, cor) {
       categoriaAtualSlug = slug;
       categoriaAtualTitulo = titulo;
-      marcaAtual = ''; // Reseta a marca
+      marcaAtual = ''; 
       
       const tituloLista = document.getElementById('titulo-lista');
       const gridLista = document.getElementById('grid-lista');
@@ -243,13 +245,11 @@
         `;
         gridLista.appendChild(card);
       }
-      
       mudarTela('lista');
     }
 
     function abrirMarca(marca) {
       marcaAtual = marca;
-      
       const tituloLista = document.getElementById('titulo-lista');
       const gridLista = document.getElementById('grid-lista');
       
@@ -267,25 +267,83 @@
             <div class="c-icone"><i class="fa-solid fa-wrench"></i></div>
             <b>${modelo}</b>
           </div>
-          <span>Ver manuais, esquemas e testes.</span>
+          <span>Ver fluidos, manuais e esquemas.</span>
           <div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
         `;
         gridLista.appendChild(card);
       });
-      
       mudarTela('lista');
     }
 
+    // --- AQUI É ONDE A MÁGICA DA TABELA ACONTECE ---
     function abrirConteudo(modelo) {
       modeloAtual = modelo;
+      const tituloConteudo = document.getElementById('titulo-conteudo');
+      const containerConteudo = document.getElementById('conteudo-dinamico');
       
-      document.getElementById('titulo-conteudo').textContent = modelo;
-      document.getElementById('texto-conteudo').innerHTML = `O manual para <strong>${modelo}</strong> está sendo preparado. Em breve o conteúdo completo estará disponível aqui.`;
+      tituloConteudo.textContent = modelo;
+      
+      // Verifica se temos os dados de óleo para este modelo
+      const spec = especificacoes[modelo];
+      
+      if (spec) {
+        containerConteudo.innerHTML = `
+          <div class="card-construcao" style="padding: 20px;">
+            <p style="margin-top:0; color:#5b6275;">Confira abaixo as especificações de fluidos e intervalos de troca recomendados:</p>
+            <div class="tabela-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Componente</th>
+                    <th>Tipo de Óleo</th>
+                    <th>Quantidade</th>
+                    <th>Intervalo de Troca</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>Motor</b></td>
+                    <td>${spec.motor.tipo}</td>
+                    <td>${spec.motor.qtd}</td>
+                    <td>${spec.motor.intervalo}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Câmbio</b></td>
+                    <td>${spec.cambio.tipo}</td>
+                    <td>${spec.cambio.qtd}</td>
+                    <td>${spec.cambio.intervalo}</td>
+                  </tr>
+                  <tr>
+                    <td><b>Diferencial</b></td>
+                    <td>${spec.diferencial.tipo}</td>
+                    <td>${spec.diferencial.qtd}</td>
+                    <td>${spec.diferencial.intervalo}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p style="font-size: 12px; color: #b45309; margin-top: 16px;">
+              <i class="fa-solid fa-triangle-exclamation"></i> <b>Atenção:</b> Sempre consulte o manual do proprietário para confirmar as especificações exatas, pois podem variar conforme o ano e a versão.
+            </p>
+          </div>
+        `;
+      } else {
+        // Se o veículo não estiver no banco de dados de óleos, mostra o card de construção padrão
+        containerConteudo.innerHTML = `
+          <div class="card-construcao" style="text-align: center;">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+            <b>Conteúdo em construção</b>
+            <span>Os manuais e especificações de fluidos para o <strong>${modelo}</strong> estarão disponíveis aqui em breve.</span>
+          </div>
+        `;
+      }
       
       mudarTela('conteudo');
     }
 
-    // 3. SISTEMA DE TROCA DE TELAS E BREADCRUMB
+    // =====================================================================
+    // 4. SISTEMA DE TROCA DE TELAS E BREADCRUMB
+    // =====================================================================
     function mudarTela(idTela) {
       const atual = document.querySelector('.tela.ativa');
       const alvo = document.getElementById('tela-' + idTela);
@@ -306,34 +364,25 @@
       }
     }
 
-    // AQUI É ONDE A MÁGICA DO BREADCRUMB ACONTECE
     function gerarBreadcrumb(telaAtivaId) {
       const container = document.querySelector(`#tela-${telaAtivaId} .breadcrumb`);
       if (!container) return;
 
       let crumbs = [];
-      
-      // Sempre começa com Início
       crumbs.push({ titulo: '🏠 Início', tela: 'principal' });
 
-      // Se estiver na tela de Lista ou Conteúdo, monta o caminho
       if (telaAtivaId === 'lista' || telaAtivaId === 'conteudo') {
-        
-        // Adiciona a Categoria (Ex: Veículos Passeio)
         crumbs.push({ titulo: categoriaAtualTitulo, tela: 'lista', acao: () => abrirCategoria(categoriaAtualTitulo, categoriaAtualSlug, 'fa-car', '#4f46e5') });
-
-        // Se já clicou em uma marca, adiciona a Marca (Ex: Chevrolet)
+        
         if (marcaAtual) {
           crumbs.push({ titulo: marcaAtual, tela: 'lista', acao: () => abrirMarca(marcaAtual) });
         }
-
-        // Se estamos na tela de conteúdo, adiciona o Modelo (Ex: Chevrolet SPIN)
+        
         if (telaAtivaId === 'conteudo') {
           crumbs.push({ titulo: modeloAtual, tela: 'conteudo' });
         }
       }
 
-      // Renderiza o HTML
       container.innerHTML = '';
       crumbs.forEach((item, index) => {
         const isUltimo = index === crumbs.length - 1;
@@ -342,7 +391,6 @@
         crumb.innerHTML = item.titulo;
         
         if (!isUltimo) {
-          // Se tiver uma ação específica (como voltar para a marca), usa ela. Senão, usa mudarTela.
           crumb.onclick = item.acao ? item.acao : () => mudarTela(item.tela);
         }
         container.appendChild(crumb);
