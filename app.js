@@ -66,27 +66,33 @@ function normalizarBanco() {
   }
 }
 
-/* ---------- 3. TELAS E NAVEGAÇÃO ---------- */
+/* ---------- 3. TELAS E NAVEGAÇÃO (com histórico do navegador) ----------
+   Cada tela vira um endereço (#categoria/marca/modelo), então o botão
+   "voltar" do celular/navegador volta para a tela anterior do manual. */
+let timerTela;
+
 function mudarTela(id) {
+  clearTimeout(timerTela);
   const atual = document.querySelector('.tela.ativa');
   const alvo = $('tela-' + id);
-  if (!alvo || atual === alvo) return;
+  if (!alvo) return;
   const mostrar = () => {
-    if (atual) atual.classList.remove('ativa', 'saindo');
+    document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa', 'saindo'));
     alvo.classList.add('ativa');
-    scrollTo({ top: 0, behavior: 'smooth' });
+    scrollTo({ top: 0 });
     gerarBreadcrumb(id);
   };
-  if (atual) { atual.classList.add('saindo'); setTimeout(mostrar, 220); } else mostrar();
+  if (atual && atual !== alvo) { atual.classList.add('saindo'); timerTela = setTimeout(mostrar, 200); }
+  else mostrar();
 }
 
 function gerarBreadcrumb(telaId) {
   const container = document.querySelector(`#tela-${telaId} .breadcrumb`);
   if (!container) return;
-  const crumbs = [{ titulo: '🏠 Início', acao: () => mudarTela('principal') }];
-  if (estado.cat) crumbs.push({ titulo: estado.cat.titulo, acao: () => abrirCategoria(estado.cat) });
-  if (estado.marca) crumbs.push({ titulo: estado.marca, acao: () => abrirMarca(estado.marca) });
-  if (telaId === 'conteudo') crumbs.push({ titulo: estado.modelo });
+  const crumbs = [{ titulo: '🏠 Início', ir: {} }];
+  if (estado.cat) crumbs.push({ titulo: estado.cat.titulo, ir: { slug: estado.cat.slug } });
+  if (estado.marca) crumbs.push({ titulo: estado.marca, ir: { slug: estado.cat.slug, marca: estado.marca } });
+  if (estado.modelo) crumbs.push({ titulo: estado.modelo });
 
   container.innerHTML = '';
   crumbs.forEach((item, i) => {
@@ -94,14 +100,13 @@ function gerarBreadcrumb(telaId) {
     const el = document.createElement('span');
     el.className = 'crumb' + (ultimo ? ' atual' : '');
     el.textContent = item.titulo;
-    if (!ultimo) el.addEventListener('click', item.acao);
+    if (!ultimo) el.addEventListener('click', () => navegar(item.ir));
     container.append(el);
     if (!ultimo) { const s = document.createElement('span'); s.className = 'sep'; s.textContent = '›'; container.append(s); }
   });
 }
 
-function abrirCategoria(cat) {
-  estado.cat = cat; estado.marca = ''; estado.modelo = '';
+function renderCategoria(cat) {
   $('titulo-lista').innerHTML = `<i class="fa-solid ${cat.icone}" style="color:${cat.cor}"></i> ${cat.titulo}`;
   const grid = $('grid-lista');
   grid.innerHTML = '';
@@ -110,28 +115,50 @@ function abrirCategoria(cat) {
     grid.append(criarCard({
       icone: 'fa-flag', cor: cat.cor, titulo: marca,
       texto: `${marcas[marca].length} modelos disponíveis`,
-      aoClicar: () => abrirMarca(marca)
+      aoClicar: () => navegar({ slug: cat.slug, marca })
     }));
   }
-  mudarTela('lista');
-  if (document.querySelector('#tela-lista.ativa')) gerarBreadcrumb('lista');
 }
 
-function abrirMarca(marca) {
-  estado.marca = marca; estado.modelo = '';
-  $('titulo-lista').innerHTML = `<i class="fa-solid fa-flag" style="color:${estado.cat.cor}"></i> ${marca}`;
+function renderMarca(cat, marca) {
+  $('titulo-lista').innerHTML = `<i class="fa-solid fa-flag" style="color:${cat.cor}"></i> ${marca}`;
   const grid = $('grid-lista');
   grid.innerHTML = '';
-  bancoDeDados[estado.cat.slug].marcas[marca].forEach(modelo => {
+  bancoDeDados[cat.slug].marcas[marca].forEach(modelo => {
     grid.append(criarCard({
-      icone: 'fa-wrench', cor: estado.cat.cor, titulo: modelo,
+      icone: 'fa-wrench', cor: cat.cor, titulo: modelo,
       texto: 'Ver fluidos e referências de filtros.',
-      aoClicar: () => abrirConteudo(modelo)
+      aoClicar: () => navegar({ slug: cat.slug, marca, modelo })
     }));
   });
-  mudarTela('lista');
-  if (document.querySelector('#tela-lista.ativa')) gerarBreadcrumb('lista');
 }
+
+// Rota atual lida do endereço: #slug/marca/modelo
+function lerRota() {
+  const [slug, marca, modelo] = location.hash.slice(1).split('/').filter(Boolean).map(decodeURIComponent);
+  return { slug, marca, modelo };
+}
+
+function navegar({ slug, marca, modelo } = {}, registrar = true) {
+  const cat = CATEGORIAS.find(c => c.slug === slug && bancoDeDados[c.slug]) || null;
+  const mar = cat && bancoDeDados[cat.slug].marcas[marca] ? marca : '';
+  const mod = mar && bancoDeDados[cat.slug].marcas[mar].includes(modelo) ? modelo : '';
+  estado.cat = cat; estado.marca = mar; estado.modelo = mod;
+
+  let tela = 'principal';
+  if (mod) { renderConteudo(mod); tela = 'conteudo'; }
+  else if (mar) { renderMarca(cat, mar); tela = 'lista'; }
+  else if (cat) { renderCategoria(cat); tela = 'lista'; }
+
+  if (registrar) {
+    const partes = [cat && cat.slug, mar, mod].filter(Boolean).map(encodeURIComponent);
+    history.pushState(null, '', partes.length ? '#' + partes.join('/') : location.pathname + location.search);
+  }
+  mudarTela(tela);
+}
+
+// botão voltar/avançar do navegador
+addEventListener('popstate', () => navegar(lerRota(), false));
 
 /* ---------- 4. FICHA DO VEÍCULO ---------- */
 function fichaSistema(s) {
@@ -164,8 +191,7 @@ function tabelaFiltros(filtros) {
     </div>`;
 }
 
-function abrirConteudo(modelo) {
-  estado.modelo = modelo;
+function renderConteudo(modelo) {
   $('titulo-conteudo').textContent = modelo;
   const spec = especificacoesOleos[modelo];
   const alvo = $('conteudo-dinamico');
@@ -184,11 +210,11 @@ function abrirConteudo(modelo) {
         <span>As especificações e filtros para o <strong>${modelo}</strong> estarão disponíveis aqui em breve.</span>
       </div>`;
   }
-  mudarTela('conteudo');
 }
 
 /* ---------- INÍCIO ---------- */
 normalizarBanco();
 CATEGORIAS.filter(cat => bancoDeDados[cat.slug]).forEach(cat => $('grid-home').append(criarCard({
-  icone: cat.icone, cor: cat.cor, titulo: cat.titulo, texto: cat.resumo, aoClicar: () => abrirCategoria(cat)
+  icone: cat.icone, cor: cat.cor, titulo: cat.titulo, texto: cat.resumo, aoClicar: () => navegar({ slug: cat.slug })
 })));
+navegar(lerRota(), false);   // abre direto se a página foi aberta com um endereço (#...)
