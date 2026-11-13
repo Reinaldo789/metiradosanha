@@ -103,840 +103,1173 @@
   </div>
 
   <script>
-    // =====================================================================
-    // 1. BANCO DE DADOS DE VEÍCULOS
-    // =====================================================================
-    const bancoDeDados = {
-      'veiculos-passeio': {
-        titulo: 'Veículos Passeio',
-        marcas: {
-          'Chevrolet': ['Chevrolet SPIN', 'Chevrolet Agile', 'Chevrolet Montana'],
-          'Fiat': ['Fiat Palio 1.4', 'Fiat Doblo 1.8', 'Fiat Doblo 1.4', 'Fiat Strada 1.4'],
-          'Ford': ['Ford Fiesta 1.0', 'Ford Fiesta 1.6', 'Ford Focus 1.6', 'Ford Focus 2.0'],
-          'Nissan, Peugeot e Renault': ['Nissan Sentra', 'Nissan Versa 1.6', 'Peugeot 408 1.6 THP', 'Renault Logan - Sandero'],
-          'Volkswagen': ['VW Kombi 1.4', 'VW Gol 1.6 G5', 'VW Gol 1.6 G6']
-        }
-      },
-      'veiculos-utilitarios': {
-        titulo: 'Veículos Utilitários',
-        marcas: {
-          'Agrale': ['Agrale Marruá - AM21', 'Agrale Marruá - AM20', 'Agrale Marruá - AM22', 'Agrale Marruá - AM25'],
-          'Ford': ['Ford F-250 e F-350', 'Ford Ranger Power Stroke', 'Ford Ranger 3.0 NGD', 'Ford Ranger 2.2', 'Ford Transit'],
-          'Mitsubishi e Nissan': ['Mitsubishi L200 2.5', 'Mitsubishi Triton 3.2', 'Mitsubishi Triton 2.4', 'Nissan Frontier 2.5', 'Nissan Frontier 2.3'],
-          'Toyota': ['Toyota Hilux 3.0', 'Toyota Hilux 2.8 - Nova']
-        }
-      },
-      'caminhoes': {
-        titulo: 'Caminhões',
-        marcas: {
-          'Ford': ['Ford Cargo 816', 'Ford Cargo 2423', 'Ford - 2629 Bau', 'Ford - 2629 CTA e CTC', 'Ford 1933 Cav Mec'],
-          'Mercedes-Benz': ['Mercedes-Benz 2627', 'Mercedes-Benz 915c', 'Mercedes-Benz 1418E', 'Mercedes-Benz AXOR 3344', 'Mercedes-Benz Atego 1725'],
-          'Volkswagen': ['VW Work 815', 'VW Work 5-Ton 15-180', 'VW Work 7-Ton Comercial', 'VW Work 24-220', 'VW Work 26-220', 'VW Work 26-260E', 'VW Constellation 24-250', 'VW Constellation 26-280', 'VW Constellation 31-320']
-        }
-      },
-      'onibus-e-vans': {
-        titulo: 'Ônibus e Vans',
-        marcas: {
-          'Vans e Utilitários': ['Fiat Ducato 2.3 Multijet', 'Fiat Ducato 2.8', 'Iveco - Daily 35S14', 'Ford Transit']
-        }
-      }
-    };
-
-    // =====================================================================
-    // 2. BANCO DE DADOS DE FLUIDOS E FILTROS
-    // =====================================================================
-    const especificacoesOleos = {
-      // --- VEÍCULOS PASSEIO ---
-      'Chevrolet SPIN': {
-        motor: { tipo: '5W-30 sintético (dexos1 Gen 2/3)', qtd: '4,2 L (com filtro)', intervalo: '10.000 km ou 1 ano' },
-        cambio: { tipo: 'Automático: Dexron VI / Manual: 75W-85', qtd: 'Auto: 8,5 L / Man: 1,8 L', intervalo: '60.000 - 80.000 km' },
-        diferencial: { tipo: 'Não se aplica (Tração Dianteira)', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: '24588463', tecfil: 'PSL619', mann: 'W712/22', mahle: 'OC90', wega: 'WO-150', fram: 'PH10907' },
-          ar: { original: '98550812', tecfil: 'ARL8829', mann: 'C24028/1', mahle: 'LX3547', wega: 'FAP-9267', fram: 'CA10330' },
-          combustivel: { original: '93316245', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
-        }
-      },
-      'Chevrolet Agile': {
-        motor: { tipo: '10W-40 semissintético', qtd: '3,5 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: 75W-85', qtd: '1,8 L', intervalo: '60.000 km' },
-        diferencial: { tipo: 'Não se aplica', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: '24588463', tecfil: 'PSL619', mann: 'W712/22', mahle: 'OC90', wega: 'WO-150', fram: 'PH10907' },
-          ar: { original: '98550812', tecfil: 'ARL8832', mann: 'C2256', mahle: 'LX3026', wega: 'FAP-9267', fram: 'CA10330' },
-          combustivel: { original: '93316245', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
-        }
-      },
-      'Chevrolet Montana': {
-        motor: { tipo: '5W-30 sintético (1.4)', qtd: '3,5 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: 75W-85', qtd: '1,8 L', intervalo: '60.000 km' },
-        diferencial: { tipo: 'Não se aplica', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: '24588463', tecfil: 'PSL619', mann: 'W712/22', mahle: 'OC90', wega: 'WO-150', fram: 'PH10907' },
-          ar: { original: '93357924', tecfil: 'ARL8832', mann: 'C2256', mahle: 'LX3026', wega: 'FAP-9267', fram: 'CA10330' },
-          combustivel: { original: '93316245', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
-        }
-      },
-      'Fiat Palio 1.4': {
-        motor: { tipo: '15W-40 semissintético', qtd: '3,2 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: 75W-90', qtd: '2,0 L', intervalo: '60.000 km' },
-        diferencial: { tipo: 'Não se aplica', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: '46751179', tecfil: 'PSL55', mann: 'W610/3', mahle: 'OC506', wega: 'WO-120', fram: 'PH5949' },
-          ar: { original: '46420988', tecfil: 'ARL4150', mann: 'C2585', mahle: 'LX1791', wega: 'FAP-9121', fram: 'CA10461' },
-          combustivel: { original: '9947693', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
-        }
-      },
-      'Fiat Doblo 1.8': {
-        motor: { tipo: '15W-40 semissintético', qtd: '4,3 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: 75W-90', qtd: '2,0 L', intervalo: '60.000 km' },
-        diferencial: { tipo: 'Não se aplica', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: '55256470', tecfil: 'PSL619', mann: 'W712/22', mahle: 'OC90', wega: 'WO-150', fram: 'PH10907' },
-          ar: { original: '51839754', tecfil: 'ARL4148', mann: 'C25116', mahle: 'LX1599', wega: 'FAP-9267', fram: 'CA10330' },
-          combustivel: { original: '77363660', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
-        }
-      },
-      'Fiat Doblo 1.4': {
-        motor: { tipo: '15W-40 semissintético', qtd: '3,2 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: 75W-90', qtd: '2,0 L', intervalo: '60.000 km' },
-        diferencial: { tipo: 'Não se aplica', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: '46751179', tecfil: 'PSL55', mann: 'W610/3', mahle: 'OC506', wega: 'WO-120', fram: 'PH5949' },
-          ar: { original: '51839754', tecfil: 'ARL4148', mann: 'C25116', mahle: 'LX1599', wega: 'FAP-9121', fram: 'CA10461' },
-          combustivel: { original: '9947693', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
-        }
-      },
-      'Fiat Strada 1.4': {
-        motor: { tipo: '15W-40 semissintético', qtd: '3,2 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: 75W-90', qtd: '1,8 L', intervalo: '60.000 km' },
-        diferencial: { tipo: 'Não se aplica', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: '46751179', tecfil: 'PSL55', mann: 'W610/3', mahle: 'OC506', wega: 'WO-120', fram: 'PH5949' },
-          ar: { original: '46420988', tecfil: 'ARL4150', mann: 'C2585', mahle: 'LX1791', wega: 'FAP-9121', fram: 'CA10461' },
-          combustivel: { original: '9947693', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
-        }
-      },
-      'Ford Fiesta 1.0': {
-        motor: { tipo: '5W-30 sintético', qtd: '4,1 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: 75W-90', qtd: '2,1 L', intervalo: '60.000 km' },
-        diferencial: { tipo: 'Não se aplica', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: 'EM5G6714AA', tecfil: 'PSL148', mann: 'W719/27', mahle: 'OC266', wega: 'WO-150', fram: 'PH10907' },
-          ar: { original: '2S6G9601AA', tecfil: 'ARL960', mann: 'C2244', mahle: 'LX1597', wega: 'FAP-9003', fram: 'CA10331' },
-          combustivel: { original: '2N1U9155AA', tecfil: 'GI60/7', mann: 'WK613/3', mahle: 'KL476', wega: 'FCI-1695', fram: 'G9891F' }
-        }
-      },
-      'Ford Fiesta 1.6': {
-        motor: { tipo: '5W-30 sintético', qtd: '4,1 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: 75W-90', qtd: '2,1 L', intervalo: '60.000 km' },
-        diferencial: { tipo: 'Não se aplica', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: 'EM5G6714AA', tecfil: 'PSL148', mann: 'W719/27', mahle: 'OC266', wega: 'WO-150', fram: 'PH10907' },
-          ar: { original: '2S6G9601AA', tecfil: 'ARL960', mann: 'C2244', mahle: 'LX1597', wega: 'FAP-9003', fram: 'CA10331' },
-          combustivel: { original: '2N1U9155AA', tecfil: 'GI60/7', mann: 'WK613/3', mahle: 'KL476', wega: 'FCI-1695', fram: 'G9891F' }
-        }
-      },
-      'Ford Focus 1.6': {
-        motor: { tipo: '5W-30 sintético', qtd: '4,1 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: 75W-90', qtd: '2,1 L', intervalo: '60.000 km' },
-        diferencial: { tipo: 'Não se aplica', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: 'EM5G6714AA', tecfil: 'PSL148', mann: 'W719/27', mahle: 'OC266', wega: 'WO-150', fram: 'PH10907' },
-          ar: { original: '2S6G9601AA', tecfil: 'ARL960', mann: 'C2244', mahle: 'LX1597', wega: 'FAP-9003', fram: 'CA10331' },
-          combustivel: { original: '2N1U9155AA', tecfil: 'GI60/7', mann: 'WK613/3', mahle: 'KL476', wega: 'FCI-1695', fram: 'G9891F' }
-        }
-      },
-      'Ford Focus 2.0': {
-        motor: { tipo: '5W-30 sintético', qtd: '4,3 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: 75W-90', qtd: '1,9 L', intervalo: '60.000 km' },
-        diferencial: { tipo: 'Não se aplica', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: '1S7G6714AA', tecfil: 'PSL34M', mann: 'W7013/1', mahle: 'OC1051', wega: 'WO-150', fram: 'PH10907' },
-          ar: { original: '3M5G9601AA', tecfil: 'ARL9604', mann: 'C28122', mahle: 'LX869', wega: 'FAP-9003', fram: 'CA10331' },
-          combustivel: { original: '2N1U9155AA', tecfil: 'GI60/7', mann: 'WK613/3', mahle: 'KL476', wega: 'FCI-1695', fram: 'G9891F' }
-        }
-      },
-      'Nissan Sentra': {
-        motor: { tipo: '5W-30 sintético', qtd: '4,4 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'CVT: NS-3', qtd: '7,5 L', intervalo: '60.000 km' },
-        diferencial: { tipo: 'Não se aplica', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: '15208-65F0E', tecfil: 'PSL129', mann: 'W67/1', mahle: 'OC1052', wega: 'WO-130', fram: 'PH6607' },
-          ar: { original: '16546-1HC0A', tecfil: 'ARL1654', mann: 'C2433/2', mahle: 'LX1983', wega: 'FAP-9273', fram: 'CA10102' },
-          combustivel: { original: '16400-1HC0A', tecfil: 'GI50/7', mann: 'WK58/3', mahle: 'KL583', wega: 'FCI-1630', fram: 'G1030' }
-        }
-      },
-      'Nissan Versa 1.6': {
-        motor: { tipo: '5W-30 sintético', qtd: '4,0 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'CVT: NS-3', qtd: '6,9 L', intervalo: '60.000 km' },
-        diferencial: { tipo: 'Não se aplica', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: '15208-65F0E', tecfil: 'PSL129', mann: 'W67/1', mahle: 'OC1052', wega: 'WO-130', fram: 'PH6607' },
-          ar: { original: '16546-1HC0A', tecfil: 'ARL1656', mann: 'C24012', mahle: 'LX3549', wega: 'FAP-9273', fram: 'CA10102' },
-          combustivel: { original: '16400-1HC0A', tecfil: 'GI50/7', mann: 'WK58/3', mahle: 'KL583', wega: 'FCI-1630', fram: 'G1030' }
-        }
-      },
-      'Peugeot 408 1.6 THP': {
-        motor: { tipo: '5W-30 sintético (PSA B71 2290)', qtd: '4,25 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Automático: ATF AW-1', qtd: '7,0 L', intervalo: '60.000 km' },
-        diferencial: { tipo: 'Não se aplica', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: '1109.CL', tecfil: 'PEL674', mann: 'HU711/51x', mahle: 'OX339/2D', wega: 'WOE-710', fram: 'CH9641' },
-          ar: { original: '1444.XG', tecfil: 'ARL5047', mann: 'C36003', mahle: 'LX2681', wega: 'FAP-9295', fram: 'CA11050' },
-          combustivel: { original: '1901.96', tecfil: 'GI50/7', mann: 'WK58/3', mahle: 'KL583', wega: 'FCI-1630', fram: 'G1030' }
-        }
-      },
-      'Renault Logan - Sandero': {
-        motor: { tipo: '10W-40 semissintético', qtd: '3,3 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: 75W-80', qtd: '2,8 L', intervalo: '60.000 km' },
-        diferencial: { tipo: 'Não se aplica', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: '8200768913', tecfil: 'PSL77 / PSL129', mann: 'W75/3 / W67/1', mahle: 'OC467 / OC1052', wega: 'WO-170', fram: 'PH5796' },
-          ar: { original: '8200438066', tecfil: 'AR7705', mann: 'C2680', mahle: 'LX1066', wega: 'FAP-9273', fram: 'CA10102' },
-          combustivel: { original: '164000930R', tecfil: 'GI50/7', mann: 'WK58/3', mahle: 'KL583', wega: 'FCI-1630', fram: 'G1030' }
-        }
-      },
-      'VW Kombi 1.4': {
-        motor: { tipo: '5W-40 sintético', qtd: '4,0 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: 75W-90', qtd: '2,5 L', intervalo: '60.000 km' },
-        diferencial: { tipo: 'Integrado ao transeixo', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: '04E115561H', tecfil: 'PSL560', mann: 'W712/53', mahle: 'OC250', wega: 'WO-240', fram: 'PH2870A' },
-          ar: { original: '5U0129620A', tecfil: 'ARS2868', mann: 'C14179', mahle: 'LX1594', wega: 'FAP-9273', fram: 'CA10575' },
-          combustivel: { original: '6Q0201051C', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1600', fram: 'G1041' }
-        }
-      },
-      'VW Gol 1.6 G5': {
-        motor: { tipo: '5W-40 sintético', qtd: '3,5 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: 75W-90', qtd: '2,0 L', intervalo: '60.000 km' },
-        diferencial: { tipo: 'Não se aplica', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: '04E115561H', tecfil: 'PSL560', mann: 'W712/53', mahle: 'OC250', wega: 'WO-240', fram: 'PH2870A' },
-          ar: { original: '5U0129620A', tecfil: 'ARL6095', mann: 'C2295/4', mahle: 'LX1592', wega: 'FAP-9273', fram: 'CA10575' },
-          combustivel: { original: '6Q0201051C', tecfil: 'GI50/7', mann: 'WK58/3', mahle: 'KL583', wega: 'FCI-1600', fram: 'G1030' }
-        }
-      },
-      'VW Gol 1.6 G6': {
-        motor: { tipo: '5W-40 sintético', qtd: '3,5 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: 75W-90', qtd: '2,0 L', intervalo: '60.000 km' },
-        diferencial: { tipo: 'Não se aplica', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: '04E115561H', tecfil: 'PSL560', mann: 'W712/53', mahle: 'OC250', wega: 'WO-240', fram: 'PH2870A' },
-          ar: { original: '5U0129620A', tecfil: 'ARL6095', mann: 'C2295/4', mahle: 'LX1592', wega: 'FAP-9273', fram: 'CA10575' },
-          combustivel: { original: '6Q0201051C', tecfil: 'GI50/7', mann: 'WK58/3', mahle: 'KL583', wega: 'FCI-1600', fram: 'G1030' }
-        }
-      },
-
-      // --- VEÍCULOS UTILITÁRIOS ---
-      'Agrale Marruá - AM21': {
-        motor: { tipo: '15W-40 (MWM Sprint)', qtd: '5,5 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: SAE 50', qtd: '3,2 L', intervalo: '40.000 km' },
-        diferencial: { tipo: '85W-140 (Dana)', qtd: '2,5 L', intervalo: '40.000 km' },
-        filtros: {
-          oleo: { original: '6008.001.204.00.4', tecfil: 'PSL340', mann: 'W940/34', mahle: 'OC311', wega: 'WO-540', fram: 'PH9503' },
-          ar: { original: '6008.001.700.00.4', tecfil: 'ARS7109', mann: 'C18450/1 + CF1150', mahle: 'LX964 + LXS44', wega: 'WR-200/8 + WR-200/8S', fram: 'CA5355' },
-          combustivel: { original: '6008.001.300.00.4', tecfil: 'PSC498', mann: 'WK842/2', mahle: 'KC119', wega: 'FCD-0766', fram: 'P550881' }
-        }
-      },
-      'Agrale Marruá - AM20': {
-        motor: { tipo: '15W-40', qtd: '5,5 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: SAE 50', qtd: '3,2 L', intervalo: '40.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '2,5 L', intervalo: '40.000 km' },
-        filtros: {
-          oleo: { original: '6008.001.204.00.4', tecfil: 'PSL340', mann: 'W940/34', mahle: 'OC311', wega: 'WO-540', fram: 'PH9503' },
-          ar: { original: '6008.001.700.00.4', tecfil: 'ARS7109', mann: 'C18450/1 + CF1150', mahle: 'LX964 + LXS44', wega: 'WR-200/8 + WR-200/8S', fram: 'CA5355' },
-          combustivel: { original: '6008.001.300.00.4', tecfil: 'PSC498', mann: 'WK842/2', mahle: 'KC119', wega: 'FCD-0766', fram: 'P550881' }
-        }
-      },
-      'Agrale Marruá - AM22': {
-        motor: { tipo: '15W-40', qtd: '5,5 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: SAE 50', qtd: '3,2 L', intervalo: '40.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '2,5 L', intervalo: '40.000 km' },
-        filtros: {
-          oleo: { original: '6008.001.204.00.4', tecfil: 'PSL340', mann: 'W940/34', mahle: 'OC311', wega: 'WO-540', fram: 'PH9503' },
-          ar: { original: '6008.001.700.00.4', tecfil: 'ARS7109', mann: 'C18450/1 + CF1150', mahle: 'LX964 + LXS44', wega: 'WR-200/8 + WR-200/8S', fram: 'CA5355' },
-          combustivel: { original: '6008.001.300.00.4', tecfil: 'PSC498', mann: 'WK842/2', mahle: 'KC119', wega: 'FCD-0766', fram: 'P550881' }
-        }
-      },
-      'Agrale Marruá - AM25': {
-        motor: { tipo: '15W-40', qtd: '8,5 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: SAE 50', qtd: '3,2 L', intervalo: '40.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '3,0 L', intervalo: '40.000 km' },
-        filtros: {
-          oleo: { original: '6008.001.204.00.4', tecfil: 'PSL340', mann: 'W940/34', mahle: 'OC311', wega: 'WO-540', fram: 'PH9503' },
-          ar: { original: '6008.001.700.00.4', tecfil: 'ARS7109', mann: 'C18450/1 + CF1150', mahle: 'LX964 + LXS44', wega: 'WR-200/8 + WR-200/8S', fram: 'CA5355' },
-          combustivel: { original: '6008.001.300.00.4', tecfil: 'PSC498', mann: 'WK842/2', mahle: 'KC119', wega: 'FCD-0766', fram: 'P550881' }
-        }
-      },
-      'Ford F-250 e F-350': {
-        motor: { tipo: '15W-40 (MWM/Cummins)', qtd: '8,5 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: ATF Mercon', qtd: '3,4 L', intervalo: '60.000 km' },
-        diferencial: { tipo: '80W-90 / 85W-140', qtd: '4,0 L', intervalo: '40.000 km' },
-        filtros: {
-          oleo: { original: 'F4TZ6731B', tecfil: 'PSL335', mann: 'W950/18', mahle: 'OC413', wega: 'WO-480', fram: 'PH3976' },
-          ar: { original: 'F81Z9601AA', tecfil: 'AP7998', mann: 'C17308', mahle: 'LX1054', wega: 'WAP-114', fram: 'CA5355' },
-          combustivel: { original: 'F81Z9155BA', tecfil: 'PSC72/2', mann: 'WK723', mahle: 'KC18', wega: 'FCD-2045', fram: 'P550440' }
-        }
-      },
-      'Ford Ranger Power Stroke': {
-        motor: { tipo: '15W-40 (International 2.8)', qtd: '7,0 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: ATF Mercon', qtd: '2,6 L', intervalo: '60.000 km' },
-        diferencial: { tipo: '80W-90 / 85W-140', qtd: '3,4 L', intervalo: '40.000 km' },
-        filtros: {
-          oleo: { original: 'F4TZ6731B', tecfil: 'PSL900', mann: 'W930/20', mahle: 'OC23', wega: 'WO-480', fram: 'PH3976' },
-          ar: { original: 'F87Z9601AA', tecfil: 'ARS7992', mann: 'C13114/4', mahle: 'LX1596', wega: 'WAP-268', fram: 'CA9988' },
-          combustivel: { original: 'F87Z9155AA', tecfil: 'PSC498', mann: 'WK842/13', mahle: 'KC119', wega: 'FCD-2061', fram: 'P551433' }
-        }
-      },
-      'Ford Ranger 3.0 NGD': {
-        motor: { tipo: '15W-40 (MWM 3.0)', qtd: '9,0 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: ATF Mercon', qtd: '2,8 L', intervalo: '50.000 km' },
-        diferencial: { tipo: '80W-90 / 85W-140', qtd: '2,6 L', intervalo: '40.000 km' },
-        filtros: {
-          oleo: { original: 'BG 5T 6731 AA', tecfil: 'PEL310', mann: 'HU9328X', mahle: 'OX1691D', wega: 'WOE-130', fram: 'CH9641' },
-          ar: { original: 'AB39 9601 AB', tecfil: 'ARS7992', mann: 'C13114/4', mahle: 'LX1596', wega: 'WR-188', fram: 'CA9988' },
-          combustivel: { original: 'AB39 9155 BC', tecfil: 'PSC410/1', mann: 'WK842/22', mahle: 'KC249', wega: 'FCD-2075', fram: 'P551435' }
-        }
-      },
-      'Ford Ranger 2.2': {
-        motor: { tipo: '5W-30 (Duratorq)', qtd: '8,6 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: 75W-90', qtd: '2,7 L', intervalo: '60.000 km' },
-        diferencial: { tipo: '80W-90 / 75W-90', qtd: '2,9 L', intervalo: '40.000 km' },
-        filtros: {
-          oleo: { original: 'BK3Q 6714 AB', tecfil: 'PEL309', mann: 'HU7002z', mahle: 'OX339/2D', wega: 'WOE-215', fram: 'CH10656' },
-          ar: { original: 'AB39 9601 AA', tecfil: 'ARS7994', mann: 'C22024', mahle: 'LX3511', wega: 'FAP-9006', fram: 'CA11050' },
-          combustivel: { original: 'AB39 9155 AA', tecfil: 'PC951', mann: 'PU835x', mahle: 'KX338/26D', wega: 'FCD-0796', fram: 'P551436' }
-        }
-      },
-      'Ford Transit': {
-        motor: { tipo: '5W-30 (Duratorq)', qtd: '9,8 L', intervalo: '15.000 km' },
-        cambio: { tipo: 'Manual: 75W-90', qtd: '3,7 L', intervalo: '60.000 km' },
-        diferencial: { tipo: '75W-90', qtd: '2,2 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: '6C1Q 6744 AA', tecfil: 'PEL110', mann: 'HU920x', mahle: 'OX193D', wega: 'WOE-300', fram: 'CH9641' },
-          ar: { original: '6C1Q 9601 AA', tecfil: 'ARL9608', mann: 'C28100', mahle: 'LX935', wega: 'FAP-9006', fram: 'CA11050' },
-          combustivel: { original: '6C1Q 9155 AA', tecfil: 'PSC992', mann: 'WK8157', mahle: 'KC204', wega: 'FCD-0796', fram: 'P551434' }
-        }
-      },
-      'Mitsubishi L200 2.5': {
-        motor: { tipo: '15W-40 (4D56)', qtd: '6,5 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: 75W-85', qtd: '2,3 L', intervalo: '40.000 km' },
-        diferencial: { tipo: '80W-90 (LSD)', qtd: '2,6 L', intervalo: '40.000 km' },
-        filtros: {
-          oleo: { original: 'ME013307', tecfil: 'PSL325', mann: 'WP928/80', mahle: 'OC274', wega: 'WO-160', fram: 'PH9688' },
-          ar: { original: 'MR571476', tecfil: 'ARS7109', mann: 'C15300', mahle: 'LX964', wega: 'WAP-161', fram: 'CA5355' },
-          combustivel: { original: 'MR204495', tecfil: 'PSC498', mann: 'WK842/13', mahle: 'KC119', wega: 'FCD-2058', fram: 'P550390' }
-        }
-      },
-      'Mitsubishi Triton 3.2': {
-        motor: { tipo: '15W-40 (4M41)', qtd: '7,5 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Auto: ATF SP-III', qtd: '8,5 L', intervalo: '60.000 km' },
-        diferencial: { tipo: '80W-90 (LSD)', qtd: '2,3 L', intervalo: '40.000 km' },
-        filtros: {
-          oleo: { original: 'ME013307', tecfil: 'PSL330', mann: 'WP1045', mahle: 'OC274', wega: 'WO-160', fram: 'PH9688' },
-          ar: { original: '1500A098', tecfil: 'ARL4135', mann: 'C24011', mahle: 'LX2616', wega: 'WAP-161', fram: 'CA10110' },
-          combustivel: { original: '1770A053', tecfil: 'PEC3025', mann: 'PU835x', mahle: 'KX265D', wega: 'FCD-2058', fram: 'P550882' }
-        }
-      },
-      'Mitsubishi Triton 2.4': {
-        motor: { tipo: '5W-30 (4N15)', qtd: '8,4 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Auto: ATF SP-III', qtd: '8,0 L', intervalo: '60.000 km' },
-        diferencial: { tipo: '80W-90 (LSD)', qtd: '2,3 L', intervalo: '40.000 km' },
-        filtros: {
-          oleo: { original: '1230A187', tecfil: 'PSL156', mann: 'W811/80', mahle: 'OC1183', wega: 'WOE-473', fram: 'PH9688' },
-          ar: { original: '1500A098', tecfil: 'ARL4139', mann: 'C24011', mahle: 'LX2616', wega: 'FAP-9003', fram: 'CA10110' },
-          combustivel: { original: '1770A053', tecfil: 'PEC3039', mann: 'PU8021', mahle: 'KX495D', wega: 'FCD-0784', fram: 'P552002' }
-        }
-      },
-      'Nissan Frontier 2.5': {
-        motor: { tipo: '15W-40 (YD25)', qtd: '6,9 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: 75W-85', qtd: '3,8 L', intervalo: '40.000 km' },
-        diferencial: { tipo: '80W-90 (LSD)', qtd: '2,0 L', intervalo: '40.000 km' },
-        filtros: {
-          oleo: { original: '15208-2W200', tecfil: 'PSL158', mann: 'W610/3', mahle: 'OC217/6', wega: 'WO-170', fram: 'PH6607' },
-          ar: { original: '16546-EB70A', tecfil: 'ARL1655', mann: 'C27003', mahle: 'LX1995', wega: 'FAP-9267', fram: 'CA10102' },
-          combustivel: { original: '16400-EB70A', tecfil: 'PSC993', mann: 'WK920/6', mahle: 'KC236', wega: 'FCI-1630', fram: 'P550883' }
-        }
-      },
-      'Nissan Frontier 2.3': {
-        motor: { tipo: '5W-30 (YS23)', qtd: '7,3 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: 75W-80', qtd: '3,5 L', intervalo: '40.000 km' },
-        diferencial: { tipo: '75W-90', qtd: '2,1 L', intervalo: '40.000 km' },
-        filtros: {
-          oleo: { original: '15209-0000A', tecfil: 'PEL121', mann: 'HU6015z', mahle: 'OX968D', wega: 'WOE-247', fram: 'CH10656' },
-          ar: { original: '16546-00Q0A', tecfil: 'ARL1657', mann: 'C25040', mahle: 'LX4233', wega: 'FAP-9296', fram: 'CA11050' },
-          combustivel: { original: '16400-00Q0A', tecfil: 'PC960', mann: 'PU8014', mahle: 'KX387/1D', wega: 'FCD-0796', fram: 'P552008' }
-        }
-      },
-      'Toyota Hilux 3.0': {
-        motor: { tipo: '15W-40 (1KD-FTV)', qtd: '6,9 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Manual: 75W-90', qtd: '2,2 L', intervalo: '60.000 km' },
-        diferencial: { tipo: '75W-90 (LSD)', qtd: '3,4 L', intervalo: '40.000 km' },
-        filtros: {
-          oleo: { original: '90915-YZZD3', tecfil: 'PSL127', mann: 'W712/83', mahle: 'OC988', wega: 'WO-170', fram: 'PH3614' },
-          ar: { original: '17801-30040', tecfil: 'ARS3002', mann: 'C23107', mahle: 'LX1618', wega: 'FAP-9267', fram: 'CA10102' },
-          combustivel: { original: '23390-0L010', tecfil: 'PEC3022', mann: 'PU835x', mahle: 'KX265D', wega: 'FCD-2066', fram: 'P550882' }
-        }
-      },
-      'Toyota Hilux 2.8 - Nova': {
-        motor: { tipo: '5W-30 (1GD-FTV)', qtd: '7,5 L', intervalo: '10.000 km' },
-        cambio: { tipo: 'Auto: ATF WS', qtd: '9,3 L', intervalo: '60.000 km' },
-        diferencial: { tipo: '75W-85 (LSD)', qtd: '3,0 L', intervalo: '40.000 km' },
-        filtros: {
-          oleo: { original: '90915-YZZD3', tecfil: 'PSL127', mann: 'W712/83', mahle: 'OC988', wega: 'WOE-473', fram: 'PH3614' },
-          ar: { original: '17801-0E010', tecfil: 'ARL2205', mann: 'C32011', mahle: 'LX4377', wega: 'FAP-9296', fram: 'CA11050' },
-          combustivel: { original: '23390-0E010', tecfil: 'PEC3042', mann: 'PU8028', mahle: 'KX531D', wega: 'FCD-0784', fram: 'P552012' }
-        }
-      },
-
-      // --- CAMINHÕES ---
-      'Ford Cargo 816': {
-        motor: { tipo: '15W-40 (Cummins ISB 4.5)', qtd: '13,0 L', intervalo: '30.000 km' },
-        cambio: { tipo: 'Manual: SAE 40/50', qtd: '4,5 L', intervalo: '100.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '9,0 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: '4932123', tecfil: 'PSL283', mann: 'W950/26', mahle: 'OC505', wega: 'WO-510', fram: 'PH3976' },
-          ar: { original: '170282', tecfil: 'AP7998', mann: 'C17308', mahle: 'LX1054', wega: 'WAP-114', fram: 'CA5355' },
-          combustivel: { original: '4989106', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-2045', fram: 'P550881' }
-        }
-      },
-      'Ford Cargo 2423': {
-        motor: { tipo: '15W-40 (Cummins ISB 6.7)', qtd: '19,5 L', intervalo: '40.000 km' },
-        cambio: { tipo: 'Manual: SAE 50', qtd: '13,0 L', intervalo: '100.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '18,0 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: '4897897', tecfil: 'PSL283', mann: 'W950/26', mahle: 'OC505', wega: 'WO-612', fram: 'PH3976' },
-          ar: { original: 'AF26114', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-102 + WAP-102/S', fram: 'CA5791' },
-          combustivel: { original: 'FS19732', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-2045B', fram: 'P550881' }
-        }
-      },
-      'Ford - 2629 Bau': {
-        motor: { tipo: '15W-40 (Cummins ISB 6.7)', qtd: '19,5 L', intervalo: '40.000 km' },
-        cambio: { tipo: 'Manual: SAE 50', qtd: '13,0 L', intervalo: '100.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '16 L / 14 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: '4897897', tecfil: 'PSL283', mann: 'W950/26', mahle: 'OC505', wega: 'WO-612', fram: 'PH3976' },
-          ar: { original: 'AF26114', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-103', fram: 'CA5791' },
-          combustivel: { original: 'FS19732', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-2045B', fram: 'P550881' }
-        }
-      },
-      'Ford - 2629 CTA e CTC': {
-        motor: { tipo: '15W-40 (Cummins ISB 6.7)', qtd: '19,5 L', intervalo: '40.000 km' },
-        cambio: { tipo: 'Manual: SAE 50', qtd: '13,0 L', intervalo: '100.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '16 L / 14 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: '4897897', tecfil: 'PSL283', mann: 'W950/26', mahle: 'OC505', wega: 'WO-612', fram: 'PH3976' },
-          ar: { original: 'AF26114', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-103', fram: 'CA5791' },
-          combustivel: { original: 'FS19732', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-2045B', fram: 'P550881' }
-        }
-      },
-      'Ford 1933 Cav Mec': {
-        motor: { tipo: '15W-40 (Cummins ISL 8.9)', qtd: '25,0 L', intervalo: '40.000 km' },
-        cambio: { tipo: 'Manual: SAE 50', qtd: '13,0 L', intervalo: '100.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '21,0 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: '3401544', tecfil: 'PSL962', mann: 'WP12300', mahle: 'OC516', wega: 'WO-612', fram: 'PH3976' },
-          ar: { original: 'AF26114', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-103', fram: 'CA5791' },
-          combustivel: { original: 'FS19732', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-2045B', fram: 'P550881' }
-        }
-      },
-      'Mercedes-Benz 2627': {
-        motor: { tipo: '15W-40 (OM-447)', qtd: '28,0 L', intervalo: '40.000 km' },
-        cambio: { tipo: 'Manual: 80W', qtd: '13,0 L', intervalo: '100.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '14 L / 12 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: 'A0001802609', tecfil: 'PEL2002', mann: 'HU12140x', mahle: 'OX153/7D', wega: 'WO-710', fram: 'CH11180' },
-          ar: { original: 'A0030949304', tecfil: 'AP9835', mann: 'C271340', mahle: 'LX1038', wega: 'WAP-114', fram: 'CA5355' },
-          combustivel: { original: 'A0000901651', tecfil: 'PEC3021', mann: 'PU999/1x', mahle: 'KX80D', wega: 'FCD-2058', fram: 'P550762' }
-        }
-      },
-      'Mercedes-Benz 915c': {
-        motor: { tipo: '15W-40 (OM-904)', qtd: '15,8 L', intervalo: '40.000 km' },
-        cambio: { tipo: 'Manual: 80W', qtd: '9,0 L', intervalo: '100.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '8,5 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: 'A0001802609', tecfil: 'PEL2001', mann: 'HU931/5x', mahle: 'OX161D', wega: 'WO-710', fram: 'CH11180' },
-          ar: { original: 'A0030949304', tecfil: 'AP9836', mann: 'C20500', mahle: 'LX1039', wega: 'WAP-114', fram: 'CA5355' },
-          combustivel: { original: 'A0000901651', tecfil: 'PEC3013', mann: 'PU941x', mahle: 'KX67/2D', wega: 'FCD-2058', fram: 'P550632' }
-        }
-      },
-      'Mercedes-Benz 1418E': {
-        motor: { tipo: '15W-40 (OM-366)', qtd: '16,5 L', intervalo: '30.000 km' },
-        cambio: { tipo: 'Manual: 80W', qtd: '9,0 L', intervalo: '100.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '12,0 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: 'A0001802609', tecfil: 'PEL202', mann: 'H947/1x', mahle: 'OX127', wega: 'WO-710', fram: 'CH11180' },
-          ar: { original: 'A0030949304', tecfil: 'AP9834', mann: 'C20325/2', mahle: 'LX1040', wega: 'WAP-114', fram: 'CA5355' },
-          combustivel: { original: 'A0000901651', tecfil: 'PC2/255', mann: 'P917x', mahle: 'KX43', wega: 'FCD-2058', fram: 'P550632' }
-        }
-      },
-      'Mercedes-Benz AXOR 3344': {
-        motor: { tipo: '15W-40 (OM-457 LA)', qtd: '38,0 L', intervalo: '40.000 km' },
-        cambio: { tipo: 'Manual/Auto: 75W-80', qtd: '15,0 L', intervalo: '100.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '14,5 L / 12,5 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: 'A0001802609', tecfil: 'PEL2004', mann: 'HU12110x', mahle: 'OX174D', wega: 'WOE-245', fram: 'CH11180' },
-          ar: { original: 'A0030949304', tecfil: 'AP9835', mann: 'C271340', mahle: 'LX1038', wega: 'WAP-114', fram: 'CA5355' },
-          combustivel: { original: 'A0000901651', tecfil: 'PEC3021', mann: 'PU999/1x', mahle: 'KX80D', wega: 'FCD-2058', fram: 'P550762' }
-        }
-      },
-      'Mercedes-Benz Atego 1725': {
-        motor: { tipo: '15W-40 (OM-906 LA)', qtd: '26,5 L', intervalo: '40.000 km' },
-        cambio: { tipo: 'Manual: 80W', qtd: '9,0 L', intervalo: '100.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '12,0 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: 'A0001802609', tecfil: 'PEL2003', mann: 'HU945/2x', mahle: 'OX160D', wega: 'WO-710', fram: 'CH11180' },
-          ar: { original: 'A0030949304', tecfil: 'ARS9841', mann: 'C29010KIT', mahle: 'LX1762', wega: 'WAP-114', fram: 'CA5355' },
-          combustivel: { original: 'A0000901651', tecfil: 'PEC3014', mann: 'PU1046x', mahle: 'KX67/1D', wega: 'FCD-2058', fram: 'P550633' }
-        }
-      },
-      'VW Work 815': {
-        motor: { tipo: '15W-40 (MWM 4.10 TCA)', qtd: '13,0 L', intervalo: '30.000 km' },
-        cambio: { tipo: 'Manual: SAE 40', qtd: '4,5 L', intervalo: '100.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '8,0 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: '2T2 115 561 A', tecfil: 'PSL335', mann: 'W950/18', mahle: 'OC413', wega: 'WO-510', fram: 'PH3976' },
-          ar: { original: '2T0 129 620', tecfil: 'AP7998', mann: 'C17308', mahle: 'LX1054', wega: 'WAP-114', fram: 'CA5355' },
-          combustivel: { original: '2T0 127 177 A', tecfil: 'PSC72/2', mann: 'WK723', mahle: 'KC18', wega: 'FCD-2045', fram: 'P550440' }
-        }
-      },
-      'VW Work 5-Ton 15-180': {
-        motor: { tipo: '15W-40 (MWM 6.10 TCA)', qtd: '16,5 L', intervalo: '40.000 km' },
-        cambio: { tipo: 'Manual: SAE 40/50', qtd: '7,2 L', intervalo: '100.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '15,0 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: '2T2 115 561 A', tecfil: 'PSL335', mann: 'W950/18', mahle: 'OC413', wega: 'WO-510', fram: 'PH3976' },
-          ar: { original: '2T0 129 620', tecfil: 'AP9834', mann: 'C20325/2', mahle: 'LX1040', wega: 'WAP-114', fram: 'CA5355' },
-          combustivel: { original: '2T0 127 177 A', tecfil: 'PSC72/2', mann: 'WK723', mahle: 'KC18', wega: 'FCD-2045', fram: 'P550440' }
-        }
-      },
-      'VW Work 7-Ton Comercial': {
-        motor: { tipo: '15W-40 (Cummins)', qtd: '16,5 L', intervalo: '40.000 km' },
-        cambio: { tipo: 'Manual: SAE 50', qtd: '9,0 L', intervalo: '100.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '15,0 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: '2T2 115 561 A', tecfil: 'PSL335', mann: 'W950/18', mahle: 'OC413', wega: 'WO-510', fram: 'PH3976' },
-          ar: { original: '2T0 129 620', tecfil: 'AP9834', mann: 'C20325/2', mahle: 'LX1040', wega: 'WAP-114', fram: 'CA5355' },
-          combustivel: { original: '2T0 127 177 A', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-2045', fram: 'P550881' }
-        }
-      },
-      'VW Work 24-220': {
-        motor: { tipo: '15W-40 (Cummins 6CTAA)', qtd: '20,0 L', intervalo: '40.000 km' },
-        cambio: { tipo: 'Manual: SAE 50', qtd: '13,0 L', intervalo: '100.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '18,0 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: '2T2 115 561 A', tecfil: 'PSL962', mann: 'WP12300', mahle: 'OC516', wega: 'WO-510', fram: 'PH3976' },
-          ar: { original: '2T0 129 620', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-114', fram: 'CA5791' },
-          combustivel: { original: '2T0 127 177 A', tecfil: 'PSC72/2', mann: 'WK940/7', mahle: 'KC18', wega: 'FCD-2045', fram: 'P550881' }
-        }
-      },
-      'VW Work 26-220': {
-        motor: { tipo: '15W-40 (Cummins 6CTAA)', qtd: '20,0 L', intervalo: '40.000 km' },
-        cambio: { tipo: 'Manual: SAE 50', qtd: '13,0 L', intervalo: '100.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '16 L / 14 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: '2T2 115 561 A', tecfil: 'PSL962', mann: 'WP12300', mahle: 'OC516', wega: 'WO-510', fram: 'PH3976' },
-          ar: { original: '2T0 129 620', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-114', fram: 'CA5791' },
-          combustivel: { original: '2T0 127 177 A', tecfil: 'PSC72/2', mann: 'WK940/7', mahle: 'KC18', wega: 'FCD-2045', fram: 'P550881' }
-        }
-      },
-      'VW Work 26-260E': {
-        motor: { tipo: '15W-40 (MWM 6.12 TCE)', qtd: '21,0 L', intervalo: '40.000 km' },
-        cambio: { tipo: 'Manual: SAE 50', qtd: '13,0 L', intervalo: '100.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '16 L / 14 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: '2T2 115 561 A', tecfil: 'PSL283', mann: 'W950/26', mahle: 'OC505', wega: 'WO-510', fram: 'PH3976' },
-          ar: { original: '2T0 129 620', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-114', fram: 'CA5791' },
-          combustivel: { original: '2T0 127 177 A', tecfil: 'PSC75', mann: 'WK950/22', mahle: 'KC201', wega: 'FCD-2045', fram: 'P550881' }
-        }
-      },
-      'VW Constellation 24-250': {
-        motor: { tipo: '15W-40 (Cummins ISBe)', qtd: '19,0 L', intervalo: '40.000 km' },
-        cambio: { tipo: 'Manual: SAE 50', qtd: '9,0 L', intervalo: '100.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '18,0 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: '2T2 115 561 A', tecfil: 'PSL283', mann: 'W950/26', mahle: 'OC505', wega: 'WO-612', fram: 'PH3976' },
-          ar: { original: '2T0 129 620', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-103/S', fram: 'CA5791' },
-          combustivel: { original: '2T0 127 177 A', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-30123', fram: 'P550881' }
-        }
-      },
-      'VW Constellation 26-280': {
-        motor: { tipo: '15W-40 (MAN D08)', qtd: '20,5 L', intervalo: '40.000 km' },
-        cambio: { tipo: 'Manual: 75W-80', qtd: '11,0 L', intervalo: '100.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '16 L / 14 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: '2T2 115 561 A', tecfil: 'PEL728', mann: 'HU9001x', mahle: 'OX438D', wega: 'WO-612', fram: 'PH3976' },
-          ar: { original: '2T0 129 620', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-103', fram: 'CA5791' },
-          combustivel: { original: '2T0 127 177 A', tecfil: 'PEC3036', mann: 'PU9009z', mahle: 'KX386D', wega: 'FCD-30123', fram: 'P550762' }
-        }
-      },
-      'VW Constellation 31-320': {
-        motor: { tipo: '15W-40 (Cummins ISC)', qtd: '23,5 L', intervalo: '40.000 km' },
-        cambio: { tipo: 'Manual: 75W-80', qtd: '13,0 L', intervalo: '100.000 km' },
-        diferencial: { tipo: '85W-140', qtd: '18 L / 15 L', intervalo: '60.000 km' },
-        filtros: {
-          oleo: { original: '2T2 115 561 A', tecfil: 'PSL962', mann: 'WP12300', mahle: 'OC516', wega: 'WO-612', fram: 'PH3976' },
-          ar: { original: '2T0 129 620', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-103', fram: 'CA5791' },
-          combustivel: { original: '2T0 127 177 A', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-30123', fram: 'P550881' }
-        }
-      },
-
-      // --- ÔNIBUS E VANS ---
-      'Fiat Ducato 2.3 Multijet': {
-        motor: { tipo: '5W-30 (FPT F1A)', qtd: '6,0 L', intervalo: '15.000 km' },
-        cambio: { tipo: 'Manual: 75W-80', qtd: '2,7 L', intervalo: '60.000 km' },
-        diferencial: { tipo: 'Não se aplica', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: '504091563', tecfil: 'PSL657', mann: 'W920/48', mahle: 'OC608', wega: 'WO-421', fram: 'PH10268' },
-          ar: { original: '1372173080', tecfil: 'ARS1014', mann: 'C17278', mahle: 'LX1751', wega: 'WR-317', fram: 'CA10110' },
-          combustivel: { original: '1609428080', tecfil: 'PEC3023', mann: 'PU7010z', mahle: 'KX208D', wega: 'FCD-0771/1', fram: 'P550881' }
-        }
-      },
-      'Fiat Ducato 2.8': {
-        motor: { tipo: '15W-40 (Sofim)', qtd: '6,0 L', intervalo: '15.000 km' },
-        cambio: { tipo: 'Manual: 75W-80', qtd: '2,7 L', intervalo: '60.000 km' },
-        diferencial: { tipo: 'Não se aplica', qtd: '-', intervalo: '-' },
-        filtros: {
-          oleo: { original: '504091563', tecfil: 'PSL156', mann: 'W940/18', mahle: 'OC205', wega: 'WO-421', fram: 'PH10268' },
-          ar: { original: '1372173080', tecfil: 'ARS1013', mann: 'C17278', mahle: 'LX1751', wega: 'WR-317', fram: 'CA10110' },
-          combustivel: { original: '1609428080', tecfil: 'PSC496', mann: 'WK854/1', mahle: 'KC83', wega: 'FCD-0771/1', fram: 'P550881' }
-        }
-      },
-      'Iveco - Daily 35S14': {
-        motor: { tipo: '5W-30 (FPT F1C 3.0)', qtd: '7,6 L', intervalo: '20.000 km' },
-        cambio: { tipo: 'Manual: 75W-80', qtd: '2,2 L', intervalo: '60.000 km' },
-        diferencial: { tipo: '80W-90', qtd: '1,8 L', intervalo: '40.000 km' },
-        filtros: {
-          oleo: { original: '504091563', tecfil: 'PSL655', mann: 'W930/21', mahle: 'OC608', wega: 'WO-421', fram: 'PH10268' },
-          ar: { original: '1372173080', tecfil: 'ARS5132', mann: 'C17237/1', mahle: 'LX1751', wega: 'WR-317', fram: 'CA10110' },
-          combustivel: { original: '1609428080', tecfil: 'PEC3023', mann: 'PU7010z', mahle: 'KX208D', wega: 'FCD-0771', fram: 'P550881' }
-        }
-      }
-    };
-
-    // =====================================================================
-    // 3. LÓGICA DE NAVEGAÇÃO
-    // =====================================================================
-    let categoriaAtualSlug = '';
-    let categoriaAtualTitulo = '';
-    let marcaAtual = '';
-    let modeloAtual = '';
-
-    function abrirCategoria(titulo, slug, icone, cor) {
-      categoriaAtualSlug = slug;
-      categoriaAtualTitulo = titulo;
-      marcaAtual = ''; 
-      
-      const tituloLista = document.getElementById('titulo-lista');
-      const gridLista = document.getElementById('grid-lista');
-      
-      tituloLista.innerHTML = `<i class="fa-solid ${icone}" style="color:${cor};"></i> ${titulo}`;
-      gridLista.innerHTML = '';
-      
-      const marcas = bancoDeDados[slug].marcas;
-      
-      for (const marca in marcas) {
-        const card = document.createElement('a');
-        card.className = 'c';
-        card.onclick = () => abrirMarca(marca);
-        card.innerHTML = `
-          <div class="c-header">
-            <div class="c-icone" style="color:${cor}; background: ${cor}15;"><i class="fa-solid fa-flag"></i></div>
-            <b>${marca}</b>
-          </div>
-          <span>${marcas[marca].length} modelos disponíveis</span>
-          <div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-        `;
-        gridLista.appendChild(card);
-      }
-      mudarTela('lista');
+// =====================================================================
+// 1. BANCO DE DADOS DE VEÍCULOS (INALTERADO)
+// =====================================================================
+const bancoDeDados = {
+  'veiculos-passeio': {
+    titulo: 'Veículos Passeio',
+    marcas: {
+      'Chevrolet': ['Chevrolet SPIN', 'Chevrolet Agile', 'Chevrolet Montana'],
+      'Fiat': ['Fiat Palio 1.4', 'Fiat Doblo 1.8', 'Fiat Doblo 1.4', 'Fiat Strada 1.4'],
+      'Ford': ['Ford Fiesta 1.0', 'Ford Fiesta 1.6', 'Ford Focus 1.6', 'Ford Focus 2.0'],
+      'Nissan, Peugeot e Renault': ['Nissan Sentra', 'Nissan Versa 1.6', 'Peugeot 408 1.6 THP', 'Renault Logan - Sandero'],
+      'Volkswagen': ['VW Kombi 1.4', 'VW Gol 1.6 G5', 'VW Gol 1.6 G6']
     }
-
-    function abrirMarca(marca) {
-      marcaAtual = marca;
-      const tituloLista = document.getElementById('titulo-lista');
-      const gridLista = document.getElementById('grid-lista');
-      
-      tituloLista.innerHTML = `<i class="fa-solid fa-flag"></i> ${marca}`;
-      gridLista.innerHTML = '';
-      
-      const modelos = bancoDeDados[categoriaAtualSlug].marcas[marca];
-      
-      modelos.forEach(modelo => {
-        const card = document.createElement('a');
-        card.className = 'c';
-        card.onclick = () => abrirConteudo(modelo);
-        card.innerHTML = `
-          <div class="c-header">
-            <div class="c-icone"><i class="fa-solid fa-wrench"></i></div>
-            <b>${modelo}</b>
-          </div>
-          <span>Ver fluidos e referências de filtros.</span>
-          <div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-        `;
-        gridLista.appendChild(card);
-      });
-      mudarTela('lista');
+  },
+  'veiculos-utilitarios': {
+    titulo: 'Veículos Utilitários',
+    marcas: {
+      'Agrale': ['Agrale Marruá - AM21', 'Agrale Marruá - AM20', 'Agrale Marruá - AM22', 'Agrale Marruá - AM25'],
+      'Ford': ['Ford F-250 e F-350', 'Ford Ranger Power Stroke', 'Ford Ranger 3.0 NGD', 'Ford Ranger 2.2', 'Ford Transit'],
+      'Mitsubishi e Nissan': ['Mitsubishi L200 2.5', 'Mitsubishi Triton 3.2', 'Mitsubishi Triton 2.4', 'Nissan Frontier 2.5', 'Nissan Frontier 2.3'],
+      'Toyota': ['Toyota Hilux 3.0', 'Toyota Hilux 2.8 - Nova']
     }
+  },
+  'caminhoes': {
+    titulo: 'Caminhões',
+    marcas: {
+      'Ford': ['Ford Cargo 816', 'Ford Cargo 2423', 'Ford - 2629 Bau', 'Ford - 2629 CTA e CTC', 'Ford 1933 Cav Mec'],
+      'Mercedes-Benz': ['Mercedes-Benz 2627', 'Mercedes-Benz 915c', 'Mercedes-Benz 1418E', 'Mercedes-Benz AXOR 3344', 'Mercedes-Benz Atego 1725'],
+      'Volkswagen': ['VW Work 815', 'VW Work 5-Ton 15-180', 'VW Work 7-Ton Comercial', 'VW Work 24-220', 'VW Work 26-220', 'VW Work 26-260E', 'VW Constellation 24-250', 'VW Constellation 26-280', 'VW Constellation 31-320']
+    }
+  },
+  'onibus-e-vans': {
+    titulo: 'Ônibus e Vans',
+    marcas: {
+      'Vans e Utilitários': ['Fiat Ducato 2.3 Multijet', 'Fiat Ducato 2.8', 'Iveco - Daily 35S14', 'Ford Transit']
+    }
+  }
+};
 
-    // --- RENDERIZAÇÃO DA TABELA DE FILTROS ---
-    function criarTabelaFiltros(filtros) {
-      if (!filtros) return '<p>Dados de filtros não cadastrados.</p>';
-      
-      const renderLinha = (nome, obj) => {
-        if (!obj) return '';
-        const getVal = (k) => (obj[k] && obj[k] !== '-') ? `<span class="filtro-tag">${obj[k]}</span>` : '-';
-        return `
+// =====================================================================
+// 2. BANCO DE DADOS DE FLUIDOS E FILTROS (NOVO FORMATO)
+// =====================================================================
+const especificacoesOleos = {
+
+  // ==================== VEÍCULOS PASSEIO ====================
+
+  'Chevrolet SPIN': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 5W-30 (dexos1 Gen 3)', norma: 'API SN/SP, ACEA A5/B5', capacidade: '4,2 L (com filtro)', intervalo: '10.000 km ou 1 ano' },
+      { sistema: 'Câmbio Automático', especificacao: 'ATF Dexron VI', norma: 'Dexron VI', capacidade: '8,5 L', intervalo: '60.000 - 80.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-85', norma: 'API GL-4', capacidade: '1,8 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Dexron III ou VI', norma: 'Dexron III/VI', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '6,5 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '0,8 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '24588463', tecfil: 'PSL619', mann: 'W712/22', mahle: 'OC90', wega: 'WO-150', fram: 'PH10907' },
+      ar: { original: '98550812', tecfil: 'ARL8829', mann: 'C24028/1', mahle: 'LX3547', wega: 'FAP-9267', fram: 'CA10330' },
+      combustivel: { original: '93316245', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
+    }
+  },
+
+  'Chevrolet Agile': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 10W-40 semissintético', norma: 'API SL/SN', capacidade: '3,5 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-85', norma: 'API GL-4', capacidade: '1,8 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Dexron III', norma: 'Dexron III', capacidade: '0,95 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '5,5 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '0,45 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '24588463', tecfil: 'PSL619', mann: 'W712/22', mahle: 'OC90', wega: 'WO-150', fram: 'PH10907' },
+      ar: { original: '98550812', tecfil: 'ARL8832', mann: 'C2256', mahle: 'LX3026', wega: 'FAP-9267', fram: 'CA10330' },
+      combustivel: { original: '93316245', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
+    }
+  },
+
+  'Chevrolet Montana': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 5W-30 sintético', norma: 'dexos1', capacidade: '3,5 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-85', norma: 'API GL-4', capacidade: '1,8 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Dexron III', norma: 'Dexron III', capacidade: '0,45 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '5,4 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '0,45 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '24588463', tecfil: 'PSL619', mann: 'W712/22', mahle: 'OC90', wega: 'WO-150', fram: 'PH10907' },
+      ar: { original: '93357924', tecfil: 'ARL8832', mann: 'C2256', mahle: 'LX3026', wega: 'FAP-9267', fram: 'CA10330' },
+      combustivel: { original: '93316245', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
+    }
+  },
+
+  'Fiat Palio 1.4': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 15W-40 semissintético', norma: 'API SL', capacidade: '3,2 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-90', norma: 'API GL-4', capacidade: '2,0 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Dexron II D', norma: 'Dexron II D', capacidade: '0,7 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '5,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '0,5 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '46751179', tecfil: 'PSL55', mann: 'W610/3', mahle: 'OC506', wega: 'WO-120', fram: 'PH5949' },
+      ar: { original: '46420988', tecfil: 'ARL4150', mann: 'C2585', mahle: 'LX1791', wega: 'FAP-9121', fram: 'CA10461' },
+      combustivel: { original: '9947693', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
+    }
+  },
+
+  'Fiat Doblo 1.8': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 15W-40 semissintético', norma: 'API SL', capacidade: '4,3 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-90', norma: 'API GL-4', capacidade: '2,0 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Dexron II D / CHF 11S', norma: 'Dexron II D ou CHF 11S', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '6,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '0,5 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '55256470', tecfil: 'PSL619', mann: 'W712/22', mahle: 'OC90', wega: 'WO-150', fram: 'PH10907' },
+      ar: { original: '51839754', tecfil: 'ARL4148', mann: 'C25116', mahle: 'LX1599', wega: 'FAP-9267', fram: 'CA10330' },
+      combustivel: { original: '77363660', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
+    }
+  },
+
+  'Fiat Doblo 1.4': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 15W-40 semissintético', norma: 'API SL', capacidade: '3,2 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-90', norma: 'API GL-4', capacidade: '2,0 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Dexron II D / CHF 11S', norma: 'Dexron II D ou CHF 11S', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '5,5 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '0,5 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '46751179', tecfil: 'PSL55', mann: 'W610/3', mahle: 'OC506', wega: 'WO-120', fram: 'PH5949' },
+      ar: { original: '51839754', tecfil: 'ARL4148', mann: 'C25116', mahle: 'LX1599', wega: 'FAP-9121', fram: 'CA10461' },
+      combustivel: { original: '9947693', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
+    }
+  },
+
+  'Fiat Strada 1.4': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 15W-40 semissintético', norma: 'API SL', capacidade: '3,2 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-90', norma: 'API GL-4', capacidade: '1,8 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Dexron II D / ATF III', norma: 'Dexron II D ou ATF III', capacidade: '0,5 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '5,5 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '0,5 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '46751179', tecfil: 'PSL55', mann: 'W610/3', mahle: 'OC506', wega: 'WO-120', fram: 'PH5949' },
+      ar: { original: '46420988', tecfil: 'ARL4150', mann: 'C2585', mahle: 'LX1791', wega: 'FAP-9121', fram: 'CA10461' },
+      combustivel: { original: '9947693', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
+    }
+  },
+
+  'Ford Fiesta 1.0': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 5W-30 sintético', norma: 'API SN', capacidade: '4,1 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-90', norma: 'API GL-4', capacidade: '2,1 L', intervalo: '60.000 km' },
+      { sistema: 'Direção', especificacao: 'Elétrica (EPS) - Não requer fluido', norma: 'N/A', capacidade: 'N/A', intervalo: 'N/A' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '5,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '0,5 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: 'EM5G6714AA', tecfil: 'PSL148', mann: 'W719/27', mahle: 'OC266', wega: 'WO-150', fram: 'PH10907' },
+      ar: { original: '2S6G9601AA', tecfil: 'ARL960', mann: 'C2244', mahle: 'LX1597', wega: 'FAP-9003', fram: 'CA10331' },
+      combustivel: { original: '2N1U9155AA', tecfil: 'GI60/7', mann: 'WK613/3', mahle: 'KL476', wega: 'FCI-1695', fram: 'G9891F' }
+    }
+  },
+
+  'Ford Fiesta 1.6': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 5W-30 sintético', norma: 'API SN', capacidade: '4,1 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-90', norma: 'API GL-4', capacidade: '2,1 L', intervalo: '60.000 km' },
+      { sistema: 'Direção', especificacao: 'Elétrica (EPS) - Não requer fluido', norma: 'N/A', capacidade: 'N/A', intervalo: 'N/A' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '5,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '0,5 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: 'EM5G6714AA', tecfil: 'PSL148', mann: 'W719/27', mahle: 'OC266', wega: 'WO-150', fram: 'PH10907' },
+      ar: { original: '2S6G9601AA', tecfil: 'ARL960', mann: 'C2244', mahle: 'LX1597', wega: 'FAP-9003', fram: 'CA10331' },
+      combustivel: { original: '2N1U9155AA', tecfil: 'GI60/7', mann: 'WK613/3', mahle: 'KL476', wega: 'FCI-1695', fram: 'G9891F' }
+    }
+  },
+
+  'Ford Focus 1.6': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 5W-30 sintético', norma: 'API SN', capacidade: '4,1 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-90', norma: 'API GL-4', capacidade: '2,1 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'Fluido WSS-M2C204-A2', norma: 'WSS-M2C204-A2', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '5,5 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '0,5 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: 'EM5G6714AA', tecfil: 'PSL148', mann: 'W719/27', mahle: 'OC266', wega: 'WO-150', fram: 'PH10907' },
+      ar: { original: '2S6G9601AA', tecfil: 'ARL960', mann: 'C2244', mahle: 'LX1597', wega: 'FAP-9003', fram: 'CA10331' },
+      combustivel: { original: '2N1U9155AA', tecfil: 'GI60/7', mann: 'WK613/3', mahle: 'KL476', wega: 'FCI-1695', fram: 'G9891F' }
+    }
+  },
+
+  'Ford Focus 2.0': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 5W-30 sintético', norma: 'API SN', capacidade: '4,3 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-90', norma: 'API GL-4', capacidade: '1,9 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'Fluido WSS-M2C204-A2', norma: 'WSS-M2C204-A2', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '5,5 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '0,5 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '1S7G6714AA', tecfil: 'PSL34M', mann: 'W7013/1', mahle: 'OC1051', wega: 'WO-150', fram: 'PH10907' },
+      ar: { original: '3M5G9601AA', tecfil: 'ARL9604', mann: 'C28122', mahle: 'LX869', wega: 'FAP-9003', fram: 'CA10331' },
+      combustivel: { original: '2N1U9155AA', tecfil: 'GI60/7', mann: 'WK613/3', mahle: 'KL476', wega: 'FCI-1695', fram: 'G9891F' }
+    }
+  },
+
+  'Nissan Sentra': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 5W-30 sintético', norma: 'API SN', capacidade: '4,4 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio CVT', especificacao: 'NS-3', norma: 'NS-3', capacidade: '7,5 L', intervalo: '60.000 km' },
+      { sistema: 'Direção', especificacao: 'Elétrica (EPS) - Não requer fluido', norma: 'N/A', capacidade: 'N/A', intervalo: 'N/A' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '6,5 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '0,8 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '15208-65F0E', tecfil: 'PSL129', mann: 'W67/1', mahle: 'OC1052', wega: 'WO-130', fram: 'PH6607' },
+      ar: { original: '16546-1HC0A', tecfil: 'ARL1654', mann: 'C2433/2', mahle: 'LX1983', wega: 'FAP-9273', fram: 'CA10102' },
+      combustivel: { original: '16400-1HC0A', tecfil: 'GI50/7', mann: 'WK58/3', mahle: 'KL583', wega: 'FCI-1630', fram: 'G1030' }
+    }
+  },
+
+  'Nissan Versa 1.6': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 5W-30 sintético', norma: 'API SN', capacidade: '4,0 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio CVT', especificacao: 'NS-3', norma: 'NS-3', capacidade: '6,9 L', intervalo: '60.000 km' },
+      { sistema: 'Direção', especificacao: 'Elétrica (EPS) - Não requer fluido', norma: 'N/A', capacidade: 'N/A', intervalo: 'N/A' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '6,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '0,8 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '15208-65F0E', tecfil: 'PSL129', mann: 'W67/1', mahle: 'OC1052', wega: 'WO-130', fram: 'PH6607' },
+      ar: { original: '16546-1HC0A', tecfil: 'ARL1656', mann: 'C24012', mahle: 'LX3549', wega: 'FAP-9273', fram: 'CA10102' },
+      combustivel: { original: '16400-1HC0A', tecfil: 'GI50/7', mann: 'WK58/3', mahle: 'KL583', wega: 'FCI-1630', fram: 'G1030' }
+    }
+  },
+
+  'Peugeot 408 1.6 THP': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 5W-30 sintético (PSA B71 2290)', norma: 'PSA B71 2290', capacidade: '4,25 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Automático', especificacao: 'ATF AW-1', norma: 'AW-1', capacidade: '7,0 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'Fluido LDS (PSA S71 2710)', norma: 'PSA S71 2710', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '6,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '0,8 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '1109.CL', tecfil: 'PEL674', mann: 'HU711/51x', mahle: 'OX339/2D', wega: 'WOE-710', fram: 'CH9641' },
+      ar: { original: '1444.XG', tecfil: 'ARL5047', mann: 'C36003', mahle: 'LX2681', wega: 'FAP-9295', fram: 'CA11050' },
+      combustivel: { original: '1901.96', tecfil: 'GI50/7', mann: 'WK58/3', mahle: 'KL583', wega: 'FCI-1630', fram: 'G1030' }
+    }
+  },
+
+  'Renault Logan - Sandero': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 10W-40 semissintético', norma: 'API SL', capacidade: '3,3 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-80', norma: 'API GL-4', capacidade: '2,8 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Dexron III / Renaultmatic D3', norma: 'Dexron III ou Renaultmatic D3', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '5,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '0,5 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '8200768913', tecfil: 'PSL77 / PSL129', mann: 'W75/3 / W67/1', mahle: 'OC467 / OC1052', wega: 'WO-170', fram: 'PH5796' },
+      ar: { original: '8200438066', tecfil: 'AR7705', mann: 'C2680', mahle: 'LX1066', wega: 'FAP-9273', fram: 'CA10102' },
+      combustivel: { original: '164000930R', tecfil: 'GI50/7', mann: 'WK58/3', mahle: 'KL583', wega: 'FCI-1630', fram: 'G1030' }
+    }
+  },
+
+  'VW Kombi 1.4': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 5W-40 sintético', norma: 'VW 502 00', capacidade: '4,0 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-90', norma: 'API GL-4', capacidade: '2,5 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'Fluido VW G004000M2', norma: 'VW TL 52146', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '5,5 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '0,5 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '04E115561H', tecfil: 'PSL560', mann: 'W712/53', mahle: 'OC250', wega: 'WO-240', fram: 'PH2870A' },
+      ar: { original: '5U0129620A', tecfil: 'ARS2868', mann: 'C14179', mahle: 'LX1594', wega: 'FAP-9273', fram: 'CA10575' },
+      combustivel: { original: '6Q0201051C', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1600', fram: 'G1041' }
+    }
+  },
+
+  'VW Gol 1.6 G5': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 5W-40 sintético', norma: 'VW 502 00', capacidade: '3,5 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-90', norma: 'API GL-4', capacidade: '2,0 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'Fluido VW G004000M2', norma: 'VW TL 52146', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '5,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '0,5 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '04E115561H', tecfil: 'PSL560', mann: 'W712/53', mahle: 'OC250', wega: 'WO-240', fram: 'PH2870A' },
+      ar: { original: '5U0129620A', tecfil: 'ARL6095', mann: 'C2295/4', mahle: 'LX1592', wega: 'FAP-9273', fram: 'CA10575' },
+      combustivel: { original: '6Q0201051C', tecfil: 'GI50/7', mann: 'WK58/3', mahle: 'KL583', wega: 'FCI-1600', fram: 'G1030' }
+    }
+  },
+
+  'VW Gol 1.6 G6': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 5W-40 sintético', norma: 'VW 502 00', capacidade: '3,5 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-90', norma: 'API GL-4', capacidade: '2,0 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'Fluido VW G004000M2', norma: 'VW TL 52146', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '5,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '0,5 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '04E115561H', tecfil: 'PSL560', mann: 'W712/53', mahle: 'OC250', wega: 'WO-240', fram: 'PH2870A' },
+      ar: { original: '5U0129620A', tecfil: 'ARL6095', mann: 'C2295/4', mahle: 'LX1592', wega: 'FAP-9273', fram: 'CA10575' },
+      combustivel: { original: '6Q0201051C', tecfil: 'GI50/7', mann: 'WK58/3', mahle: 'KL583', wega: 'FCI-1600', fram: 'G1030' }
+    }
+  },
+
+  // ==================== VEÍCULOS UTILITÁRIOS ====================
+
+  'Agrale Marruá - AM21': {
+    sistemas: [
+      { sistema: 'Motor (MWM Sprint)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '5,5 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 50', norma: 'API GL-4', capacidade: '3,2 L', intervalo: '40.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '2,5 L', intervalo: '40.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Dexron II/III', norma: 'Dexron II/III', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '10,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '1,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '6008.001.204.00.4', tecfil: 'PSL340', mann: 'W940/34', mahle: 'OC311', wega: 'WO-540', fram: 'PH9503' },
+      ar: { original: '6008.001.700.00.4', tecfil: 'ARS7109', mann: 'C18450/1 + CF1150', mahle: 'LX964 + LXS44', wega: 'WR-200/8 + WR-200/8S', fram: 'CA5355' },
+      combustivel: { original: '6008.001.300.00.4', tecfil: 'PSC498', mann: 'WK842/2', mahle: 'KC119', wega: 'FCD-0766', fram: 'P550881' }
+    }
+  },
+
+  'Agrale Marruá - AM20': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '5,5 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 50', norma: 'API GL-4', capacidade: '3,2 L', intervalo: '40.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '2,5 L', intervalo: '40.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Dexron II/III', norma: 'Dexron II/III', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '10,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '1,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '6008.001.204.00.4', tecfil: 'PSL340', mann: 'W940/34', mahle: 'OC311', wega: 'WO-540', fram: 'PH9503' },
+      ar: { original: '6008.001.700.00.4', tecfil: 'ARS7109', mann: 'C18450/1 + CF1150', mahle: 'LX964 + LXS44', wega: 'WR-200/8 + WR-200/8S', fram: 'CA5355' },
+      combustivel: { original: '6008.001.300.00.4', tecfil: 'PSC498', mann: 'WK842/2', mahle: 'KC119', wega: 'FCD-0766', fram: 'P550881' }
+    }
+  },
+
+  'Agrale Marruá - AM22': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '5,5 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 50', norma: 'API GL-4', capacidade: '3,2 L', intervalo: '40.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '2,5 L', intervalo: '40.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Dexron II/III', norma: 'Dexron II/III', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '10,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '1,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '6008.001.204.00.4', tecfil: 'PSL340', mann: 'W940/34', mahle: 'OC311', wega: 'WO-540', fram: 'PH9503' },
+      ar: { original: '6008.001.700.00.4', tecfil: 'ARS7109', mann: 'C18450/1 + CF1150', mahle: 'LX964 + LXS44', wega: 'WR-200/8 + WR-200/8S', fram: 'CA5355' },
+      combustivel: { original: '6008.001.300.00.4', tecfil: 'PSC498', mann: 'WK842/2', mahle: 'KC119', wega: 'FCD-0766', fram: 'P550881' }
+    }
+  },
+
+  'Agrale Marruá - AM25': {
+    sistemas: [
+      { sistema: 'Motor', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '8,5 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 50', norma: 'API GL-4', capacidade: '3,2 L', intervalo: '40.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '3,0 L', intervalo: '40.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Dexron II/III', norma: 'Dexron II/III', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '12,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '1,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '6008.001.204.00.4', tecfil: 'PSL340', mann: 'W940/34', mahle: 'OC311', wega: 'WO-540', fram: 'PH9503' },
+      ar: { original: '6008.001.700.00.4', tecfil: 'ARS7109', mann: 'C18450/1 + CF1150', mahle: 'LX964 + LXS44', wega: 'WR-200/8 + WR-200/8S', fram: 'CA5355' },
+      combustivel: { original: '6008.001.300.00.4', tecfil: 'PSC498', mann: 'WK842/2', mahle: 'KC119', wega: 'FCD-0766', fram: 'P550881' }
+    }
+  },
+
+  'Ford F-250 e F-350': {
+    sistemas: [
+      { sistema: 'Motor (MWM/Cummins)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '8,5 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'ATF Mercon', norma: 'Mercon', capacidade: '3,4 L', intervalo: '60.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 80W-90 / 85W-140', norma: 'API GL-5', capacidade: '4,0 L', intervalo: '40.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Mercon', norma: 'Mercon', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '15,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '1,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: 'F4TZ6731B', tecfil: 'PSL335', mann: 'W950/18', mahle: 'OC413', wega: 'WO-480', fram: 'PH3976' },
+      ar: { original: 'F81Z9601AA', tecfil: 'AP7998', mann: 'C17308', mahle: 'LX1054', wega: 'WAP-114', fram: 'CA5355' },
+      combustivel: { original: 'F81Z9155BA', tecfil: 'PSC72/2', mann: 'WK723', mahle: 'KC18', wega: 'FCD-2045', fram: 'P550440' }
+    }
+  },
+
+  'Ford Ranger Power Stroke': {
+    sistemas: [
+      { sistema: 'Motor (International 2.8)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '7,0 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'ATF Mercon', norma: 'Mercon', capacidade: '2,6 L', intervalo: '60.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 80W-90 / 85W-140', norma: 'API GL-5', capacidade: '3,4 L', intervalo: '40.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Mercon', norma: 'Mercon', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '12,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '1,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: 'F4TZ6731B', tecfil: 'PSL900', mann: 'W930/20', mahle: 'OC23', wega: 'WO-480', fram: 'PH3976' },
+      ar: { original: 'F87Z9601AA', tecfil: 'ARS7992', mann: 'C13114/4', mahle: 'LX1596', wega: 'WAP-268', fram: 'CA9988' },
+      combustivel: { original: 'F87Z9155AA', tecfil: 'PSC498', mann: 'WK842/13', mahle: 'KC119', wega: 'FCD-2061', fram: 'P551433' }
+    }
+  },
+
+  'Ford Ranger 3.0 NGD': {
+    sistemas: [
+      { sistema: 'Motor (MWM 3.0)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '9,0 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'ATF Mercon', norma: 'Mercon', capacidade: '2,8 L', intervalo: '50.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 80W-90 / 85W-140', norma: 'API GL-5', capacidade: '2,6 L', intervalo: '40.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Dexron III / Mercon V', norma: 'Dexron III ou Mercon V', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '13,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '1,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: 'BG 5T 6731 AA', tecfil: 'PEL310', mann: 'HU9328X', mahle: 'OX1691D', wega: 'WOE-130', fram: 'CH9641' },
+      ar: { original: 'AB39 9601 AB', tecfil: 'ARS7992', mann: 'C13114/4', mahle: 'LX1596', wega: 'WR-188', fram: 'CA9988' },
+      combustivel: { original: 'AB39 9155 BC', tecfil: 'PSC410/1', mann: 'WK842/22', mahle: 'KC249', wega: 'FCD-2075', fram: 'P551435' }
+    }
+  },
+
+  'Ford Ranger 2.2': {
+    sistemas: [
+      { sistema: 'Motor (Duratorq)', especificacao: 'SAE 5W-30', norma: 'API SN', capacidade: '8,6 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-90', norma: 'API GL-4', capacidade: '2,7 L', intervalo: '60.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 80W-90 / 75W-90', norma: 'API GL-5', capacidade: '2,9 L', intervalo: '40.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF VI', norma: 'ATF VI', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '11,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '1,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: 'BK3Q 6714 AB', tecfil: 'PEL309', mann: 'HU7002z', mahle: 'OX339/2D', wega: 'WOE-215', fram: 'CH10656' },
+      ar: { original: 'AB39 9601 AA', tecfil: 'ARS7994', mann: 'C22024', mahle: 'LX3511', wega: 'FAP-9006', fram: 'CA11050' },
+      combustivel: { original: 'AB39 9155 AA', tecfil: 'PC951', mann: 'PU835x', mahle: 'KX338/26D', wega: 'FCD-0796', fram: 'P551436' }
+    }
+  },
+
+  'Ford Transit': {
+    sistemas: [
+      { sistema: 'Motor (Duratorq)', especificacao: 'SAE 5W-30', norma: 'WSS-M2C913-D', capacidade: '9,8 L', intervalo: '15.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-90', norma: 'API GL-4', capacidade: '3,7 L', intervalo: '60.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 75W-90', norma: 'API GL-5', capacidade: '2,2 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'Fluido WSS-M2C204-A2 / WSA-M2C195-A', norma: 'WSS-M2C204-A2 ou WSA-M2C195-A', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '13,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '1,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '6C1Q 6744 AA', tecfil: 'PEL110', mann: 'HU920x', mahle: 'OX193D', wega: 'WOE-300', fram: 'CH9641' },
+      ar: { original: '6C1Q 9601 AA', tecfil: 'ARL9608', mann: 'C28100', mahle: 'LX935', wega: 'FAP-9006', fram: 'CA11050' },
+      combustivel: { original: '6C1Q 9155 AA', tecfil: 'PSC992', mann: 'WK8157', mahle: 'KC204', wega: 'FCD-0796', fram: 'P551434' }
+    }
+  },
+
+  'Mitsubishi L200 2.5': {
+    sistemas: [
+      { sistema: 'Motor (4D56)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '6,5 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-85', norma: 'API GL-4', capacidade: '2,3 L', intervalo: '40.000 km' },
+      { sistema: 'Diferencial (LSD)', especificacao: 'SAE 80W-90', norma: 'API GL-5', capacidade: '2,6 L', intervalo: '40.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF III / SP-III', norma: 'ATF III ou SP-III', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '9,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '1,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: 'ME013307', tecfil: 'PSL325', mann: 'WP928/80', mahle: 'OC274', wega: 'WO-160', fram: 'PH9688' },
+      ar: { original: 'MR571476', tecfil: 'ARS7109', mann: 'C15300', mahle: 'LX964', wega: 'WAP-161', fram: 'CA5355' },
+      combustivel: { original: 'MR204495', tecfil: 'PSC498', mann: 'WK842/13', mahle: 'KC119', wega: 'FCD-2058', fram: 'P550390' }
+    }
+  },
+
+  'Mitsubishi Triton 3.2': {
+    sistemas: [
+      { sistema: 'Motor (4M41)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '7,5 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Automático', especificacao: 'ATF SP-III', norma: 'SP-III', capacidade: '8,5 L', intervalo: '60.000 km' },
+      { sistema: 'Diferencial (LSD)', especificacao: 'SAE 80W-90', norma: 'API GL-5', capacidade: '2,3 L', intervalo: '40.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF III / SP-III', norma: 'ATF III ou SP-III', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '10,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '1,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: 'ME013307', tecfil: 'PSL330', mann: 'WP1045', mahle: 'OC274', wega: 'WO-160', fram: 'PH9688' },
+      ar: { original: '1500A098', tecfil: 'ARL4135', mann: 'C24011', mahle: 'LX2616', wega: 'WAP-161', fram: 'CA10110' },
+      combustivel: { original: '1770A053', tecfil: 'PEC3025', mann: 'PU835x', mahle: 'KX265D', wega: 'FCD-2058', fram: 'P550882' }
+    }
+  },
+
+  'Mitsubishi Triton 2.4': {
+    sistemas: [
+      { sistema: 'Motor (4N15)', especificacao: 'SAE 5W-30', norma: 'API SN', capacidade: '8,4 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Automático', especificacao: 'ATF SP-III', norma: 'SP-III', capacidade: '8,0 L', intervalo: '60.000 km' },
+      { sistema: 'Diferencial (LSD)', especificacao: 'SAE 80W-90', norma: 'API GL-5', capacidade: '2,3 L', intervalo: '40.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF III / SP-III', norma: 'ATF III ou SP-III', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '10,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '1,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '1230A187', tecfil: 'PSL156', mann: 'W811/80', mahle: 'OC1183', wega: 'WOE-473', fram: 'PH9688' },
+      ar: { original: '1500A098', tecfil: 'ARL4139', mann: 'C24011', mahle: 'LX2616', wega: 'FAP-9003', fram: 'CA10110' },
+      combustivel: { original: '1770A053', tecfil: 'PEC3039', mann: 'PU8021', mahle: 'KX495D', wega: 'FCD-0784', fram: 'P552002' }
+    }
+  },
+
+  'Nissan Frontier 2.5': {
+    sistemas: [
+      { sistema: 'Motor (YD25)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '6,9 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-85', norma: 'API GL-4', capacidade: '3,8 L', intervalo: '40.000 km' },
+      { sistema: 'Diferencial (LSD)', especificacao: 'SAE 80W-90', norma: 'API GL-5', capacidade: '2,0 L', intervalo: '40.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'Nissan PSF-II ou Dexron VI', norma: 'PSF-II ou Dexron VI', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '9,5 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '1,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '15208-2W200', tecfil: 'PSL158', mann: 'W610/3', mahle: 'OC217/6', wega: 'WO-170', fram: 'PH6607' },
+      ar: { original: '16546-EB70A', tecfil: 'ARL1655', mann: 'C27003', mahle: 'LX1995', wega: 'FAP-9267', fram: 'CA10102' },
+      combustivel: { original: '16400-EB70A', tecfil: 'PSC993', mann: 'WK920/6', mahle: 'KC236', wega: 'FCI-1630', fram: 'P550883' }
+    }
+  },
+
+  'Nissan Frontier 2.3': {
+    sistemas: [
+      { sistema: 'Motor (YS23)', especificacao: 'SAE 5W-30', norma: 'API SN', capacidade: '7,3 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-80', norma: 'API GL-4', capacidade: '3,5 L', intervalo: '40.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 75W-90', norma: 'API GL-5', capacidade: '2,1 L', intervalo: '40.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'Nissan PSF-II ou Dexron VI', norma: 'PSF-II ou Dexron VI', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '9,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '1,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '15209-0000A', tecfil: 'PEL121', mann: 'HU6015z', mahle: 'OX968D', wega: 'WOE-247', fram: 'CH10656' },
+      ar: { original: '16546-00Q0A', tecfil: 'ARL1657', mann: 'C25040', mahle: 'LX4233', wega: 'FAP-9296', fram: 'CA11050' },
+      combustivel: { original: '16400-00Q0A', tecfil: 'PC960', mann: 'PU8014', mahle: 'KX387/1D', wega: 'FCD-0796', fram: 'P552008' }
+    }
+  },
+
+  'Toyota Hilux 3.0': {
+    sistemas: [
+      { sistema: 'Motor (1KD-FTV)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '6,9 L', intervalo: '10.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-90', norma: 'API GL-4', capacidade: '2,2 L', intervalo: '60.000 km' },
+      { sistema: 'Diferencial (LSD)', especificacao: 'SAE 75W-90', norma: 'API GL-5', capacidade: '3,4 L', intervalo: '40.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Dexron II ou III', norma: 'Dexron II/III', capacidade: '1,0 L', intervalo: '80.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Toyota Super Long Life Coolant (50/50)', norma: 'OAT sem silicatos (rosa)', capacidade: '9,0 L', intervalo: '160.000 km (1ª troca); 80.000 km após' },
+      { sistema: 'Freios', especificacao: 'DOT 3 ou DOT 4', norma: 'FMVSS 116 / SAE J1703/J1704', capacidade: '0,8 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '90915-YZZD3', tecfil: 'PSL127', mann: 'W712/83', mahle: 'OC988', wega: 'WO-170', fram: 'PH3614' },
+      ar: { original: '17801-30040', tecfil: 'ARS3002', mann: 'C23107', mahle: 'LX1618', wega: 'FAP-9267', fram: 'CA10102' },
+      combustivel: { original: '23390-0L010', tecfil: 'PEC3022', mann: 'PU835x', mahle: 'KX265D', wega: 'FCD-2066', fram: 'P550882' }
+    }
+  },
+
+  'Toyota Hilux 2.8 - Nova': {
+    sistemas: [
+      { sistema: 'Motor 1GD-FTV', especificacao: 'SAE 5W-30', norma: 'ACEA C2 ou JASO DL-1 (uso severo: 5.000 km ou 3 meses)', capacidade: '7,5 L (com filtro) / 7,1 L (sem filtro)', intervalo: '10.000 km ou 6 meses' },
+      { sistema: 'Transmissão Manual', especificacao: 'Toyota Genuine Gear Oil LV 75W ou 75W-90', norma: 'API GL-4', capacidade: '2,2 L a 2,7 L (conforme 4x2 ou 4x4)', intervalo: '40.000 km ou 4 anos' },
+      { sistema: 'Transmissão Automática (AC60F)', especificacao: 'Toyota Genuine ATF WS', norma: 'Toyota ATF WS (6 marchas)', capacidade: '9,5 L (capacidade total a seco)', intervalo: '80.000 km ou 4 anos' },
+      { sistema: 'Caixa de Transferência (4x4)', especificacao: 'Toyota Genuine Transfer Gear Oil LF 75W', norma: 'SAE 75W específico para transferência', capacidade: '1,0 L', intervalo: '40.000 km ou 4 anos' },
+      { sistema: 'Diferencial Dianteiro', especificacao: 'Toyota Genuine Differential Gear Oil LT 75W-85', norma: 'API GL-5', capacidade: '1,45 L a 1,60 L', intervalo: '40.000 km ou 4 anos' },
+      { sistema: 'Diferencial Traseiro', especificacao: 'Toyota Genuine Differential Gear Oil LT 75W-85', norma: 'API GL-5 (nível pelo bujão de enchimento)', capacidade: '2,75 L a 3,75 L (sem bloqueio) / até 5,34 L (com bloqueio)', intervalo: '40.000 km ou 4 anos' },
+      { sistema: 'Direção Hidráulica', especificacao: 'Fluido ATF Dexron II ou Dexron III', norma: 'Dexron II / III', capacidade: '1,0 L (nível no reservatório)', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Sistema de Arrefecimento', especificacao: 'Toyota Super Long Life Coolant (50/50)', norma: 'Aditivo orgânico OAT sem silicatos (cor rosa)', capacidade: '8,7 L a 9,3 L (motor) + 2,95 L (intercooler)', intervalo: 'Primeira troca aos 160.000 km; depois a cada 80.000 km' },
+      { sistema: 'Eixo Cardã (Cruzetas e Luvas)', especificacao: 'Graxa à base de lítio NLGI nº 2', norma: 'Sabão de lítio para chassis e rolamentos', capacidade: 'Aplicar até purgar a graxa antiga', intervalo: '10.000 km (ou após água/lama)' },
+      { sistema: 'Sistema de Freios e Embreagem', especificacao: 'Fluido de freio DOT 3 ou DOT 4', norma: 'FMVSS Nº 116 / SAE J1703 ou J1704', capacidade: '0,8 L a 1,0 L (sangria completa)', intervalo: '40.000 km ou 2 anos', observacao: 'Reservatório compartilhado' }
+    ],
+    filtros: {
+      oleo: { original: '90915-YZZD3', tecfil: 'PSL127', mann: 'W712/83', mahle: 'OC988', wega: 'WOE-473', fram: 'PH3614' },
+      ar: { original: '17801-0E010', tecfil: 'ARL2205', mann: 'C32011', mahle: 'LX4377', wega: 'FAP-9296', fram: 'CA11050' },
+      combustivel: { original: '23390-0E010', tecfil: 'PEC3042', mann: 'PU8028', mahle: 'KX531D', wega: 'FCD-0784', fram: 'P552012' }
+    }
+  },
+
+  // ==================== CAMINHÕES ====================
+
+  'Ford Cargo 816': {
+    sistemas: [
+      { sistema: 'Motor (Cummins ISB 4.5)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '13,0 L', intervalo: '30.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 40/50', norma: 'API GL-4', capacidade: '4,5 L', intervalo: '100.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '9,0 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Mercon / Dexron III', norma: 'Mercon ou Dexron III', capacidade: '3,5 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '20,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '2,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '4932123', tecfil: 'PSL283', mann: 'W950/26', mahle: 'OC505', wega: 'WO-510', fram: 'PH3976' },
+      ar: { original: '170282', tecfil: 'AP7998', mann: 'C17308', mahle: 'LX1054', wega: 'WAP-114', fram: 'CA5355' },
+      combustivel: { original: '4989106', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-2045', fram: 'P550881' }
+    }
+  },
+
+  'Ford Cargo 2423': {
+    sistemas: [
+      { sistema: 'Motor (Cummins ISB 6.7)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '19,5 L', intervalo: '40.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 50', norma: 'API GL-4', capacidade: '13,0 L', intervalo: '100.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '18,0 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Mercon / Dexron III', norma: 'Mercon ou Dexron III', capacidade: '3,5 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '28,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '2,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '4897897', tecfil: 'PSL283', mann: 'W950/26', mahle: 'OC505', wega: 'WO-612', fram: 'PH3976' },
+      ar: { original: 'AF26114', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-102 + WAP-102/S', fram: 'CA5791' },
+      combustivel: { original: 'FS19732', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-2045B', fram: 'P550881' }
+    }
+  },
+
+  'Ford - 2629 Bau': {
+    sistemas: [
+      { sistema: 'Motor (Cummins ISB 6.7)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '19,5 L', intervalo: '40.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 50', norma: 'API GL-4', capacidade: '13,0 L', intervalo: '100.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '16 L / 14 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Mercon / Dexron III', norma: 'Mercon ou Dexron III', capacidade: '3,5 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '28,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '2,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '4897897', tecfil: 'PSL283', mann: 'W950/26', mahle: 'OC505', wega: 'WO-612', fram: 'PH3976' },
+      ar: { original: 'AF26114', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-103', fram: 'CA5791' },
+      combustivel: { original: 'FS19732', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-2045B', fram: 'P550881' }
+    }
+  },
+
+  'Ford - 2629 CTA e CTC': {
+    sistemas: [
+      { sistema: 'Motor (Cummins ISB 6.7)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '19,5 L', intervalo: '40.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 50', norma: 'API GL-4', capacidade: '13,0 L', intervalo: '100.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '16 L / 14 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Mercon / Dexron III', norma: 'Mercon ou Dexron III', capacidade: '3,5 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '28,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '2,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '4897897', tecfil: 'PSL283', mann: 'W950/26', mahle: 'OC505', wega: 'WO-612', fram: 'PH3976' },
+      ar: { original: 'AF26114', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-103', fram: 'CA5791' },
+      combustivel: { original: 'FS19732', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-2045B', fram: 'P550881' }
+    }
+  },
+
+  'Ford 1933 Cav Mec': {
+    sistemas: [
+      { sistema: 'Motor (Cummins ISL 8.9)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '25,0 L', intervalo: '40.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 50', norma: 'API GL-4', capacidade: '13,0 L', intervalo: '100.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '21,0 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF Mercon / Dexron III', norma: 'Mercon ou Dexron III', capacidade: '3,5 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '35,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '2,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '3401544', tecfil: 'PSL962', mann: 'WP12300', mahle: 'OC516', wega: 'WO-612', fram: 'PH3976' },
+      ar: { original: 'AF26114', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-103', fram: 'CA5791' },
+      combustivel: { original: 'FS19732', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-2045B', fram: 'P550881' }
+    }
+  },
+
+  'Mercedes-Benz 2627': {
+    sistemas: [
+      { sistema: 'Motor (OM-447)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '28,0 L', intervalo: '40.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 80W', norma: 'API GL-4', capacidade: '13,0 L', intervalo: '100.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '14 L / 12 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'MB 236.3 / Dexron IID', norma: 'MB 236.3 ou Dexron IID', capacidade: '3,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '40,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '2,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: 'A0001802609', tecfil: 'PEL2002', mann: 'HU12140x', mahle: 'OX153/7D', wega: 'WO-710', fram: 'CH11180' },
+      ar: { original: 'A0030949304', tecfil: 'AP9835', mann: 'C271340', mahle: 'LX1038', wega: 'WAP-114', fram: 'CA5355' },
+      combustivel: { original: 'A0000901651', tecfil: 'PEC3021', mann: 'PU999/1x', mahle: 'KX80D', wega: 'FCD-2058', fram: 'P550762' }
+    }
+  },
+
+  'Mercedes-Benz 915c': {
+    sistemas: [
+      { sistema: 'Motor (OM-904)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '15,8 L', intervalo: '40.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 80W', norma: 'API GL-4', capacidade: '9,0 L', intervalo: '100.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '8,5 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'MB 236.3 / Dexron IID', norma: 'MB 236.3 ou Dexron IID', capacidade: '3,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '25,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '1,5 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: 'A0001802609', tecfil: 'PEL2001', mann: 'HU931/5x', mahle: 'OX161D', wega: 'WO-710', fram: 'CH11180' },
+      ar: { original: 'A0030949304', tecfil: 'AP9836', mann: 'C20500', mahle: 'LX1039', wega: 'WAP-114', fram: 'CA5355' },
+      combustivel: { original: 'A0000901651', tecfil: 'PEC3013', mann: 'PU941x', mahle: 'KX67/2D', wega: 'FCD-2058', fram: 'P550632' }
+    }
+  },
+
+  'Mercedes-Benz 1418E': {
+    sistemas: [
+      { sistema: 'Motor (OM-366)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '16,5 L', intervalo: '30.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 80W', norma: 'API GL-4', capacidade: '9,0 L', intervalo: '100.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '12,0 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'MB 236.3 / Dexron IID', norma: 'MB 236.3 ou Dexron IID', capacidade: '3,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '26,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '1,5 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: 'A0001802609', tecfil: 'PEL202', mann: 'H947/1x', mahle: 'OX127', wega: 'WO-710', fram: 'CH11180' },
+      ar: { original: 'A0030949304', tecfil: 'AP9834', mann: 'C20325/2', mahle: 'LX1040', wega: 'WAP-114', fram: 'CA5355' },
+      combustivel: { original: 'A0000901651', tecfil: 'PC2/255', mann: 'P917x', mahle: 'KX43', wega: 'FCD-2058', fram: 'P550632' }
+    }
+  },
+
+  'Mercedes-Benz AXOR 3344': {
+    sistemas: [
+      { sistema: 'Motor (OM-457 LA)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '38,0 L', intervalo: '40.000 km' },
+      { sistema: 'Câmbio Manual/Auto', especificacao: 'SAE 75W-80', norma: 'API GL-4', capacidade: '15,0 L', intervalo: '100.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '14,5 L / 12,5 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'MB 236.3 / Dexron IID', norma: 'MB 236.3 ou Dexron IID', capacidade: '3,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '45,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '2,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: 'A0001802609', tecfil: 'PEL2004', mann: 'HU12110x', mahle: 'OX174D', wega: 'WOE-245', fram: 'CH11180' },
+      ar: { original: 'A0030949304', tecfil: 'AP9835', mann: 'C271340', mahle: 'LX1038', wega: 'WAP-114', fram: 'CA5355' },
+      combustivel: { original: 'A0000901651', tecfil: 'PEC3021', mann: 'PU999/1x', mahle: 'KX80D', wega: 'FCD-2058', fram: 'P550762' }
+    }
+  },
+
+  'Mercedes-Benz Atego 1725': {
+    sistemas: [
+      { sistema: 'Motor (OM-906 LA)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '26,5 L', intervalo: '40.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 80W', norma: 'API GL-4', capacidade: '9,0 L', intervalo: '100.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '12,0 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'MB 236.3 / Dexron IID', norma: 'MB 236.3 ou Dexron IID', capacidade: '3,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '30,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '2,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: 'A0001802609', tecfil: 'PEL2003', mann: 'HU945/2x', mahle: 'OX160D', wega: 'WO-710', fram: 'CH11180' },
+      ar: { original: 'A0030949304', tecfil: 'ARS9841', mann: 'C29010KIT', mahle: 'LX1762', wega: 'WAP-114', fram: 'CA5355' },
+      combustivel: { original: 'A0000901651', tecfil: 'PEC3014', mann: 'PU1046x', mahle: 'KX67/1D', wega: 'FCD-2058', fram: 'P550633' }
+    }
+  },
+
+  'VW Work 815': {
+    sistemas: [
+      { sistema: 'Motor (MWM 4.10 TCA)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '13,0 L', intervalo: '30.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 40', norma: 'API GL-4', capacidade: '4,5 L', intervalo: '100.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '8,0 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'VW G004000M2', norma: 'VW TL 52146', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '20,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '2,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '2T2 115 561 A', tecfil: 'PSL335', mann: 'W950/18', mahle: 'OC413', wega: 'WO-510', fram: 'PH3976' },
+      ar: { original: '2T0 129 620', tecfil: 'AP7998', mann: 'C17308', mahle: 'LX1054', wega: 'WAP-114', fram: 'CA5355' },
+      combustivel: { original: '2T0 127 177 A', tecfil: 'PSC72/2', mann: 'WK723', mahle: 'KC18', wega: 'FCD-2045', fram: 'P550440' }
+    }
+  },
+
+  'VW Work 5-Ton 15-180': {
+    sistemas: [
+      { sistema: 'Motor (MWM 6.10 TCA)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '16,5 L', intervalo: '40.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 40/50', norma: 'API GL-4', capacidade: '7,2 L', intervalo: '100.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '15,0 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'VW G004000M2', norma: 'VW TL 52146', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '25,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '2,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '2T2 115 561 A', tecfil: 'PSL335', mann: 'W950/18', mahle: 'OC413', wega: 'WO-510', fram: 'PH3976' },
+      ar: { original: '2T0 129 620', tecfil: 'AP9834', mann: 'C20325/2', mahle: 'LX1040', wega: 'WAP-114', fram: 'CA5355' },
+      combustivel: { original: '2T0 127 177 A', tecfil: 'PSC72/2', mann: 'WK723', mahle: 'KC18', wega: 'FCD-2045', fram: 'P550440' }
+    }
+  },
+
+  'VW Work 7-Ton Comercial': {
+    sistemas: [
+      { sistema: 'Motor (Cummins)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '16,5 L', intervalo: '40.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 50', norma: 'API GL-4', capacidade: '9,0 L', intervalo: '100.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '15,0 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'VW G004000M2', norma: 'VW TL 52146', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '25,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '2,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '2T2 115 561 A', tecfil: 'PSL335', mann: 'W950/18', mahle: 'OC413', wega: 'WO-510', fram: 'PH3976' },
+      ar: { original: '2T0 129 620', tecfil: 'AP9834', mann: 'C20325/2', mahle: 'LX1040', wega: 'WAP-114', fram: 'CA5355' },
+      combustivel: { original: '2T0 127 177 A', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-2045', fram: 'P550881' }
+    }
+  },
+
+  'VW Work 24-220': {
+    sistemas: [
+      { sistema: 'Motor (Cummins 6CTAA)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '20,0 L', intervalo: '40.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 50', norma: 'API GL-4', capacidade: '13,0 L', intervalo: '100.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '18,0 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'VW G004000M2', norma: 'VW TL 52146', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '30,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '2,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '2T2 115 561 A', tecfil: 'PSL962', mann: 'WP12300', mahle: 'OC516', wega: 'WO-510', fram: 'PH3976' },
+      ar: { original: '2T0 129 620', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-114', fram: 'CA5791' },
+      combustivel: { original: '2T0 127 177 A', tecfil: 'PSC72/2', mann: 'WK940/7', mahle: 'KC18', wega: 'FCD-2045', fram: 'P550881' }
+    }
+  },
+
+  'VW Work 26-220': {
+    sistemas: [
+      { sistema: 'Motor (Cummins 6CTAA)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '20,0 L', intervalo: '40.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 50', norma: 'API GL-4', capacidade: '13,0 L', intervalo: '100.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '16 L / 14 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'VW G004000M2', norma: 'VW TL 52146', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '30,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '2,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '2T2 115 561 A', tecfil: 'PSL962', mann: 'WP12300', mahle: 'OC516', wega: 'WO-510', fram: 'PH3976' },
+      ar: { original: '2T0 129 620', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-114', fram: 'CA5791' },
+      combustivel: { original: '2T0 127 177 A', tecfil: 'PSC72/2', mann: 'WK940/7', mahle: 'KC18', wega: 'FCD-2045', fram: 'P550881' }
+    }
+  },
+
+  'VW Work 26-260E': {
+    sistemas: [
+      { sistema: 'Motor (MWM 6.12 TCE)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '21,0 L', intervalo: '40.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 50', norma: 'API GL-4', capacidade: '13,0 L', intervalo: '100.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '16 L / 14 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'VW G004000M2', norma: 'VW TL 52146', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '32,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '2,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '2T2 115 561 A', tecfil: 'PSL283', mann: 'W950/26', mahle: 'OC505', wega: 'WO-510', fram: 'PH3976' },
+      ar: { original: '2T0 129 620', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-114', fram: 'CA5791' },
+      combustivel: { original: '2T0 127 177 A', tecfil: 'PSC75', mann: 'WK950/22', mahle: 'KC201', wega: 'FCD-2045', fram: 'P550881' }
+    }
+  },
+
+  'VW Constellation 24-250': {
+    sistemas: [
+      { sistema: 'Motor (Cummins ISBe)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '19,0 L', intervalo: '40.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 50', norma: 'API GL-4', capacidade: '9,0 L', intervalo: '100.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '18,0 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'VW G004000M2', norma: 'VW TL 52146', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '28,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '2,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '2T2 115 561 A', tecfil: 'PSL283', mann: 'W950/26', mahle: 'OC505', wega: 'WO-612', fram: 'PH3976' },
+      ar: { original: '2T0 129 620', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-103/S', fram: 'CA5791' },
+      combustivel: { original: '2T0 127 177 A', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-30123', fram: 'P550881' }
+    }
+  },
+
+  'VW Constellation 26-280': {
+    sistemas: [
+      { sistema: 'Motor (MAN D08)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '20,5 L', intervalo: '40.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-80', norma: 'API GL-4', capacidade: '11,0 L', intervalo: '100.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '16 L / 14 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'VW G004000M2', norma: 'VW TL 52146', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '30,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '2,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '2T2 115 561 A', tecfil: 'PEL728', mann: 'HU9001x', mahle: 'OX438D', wega: 'WO-612', fram: 'PH3976' },
+      ar: { original: '2T0 129 620', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-103', fram: 'CA5791' },
+      combustivel: { original: '2T0 127 177 A', tecfil: 'PEC3036', mann: 'PU9009z', mahle: 'KX386D', wega: 'FCD-30123', fram: 'P550762' }
+    }
+  },
+
+  'VW Constellation 31-320': {
+    sistemas: [
+      { sistema: 'Motor (Cummins ISC)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '23,5 L', intervalo: '40.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-80', norma: 'API GL-4', capacidade: '13,0 L', intervalo: '100.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '18 L / 15 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'VW G004000M2', norma: 'VW TL 52146', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '35,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '2,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '2T2 115 561 A', tecfil: 'PSL962', mann: 'WP12300', mahle: 'OC516', wega: 'WO-612', fram: 'PH3976' },
+      ar: { original: '2T0 129 620', tecfil: 'ARS9839', mann: 'C27830', mahle: 'LX1047', wega: 'WAP-103', fram: 'CA5791' },
+      combustivel: { original: '2T0 127 177 A', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-30123', fram: 'P550881' }
+    }
+  },
+
+  // ==================== ÔNIBUS E VANS ====================
+
+  'Fiat Ducato 2.3 Multijet': {
+    sistemas: [
+      { sistema: 'Motor (FPT F1A)', especificacao: 'SAE 5W-30', norma: 'API SN', capacidade: '6,0 L', intervalo: '15.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-80', norma: 'API GL-4', capacidade: '2,7 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'CHF 11S / ATF III', norma: 'CHF 11S ou ATF III', capacidade: '1,0 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '8,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '1,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '504091563', tecfil: 'PSL657', mann: 'W920/48', mahle: 'OC608', wega: 'WO-421', fram: 'PH10268' },
+      ar: { original: '1372173080', tecfil: 'ARS1014', mann: 'C17278', mahle: 'LX1751', wega: 'WR-317', fram: 'CA10110' },
+      combustivel: { original: '1609428080', tecfil: 'PEC3023', mann: 'PU7010z', mahle: 'KX208D', wega: 'FCD-0771/1', fram: 'P550881' }
+    }
+  },
+
+  'Fiat Ducato 2.8': {
+    sistemas: [
+      { sistema: 'Motor (Sofim)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '6,0 L', intervalo: '15.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-80', norma: 'API GL-4', capacidade: '2,7 L', intervalo: '60.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'CHF 11S / ATF II', norma: 'CHF 11S ou ATF II', capacidade: '0,5 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '8,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '1,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '504091563', tecfil: 'PSL156', mann: 'W940/18', mahle: 'OC205', wega: 'WO-421', fram: 'PH10268' },
+      ar: { original: '1372173080', tecfil: 'ARS1013', mann: 'C17278', mahle: 'LX1751', wega: 'WR-317', fram: 'CA10110' },
+      combustivel: { original: '1609428080', tecfil: 'PSC496', mann: 'WK854/1', mahle: 'KC83', wega: 'FCD-0771/1', fram: 'P550881' }
+    }
+  },
+
+  'Iveco - Daily 35S14': {
+    sistemas: [
+      { sistema: 'Motor (FPT F1C 3.0)', especificacao: 'SAE 5W-30', norma: 'API SN', capacidade: '7,6 L', intervalo: '20.000 km' },
+      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-80', norma: 'API GL-4', capacidade: '2,2 L', intervalo: '60.000 km' },
+      { sistema: 'Diferencial', especificacao: 'SAE 80W-90', norma: 'API GL-5', capacidade: '1,8 L', intervalo: '40.000 km' },
+      { sistema: 'Direção Hidráulica', especificacao: 'ATF III / Dexron II', norma: 'ATF III ou Dexron II', capacidade: '0,45 L', intervalo: 'Inspeção a cada 10.000 km' },
+      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '9,0 L', intervalo: '60.000 km' },
+      { sistema: 'Freios', especificacao: 'DOT 4', norma: 'FMVSS 116', capacidade: '1,0 L', intervalo: '40.000 km ou 2 anos' }
+    ],
+    filtros: {
+      oleo: { original: '504091563', tecfil: 'PSL655', mann: 'W930/21', mahle: 'OC608', wega: 'WO-421', fram: 'PH10268' },
+      ar: { original: '1372173080', tecfil: 'ARS5132', mann: 'C17237/1', mahle: 'LX1751', wega: 'WR-317', fram: 'CA10110' },
+      combustivel: { original: '1609428080', tecfil: 'PEC3023', mann: 'PU7010z', mahle: 'KX208D', wega: 'FCD-0771', fram: 'P550881' }
+    }
+  }
+
+}; // fim de especificacoesOleos
+
+// =====================================================================
+// 3. COMPATIBILIDADE COM DADOS ANTIGOS (motor/cambio/diferencial)
+// =====================================================================
+function normalizarBanco() {
+  for (const modelo in especificacoesOleos) {
+    const spec = especificacoesOleos[modelo];
+    if (Array.isArray(spec.sistemas)) continue;
+    const sistemas = [];
+    if (spec.motor && spec.motor.tipo) {
+      sistemas.push({ sistema: 'Motor', especificacao: spec.motor.tipo, norma: '-', capacidade: spec.motor.qtd || '-', intervalo: spec.motor.intervalo || '-' });
+    }
+    if (spec.cambio && spec.cambio.tipo) {
+      sistemas.push({ sistema: 'Câmbio', especificacao: spec.cambio.tipo, norma: '-', capacidade: spec.cambio.qtd || '-', intervalo: spec.cambio.intervalo || '-' });
+    }
+    if (spec.diferencial && spec.diferencial.tipo && spec.diferencial.tipo !== 'Não se aplica') {
+      sistemas.push({ sistema: 'Diferencial', especificacao: spec.diferencial.tipo, norma: '-', capacidade: spec.diferencial.qtd || '-', intervalo: spec.diferencial.intervalo || '-' });
+    }
+    spec.sistemas = sistemas;
+  }
+}
+normalizarBanco();
+
+// =====================================================================
+// 4. LÓGICA DE NAVEGAÇÃO (INALTERADA)
+// =====================================================================
+let categoriaAtualSlug = '';
+let categoriaAtualTitulo = '';
+let marcaAtual = '';
+let modeloAtual = '';
+
+function abrirCategoria(titulo, slug, icone, cor) {
+  categoriaAtualSlug = slug;
+  categoriaAtualTitulo = titulo;
+  marcaAtual = '';
+  const tituloLista = document.getElementById('titulo-lista');
+  const gridLista = document.getElementById('grid-lista');
+  tituloLista.innerHTML = `<i class="fa-solid ${icone}" style="color:${cor};"></i> ${titulo}`;
+  gridLista.innerHTML = '';
+  const marcas = bancoDeDados[slug].marcas;
+  for (const marca in marcas) {
+    const card = document.createElement('a');
+    card.className = 'c';
+    card.onclick = () => abrirMarca(marca);
+    card.innerHTML = `
+      <div class="c-header">
+        <div class="c-icone" style="color:${cor}; background: ${cor}15;"><i class="fa-solid fa-flag"></i></div>
+        <b>${marca}</b>
+      </div>
+      <span>${marcas[marca].length} modelos disponíveis</span>
+      <div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+    `;
+    gridLista.appendChild(card);
+  }
+  mudarTela('lista');
+}
+
+function abrirMarca(marca) {
+  marcaAtual = marca;
+  const tituloLista = document.getElementById('titulo-lista');
+  const gridLista = document.getElementById('grid-lista');
+  tituloLista.innerHTML = `<i class="fa-solid fa-flag"></i> ${marca}`;
+  gridLista.innerHTML = '';
+  const modelos = bancoDeDados[categoriaAtualSlug].marcas[marca];
+  modelos.forEach(modelo => {
+    const card = document.createElement('a');
+    card.className = 'c';
+    card.onclick = () => abrirConteudo(modelo);
+    card.innerHTML = `
+      <div class="c-header">
+        <div class="c-icone"><i class="fa-solid fa-wrench"></i></div>
+        <b>${modelo}</b>
+      </div>
+      <span>Ver fluidos e referências de filtros.</span>
+      <div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+    `;
+    gridLista.appendChild(card);
+  });
+  mudarTela('lista');
+}
+
+// --- RENDERIZAÇÃO DA TABELA DE FILTROS (INALTERADA) ---
+function criarTabelaFiltros(filtros) {
+  if (!filtros) return '<p>Dados de filtros não cadastrados.</p>';
+  const renderLinha = (nome, obj) => {
+    if (!obj) return '';
+    const getVal = (k) => (obj[k] && obj[k] !== '-') ? `<span class="filtro-tag">${obj[k]}</span>` : '-';
+    return `
+      <tr>
+        <td><b>${nome}</b></td>
+        <td>${getVal('original')}</td>
+        <td>${getVal('tecfil')}</td>
+        <td>${getVal('mann')}</td>
+        <td>${getVal('mahle')}</td>
+        <td>${getVal('wega')}</td>
+        <td>${getVal('fram')}</td>
+      </tr>
+    `;
+  };
+  return `
+    <div class="tabela-container">
+      <table>
+        <thead>
           <tr>
-            <td><b>${nome}</b></td>
-            <td>${getVal('original')}</td>
-            <td>${getVal('tecfil')}</td>
-            <td>${getVal('mann')}</td>
-            <td>${getVal('mahle')}</td>
-            <td>${getVal('wega')}</td>
-            <td>${getVal('fram')}</td>
+            <th>Aplicação</th>
+            <th>Original (OEM)</th>
+            <th>Tecfil</th>
+            <th>Mann</th>
+            <th>Mahle</th>
+            <th>Wega</th>
+            <th>Fram</th>
           </tr>
-        `;
-      };
+        </thead>
+        <tbody>
+          ${renderLinha('Óleo do Motor', filtros.oleo)}
+          ${renderLinha('Filtro de Ar', filtros.ar)}
+          ${renderLinha('Combustível', filtros.combustivel)}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
 
-      return `
+// --- ABRIR CONTEÚDO (ATUALIZADO PARA 5 COLUNAS) ---
+function abrirConteudo(modelo) {
+  modeloAtual = modelo;
+  const tituloConteudo = document.getElementById('titulo-conteudo');
+  const containerConteudo = document.getElementById('conteudo-dinamico');
+  tituloConteudo.textContent = modelo;
+  const spec = especificacoesOleos[modelo];
+
+  if (spec && spec.sistemas && spec.sistemas.length > 0) {
+    const linhas = spec.sistemas.map(s => `
+      <tr>
+        <td><b>${s.sistema}</b></td>
+        <td>${s.especificacao || '-'}</td>
+        <td>${s.norma || '-'}${s.observacao ? `<br><small style="color:#5b6275;">${s.observacao}</small>` : ''}</td>
+        <td>${s.capacidade || '-'}</td>
+        <td>${s.intervalo || '-'}</td>
+      </tr>
+    `).join('');
+
+    containerConteudo.innerHTML = `
+      <div class="card-construcao" style="padding: 20px;">
+        <p style="margin-top:0; color:#5b6275;">Especificações de fluidos e códigos de referência cruzada de filtros:</p>
         <div class="tabela-container">
           <table>
             <thead>
               <tr>
-                <th>Aplicação</th>
-                <th>Original (OEM)</th>
-                <th>Tecfil</th>
-                <th>Mann</th>
-                <th>Mahle</th>
-                <th>Wega</th>
-                <th>Fram</th>
+                <th>Sistema / Componente</th>
+                <th>Especificação / Viscosidade</th>
+                <th>Norma / Observação</th>
+                <th>Capacidade</th>
+                <th>Intervalo de Troca</th>
               </tr>
             </thead>
-            <tbody>
-              ${renderLinha('Óleo do Motor', filtros.oleo)}
-              ${renderLinha('Filtro de Ar', filtros.ar)}
-              ${renderLinha('Combustível', filtros.combustivel)}
-            </tbody>
+            <tbody>${linhas}</tbody>
           </table>
         </div>
-      `;
+        <h3 style="color: #3730a3; font-size: 18px; margin-top: 32px; margin-bottom: 8px;">
+          <i class="fa-solid fa-filter"></i> Tabela de Referência de Filtros
+        </h3>
+        ${criarTabelaFiltros(spec.filtros)}
+        <p style="font-size: 12px; color: #b45309; margin-top: 16px;">
+          <i class="fa-solid fa-triangle-exclamation"></i> <b>Atenção:</b> Os códigos originais e de marcas paralelas podem variar conforme o ano e a versão do motor. Sempre confirme a aplicação no momento da compra.
+        </p>
+      </div>
+    `;
+  } else {
+    containerConteudo.innerHTML = `
+      <div class="card-construcao" style="text-align: center;">
+        <i class="fa-solid fa-screwdriver-wrench"></i>
+        <b>Conteúdo em construção</b>
+        <span>As especificações e filtros para o <strong>${modelo}</strong> estarão disponíveis aqui em breve.</span>
+      </div>
+    `;
+  }
+  mudarTela('conteudo');
+}
+
+// =====================================================================
+// 5. SISTEMA DE TROCA DE TELAS E BREADCRUMB (INALTERADO)
+// =====================================================================
+function mudarTela(idTela) {
+  const atual = document.querySelector('.tela.ativa');
+  const alvo = document.getElementById('tela-' + idTela);
+  if (!alvo || atual === alvo) return;
+  if (atual) {
+    atual.classList.add('saindo');
+    setTimeout(() => {
+      atual.classList.remove('ativa', 'saindo');
+      alvo.classList.add('ativa');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      gerarBreadcrumb(idTela);
+    }, 220);
+  } else {
+    alvo.classList.add('ativa');
+    gerarBreadcrumb(idTela);
+  }
+}
+
+function gerarBreadcrumb(telaAtivaId) {
+  const container = document.querySelector(`#tela-${telaAtivaId} .breadcrumb`);
+  if (!container) return;
+  let crumbs = [];
+  crumbs.push({ titulo: '🏠 Início', tela: 'principal' });
+  if (telaAtivaId === 'lista' || telaAtivaId === 'conteudo') {
+    crumbs.push({ titulo: categoriaAtualTitulo, tela: 'lista', acao: () => abrirCategoria(categoriaAtualTitulo, categoriaAtualSlug, 'fa-car', '#4f46e5') });
+    if (marcaAtual) {
+      crumbs.push({ titulo: marcaAtual, tela: 'lista', acao: () => abrirMarca(marcaAtual) });
     }
-
-    function abrirConteudo(modelo) {
-      modeloAtual = modelo;
-      const tituloConteudo = document.getElementById('titulo-conteudo');
-      const containerConteudo = document.getElementById('conteudo-dinamico');
-      
-      tituloConteudo.textContent = modelo;
-      const spec = especificacoesOleos[modelo];
-      
-      if (spec) {
-        containerConteudo.innerHTML = `
-          <div class="card-construcao" style="padding: 20px;">
-            <p style="margin-top:0; color:#5b6275;">Confira abaixo as especificações de fluidos e os códigos de referência cruzada de filtros:</p>
-            <div class="tabela-container">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Componente</th>
-                    <th>Tipo / Viscosidade</th>
-                    <th>Capacidade</th>
-                    <th>Intervalo de Troca</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td><b>Motor</b></td><td>${spec.motor.tipo}</td><td>${spec.motor.qtd}</td><td>${spec.motor.intervalo}</td></tr>
-                  <tr><td><b>Câmbio</b></td><td>${spec.cambio.tipo}</td><td>${spec.cambio.qtd}</td><td>${spec.cambio.intervalo}</td></tr>
-                  <tr><td><b>Diferencial</b></td><td>${spec.diferencial.tipo}</td><td>${spec.diferencial.qtd}</td><td>${spec.diferencial.intervalo}</td></tr>
-                </tbody>
-              </table>
-            </div>
-            
-            <h3 style="color: #3730a3; font-size: 18px; margin-top: 32px; margin-bottom: 8px;"><i class="fa-solid fa-filter"></i> Tabela de Referência de Filtros</h3>
-            ${criarTabelaFiltros(spec.filtros)}
-            
-            <p style="font-size: 12px; color: #b45309; margin-top: 16px;">
-              <i class="fa-solid fa-triangle-exclamation"></i> <b>Atenção:</b> Os códigos originais e de marcas paralelas podem variar conforme o ano e a versão do motor. Sempre confirme a aplicação no momento da compra.
-            </p>
-          </div>
-        `;
-      } else {
-        containerConteudo.innerHTML = `
-          <div class="card-construcao" style="text-align: center;">
-            <i class="fa-solid fa-screwdriver-wrench"></i>
-            <b>Conteúdo em construção</b>
-            <span>As especificações e filtros para o <strong>${modelo}</strong> estarão disponíveis aqui em breve.</span>
-          </div>
-        `;
-      }
-      
-      mudarTela('conteudo');
+    if (telaAtivaId === 'conteudo') {
+      crumbs.push({ titulo: modeloAtual, tela: 'conteudo' });
     }
-
-    // =====================================================================
-    // 4. SISTEMA DE TROCA DE TELAS E BREADCRUMB
-    // =====================================================================
-    function mudarTela(idTela) {
-      const atual = document.querySelector('.tela.ativa');
-      const alvo = document.getElementById('tela-' + idTela);
-      
-      if (!alvo || atual === alvo) return;
-
-      if (atual) {
-        atual.classList.add('saindo');
-        setTimeout(() => {
-          atual.classList.remove('ativa', 'saindo');
-          alvo.classList.add('ativa');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-          gerarBreadcrumb(idTela);
-        }, 220);
-      } else {
-        alvo.classList.add('ativa');
-        gerarBreadcrumb(idTela);
-      }
+  }
+  container.innerHTML = '';
+  crumbs.forEach((item, index) => {
+    const isUltimo = index === crumbs.length - 1;
+    const crumb = document.createElement('span');
+    crumb.className = 'crumb' + (isUltimo ? ' atual' : '');
+    crumb.innerHTML = item.titulo;
+    if (!isUltimo) {
+      crumb.onclick = item.acao ? item.acao : () => mudarTela(item.tela);
     }
-
-    function gerarBreadcrumb(telaAtivaId) {
-      const container = document.querySelector(`#tela-${telaAtivaId} .breadcrumb`);
-      if (!container) return;
-
-      let crumbs = [];
-      crumbs.push({ titulo: '🏠 Início', tela: 'principal' });
-
-      if (telaAtivaId === 'lista' || telaAtivaId === 'conteudo') {
-        crumbs.push({ titulo: categoriaAtualTitulo, tela: 'lista', acao: () => abrirCategoria(categoriaAtualTitulo, categoriaAtualSlug, 'fa-car', '#4f46e5') });
-        
-        if (marcaAtual) {
-          crumbs.push({ titulo: marcaAtual, tela: 'lista', acao: () => abrirMarca(marcaAtual) });
-        }
-        
-        if (telaAtivaId === 'conteudo') {
-          crumbs.push({ titulo: modeloAtual, tela: 'conteudo' });
-        }
-      }
-
-      container.innerHTML = '';
-      crumbs.forEach((item, index) => {
-        const isUltimo = index === crumbs.length - 1;
-        const crumb = document.createElement('span');
-        crumb.className = 'crumb' + (isUltimo ? ' atual' : '');
-        crumb.innerHTML = item.titulo;
-        
-        if (!isUltimo) {
-          crumb.onclick = item.acao ? item.acao : () => mudarTela(item.tela);
-        }
-        container.appendChild(crumb);
-
-        if (!isUltimo) {
-          const sep = document.createElement('span');
-          sep.className = 'sep';
-          sep.textContent = '›';
-          container.appendChild(sep);
-        }
-      });
+    container.appendChild(crumb);
+    if (!isUltimo) {
+      const sep = document.createElement('span');
+      sep.className = 'sep';
+      sep.textContent = '›';
+      container.appendChild(sep);
     }
-  </script>
+  });
+}
+</script>
 </body>
 </html>
