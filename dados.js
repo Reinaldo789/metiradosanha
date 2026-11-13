@@ -1,5 +1,5 @@
 /* ==========================================================
-   DADOS DO MANUAL AUTOMOTIVO — dados.js (Versão Final Completa com Filtros de Pesados)
+   DADOS DO MANUAL AUTOMOTIVO — dados.js (Versão Final Completa)
    ========================================================== */
 
 const bancoDeDados = {
@@ -425,7 +425,97 @@ const especificacoesOleos = {
     }
   },
 
-  // --- CAMINHÕES & ÔNIBUS/VANS ---
+  // --- CAMINHÕES (NOVOS E ANTIGOS) ---
+  'Agrale 8500': {
+    motor: { tipo: '15W-40 (MWM 4.12 TCE)', qtd: '14,0 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual Eaton: SAE 50', qtd: '5,0 L', intervalo: '50.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '8,0 L', intervalo: '50.000 km' },
+    filtros: {
+      oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
+      ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C17308', wega: 'FAP-4001', fram: 'CA8558' },
+      combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Agrale 10000': {
+    motor: { tipo: '15W-40 (MWM 4.12 TCE)', qtd: '14,0 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual Eaton: SAE 50', qtd: '5,0 L', intervalo: '50.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '10,0 L', intervalo: '50.000 km' },
+    filtros: {
+      oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
+      ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C17308', wega: 'FAP-4001', fram: 'CA8558' },
+      combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Agrale 13000': {
+    motor: { tipo: '15W-40 (MWM 6.10 TCA)', qtd: '16,5 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual Eaton: SAE 50', qtd: '7,0 L', intervalo: '50.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '12,0 L', intervalo: '50.000 km' },
+    filtros: {
+      oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
+      ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C17308', wega: 'FAP-4001', fram: 'CA8558' },
+      combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'DAF XF': {
+    motor: { tipo: '10W-40 sintético (PACCAR MX-13)', qtd: '39,0 L', intervalo: '60.000 km' },
+    cambio: { tipo: 'Automatizado ZF AS Tronic', qtd: '15,0 L', intervalo: '120.000 km' },
+    diferencial: { tipo: '75W-90 ou 85W-140 API GL-5', qtd: '18,0 L', intervalo: '120.000 km' },
+    filtros: {
+      oleo: { original: '1851097', tecfil: 'PEL108', mann: 'HU1075x', wega: 'WO-612', fram: 'CH11430' },
+      ar: { original: '1387548', tecfil: 'ARL8480', mann: 'C311500', wega: 'WAP-103', fram: 'CA5791' },
+      combustivel: { original: '1840031', tecfil: 'PSD980', mann: 'PU1076x', wega: 'FCD-30123', fram: 'PS10038' }
+    }
+  },
+  'DAF CF': {
+    motor: { tipo: '10W-40 sintético (PACCAR MX-11)', qtd: '32,0 L', intervalo: '50.000 km' },
+    cambio: { tipo: 'Manual / Automatizado ZF', qtd: '12,0 L', intervalo: '100.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '15,0 L', intervalo: '100.000 km' },
+    filtros: {
+      oleo: { original: '1851097', tecfil: 'PEL108', mann: 'HU1075x', wega: 'WO-612', fram: 'CH11430' },
+      ar: { original: '1387548', tecfil: 'ARL8480', mann: 'C311500', wega: 'WAP-103', fram: 'CA5791' },
+      combustivel: { original: '1840031', tecfil: 'PSD980', mann: 'PU1076x', wega: 'FCD-30123', fram: 'PS10038' }
+    }
+  },
+  'DAF XD': {
+    motor: { tipo: '10W-40 sintético (PACCAR PX-7)', qtd: '18,0 L', intervalo: '40.000 km' },
+    cambio: { tipo: 'Manual / Automatizado ZF', qtd: '10,0 L', intervalo: '80.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '12,0 L', intervalo: '80.000 km' },
+    filtros: {
+      oleo: { original: '1851097', tecfil: 'PEL108', mann: 'HU1075x', wega: 'WO-612', fram: 'CH11430' },
+      ar: { original: '1387548', tecfil: 'ARL8480', mann: 'C311500', wega: 'WAP-103', fram: 'CA5791' },
+      combustivel: { original: '1840031', tecfil: 'PSD980', mann: 'PU1076x', wega: 'FCD-30123', fram: 'PS10038' }
+    }
+  },
+  'Foton Aumark S 3.5': {
+    motor: { tipo: '15W-40 (Cummins ISF 2.8)', qtd: '8,0 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual: 75W-90', qtd: '3,0 L', intervalo: '50.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '3,5 L', intervalo: '50.000 km' },
+    filtros: {
+      oleo: { original: '5266010', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
+      ar: { original: 'AF26056', tecfil: 'ARL8480', mann: 'C17308', wega: 'FAP-4001', fram: 'CA8558' },
+      combustivel: { original: 'FS19820', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Foton Aumark S 5.5': {
+    motor: { tipo: '15W-40 (Cummins ISF 3.8)', qtd: '11,0 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual: 75W-90', qtd: '4,5 L', intervalo: '50.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '5,0 L', intervalo: '50.000 km' },
+    filtros: {
+      oleo: { original: '5266010', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
+      ar: { original: 'AF26056', tecfil: 'ARL8480', mann: 'C17308', wega: 'FAP-4001', fram: 'CA8558' },
+      combustivel: { original: 'FS19820', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Foton Auman ETX': {
+    motor: { tipo: '15W-40 (Cummins ISG)', qtd: '24,0 L', intervalo: '30.000 km' },
+    cambio: { tipo: 'Manual / Automatizado', qtd: '12,0 L', intervalo: '80.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '16,0 L', intervalo: '80.000 km' },
+    filtros: {
+      oleo: { original: '5266010', tecfil: 'PEL108', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
+      ar: { original: 'AF26056', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: 'FS19820', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
   'Ford Cargo 816': {
     motor: { tipo: '15W-40 CI-4 (Cummins ISF 4.5)', qtd: '11,0 L', intervalo: '10.000 km' },
     cambio: { tipo: 'Manual Eaton FSO-4505: SAE 75W-90 sintético', qtd: '3,8 L', intervalo: '40.000 km' },
@@ -436,29 +526,39 @@ const especificacoesOleos = {
       combustivel: { original: 'BG1X9155AA', tecfil: 'PSD980', mann: 'WK954/2x', wega: 'FCI-1620', fram: 'PS10038' }
     }
   },
-  'Ford Cargo 2423': {
-    motor: { tipo: '15W-40 CI-4', qtd: '15,0 L', intervalo: '20.000 km' },
-    cambio: { tipo: 'Manual Eaton: SAE 50 ou 80W-90', qtd: '9,5 L', intervalo: '40.000 km' },
-    diferencial: { tipo: '85W-140 API GL-5', qtd: '16,0 L', intervalo: '40.000 km' },
+  'Ford Cargo 1317': {
+    motor: { tipo: '15W-40 CI-4 (Cummins ISB 4.5)', qtd: '13,0 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual Eaton: SAE 50', qtd: '5,5 L', intervalo: '40.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '8,0 L', intervalo: '40.000 km' },
+    filtros: {
+      oleo: { original: 'BG1X6714AA', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
+      ar: { original: 'BG1X9601BA', tecfil: 'ARL8480', mann: 'C17308', wega: 'FAP-4001', fram: 'CA8558' },
+      combustivel: { original: 'BG1X9155AA', tecfil: 'PSD980', mann: 'WK954/2x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Ford Cargo 1719': {
+    motor: { tipo: '15W-40 CI-4 (Cummins ISB 6.7)', qtd: '15,0 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual Eaton: SAE 50', qtd: '7,0 L', intervalo: '40.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '10,0 L', intervalo: '40.000 km' },
     filtros: {
       oleo: { original: 'BG2X6714AA', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
       ar: { original: 'BG2X9601AA', tecfil: 'ARL8480', mann: 'C27109', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: 'BG2X9155AA', tecfil: 'PSD980', mann: 'WK954/2x', wega: 'FCI-1620', fram: 'PS10038' }
     }
   },
-  'Ford - 2629 Bau': {
-    motor: { tipo: '15W-40 CI-4', qtd: '18,0 L', intervalo: '20.000 km' },
-    cambio: { tipo: 'Manual Eaton / Fuller', qtd: '11,0 L', intervalo: '40.000 km' },
-    diferencial: { tipo: '85W-140 API GL-5 (Reduzido)', qtd: '18,0 L', intervalo: '40.000 km' },
+  'Ford Cargo 2429': {
+    motor: { tipo: '15W-40 CI-4 (Cummins ISC)', qtd: '19,0 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual Eaton: SAE 50', qtd: '9,5 L', intervalo: '40.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '16,0 L', intervalo: '40.000 km' },
     filtros: {
       oleo: { original: 'BH1X6714AA', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
       ar: { original: 'BH1X9601AA', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: 'BH1X9155AA', tecfil: 'PSD980', mann: 'WK954/2x', wega: 'FCI-1620', fram: 'PS10038' }
     }
   },
-  'Ford - 2629 CTA e CTC': {
-    motor: { tipo: '15W-40 CI-4', qtd: '18,0 L', intervalo: '20.000 km' },
-    cambio: { tipo: 'Manual Eaton / Fuller', qtd: '11,0 L', intervalo: '40.000 km' },
+  'Ford Cargo 2629': {
+    motor: { tipo: '15W-40 CI-4 (Cummins ISC)', qtd: '19,0 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual Eaton: SAE 50', qtd: '11,0 L', intervalo: '40.000 km' },
     diferencial: { tipo: '85W-140 API GL-5', qtd: '18,0 L', intervalo: '40.000 km' },
     filtros: {
       oleo: { original: 'BH1X6714AA', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
@@ -466,47 +566,197 @@ const especificacoesOleos = {
       combustivel: { original: 'BH1X9155AA', tecfil: 'PSD980', mann: 'WK954/2x', wega: 'FCI-1620', fram: 'PS10038' }
     }
   },
-  'Ford 1933 Cav Mec': {
-    motor: { tipo: '15W-40 CI-4 / CJ-4', qtd: '22,0 L', intervalo: '20.000 km' },
-    cambio: { tipo: 'Manual Fuller / Automatizado', qtd: '12,5 L', intervalo: '60.000 km' },
-    diferencial: { tipo: '85W-140 API GL-5', qtd: '16,0 L', intervalo: '50.000 km' },
+  'Ford Cargo 3131': {
+    motor: { tipo: '15W-40 CI-4 (Cummins ISL)', qtd: '22,0 L', intervalo: '30.000 km' },
+    cambio: { tipo: 'Manual Eaton: SAE 50', qtd: '12,5 L', intervalo: '60.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '18,0 L', intervalo: '50.000 km' },
     filtros: {
       oleo: { original: 'CC1Q6714AA', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
       ar: { original: 'CC1Z9601A', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: 'CC1Q9155AA', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
     }
   },
-  'Mercedes-Benz 2627': {
-    motor: { tipo: '15W-40 MB 228.3 / 228.5', qtd: '28,0 L', intervalo: '20.000 km' },
-    cambio: { tipo: 'Manual MB', qtd: '11,0 L', intervalo: '50.000 km' },
-    diferencial: { tipo: '85W-140 API GL-5', qtd: '15,0 L', intervalo: '50.000 km' },
+  'Iveco Daily 30-130': {
+    motor: { tipo: '10W-40 (FPT F1C)', qtd: '6,5 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual: 75W-80', qtd: '2,2 L', intervalo: '60.000 km' },
+    diferencial: { tipo: '80W-90 API GL-5', qtd: '2,5 L', intervalo: '50.000 km' },
+    filtros: {
+      oleo: { original: '5801382496', tecfil: 'PEL106', mann: 'HU711/51x', wega: 'WOE-610', fram: 'CH9642' },
+      ar: { original: '5801382497', tecfil: 'ARL8480', mann: 'C27920', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '5801382498', tecfil: 'PSD980', mann: 'WK1040', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Iveco Daily 35-150': {
+    motor: { tipo: '10W-40 (FPT F1C)', qtd: '6,5 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual: 75W-80', qtd: '2,2 L', intervalo: '60.000 km' },
+    diferencial: { tipo: '80W-90 API GL-5', qtd: '2,5 L', intervalo: '50.000 km' },
+    filtros: {
+      oleo: { original: '5801382496', tecfil: 'PEL106', mann: 'HU711/51x', wega: 'WOE-610', fram: 'CH9642' },
+      ar: { original: '5801382497', tecfil: 'ARL8480', mann: 'C27920', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '5801382498', tecfil: 'PSD980', mann: 'WK1040', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Iveco Daily 55C': {
+    motor: { tipo: '10W-40 (FPT F1C)', qtd: '6,5 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual: 75W-80', qtd: '2,2 L', intervalo: '60.000 km' },
+    diferencial: { tipo: '80W-90 API GL-5', qtd: '3,0 L', intervalo: '50.000 km' },
+    filtros: {
+      oleo: { original: '5801382496', tecfil: 'PEL106', mann: 'HU711/51x', wega: 'WOE-610', fram: 'CH9642' },
+      ar: { original: '5801382497', tecfil: 'ARL8480', mann: 'C27920', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '5801382498', tecfil: 'PSD980', mann: 'WK1040', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Iveco Tector': {
+    motor: { tipo: '15W-40 (FPT NEF 6)', qtd: '13,0 L', intervalo: '30.000 km' },
+    cambio: { tipo: 'Manual / Automatizado ZF', qtd: '7,5 L', intervalo: '60.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '12,0 L', intervalo: '60.000 km' },
+    filtros: {
+      oleo: { original: '504091563', tecfil: 'PEL108', mann: 'W950/26', wega: 'WO-530', fram: 'CH9939' },
+      ar: { original: '1372173080', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '1609428080', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Iveco Stralis': {
+    motor: { tipo: '10W-40 sintético (FPT Cursor 10/13)', qtd: '36,0 L', intervalo: '50.000 km' },
+    cambio: { tipo: 'Automatizado ZF Eurotronic', qtd: '12,0 L', intervalo: '100.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '16,0 L', intervalo: '100.000 km' },
+    filtros: {
+      oleo: { original: '2992242', tecfil: 'PEL108', mann: 'HU12103x', wega: 'WO-530', fram: 'CH9939' },
+      ar: { original: '504178590', tecfil: 'ARL8480', mann: 'C311500', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '504108113', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Iveco S-Way': {
+    motor: { tipo: '10W-40 sintético (FPT Cursor 13)', qtd: '38,0 L', intervalo: '60.000 km' },
+    cambio: { tipo: 'Automatizado ZF Hi-Tronix', qtd: '14,0 L', intervalo: '120.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '18,0 L', intervalo: '120.000 km' },
+    filtros: {
+      oleo: { original: '2992242', tecfil: 'PEL108', mann: 'HU12103x', wega: 'WO-530', fram: 'CH9939' },
+      ar: { original: '504178590', tecfil: 'ARL8480', mann: 'C311500', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '504108113', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'JAC V260': {
+    motor: { tipo: '15W-40 (JAC / Cummins)', qtd: '8,0 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual: 75W-90', qtd: '3,0 L', intervalo: '50.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '3,5 L', intervalo: '50.000 km' },
+    filtros: {
+      oleo: { original: 'J-1010010', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
+      ar: { original: 'J-1109111', tecfil: 'ARL8480', mann: 'C17308', wega: 'FAP-4001', fram: 'CA8558' },
+      combustivel: { original: 'J-1117100', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'JAC X200': {
+    motor: { tipo: '15W-40 (JAC)', qtd: '10,0 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual: 75W-90', qtd: '4,0 L', intervalo: '50.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '5,0 L', intervalo: '50.000 km' },
+    filtros: {
+      oleo: { original: 'J-1010010', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
+      ar: { original: 'J-1109111', tecfil: 'ARL8480', mann: 'C17308', wega: 'FAP-4001', fram: 'CA8558' },
+      combustivel: { original: 'J-1117100', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'JAC X300': {
+    motor: { tipo: '15W-40 (Cummins ISF 2.8)', qtd: '10,0 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual: 75W-90', qtd: '4,0 L', intervalo: '50.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '5,0 L', intervalo: '50.000 km' },
+    filtros: {
+      oleo: { original: 'J-1010010', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
+      ar: { original: 'J-1109111', tecfil: 'ARL8480', mann: 'C17308', wega: 'FAP-4001', fram: 'CA8558' },
+      combustivel: { original: 'J-1117100', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'MAN TGX': {
+    motor: { tipo: '10W-40 sintético (MAN D26 / D38)', qtd: '40,0 L', intervalo: '60.000 km' },
+    cambio: { tipo: 'Automatizado ZF TipMatic', qtd: '15,0 L', intervalo: '120.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '18,0 L', intervalo: '120.000 km' },
+    filtros: {
+      oleo: { original: '51055040089', tecfil: 'PEL108', mann: 'HU12103x', wega: 'WO-530', fram: 'CH9939' },
+      ar: { original: '81083040035', tecfil: 'ARL8480', mann: 'C311500', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '51055040087', tecfil: 'PSD980', mann: 'PU1040x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'MAN TGS': {
+    motor: { tipo: '10W-40 sintético (MAN D20 / D26)', qtd: '35,0 L', intervalo: '50.000 km' },
+    cambio: { tipo: 'Automatizado ZF TipMatic', qtd: '13,0 L', intervalo: '100.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '16,0 L', intervalo: '100.000 km' },
+    filtros: {
+      oleo: { original: '51055040089', tecfil: 'PEL108', mann: 'HU12103x', wega: 'WO-530', fram: 'CH9939' },
+      ar: { original: '81083040035', tecfil: 'ARL8480', mann: 'C311500', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '51055040087', tecfil: 'PSD980', mann: 'PU1040x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Mercedes-Benz Accelo 1016': {
+    motor: { tipo: '15W-40 (OM 924 LA)', qtd: '13,0 L', intervalo: '30.000 km' },
+    cambio: { tipo: 'Manual MB G-60', qtd: '5,5 L', intervalo: '60.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '6,0 L', intervalo: '60.000 km' },
     filtros: {
       oleo: { original: 'A0001802609', tecfil: 'PEL108', mann: 'HU934/2x', wega: 'WO-530', fram: 'CH9939' },
       ar: { original: 'A0030944004', tecfil: 'ARL8480', mann: 'C25125', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: 'A0000903651', tecfil: 'PSD980', mann: 'PU936/1x', wega: 'FCI-1620', fram: 'PS10038' }
     }
   },
-  'Mercedes-Benz 915c': {
-    motor: { tipo: '15W-40 MB 228.3', qtd: '15,0 L', intervalo: '15.000 km' },
-    cambio: { tipo: 'Manual MB G-60', qtd: '5,5 L', intervalo: '40.000 km' },
-    diferencial: { tipo: '85W-140 API GL-5', qtd: '4,5 L', intervalo: '40.000 km' },
+  'Mercedes-Benz Accelo 1017': {
+    motor: { tipo: '15W-40 (OM 924 LA)', qtd: '13,0 L', intervalo: '30.000 km' },
+    cambio: { tipo: 'Manual MB G-60', qtd: '5,5 L', intervalo: '60.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '6,0 L', intervalo: '60.000 km' },
     filtros: {
       oleo: { original: 'A0001802609', tecfil: 'PEL108', mann: 'HU934/2x', wega: 'WO-530', fram: 'CH9939' },
       ar: { original: 'A0030944004', tecfil: 'ARL8480', mann: 'C25125', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: 'A0000903651', tecfil: 'PSD980', mann: 'PU936/1x', wega: 'FCI-1620', fram: 'PS10038' }
     }
   },
-  'Mercedes-Benz 1418E': {
-    motor: { tipo: '15W-40 MB 228.3', qtd: '17,0 L', intervalo: '20.000 km' },
-    cambio: { tipo: 'Manual MB', qtd: '8,0 L', intervalo: '40.000 km' },
-    diferencial: { tipo: '85W-140 API GL-5', qtd: '10,0 L', intervalo: '40.000 km' },
+  'Mercedes-Benz Atego 1719': {
+    motor: { tipo: '15W-40 (OM 924 LA)', qtd: '15,8 L', intervalo: '40.000 km' },
+    cambio: { tipo: 'Manual MB', qtd: '8,0 L', intervalo: '80.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '10,0 L', intervalo: '80.000 km' },
     filtros: {
       oleo: { original: 'A0001802609', tecfil: 'PEL108', mann: 'HU934/2x', wega: 'WO-530', fram: 'CH9939' },
       ar: { original: 'A0030944004', tecfil: 'ARL8480', mann: 'C25125', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: 'A0000903651', tecfil: 'PSD980', mann: 'PU936/1x', wega: 'FCI-1620', fram: 'PS10038' }
     }
   },
-  'Mercedes-Benz AXOR 3344': {
+  'Mercedes-Benz Atego 2426': {
+    motor: { tipo: '15W-40 (OM 926 LA)', qtd: '24,0 L', intervalo: '40.000 km' },
+    cambio: { tipo: 'Manual MB', qtd: '11,0 L', intervalo: '80.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '14,0 L', intervalo: '80.000 km' },
+    filtros: {
+      oleo: { original: 'A0001802609', tecfil: 'PEL108', mann: 'HU934/2x', wega: 'WO-530', fram: 'CH9939' },
+      ar: { original: 'A0030944004', tecfil: 'ARL8480', mann: 'C25125', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: 'A0000903651', tecfil: 'PSD980', mann: 'PU936/1x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Mercedes-Benz Atego 2730': {
+    motor: { tipo: '15W-40 (OM 926 LA)', qtd: '24,0 L', intervalo: '40.000 km' },
+    cambio: { tipo: 'Manual MB', qtd: '11,0 L', intervalo: '80.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '15,0 L', intervalo: '80.000 km' },
+    filtros: {
+      oleo: { original: 'A0001802609', tecfil: 'PEL108', mann: 'HU934/2x', wega: 'WO-530', fram: 'CH9939' },
+      ar: { original: 'A0030944004', tecfil: 'ARL8480', mann: 'C25125', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: 'A0000903651', tecfil: 'PSD980', mann: 'PU936/1x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Mercedes-Benz Axor 2536': {
+    motor: { tipo: '15W-40 (OM 457 LA)', qtd: '36,0 L', intervalo: '40.000 km' },
+    cambio: { tipo: 'Manual / Automatizado MB', qtd: '13,0 L', intervalo: '100.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '16,0 L', intervalo: '100.000 km' },
+    filtros: {
+      oleo: { original: 'A5411840225', tecfil: 'PEL108', mann: 'HU12103x', wega: 'WO-530', fram: 'CH9939' },
+      ar: { original: 'A0040943404', tecfil: 'ARL8480', mann: 'C311295', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: 'A0000904251', tecfil: 'PSD980', mann: 'PU1040x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Mercedes-Benz Axor 2644': {
+    motor: { tipo: '15W-40 (OM 457 LA)', qtd: '36,0 L', intervalo: '40.000 km' },
+    cambio: { tipo: 'Manual / Automatizado MB', qtd: '13,0 L', intervalo: '100.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '18,0 L', intervalo: '100.000 km' },
+    filtros: {
+      oleo: { original: 'A5411840225', tecfil: 'PEL108', mann: 'HU12103x', wega: 'WO-530', fram: 'CH9939' },
+      ar: { original: 'A0040943404', tecfil: 'ARL8480', mann: 'C311295', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: 'A0000904251', tecfil: 'PSD980', mann: 'PU1040x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Mercedes-Benz Axor 3344': {
     motor: { tipo: '15W-40 ou 10W-40 MB 228.5', qtd: '36,0 L', intervalo: '30.000 km' },
     cambio: { tipo: 'Manual / Automatizado MB G-240', qtd: '13,0 L', intervalo: '60.000 km' },
     transferencia: { tipo: 'Óleo Específico MB para Caixa Auxiliar / Transferência Tração Total', qtd: '8,0 L', intervalo: '50.000 km' },
@@ -517,80 +767,220 @@ const especificacoesOleos = {
       combustivel: { original: 'A0000904251', tecfil: 'PSD980', mann: 'PU1040x', wega: 'FCI-1620', fram: 'PS10038' }
     }
   },
-  'Mercedes-Benz Atego 1725': {
-    motor: { tipo: '15W-40 MB 228.3', qtd: '18,0 L', intervalo: '20.000 km' },
-    cambio: { tipo: 'Manual MB', qtd: '9,0 L', intervalo: '40.000 km' },
-    diferencial: { tipo: '85W-140 API GL-5', qtd: '12,0 L', intervalo: '40.000 km' },
+  'Mercedes-Benz Actros 2651': {
+    motor: { tipo: '10W-40 sintético (OM 471)', qtd: '42,0 L', intervalo: '80.000 km' },
+    cambio: { tipo: 'Automatizado MB PowerShift', qtd: '15,0 L', intervalo: '120.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '18,0 L', intervalo: '120.000 km' },
     filtros: {
-      oleo: { original: 'A0001802609', tecfil: 'PEL108', mann: 'HU934/2x', wega: 'WO-530', fram: 'CH9939' },
-      ar: { original: 'A0030944004', tecfil: 'ARL8480', mann: 'C25125', wega: 'FAP-2830', fram: 'CA10427' },
-      combustivel: { original: 'A0000903651', tecfil: 'PSD980', mann: 'PU936/1x', wega: 'FCI-1620', fram: 'PS10038' }
+      oleo: { original: 'A5411840225', tecfil: 'PEL108', mann: 'HU12103x', wega: 'WO-530', fram: 'CH9939' },
+      ar: { original: 'A0040943404', tecfil: 'ARL8480', mann: 'C311295', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: 'A0000904251', tecfil: 'PSD980', mann: 'PU1040x', wega: 'FCI-1620', fram: 'PS10038' }
     }
   },
-  'VW Work 815': {
-    motor: { tipo: '15W-40 CI-4 (Cummins)', qtd: '11,0 L', intervalo: '10.000 km' },
-    cambio: { tipo: 'Manual Eaton', qtd: '3,8 L', intervalo: '40.000 km' },
-    diferencial: { tipo: '85W-140 API GL-5', qtd: '3,0 L', intervalo: '40.000 km' },
+  'Mercedes-Benz Actros 2657': {
+    motor: { tipo: '10W-40 sintético (OM 471)', qtd: '42,0 L', intervalo: '80.000 km' },
+    cambio: { tipo: 'Automatizado MB PowerShift', qtd: '15,0 L', intervalo: '120.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '18,0 L', intervalo: '120.000 km' },
+    filtros: {
+      oleo: { original: 'A5411840225', tecfil: 'PEL108', mann: 'HU12103x', wega: 'WO-530', fram: 'CH9939' },
+      ar: { original: 'A0040943404', tecfil: 'ARL8480', mann: 'C311295', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: 'A0000904251', tecfil: 'PSD980', mann: 'PU1040x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Scania P 250': {
+    motor: { tipo: '10W-40 ou 15W-40 (Scania DC07)', qtd: '24,0 L', intervalo: '40.000 km' },
+    cambio: { tipo: 'Manual / Automatizado Scania Opticruise', qtd: '9,0 L', intervalo: '90.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '12,0 L', intervalo: '90.000 km' },
+    filtros: {
+      oleo: { original: '1742032', tecfil: 'PEL108', mann: 'HU1075x', wega: 'WO-530', fram: 'CH11430' },
+      ar: { original: '1523405', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '1740947', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Scania P 310': {
+    motor: { tipo: '10W-40 ou 15W-40 (Scania DC09)', qtd: '28,0 L', intervalo: '50.000 km' },
+    cambio: { tipo: 'Automatizado Scania Opticruise', qtd: '11,0 L', intervalo: '100.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '14,0 L', intervalo: '100.000 km' },
+    filtros: {
+      oleo: { original: '1742032', tecfil: 'PEL108', mann: 'HU1075x', wega: 'WO-530', fram: 'CH11430' },
+      ar: { original: '1523405', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '1740947', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Scania G 410': {
+    motor: { tipo: '10W-40 sintético (Scania DC13)', qtd: '34,0 L', intervalo: '60.000 km' },
+    cambio: { tipo: 'Automatizado Scania Opticruise', qtd: '13,0 L', intervalo: '120.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '16,0 L', intervalo: '120.000 km' },
+    filtros: {
+      oleo: { original: '1742032', tecfil: 'PEL108', mann: 'HU1075x', wega: 'WO-530', fram: 'CH11430' },
+      ar: { original: '1523405', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '1740947', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Scania R 450': {
+    motor: { tipo: '10W-40 sintético (Scania DC13)', qtd: '34,0 L', intervalo: '60.000 km' },
+    cambio: { tipo: 'Automatizado Scania Opticruise', qtd: '13,0 L', intervalo: '120.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '18,0 L', intervalo: '120.000 km' },
+    filtros: {
+      oleo: { original: '1742032', tecfil: 'PEL108', mann: 'HU1075x', wega: 'WO-530', fram: 'CH11430' },
+      ar: { original: '1523405', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '1740947', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Scania R 540': {
+    motor: { tipo: '10W-40 sintético (Scania DC13)', qtd: '34,0 L', intervalo: '60.000 km' },
+    cambio: { tipo: 'Automatizado Scania Opticruise', qtd: '13,0 L', intervalo: '120.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '18,0 L', intervalo: '120.000 km' },
+    filtros: {
+      oleo: { original: '1742032', tecfil: 'PEL108', mann: 'HU1075x', wega: 'WO-530', fram: 'CH11430' },
+      ar: { original: '1523405', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '1740947', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Scania S 450': {
+    motor: { tipo: '10W-40 sintético (Scania DC13)', qtd: '34,0 L', intervalo: '60.000 km' },
+    cambio: { tipo: 'Automatizado Scania Opticruise', qtd: '13,0 L', intervalo: '120.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '18,0 L', intervalo: '120.000 km' },
+    filtros: {
+      oleo: { original: '1742032', tecfil: 'PEL108', mann: 'HU1075x', wega: 'WO-530', fram: 'CH11430' },
+      ar: { original: '1523405', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '1740947', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Scania S 540': {
+    motor: { tipo: '10W-40 sintético (Scania DC13)', qtd: '34,0 L', intervalo: '60.000 km' },
+    cambio: { tipo: 'Automatizado Scania Opticruise', qtd: '13,0 L', intervalo: '120.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '18,0 L', intervalo: '120.000 km' },
+    filtros: {
+      oleo: { original: '1742032', tecfil: 'PEL108', mann: 'HU1075x', wega: 'WO-530', fram: 'CH11430' },
+      ar: { original: '1523405', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '1740947', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'VW Delivery 9.170': {
+    motor: { tipo: '15W-40 CI-4 (Cummins ISF 3.8)', qtd: '11,0 L', intervalo: '30.000 km' },
+    cambio: { tipo: 'Manual Eaton: SAE 75W-90', qtd: '4,0 L', intervalo: '60.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '4,5 L', intervalo: '60.000 km' },
     filtros: {
       oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
       ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C17308', wega: 'FAP-4001', fram: 'CA8558' },
       combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
     }
   },
-  'VW Work 5-Ton 15-180': {
-    motor: { tipo: '15W-40 CI-4', qtd: '13,0 L', intervalo: '15.000 km' },
-    cambio: { tipo: 'Manual Eaton', qtd: '5,5 L', intervalo: '40.000 km' },
-    diferencial: { tipo: '85W-140 API GL-5', qtd: '6,0 L', intervalo: '40.000 km' },
+  'VW Delivery 11.180': {
+    motor: { tipo: '15W-40 CI-4 (Cummins ISF 3.8)', qtd: '11,0 L', intervalo: '30.000 km' },
+    cambio: { tipo: 'Manual Eaton: SAE 75W-90', qtd: '4,5 L', intervalo: '60.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '5,0 L', intervalo: '60.000 km' },
     filtros: {
       oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
       ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C17308', wega: 'FAP-4001', fram: 'CA8558' },
       combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
     }
   },
-  'VW Work 7-Ton Comercial': {
-    motor: { tipo: '15W-40 CI-4', qtd: '15,0 L', intervalo: '15.000 km' },
-    cambio: { tipo: 'Manual Eaton / ZF', qtd: '7,0 L', intervalo: '40.000 km' },
-    diferencial: { tipo: '85W-140 API GL-5', qtd: '8,0 L', intervalo: '40.000 km' },
+  'VW Delivery 13.180': {
+    motor: { tipo: '15W-40 CI-4 (Cummins ISF 3.8)', qtd: '11,0 L', intervalo: '30.000 km' },
+    cambio: { tipo: 'Manual Eaton: SAE 75W-90', qtd: '5,0 L', intervalo: '60.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '6,0 L', intervalo: '60.000 km' },
+    filtros: {
+      oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
+      ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C17308', wega: 'FAP-4001', fram: 'CA8558' },
+      combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'VW Worker 8.150': {
+    motor: { tipo: '15W-40 CI-4 (MWM 4.12)', qtd: '13,0 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual Eaton: SAE 50', qtd: '4,5 L', intervalo: '50.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '6,0 L', intervalo: '50.000 km' },
+    filtros: {
+      oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
+      ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C17308', wega: 'FAP-4001', fram: 'CA8558' },
+      combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'VW Worker 15.180': {
+    motor: { tipo: '15W-40 CI-4 (MWM 4.12)', qtd: '13,0 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual Eaton: SAE 50', qtd: '5,0 L', intervalo: '50.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '8,0 L', intervalo: '50.000 km' },
+    filtros: {
+      oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
+      ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C17308', wega: 'FAP-4001', fram: 'CA8558' },
+      combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'VW Worker 17.190': {
+    motor: { tipo: '15W-40 CI-4 (MWM 6.10)', qtd: '16,5 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual Eaton: SAE 50', qtd: '7,0 L', intervalo: '50.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '9,0 L', intervalo: '50.000 km' },
+    filtros: {
+      oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
+      ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C17308', wega: 'FAP-4001', fram: 'CA8558' },
+      combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'VW Worker 24.220': {
+    motor: { tipo: '15W-40 CI-4 (Cummins 6CTAA)', qtd: '20,0 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual Eaton: SAE 50', qtd: '9,5 L', intervalo: '50.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '14,0 L', intervalo: '50.000 km' },
     filtros: {
       oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
       ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
     }
   },
-  'VW Work 24-220': {
-    motor: { tipo: '15W-40 CI-4', qtd: '15,0 L', intervalo: '15.000 km' },
-    cambio: { tipo: 'Manual Eaton', qtd: '9,5 L', intervalo: '40.000 km' },
-    diferencial: { tipo: '85W-140 API GL-5', qtd: '14,0 L', intervalo: '40.000 km' },
+  'VW Worker 24.250': {
+    motor: { tipo: '15W-40 CI-4 (Cummins ISC)', qtd: '19,0 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual Eaton: SAE 50', qtd: '9,5 L', intervalo: '50.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '14,0 L', intervalo: '50.000 km' },
     filtros: {
       oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
       ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
     }
   },
-  'VW Work 26-220': {
-    motor: { tipo: '15W-40 CI-4', qtd: '15,0 L', intervalo: '15.000 km' },
-    cambio: { tipo: 'Manual Eaton', qtd: '9,5 L', intervalo: '40.000 km' },
-    diferencial: { tipo: '85W-140 API GL-5', qtd: '16,0 L', intervalo: '40.000 km' },
+  'VW Worker 26.260': {
+    motor: { tipo: '15W-40 CI-4 (Cummins ISC)', qtd: '19,0 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual Eaton: SAE 50', qtd: '11,0 L', intervalo: '50.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '16,0 L', intervalo: '50.000 km' },
     filtros: {
       oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
       ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
     }
   },
-  'VW Work 26-260E': {
-    motor: { tipo: '15W-40 CI-4', qtd: '16,0 L', intervalo: '20.000 km' },
-    cambio: { tipo: 'Manual ZF', qtd: '10,0 L', intervalo: '40.000 km' },
-    diferencial: { tipo: '85W-140 API GL-5', qtd: '16,0 L', intervalo: '40.000 km' },
+  'VW Worker 26.280': {
+    motor: { tipo: '15W-40 CI-4 (MWM 6.12)', qtd: '21,0 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual Eaton: SAE 50', qtd: '11,0 L', intervalo: '50.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '16,0 L', intervalo: '50.000 km' },
     filtros: {
       oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
       ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
     }
   },
-  'VW Constellation 24-250': {
+  'VW Constellation 17.190': {
+    motor: { tipo: '15W-40 CI-4 (MWM 6.10)', qtd: '16,5 L', intervalo: '20.000 km' },
+    cambio: { tipo: 'Manual Eaton: SAE 50', qtd: '7,0 L', intervalo: '50.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '9,0 L', intervalo: '50.000 km' },
+    filtros: {
+      oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
+      ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C17308', wega: 'FAP-4001', fram: 'CA8558' },
+      combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'VW Constellation 24.250': {
     motor: { tipo: '15W-40 CI-4 (Cummins Interact 6.0)', qtd: '16,0 L', intervalo: '20.000 km' },
     cambio: { tipo: 'Manual ZF 9S', qtd: '9,5 L', intervalo: '40.000 km' },
     diferencial: { tipo: '85W-140 API GL-5', qtd: '14,0 L', intervalo: '40.000 km' },
+    filtros: {
+      oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
+      ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'VW Constellation 24.280': {
+    motor: { tipo: '15W-40 (Cummins ISC)', qtd: '19,0 L', intervalo: '30.000 km' },
+    cambio: { tipo: 'Manual ZF 9S', qtd: '9,5 L', intervalo: '50.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '14,0 L', intervalo: '50.000 km' },
     filtros: {
       oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W950/26', wega: 'WO-210', fram: 'PH8A' },
       ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
@@ -617,6 +1007,88 @@ const especificacoesOleos = {
       combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK950/21', wega: 'FCI-1620', fram: 'PS10038' }
     }
   },
+  'VW Constellation 33.440': {
+    motor: { tipo: '15W-40 (MAN D26)', qtd: '35,0 L', intervalo: '50.000 km' },
+    cambio: { tipo: 'Automatizado ZF', qtd: '13,0 L', intervalo: '100.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '18,0 L', intervalo: '100.000 km' },
+    filtros: {
+      oleo: { original: '2V0115561', tecfil: 'PEL108', mann: 'HU12103x', wega: 'WO-530', fram: 'CH9939' },
+      ar: { original: '2V0129620', tecfil: 'ARL8480', mann: 'C311500', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '2V0201511', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Volvo VM 23': {
+    motor: { tipo: '15W-40 (Volvo D8K)', qtd: '28,0 L', intervalo: '45.000 km' },
+    cambio: { tipo: 'Manual / Automatizado Volvo', qtd: '11,0 L', intervalo: '90.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '14,0 L', intervalo: '90.000 km' },
+    filtros: {
+      oleo: { original: '21707132', tecfil: 'PEL108', mann: 'HU1075x', wega: 'WO-530', fram: 'CH11430' },
+      ar: { original: '21715815', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '20998367', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Volvo VM 26': {
+    motor: { tipo: '15W-40 (Volvo D8K)', qtd: '30,0 L', intervalo: '45.000 km' },
+    cambio: { tipo: 'Manual / Automatizado Volvo', qtd: '12,0 L', intervalo: '90.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '16,0 L', intervalo: '90.000 km' },
+    filtros: {
+      oleo: { original: '21707132', tecfil: 'PEL108', mann: 'HU1075x', wega: 'WO-530', fram: 'CH11430' },
+      ar: { original: '21715815', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '20998367', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Volvo VM 30': {
+    motor: { tipo: '15W-40 (Volvo D8K)', qtd: '32,0 L', intervalo: '45.000 km' },
+    cambio: { tipo: 'Manual / Automatizado Volvo', qtd: '12,0 L', intervalo: '90.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '18,0 L', intervalo: '90.000 km' },
+    filtros: {
+      oleo: { original: '21707132', tecfil: 'PEL108', mann: 'HU1075x', wega: 'WO-530', fram: 'CH11430' },
+      ar: { original: '21715815', tecfil: 'ARL8480', mann: 'C27830', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '20998367', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Volvo FH 460': {
+    motor: { tipo: '10W-40 sintético (Volvo D13K)', qtd: '38,0 L', intervalo: '90.000 km' },
+    cambio: { tipo: 'Automatizado Volvo I-Shift', qtd: '14,0 L', intervalo: '150.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '18,0 L', intervalo: '150.000 km' },
+    filtros: {
+      oleo: { original: '21707132', tecfil: 'PEL108', mann: 'HU1075x', wega: 'WO-530', fram: 'CH11430' },
+      ar: { original: '21715815', tecfil: 'ARL8480', mann: 'C311500', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '20998367', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Volvo FH 540': {
+    motor: { tipo: '10W-40 sintético (Volvo D13K)', qtd: '38,0 L', intervalo: '90.000 km' },
+    cambio: { tipo: 'Automatizado Volvo I-Shift', qtd: '14,0 L', intervalo: '150.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '18,0 L', intervalo: '150.000 km' },
+    filtros: {
+      oleo: { original: '21707132', tecfil: 'PEL108', mann: 'HU1075x', wega: 'WO-530', fram: 'CH11430' },
+      ar: { original: '21715815', tecfil: 'ARL8480', mann: 'C311500', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '20998367', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Volvo FMX 460': {
+    motor: { tipo: '10W-40 sintético (Volvo D13K)', qtd: '38,0 L', intervalo: '90.000 km' },
+    cambio: { tipo: 'Automatizado Volvo I-Shift', qtd: '14,0 L', intervalo: '150.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '20,0 L', intervalo: '150.000 km' },
+    filtros: {
+      oleo: { original: '21707132', tecfil: 'PEL108', mann: 'HU1075x', wega: 'WO-530', fram: 'CH11430' },
+      ar: { original: '21715815', tecfil: 'ARL8480', mann: 'C311500', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '20998367', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+  'Volvo FMX 540': {
+    motor: { tipo: '10W-40 sintético (Volvo D13K)', qtd: '38,0 L', intervalo: '90.000 km' },
+    cambio: { tipo: 'Automatizado Volvo I-Shift', qtd: '14,0 L', intervalo: '150.000 km' },
+    diferencial: { tipo: '85W-140 API GL-5', qtd: '20,0 L', intervalo: '150.000 km' },
+    filtros: {
+      oleo: { original: '21707132', tecfil: 'PEL108', mann: 'HU1075x', wega: 'WO-530', fram: 'CH11430' },
+      ar: { original: '21715815', tecfil: 'ARL8480', mann: 'C311500', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '20998367', tecfil: 'PSD980', mann: 'WK1060x', wega: 'FCI-1620', fram: 'PS10038' }
+    }
+  },
+
+  // --- ÔNIBUS E VANS ---
   'Fiat Ducato 2.3 Multijet': {
     motor: { tipo: '5W-30 sintético (Fiat 9.55535-S1)', qtd: '4,9 L', intervalo: '20.000 km' },
     cambio: { tipo: 'Manual: 75W-80 GL-5', qtd: '2,7 L', intervalo: '60.000 km' },
