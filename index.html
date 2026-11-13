@@ -1,654 +1,1378 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Manual Automotivo</title>
-  
-  <!-- Ícones -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guia Técnico de Lubrificantes &amp; Filtros — Frota &amp; Oficina</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fonte Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    };
+  </script>
   <style>
-    /* --- ESTILOS BASE --- */
-    :root { --primary: #4f46e5; --text-dark: #1f2430; --text-light: #5b6275; --border: #e3e6ef; }
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: Segoe UI, Arial, sans-serif; background: #f6f7fb; color: var(--text-dark); overflow-x: hidden; }
-    .w { max-width: 1000px; margin: 0 auto; padding: 40px 16px; }
-    
-    /* Header */
-    .home-header { margin-bottom: 32px; text-align: center; }
-    h1 { color: #3730a3; font-size: 32px; margin: 0 0 8px; }
-    .home-header p { color: var(--text-light); font-size: 16px; margin: 0; }
-
-    .titulo-tela { font-size: 24px; color: #3730a3; margin: 0 0 24px; display: flex; align-items: center; gap: 10px; }
-    
-    /* --- BREADCRUMB --- */
-    .topo-tela { display: flex; align-items: center; margin-bottom: 24px; }
-    .breadcrumb { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text-light); flex-wrap: wrap; }
-    .breadcrumb .crumb { background: #fff; border: 1px solid var(--border); padding: 8px 16px; border-radius: 10px; text-decoration: none; color: var(--text-light); cursor: pointer; transition: border-color .15s, color .15s, transform .15s, box-shadow .15s; }
-    .breadcrumb .crumb:hover:not(.atual) { border-color: var(--primary); color: #3730a3; transform: translateY(-1px); box-shadow: 0 2px 6px rgba(79,70,229,.1); }
-    .breadcrumb .crumb.atual { background: #eef2ff; border-color: #c7d2fe; color: #3730a3; font-weight: 600; cursor: default; }
-    .breadcrumb .sep { color: #6b7280; font-size: 18px; font-weight: bold; display: flex; align-items: center; justify-content: center; }
-
-    /* --- GRID E CARDS --- */
-    .g { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-    .c { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-decoration: none; color: inherit; cursor: pointer; transition: border-color .15s, transform .15s, box-shadow .15s; }
-    .c:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 4px 14px rgba(79,70,229,.12); }
-    .c-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
-    .c-icone { font-size: 24px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: #f0f2f5; }
-    .c b { color: #3730a3; font-size: 18px; }
-    .c span { font-size: 14px; color: var(--text-light); line-height: 1.4; }
-    .c-arrow { margin-top: auto; align-self: flex-end; color: var(--primary); opacity: 0; transition: opacity 0.2s, transform 0.2s; }
-    .c:hover .c-arrow { opacity: 1; transform: translateX(4px); }
-
-    /* --- ANIMAÇÕES DE TELA --- */
-    .tela { display: none; animation: entrar .35s ease both; }
-    .tela.ativa { display: block; }
-    .tela.saindo { animation: sair .25s ease both; }
-    @keyframes entrar { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
-    @keyframes sair { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(-24px); } }
-
-    /* --- CARD DE CONSTRUÇÃO --- */
-    .card-construcao { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin-top: 16px; }
-    .card-construcao i { font-size: 48px; color: #a0a7b8; margin-bottom: 16px; display: block; }
-    .card-construcao b { font-size: 20px; color: #3730a3; display: block; margin-bottom: 8px; }
-    .card-construcao span { color: var(--text-light); font-size: 15px; }
-
-    /* --- ESTILOS DA TABELA DE ÓLEO --- */
-    .tabela-container { overflow-x: auto; margin-top: 20px; border-radius: 8px; border: 1px solid var(--border); }
-    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; background: #fff; }
-    th { background-color: #f0f2f5; color: #3730a3; padding: 14px; border-bottom: 2px solid var(--border); font-weight: 600; }
-    td { padding: 14px; border-bottom: 1px solid var(--border); color: var(--text-dark); vertical-align: top; }
-    tr:last-child td { border-bottom: none; }
-    tr:hover { background-color: #fafafa; }
-    .tag-obs { font-size: 12px; color: #b45309; background: #fef3c7; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-top: 4px; }
+    /* Estilos de impressão otimizados para Ordem de Serviço (OS) */
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #ffffff !important; color: #0f172a !important; }
+      .print-card {
+        break-inside: avoid;
+        border: 1px solid #cbd5e1 !important;
+        box-shadow: none !important;
+        margin-bottom: 1rem !important;
+      }
+    }
+    /* Barra de rolagem discreta para abas horizontais no mobile */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-<body>
-  <div class="w">
+<body class="bg-slate-100 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
 
-    <!-- ================= NÍVEL 1: HOME ================= -->
-    <section id="tela-principal" class="tela ativa" data-titulo="Início">
-      <div class="home-header">
-        <h1>Manual Automotivo</h1>
-        <p>Selecione uma categoria para começar a navegar.</p>
+  <!-- CABEÇALHO INDUSTRIAL -->
+  <header class="bg-slate-900 text-white border-b-4 border-amber-500 sticky top-0 z-30 shadow-lg no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <!-- Identidade / Título -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center shadow-md shrink-0">
+              <!-- Ícone Óleo / Engrenagem SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                <circle cx="12" cy="14" r="2"/>
+              </svg>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h1 class="text-lg sm:text-xl font-extrabold tracking-tight leading-tight">
+                  Guia Técnico de Lubrificantes &amp; Filtros
+                </h1>
+                <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wider bg-amber-500/20 text-amber-400 border border-amber-500/40">
+                  Offline Ready
+                </span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-400">
+                Catálogo de Manutenção Preventiva • Frota &amp; Oficina
+              </p>
+            </div>
+          </div>
+
+          <!-- Botão Tema Claro/Escuro (Mobile) -->
+          <button id="themeToggleMobile" type="button" aria-label="Alternar tema" class="md:hidden p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+            <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="w-5 h-5 hidden dark:block text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          </button>
+        </div>
+
+        <!-- Barra de Busca + Seletor Rápido + Tema Desktop -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 flex-1 md:max-w-2xl">
+          <!-- Campo de Busca -->
+          <div class="relative flex-1">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+              </svg>
+            </span>
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="Buscar veículo, motor, óleo (15W-40) ou código (PSL619, WO130, LF16015)..."
+              class="w-full pl-10 pr-9 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition"
+            />
+            <button id="clearSearchBtn" type="button" title="Limpar busca" class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-white">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
+          </div>
+
+          <!-- Seletor Rápido de Veículo -->
+          <select
+            id="quickSelect"
+            aria-label="Acesso rápido ao veículo"
+            class="sm:w-56 px-3 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500 cursor-pointer"
+          >
+            <option value="">Ir para veículo...</option>
+          </select>
+
+          <!-- Botão Tema Claro/Escuro (Desktop) -->
+          <button id="themeToggleDesktop" type="button" title="Alternar modo claro/escuro" class="hidden md:flex items-center justify-center p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition shrink-0">
+            <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <svg class="w-5 h-5 hidden dark:block text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          </button>
+        </div>
       </div>
 
-      <div class="g">
-        <a class="c" onclick="abrirCategoria('Veículos Passeio', 'veiculos-passeio', 'fa-car', '#4f46e5')">
-          <div class="c-header"><div class="c-icone" style="color:#4f46e5;"><i class="fa-solid fa-car"></i></div><b>Veículos Passeio</b></div>
-          <span>Chevrolet, Fiat, Ford, Nissan, VW...</span><div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-        </a>
-        <a class="c" onclick="abrirCategoria('Veículos Utilitários', 'veiculos-utilitarios', 'fa-truck-pickup', '#0284c7')">
-          <div class="c-header"><div class="c-icone" style="color:#0284c7;"><i class="fa-solid fa-truck-pickup"></i></div><b>Veículos Utilitários</b></div>
-          <span>Agrale, Ford, Mitsubishi, Toyota...</span><div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-        </a>
-        <a class="c" onclick="abrirCategoria('Caminhões', 'caminhoes', 'fa-truck', '#065f46')">
-          <div class="c-header"><div class="c-icone" style="color:#065f46;"><i class="fa-solid fa-truck"></i></div><b>Caminhões</b></div>
-          <span>Ford, Mercedes-Benz, Volkswagen...</span><div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-        </a>
-        <a class="c" onclick="abrirCategoria('Ônibus e Vans', 'onibus-e-vans', 'fa-bus', '#1e1b4b')">
-          <div class="c-header"><div class="c-icone" style="color:#1e1b4b;"><i class="fa-solid fa-bus"></i></div><b>Ônibus e Vans</b></div>
-          <span>Agrale, Mercedes, Fiat, Iveco...</span><div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-        </a>
-        <a class="c" onclick="abrirCategoria('Náuticos', 'nauticos', 'fa-ship', '#0369a1')">
-          <div class="c-header"><div class="c-icone" style="color:#0369a1;"><i class="fa-solid fa-ship"></i></div><b>Náuticos</b></div>
-          <span>Motores Marítimos, Guardian...</span><div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-        </a>
+      <!-- Abas / Pílulas de Categoria -->
+      <div class="mt-3.5 pt-3 border-t border-slate-800 flex items-center justify-between gap-3">
+        <div id="categoryPills" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-0.5">
+          <!-- Preenchido via JavaScript -->
+        </div>
+
+        <div class="hidden lg:flex items-center gap-2 shrink-0">
+          <button id="expandAllBtn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+            Expandir Todos
+          </button>
+          <button id="collapseAllBtn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
+            Recolher Todos
+          </button>
+        </div>
       </div>
-    </section>
+    </div>
+  </header>
 
-    <!-- ================= NÍVEL 2: LISTA DINÂMICA ================= -->
-    <section id="tela-lista" class="tela" data-titulo="Lista">
-      <div class="topo-tela"><div class="breadcrumb"></div></div>
-      <h2 id="titulo-lista" class="titulo-tela"></h2>
-      <div id="grid-lista" class="g"></div>
-    </section>
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Barra de Status dos Resultados -->
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-4 no-print">
+      <p id="resultsCounter" class="text-sm font-medium text-slate-600 dark:text-slate-400">
+        Carregando catálogo...
+      </p>
+      <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span>Clique em qualquer código de filtro para copiar</span>
+      </div>
+    </div>
 
-    <!-- ================= NÍVEL 3: CONTEÚDO FINAL ================= -->
-    <section id="tela-conteudo" class="tela" data-titulo="Conteúdo">
-      <div class="topo-tela"><div class="breadcrumb"></div></div>
-      <h1 id="titulo-conteudo" style="color: #3730a3; margin-bottom: 20px;"></h1>
-      
-      <!-- O conteúdo será injetado aqui pelo JavaScript -->
-      <div id="conteudo-dinamico"></div>
-    </section>
+    <!-- Lista / Grid de Veículos -->
+    <div id="vehiclesContainer" class="space-y-4">
+      <!-- Cards gerados dinamicamente -->
+    </div>
 
+    <!-- Estado Vazio (Nenhum resultado na busca) -->
+    <div id="emptyState" class="hidden bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-10 text-center shadow-sm">
+      <div class="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto mb-4">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+      </div>
+      <h2 class="text-lg font-bold text-slate-900 dark:text-white">Nenhum veículo ou código encontrado</h2>
+      <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-md mx-auto">
+        Tente buscar por outro modelo, viscosidade (ex.: <span class="font-mono font-semibold">5W-30</span>, <span class="font-mono font-semibold">15W-40</span>) ou referência de filtro (ex.: <span class="font-mono font-semibold">PSL283</span>, <span class="font-mono font-semibold">WO130</span>).
+      </p>
+      <button id="resetFiltersBtn" type="button" class="mt-5 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-sm transition shadow">
+        Limpar Filtros e Mostrar Todos
+      </button>
+    </div>
+  </main>
+
+  <!-- RODAPÉ TÉCNICO -->
+  <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-5 mt-8 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
+      <p>
+        <strong>Nota Técnica:</strong> Sempre confira o nível na vareta/bujão e a norma API/ACEA/OEM antes da aplicação final. Em uso severo (poeira, carga máxima, trânsito urbano intenso), reduza os intervalos pela metade.
+      </p>
+      <p class="shrink-0 font-semibold text-slate-600 dark:text-slate-300">
+        Base Integrada • 56 Veículos
+      </p>
+    </div>
+  </footer>
+
+  <!-- NOTIFICAÇÃO TOAST (Cópia de código / ficha) -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 no-print">
+    <div class="bg-slate-900 dark:bg-slate-800 text-white border border-amber-500/60 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3">
+      <span class="w-6 h-6 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </span>
+      <span id="toastMessage" class="text-sm font-medium">Código copiado!</span>
+    </div>
   </div>
 
+  <!-- BANCO DE DADOS E LÓGICA DA APLICAÇÃO -->
   <script>
-    // =====================================================================
-    // 1. BANCO DE DADOS DE VEÍCULOS (ESTRUTURA DO MENU)
-    // =====================================================================
-    const bancoDeDados = {
-      'veiculos-passeio': {
-        titulo: 'Veículos Passeio',
-        marcas: {
-          'Chevrolet': ['Chevrolet SPIN', 'Chevrolet Agile', 'Chevrolet Montana'],
-          'Fiat': ['Fiat Palio 1.4', 'Fiat Doblo 1.8', 'Fiat Doblo 1.4', 'Fiat Strada 1.4'],
-          'Ford': ['Ford Fiesta 1.0', 'Ford Fiesta 1.6', 'Ford Focus 1.6', 'Ford Focus 2.0'],
-          'Nissan, Peugeot e Renault': ['Nissan Sentra', 'Nissan Versa 1.6', 'Peugeot 408 1.6 THP', 'Renault Logan - Sandero'],
-          'Volkswagen': ['VW Kombi 1.4', 'VW Gol 1.6 G5', 'VW Gol 1.6 G6']
+    /**
+     * =========================================================================
+     * BANCO DE DADOS DE LUBRIFICANTES E FILTROS (56 VEÍCULOS)
+     * =========================================================================
+     * Para adicionar ou editar um veículo no futuro, basta copiar um bloco
+     * abaixo e preencher os campos:
+     * - categoria: 'Passeio' | 'Utilitários' | 'Caminhões' | 'Ônibus e Vans'
+     * - motor, cambio, diferencial: { tipo, qtd, intervalo }
+     * - filtros: { oleo, combustivel, ar } com códigos Tecfil, Mann, Wega,
+     *   Mahle e Fleetguard / Donaldson.
+     * =========================================================================
+     */
+    const frotaDatabase = {
+      // =======================================================================
+      // 1. VEÍCULOS PASSEIO (18 modelos)
+      // =======================================================================
+      'Chevrolet SPIN': {
+        categoria: 'Passeio',
+        motor: { tipo: '5W-30 sintético (dexos1 Gen 2/3)', qtd: '4,2 L (com filtro)', intervalo: '10.000 km ou 1 ano (5.000 km severo)' },
+        cambio: { tipo: 'Automático: Dexron VI / Manual: 75W-85 ou 75W-90 GL-4', qtd: 'Automático: ~8,5 L (total) / Manual: 1,8 L', intervalo: 'Automático: 60.000 - 80.000 km / Manual: 60.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PSL619 (TM3)', mann: 'W712/22', wega: 'WO130', mahle: 'OC90', fleetguard_donaldson: '-' },
+          combustivel: { tecfil: 'GI04/7', mann: 'WK58', wega: 'FCI1660', mahle: 'KL582', fleetguard_donaldson: '-' },
+          ar: { tecfil: 'ARL8829', mann: 'C24028/1', wega: 'FAP4870', mahle: 'LX3547', fleetguard_donaldson: '-' }
         }
       },
-      'veiculos-utilitarios': {
-        titulo: 'Veículos Utilitários',
-        marcas: {
-          'Agrale': ['Agrale Marruá - AM21', 'Agrale Marruá - AM20', 'Agrale Marruá - AM22', 'Agrale Marruá - AM25'],
-          'Ford': ['Ford F-250 e F-350', 'Ford Ranger Power Stroke', 'Ford Ranger 3.0 NGD', 'Ford Ranger 2.2', 'Ford Transit'],
-          'Mitsubishi e Nissan': ['Mitsubishi L200 2.5', 'Mitsubishi Triton 3.2', 'Mitsubishi Triton 2.4', 'Nissan Frontier 2.5', 'Nissan Frontier 2.3'],
-          'Toyota': ['Toyota Hilux 3.0', 'Toyota Hilux 2.8 - Nova']
+      'Chevrolet Agile': {
+        categoria: 'Passeio',
+        motor: { tipo: '10W-40 semissintético ou 5W-30 sintético (API SN)', qtd: '3,5 L (com filtro)', intervalo: '10.000 km ou 1 ano (5.000 km severo)' },
+        cambio: { tipo: 'Manual: 75W-85 ou 75W-90 GL-4', qtd: '1,6 L a 1,8 L', intervalo: '60.000 - 80.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PSL619 (TM3)', mann: 'W712/22', wega: 'WO130', mahle: 'OC90', fleetguard_donaldson: '-' },
+          combustivel: { tecfil: 'GI04/7', mann: 'WK58', wega: 'FCI1660', mahle: 'KL582', fleetguard_donaldson: '-' },
+          ar: { tecfil: 'ARL8832', mann: 'C2256', wega: 'FAP3290', mahle: 'LX3026', fleetguard_donaldson: '-' }
         }
       },
-      'caminhoes': {
-        titulo: 'Caminhões',
-        marcas: {
-          'Ford': ['Ford Cargo 816', 'Ford Cargo 2423', 'Ford - 2629 Bau', 'Ford - 2629 CTA e CTC', 'Ford 1933 Cav Mec'],
-          'Mercedes-Benz': ['Mercedes-Benz 2627', 'Mercedes-Benz 915c', 'Mercedes-Benz 1418E', 'Mercedes-Benz AXOR 3344', 'Mercedes-Benz Atego 1725'],
-          'Volkswagen': ['VW Work 815', 'VW Work 5-Ton 15-180', 'VW Work 7-Ton Comercial', 'VW Work 24-220', 'VW Work 26-220', 'VW Work 26-260E', 'VW Constellation 24-250', 'VW Constellation 26-280', 'VW Constellation 31-320']
+      'Chevrolet Montana': {
+        categoria: 'Passeio',
+        motor: { tipo: '5W-30 sintético (1.4 Econoflex) / 15W-40 ou 20W-50 (1.8 antigas)', qtd: '3,5 L (com filtro)', intervalo: '10.000 km (5.000 km severo)' },
+        cambio: { tipo: 'Manual: 75W-85 ou 75W-90 GL-4 (Easytronic: fluido específico + atuador)', qtd: '1,6 L a 1,8 L', intervalo: '60.000 - 80.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PSL619 (TM3)', mann: 'W712/22', wega: 'WO130', mahle: 'OC90', fleetguard_donaldson: '-' },
+          combustivel: { tecfil: 'GI04/7', mann: 'WK58', wega: 'FCI1660', mahle: 'KL582', fleetguard_donaldson: '-' },
+          ar: { tecfil: 'ARL8832 (Nova) / ARL8825 (Antiga)', mann: 'C2256 / C2672', wega: 'FAP3290 / FAP4872', mahle: 'LX3026 / LX1571', fleetguard_donaldson: '-' }
         }
       },
-      'onibus-e-vans': {
-        titulo: 'Ônibus e Vans',
-        marcas: {
-          'Ônibus': ['Ônibus Agrale', 'Mercedes-Benz Choque', 'Ônibus MB Urbano', 'Mercedes-Benz', 'Mascarelo/Agrale S3', 'VW 15-190E Rural', 'VW Roma 18-320'],
-          'Vans e Utilitários': ['Fiat Ducato 2.3 Multijet', 'Fiat Ducato 2.8', 'Iveco - Daily 35S14', 'Ford Transit']
+      'Fiat Palio 1.4': {
+        categoria: 'Passeio',
+        motor: { tipo: '15W-40 semissintético (Fire) ou 5W-30 sintético (Fire Evo)', qtd: '2,7 L a 3,2 L (com filtro)', intervalo: '10.000 km (7.500 km severo)' },
+        cambio: { tipo: 'Manual: 75W-90 ou 80W API GL-4', qtd: '2,0 L', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PSL55 (TM5)', mann: 'W610/3', wega: 'WO120', mahle: 'OC506', fleetguard_donaldson: '-' },
+          combustivel: { tecfil: 'GI04/7', mann: 'WK58', wega: 'FCI1660', mahle: 'KL582', fleetguard_donaldson: '-' },
+          ar: { tecfil: 'ARL4150 (Fire) / ARL4152 (Evo)', mann: 'C2585 / C29003/1', wega: 'FAP3287 / FAP3289', mahle: 'LX1791 / LX3435', fleetguard_donaldson: '-' }
         }
       },
-      'nauticos': {
-        titulo: 'Náuticos',
-        marcas: {
-          'Motores Marítimos': ['Náuticos X', 'Guardian', 'Guardian 2']
+      'Fiat Doblo 1.8': {
+        categoria: 'Passeio',
+        motor: { tipo: '15W-40 semissintético (GM/E.torQ) ou 5W-30 sintético (E.torQ novos)', qtd: '3,5 L (GM) / 4,3 L (E.torQ)', intervalo: '10.000 km (7.500 km severo)' },
+        cambio: { tipo: 'Manual: 75W-90 API GL-4', qtd: '2,0 L', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PSL619 (GM) / PEL108 (E.torQ)', mann: 'W712/22 / HU816/2x', wega: 'WO130 / WOE313', mahle: 'OC90 / OX1018D', fleetguard_donaldson: '-' },
+          combustivel: { tecfil: 'GI04/7', mann: 'WK58', wega: 'FCI1660', mahle: 'KL582', fleetguard_donaldson: '-' },
+          ar: { tecfil: 'ARL4148', mann: 'C25116', wega: 'FAP4874', mahle: 'LX1599', fleetguard_donaldson: '-' }
+        }
+      },
+      'Fiat Doblo 1.4': {
+        categoria: 'Passeio',
+        motor: { tipo: '15W-40 semissintético (API SL/SN)', qtd: '2,7 L a 3,2 L (com filtro)', intervalo: '10.000 km (7.500 km severo)' },
+        cambio: { tipo: 'Manual: 75W-90 API GL-4', qtd: '2,0 L', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PSL55 (TM5)', mann: 'W610/3', wega: 'WO120', mahle: 'OC506', fleetguard_donaldson: '-' },
+          combustivel: { tecfil: 'GI04/7', mann: 'WK58', wega: 'FCI1660', mahle: 'KL582', fleetguard_donaldson: '-' },
+          ar: { tecfil: 'ARL4148', mann: 'C25116', wega: 'FAP4874', mahle: 'LX1599', fleetguard_donaldson: '-' }
+        }
+      },
+      'Fiat Strada 1.4': {
+        categoria: 'Passeio',
+        motor: { tipo: '15W-40 semissintético (Fire) ou 5W-30 sintético (Fire Evo)', qtd: '2,7 L a 3,2 L (com filtro)', intervalo: '10.000 km (7.500 km severo)' },
+        cambio: { tipo: 'Manual: 75W-90 API GL-4', qtd: '1,8 L a 2,0 L', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PSL55 (TM5)', mann: 'W610/3', wega: 'WO120', mahle: 'OC506', fleetguard_donaldson: '-' },
+          combustivel: { tecfil: 'GI04/7', mann: 'WK58', wega: 'FCI1660', mahle: 'KL582', fleetguard_donaldson: '-' },
+          ar: { tecfil: 'ARL4150 (Fire) / ARL4152 (Evo)', mann: 'C2585 / C29003/1', wega: 'FAP3287 / FAP3289', mahle: 'LX1791 / LX3435', fleetguard_donaldson: '-' }
+        }
+      },
+      'Ford Fiesta 1.0': {
+        categoria: 'Passeio',
+        motor: { tipo: '5W-30 sintético (Zetec Rocam - norma WSS-M2C913)', qtd: '4,1 L a 4,3 L (com filtro)', intervalo: '10.000 km ou 1 ano' },
+        cambio: { tipo: 'Manual: 75W-90 sintético API GL-4 (caixa IB5)', qtd: '2,1 L', intervalo: '60.000 km (uso severo)' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PSL148 (TM1)', mann: 'W719/27', wega: 'WO150', mahle: 'OC266', fleetguard_donaldson: '-' },
+          combustivel: { tecfil: 'GI60/7', mann: 'WK613/3', wega: 'FCI1694', mahle: 'KL476', fleetguard_donaldson: '-' },
+          ar: { tecfil: 'ARL960', mann: 'C2244', wega: 'FAP4878', mahle: 'LX1597', fleetguard_donaldson: '-' }
+        }
+      },
+      'Ford Fiesta 1.6': {
+        categoria: 'Passeio',
+        motor: { tipo: '5W-30 sintético (Zetec Rocam / Sigma - norma WSS-M2C913)', qtd: '4,1 L (com filtro)', intervalo: '10.000 km ou 1 ano' },
+        cambio: { tipo: 'Manual: 75W-90 sintético API GL-4 (Powershift: fluido DCT)', qtd: 'Manual: 2,1 L / Powershift: 1,75 L', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PSL148 (Rocam) / PSL34M (Sigma)', mann: 'W719/27 / W7013/1', wega: 'WO150 / JFO0312', mahle: 'OC266 / OC1051', fleetguard_donaldson: '-' },
+          combustivel: { tecfil: 'GI60/7 (Rocam) / GI56/7 (New)', mann: 'WK613/3 / WK6014', wega: 'FCI1694 / FCI1111', mahle: 'KL476 / KL842', fleetguard_donaldson: '-' },
+          ar: { tecfil: 'ARL960 (Rocam) / ARL9607 (New)', mann: 'C2244 / C22015', wega: 'FAP4878 / FAP9056', mahle: 'LX1597 / LX3158', fleetguard_donaldson: '-' }
+        }
+      },
+      'Ford Focus 1.6': {
+        categoria: 'Passeio',
+        motor: { tipo: '5W-30 sintético (Zetec Rocam / Sigma)', qtd: '4,1 L (com filtro)', intervalo: '10.000 km ou 1 ano' },
+        cambio: { tipo: 'Manual: 75W-90 sintético API GL-4 (Powershift: fluido DCT)', qtd: 'Manual: 2,1 L / Powershift: 1,75 L', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PSL148 (Rocam) / PSL34M (Sigma)', mann: 'W719/27 / W7013/1', wega: 'WO150 / JFO0312', mahle: 'OC266 / OC1051', fleetguard_donaldson: '-' },
+          combustivel: { tecfil: 'GI60/7 (até 08) / GI56/7 (09+)', mann: 'WK613/3 / WK6014', wega: 'FCI1694 / FCI1111', mahle: 'KL476 / KL842', fleetguard_donaldson: '-' },
+          ar: { tecfil: 'ARL9604 (até 08) / ARS5196 (09+)', mann: 'C28122 / C16134/1', wega: 'FAP4879 / WAP168', mahle: 'LX869 / LX1780/3', fleetguard_donaldson: '-' }
+        }
+      },
+      'Ford Focus 2.0': {
+        categoria: 'Passeio',
+        motor: { tipo: '5W-30 sintético (Duratec)', qtd: '4,3 L (com filtro)', intervalo: '10.000 km ou 1 ano' },
+        cambio: { tipo: 'Manual: 75W-90 GL-4 / Auto 4F27E: Mercon LV / Powershift: DCT', qtd: 'Manual: 1,9 L / Auto: ~6,7 L / DCT: 1,75 L', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PSL34M (PSL145)', mann: 'W7013/1', wega: 'JFO0312', mahle: 'OC1051', fleetguard_donaldson: '-' },
+          combustivel: { tecfil: 'GI60/7 (até 08) / GI56/7 (09+)', mann: 'WK613/3 / WK6014', wega: 'FCI1694 / FCI1111', mahle: 'KL476 / KL842', fleetguard_donaldson: '-' },
+          ar: { tecfil: 'ARL9604 (até 08) / ARS5196 (09+)', mann: 'C28122 / C16134/1', wega: 'FAP4879 / WAP168', mahle: 'LX869 / LX1780/3', fleetguard_donaldson: '-' }
+        }
+      },
+      'Nissan Sentra': {
+        categoria: 'Passeio',
+        motor: { tipo: '5W-30 sintético (API SN/SP)', qtd: '4,4 L (com filtro)', intervalo: '10.000 km' },
+        cambio: { tipo: 'CVT: Fluido Nissan NS-2 (até 2013) ou NS-3 (2014+)', qtd: '~7,5 L a 8,2 L (total)', intervalo: '40.000 - 60.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PSL129 (PSL132)', mann: 'W67/1', wega: 'JFO0198', mahle: 'OC1052', fleetguard_donaldson: '-' },
+          combustivel: { tecfil: 'GI50/7 (2014+ externo)', mann: 'WK58/3', wega: 'FCI1630', mahle: 'KL583', fleetguard_donaldson: '-' },
+          ar: { tecfil: 'ARL1654', mann: 'C2433/2', wega: 'JFA0138', mahle: 'LX1983', fleetguard_donaldson: '-' }
+        }
+      },
+      'Nissan Versa 1.6': {
+        categoria: 'Passeio',
+        motor: { tipo: '5W-30 sintético (API SN/SP)', qtd: '4,0 L a 4,3 L (com filtro)', intervalo: '10.000 km' },
+        cambio: { tipo: 'CVT: Fluido Nissan NS-3 / Manual: 75W-80 ou 75W-85 GL-4', qtd: 'CVT: ~6,9 L / Manual: 2,3 L', intervalo: 'CVT: 40.000 - 60.000 km / Manual: 60.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PSL129 (PSL132)', mann: 'W67/1', wega: 'JFO0198', mahle: 'OC1052', fleetguard_donaldson: '-' },
+          combustivel: { tecfil: 'GI50/7', mann: 'WK58/3', wega: 'FCI1630', mahle: 'KL583', fleetguard_donaldson: '-' },
+          ar: { tecfil: 'ARL1656', mann: 'C24012', wega: 'JFA0151', mahle: 'LX3549', fleetguard_donaldson: '-' }
+        }
+      },
+      'Peugeot 408 1.6 THP': {
+        categoria: 'Passeio',
+        motor: { tipo: '5W-30 ou 0W-30 sintético (norma PSA B71 2290 / 2312)', qtd: '4,25 L (com filtro)', intervalo: '10.000 km (7.500 km severo)' },
+        cambio: { tipo: 'Automático Aisin AT6 (6 marchas): Fluido ATF AW-1 / JWS 3324', qtd: '~7,0 L (total) / ~3,5 L (troca parcial)', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PEL674 (Refil)', mann: 'HU711/51x', wega: 'WOE710', mahle: 'OX339/2D', fleetguard_donaldson: '-' },
+          combustivel: { tecfil: 'GI50/7', mann: 'WK58/3', wega: 'FCI1630', mahle: 'KL583', fleetguard_donaldson: '-' },
+          ar: { tecfil: 'ARL5047', mann: 'C36003', wega: 'FAP3295', mahle: 'LX2681', fleetguard_donaldson: '-' }
+        }
+      },
+      'Renault Logan - Sandero': {
+        categoria: 'Passeio',
+        motor: { tipo: '10W-40 semissintético ou 5W-30 sintético (norma RN0700/0710)', qtd: '1.6 8V: 3,3 L / 1.6 16V (K4M/SCe): 4,2 L a 4,8 L', intervalo: '10.000 km' },
+        cambio: { tipo: 'Manual: 75W-80 API GL-4+ (Elf Tranself NFJ/NFP)', qtd: '2,8 L a 3,1 L', intervalo: '60.000 km (verificação/troca)' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PSL77 (K4M) / PSL129 (SCe)', mann: 'W75/3 / W67/1', wega: 'WO200 / JFO0198', mahle: 'OC467 / OC1052', fleetguard_donaldson: '-' },
+          combustivel: { tecfil: 'GI50/7', mann: 'WK58/3', wega: 'FCI1630', mahle: 'KL583', fleetguard_donaldson: '-' },
+          ar: { tecfil: 'AR7705 (8V) / ARL5142 (16V) / ARL5149 (SCe)', mann: 'C2680 / C3366 / C27030', wega: 'FAP2828 / FAP4877 / FAP9072', mahle: 'LX1066 / LX773 / LX3750', fleetguard_donaldson: '-' }
+        }
+      },
+      'VW Kombi 1.4': {
+        categoria: 'Passeio',
+        motor: { tipo: '5W-40 sintético ou 10W-40 semissintético (norma VW 502.00)', qtd: '4,0 L (com filtro)', intervalo: '10.000 km (5.000 km severo)' },
+        cambio: { tipo: 'Manual: 75W-90 API GL-4', qtd: '2,5 L', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Traseira com transeixo integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PSL560', mann: 'W712/53', wega: 'WO340', mahle: 'OC250', fleetguard_donaldson: '-' },
+          combustivel: { tecfil: 'GI04/7', mann: 'WK58', wega: 'FCI1660', mahle: 'KL582', fleetguard_donaldson: '-' },
+          ar: { tecfil: 'ARS2868', mann: 'C14179', wega: 'WAP160', mahle: 'LX1594', fleetguard_donaldson: '-' }
+        }
+      },
+      'VW Gol 1.6 G5': {
+        categoria: 'Passeio',
+        motor: { tipo: '5W-40 sintético (norma VW 502.00 - recomendado) ou 5W-30', qtd: '3,5 L (com filtro)', intervalo: '10.000 km (5.000 km severo)' },
+        cambio: { tipo: 'Manual: 75W-90 API GL-4 (norma VW G 052 512)', qtd: '1,9 L a 2,0 L', intervalo: '60.000 - 80.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PSL560', mann: 'W712/53', wega: 'WO340', mahle: 'OC250', fleetguard_donaldson: '-' },
+          combustivel: { tecfil: 'GI50/7 (ou GI04/7)', mann: 'WK58/3', wega: 'FCI1630', mahle: 'KL583', fleetguard_donaldson: '-' },
+          ar: { tecfil: 'ARL6095', mann: 'C2295/4', wega: 'FAP4054', mahle: 'LX1592', fleetguard_donaldson: '-' }
+        }
+      },
+      'VW Gol 1.6 G6': {
+        categoria: 'Passeio',
+        motor: { tipo: '5W-40 sintético (norma VW 502.00) ou 5W-30 (VW 508.88)', qtd: '3,5 L (EA111) / 4,0 L (EA211 MSI)', intervalo: '10.000 km (5.000 km severo)' },
+        cambio: { tipo: 'Manual: 75W-90 API GL-4 (norma VW G 052 512)', qtd: '1,9 L a 2,0 L', intervalo: '60.000 - 80.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PSL560 (8V) / PSL545 (16V MSI)', mann: 'W712/53 / W712/95', wega: 'WO340 / WO345', mahle: 'OC250 / OC593/4', fleetguard_donaldson: '-' },
+          combustivel: { tecfil: 'GI50/7', mann: 'WK58/3', wega: 'FCI1630', mahle: 'KL583', fleetguard_donaldson: '-' },
+          ar: { tecfil: 'ARL6095 (8V) / ARL6071 (16V)', mann: 'C2295/4 / C27009', wega: 'FAP4054 / FAP9054', mahle: 'LX1592 / LX3534', fleetguard_donaldson: '-' }
+        }
+      },
+
+      // =======================================================================
+      // 2. VEÍCULOS UTILITÁRIOS (16 modelos)
+      // =======================================================================
+      'Agrale Marruá - AM21': {
+        categoria: 'Utilitários',
+        motor: { tipo: '15W-40 mineral/semissintético (API CI-4 / ACEA E7 - MWM Sprint / Cummins)', qtd: '5,5 L a 8,5 L (conforme motorização)', intervalo: '5.000 - 10.000 km (uso severo/militar)' },
+        cambio: { tipo: 'Manual (Eaton FS-2305 / FSO-2405): SAE 50 sintético ou 75W-90 GL-4', qtd: '3,2 L (Câmbio) + 1,5 L a 2,2 L (Caixa Transf. 4x4)', intervalo: '20.000 - 40.000 km' },
+        diferencial: { tipo: '85W-140 ou 80W-90 API GL-5 (Eixos Dana 44 / 60 / 70)', qtd: 'Diant.: ~1,5 L / Tras.: ~2,2 L a 3,0 L', intervalo: '20.000 - 40.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL340 (MWM) / PSL283 (Cummins)', mann: 'W940/34 / W950/26', wega: 'WO510 / WO612', mahle: 'OC311 / OC505', fleetguard_donaldson: 'LF16015 / P550520' },
+          combustivel: { tecfil: 'PSC411 + Sep. PSD450/1 ou PSD960/1', mann: 'WK842/2 + WK950/21', wega: 'FCD2066 + FCD0766', mahle: 'KC80 + KC200', fleetguard_donaldson: 'FF5421 + FS1280 / P550881' },
+          ar: { tecfil: 'ARS7109 ou AP2655 + AS820', mann: 'C15300 ou C17308 + CF1000', wega: 'WAP274 ou WAP183 + WAP183S', mahle: 'LX964 ou LX1054 + LXS44', fleetguard_donaldson: 'AF25551 + AF25552 / P827653' }
+        }
+      },
+      'Agrale Marruá - AM20': {
+        categoria: 'Utilitários',
+        motor: { tipo: '15W-40 mineral/semissintético (API CI-4 / ACEA E7)', qtd: '5,5 L a 8,5 L (conforme motorização)', intervalo: '5.000 - 10.000 km (uso severo)' },
+        cambio: { tipo: 'Manual (Eaton FSO-2405): SAE 50 sintético ou 75W-90 GL-4', qtd: '3,2 L (Câmbio) + ~1,8 L (Caixa de Transferência)', intervalo: '20.000 - 40.000 km' },
+        diferencial: { tipo: '85W-140 ou 80W-90 API GL-5', qtd: 'Diant.: ~1,5 L / Tras.: ~2,5 L', intervalo: '20.000 - 40.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL340 (MWM) / PSL283 (Cummins)', mann: 'W940/34 / W950/26', wega: 'WO510 / WO612', mahle: 'OC311 / OC505', fleetguard_donaldson: 'LF16015 / P550520' },
+          combustivel: { tecfil: 'PSC411 + Sep. PSD450/1 ou PSD960/1', mann: 'WK842/2 + WK950/21', wega: 'FCD2066 + FCD0766', mahle: 'KC80 + KC200', fleetguard_donaldson: 'FF5421 + FS1280 / P550881' },
+          ar: { tecfil: 'ARS7109 ou AP2655 + AS820', mann: 'C15300 ou C17308 + CF1000', wega: 'WAP274 ou WAP183 + WAP183S', mahle: 'LX964 ou LX1054 + LXS44', fleetguard_donaldson: 'AF25551 + AF25552 / P827653' }
+        }
+      },
+      'Agrale Marruá - AM22': {
+        categoria: 'Utilitários',
+        motor: { tipo: '15W-40 mineral/semissintético (API CI-4 / ACEA E7)', qtd: '5,5 L a 8,5 L (conforme motorização)', intervalo: '5.000 - 10.000 km (uso severo)' },
+        cambio: { tipo: 'Manual (Eaton FSO-2405): SAE 50 sintético ou 75W-90 GL-4', qtd: '3,2 L (Câmbio) + ~1,8 L (Caixa de Transferência)', intervalo: '20.000 - 40.000 km' },
+        diferencial: { tipo: '85W-140 ou 80W-90 API GL-5', qtd: 'Diant.: ~1,5 L / Tras.: ~2,5 L', intervalo: '20.000 - 40.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL340 (MWM) / PSL283 (Cummins)', mann: 'W940/34 / W950/26', wega: 'WO510 / WO612', mahle: 'OC311 / OC505', fleetguard_donaldson: 'LF16015 / P550520' },
+          combustivel: { tecfil: 'PSC411 + Sep. PSD450/1 ou PSD960/1', mann: 'WK842/2 + WK950/21', wega: 'FCD2066 + FCD0766', mahle: 'KC80 + KC200', fleetguard_donaldson: 'FF5421 + FS1280 / P550881' },
+          ar: { tecfil: 'ARS7109 ou AP2655 + AS820', mann: 'C15300 ou C17308 + CF1000', wega: 'WAP274 ou WAP183 + WAP183S', mahle: 'LX964 ou LX1054 + LXS44', fleetguard_donaldson: 'AF25551 + AF25552 / P827653' }
+        }
+      },
+      'Agrale Marruá - AM25': {
+        categoria: 'Utilitários',
+        motor: { tipo: '15W-40 mineral/semissintético (API CI-4 / ACEA E7)', qtd: '8,5 L (MWM Sprint 4.07 / Cummins ISF)', intervalo: '5.000 - 10.000 km (uso severo)' },
+        cambio: { tipo: 'Manual (Eaton FSO-2405): SAE 50 sintético ou 75W-90 GL-4', qtd: '3,2 L (Câmbio) + ~1,8 L (Caixa de Transferência)', intervalo: '20.000 - 40.000 km' },
+        diferencial: { tipo: '85W-140 ou 80W-90 API GL-5', qtd: 'Diant.: ~1,5 L / Tras.: ~3,0 L', intervalo: '20.000 - 40.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL340 (MWM) / PSL283 (Cummins)', mann: 'W940/34 / W950/26', wega: 'WO510 / WO612', mahle: 'OC311 / OC505', fleetguard_donaldson: 'LF16015 / P550520' },
+          combustivel: { tecfil: 'PSC411 + Sep. PSD450/1 ou PSD960/1', mann: 'WK842/2 + WK950/21', wega: 'FCD2066 + FCD0766', mahle: 'KC80 + KC200', fleetguard_donaldson: 'FF5421 + FS1280 / P550881' },
+          ar: { tecfil: 'ARS7109 ou AP2655 + AS820', mann: 'C15300 ou C17308 + CF1000', wega: 'WAP274 ou WAP183 + WAP183S', mahle: 'LX964 ou LX1054 + LXS44', fleetguard_donaldson: 'AF25551 + AF25552 / P827653' }
+        }
+      },
+      'Ford F-250 e F-350': {
+        categoria: 'Utilitários',
+        motor: { tipo: '15W-40 (API CI-4/CJ-4 - MWM Sprint 6.07 / Cummins 3.9)', qtd: '8,5 L (MWM 6 cil.) / 11,0 L (Cummins)', intervalo: '10.000 km (5.000 km severo)' },
+        cambio: { tipo: 'Manual (ZF S5-420 / Eaton FSO-2405): ATF Mercon ou 75W-90 GL-4 / Auto: Mercon V', qtd: 'Manual: 3,2 L a 3,4 L / Automático: ~16,6 L', intervalo: 'Manual: 60.000 km / Auto: 50.000 km' },
+        diferencial: { tipo: 'Traseiro: 80W-90 ou 85W-140 API GL-5 (com aditivo LSD se blocante)', qtd: '3,3 L (Dana 60/70) / 4,0 L (Dana M80)', intervalo: '40.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL335 (MWM) / PSL280 (Cummins)', mann: 'W950/18 / W950/16', wega: 'WO470 / WO610', mahle: 'OC413 / OC272', fleetguard_donaldson: 'LF3349 / P558615' },
+          combustivel: { tecfil: 'PSC498 (MWM) / PSC72/2 (Cummins)', mann: 'WK842/13 / WK723', wega: 'FCD2062 / FCD2041', mahle: 'KC119 / KC18', fleetguard_donaldson: 'FF5052 / P550440' },
+          ar: { tecfil: 'AP7998 + AS800 (Sec.)', mann: 'C17308 + CF1000', wega: 'WAP183 + WAP183S', mahle: 'LX1054 + LXS44', fleetguard_donaldson: 'AF25551 + AF25552 / P827653' }
+        }
+      },
+      'Ford Ranger Power Stroke': {
+        categoria: 'Utilitários',
+        motor: { tipo: '15W-40 (API CH-4/CI-4 - Motor International 2.8 Power Stroke)', qtd: '7,0 L (com filtro)', intervalo: '7.500 - 10.000 km' },
+        cambio: { tipo: 'Manual (Eaton FSO-2405): ATF Mercon / Caixa Transf. (4x4): ATF Mercon', qtd: 'Câmbio: 2,6 L / Caixa Transf.: 1,2 L', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Dianteiro: 80W-90 GL-5 / Traseiro: 80W-90 ou 85W-140 GL-5 (Trac-Lok LSD)', qtd: 'Diant.: 1,3 L / Tras.: 2,6 L a 3,4 L', intervalo: '40.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL900 (ou PSL142)', mann: 'W930/20', wega: 'WO460', mahle: 'OC23', fleetguard_donaldson: 'LF3311 / P550008' },
+          combustivel: { tecfil: 'PSC498', mann: 'WK842/13', wega: 'FCD2062', mahle: 'KC119', fleetguard_donaldson: 'FS19594 / P551433' },
+          ar: { tecfil: 'ARS7992', mann: 'C13114/4', wega: 'WAP275', mahle: 'LX1596', fleetguard_donaldson: 'AF26395 / P608667' }
+        }
+      },
+      'Ford Ranger 3.0 NGD': {
+        categoria: 'Utilitários',
+        motor: { tipo: '15W-40 (API CI-4 ou superior - MWM International 3.0)', qtd: '9,0 L (com filtro)', intervalo: '10.000 km (5.000 km severo)' },
+        cambio: { tipo: 'Manual (Eaton FSO-2405): ATF Mercon / Caixa Transf. (4x4): ATF Mercon', qtd: 'Câmbio: 2,8 L / Caixa Transf.: 1,2 L', intervalo: '50.000 km' },
+        diferencial: { tipo: 'Dianteiro: 80W-90 GL-5 / Traseiro: 80W-90 ou 85W-140 GL-5 (LSD)', qtd: 'Diant.: 1,4 L / Tras.: 2,6 L (Dana 44.3)', intervalo: '40.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL541', mann: 'W730/3', wega: 'WO480', mahle: 'OC504', fleetguard_donaldson: 'LF16242 / P550932' },
+          combustivel: { tecfil: 'PSC410/1 (ou PC947)', mann: 'WK842/22', wega: 'FCD0760', mahle: 'KC249', fleetguard_donaldson: 'FS19906 / P551435' },
+          ar: { tecfil: 'ARS7992', mann: 'C13114/4', wega: 'WAP275', mahle: 'LX1596', fleetguard_donaldson: 'AF26395 / P608667' }
+        }
+      },
+      'Ford Ranger 2.2': {
+        categoria: 'Utilitários',
+        motor: { tipo: '5W-30 sintético (norma WSS-M2C913-C/D - Duratorq TDCi)', qtd: '8,6 L (com filtro)', intervalo: '10.000 km' },
+        cambio: { tipo: 'Manual (MT82): 75W-90 GL-4 (WSS-M2C200-D2) / Auto (6R80): Mercon LV', qtd: 'Manual: 2,7 L / Auto: ~10,5 L (Transf. 4x4: 1,2 L)', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Dianteiro: 80W-90 GL-5 / Traseiro: 75W-90 ou 80W-90 GL-5', qtd: 'Diant.: 1,2 L / Tras.: 2,9 L', intervalo: '40.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PEL309 (Refil)', mann: 'HU7002z', wega: 'WOE311', mahle: 'OX339/2D', fleetguard_donaldson: 'LF17513 / P550842' },
+          combustivel: { tecfil: 'PC951 (Refil)', mann: 'PU835x', wega: 'FCD0782', mahle: 'KX338/26D', fleetguard_donaldson: 'FF5851 / P551436' },
+          ar: { tecfil: 'ARS7994', mann: 'C22024', wega: 'JFA0324', mahle: 'LX3511', fleetguard_donaldson: 'AF27975 / P629463' }
+        }
+      },
+      'Ford Transit': {
+        categoria: 'Utilitários',
+        motor: { tipo: '5W-30 sintético (norma WSS-M2C913-C/D - Duratorq 2.2 / 2.4)', qtd: '6,5 L a 9,8 L (conforme geração)', intervalo: '15.000 km (10.000 km severo)' },
+        cambio: { tipo: 'Manual (MT82 / VMT6): 75W-90 sintético API GL-4 (WSS-M2C200-D2)', qtd: '2,2 L a 3,7 L', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Tração Traseira (modelos antigos): 75W-90 GL-5 / Dianteira (novos): integrado', qtd: 'Traseiro: ~2,2 L', intervalo: '60.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PEL110 (2.4) / PEL309 (2.2)', mann: 'HU920x / HU7002z', wega: 'WOE310 / WOE311', mahle: 'OX193D / OX339/2D', fleetguard_donaldson: 'LF16175 / LF17513' },
+          combustivel: { tecfil: 'PSC992 (ou PSC997)', mann: 'WK8157', wega: 'FCD2093', mahle: 'KC204', fleetguard_donaldson: 'FS19947 / P551434' },
+          ar: { tecfil: 'ARL9608', mann: 'C28100', wega: 'FAP3291', mahle: 'LX935', fleetguard_donaldson: 'AF26398 / P782104' }
+        }
+      },
+      'Mitsubishi L200 2.5': {
+        categoria: 'Utilitários',
+        motor: { tipo: '15W-40 (API CI-4 - 4D56 HPE / Outdoor)', qtd: '6,5 L (com filtro)', intervalo: '7.500 - 10.000 km' },
+        cambio: { tipo: 'Manual: 75W-85 ou 75W-90 API GL-4 (Transf.: 75W-90 GL-4)', qtd: 'Câmbio: 2,3 L / Caixa Transf.: 2,2 L', intervalo: '40.000 km' },
+        diferencial: { tipo: 'Dianteiro: 80W-90 GL-5 / Traseiro: 80W-90 ou 75W-90 GL-5 LSD', qtd: 'Diant.: 1,2 L / Tras.: 2,1 L a 2,6 L', intervalo: '40.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL325', mann: 'WP928/80', wega: 'JFO0502', mahle: 'OC274', fleetguard_donaldson: 'LF3564 / P550162' },
+          combustivel: { tecfil: 'PSC498 (ou PSC994)', mann: 'WK842/13', wega: 'JFC502', mahle: 'KC119', fleetguard_donaldson: 'FF5160 / P550390' },
+          ar: { tecfil: 'ARS7109', mann: 'C15300', wega: 'JFA0500', mahle: 'LX964', fleetguard_donaldson: 'AF25551 / P827653' }
+        }
+      },
+      'Mitsubishi Triton 3.2': {
+        categoria: 'Utilitários',
+        motor: { tipo: '15W-40 ou 5W-30 (API CI-4/CJ-4 - 4M41)', qtd: '7,5 L a 8,2 L (com filtro)', intervalo: '10.000 km' },
+        cambio: { tipo: 'Automático: ATF SP-III / Manual: 75W-85 GL-4 (Transf.: 75W-90 GL-4)', qtd: 'Auto: ~8,5 L / Manual: 2,5 L / Transf.: 2,3 L', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Dianteiro: 80W-90 GL-5 / Traseiro: 80W-90 ou 75W-90 GL-5 LSD', qtd: 'Diant.: 1,2 L / Tras.: 2,3 L a 2,6 L', intervalo: '40.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL330 (ou PSL325)', mann: 'WP1045', wega: 'JFO0505', mahle: 'OC274', fleetguard_donaldson: 'LF3830 / P550777' },
+          combustivel: { tecfil: 'PEC3025 (Refil) / PSC994', mann: 'PU835x', wega: 'JFC504', mahle: 'KX265D', fleetguard_donaldson: 'FF5786 / P550882' },
+          ar: { tecfil: 'ARL4135 (ou ARL4139)', mann: 'C24011', wega: 'JFA0506', mahle: 'LX2616', fleetguard_donaldson: 'AF27912 / P902309' }
+        }
+      },
+      'Mitsubishi Triton 2.4': {
+        categoria: 'Utilitários',
+        motor: { tipo: '5W-30 sintético (ACEA C2/C3 - MIVEC 4N15 com DPF)', qtd: '8,4 L (com filtro)', intervalo: '10.000 km' },
+        cambio: { tipo: 'Automático: ATF SP-III ou DiaQueen ATF-MA1 / Manual: 75W-80 GL-4', qtd: 'Auto: ~8,0 L / Manual: 2,5 L / Transf.: 2,5 L', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Dianteiro: 80W-90 GL-5 / Traseiro: 80W-90 ou 75W-90 GL-5 LSD', qtd: 'Diant.: 1,2 L / Tras.: 2,3 L', intervalo: '40.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL156 (ou PSL330)', mann: 'W811/80', wega: 'JFO0507', mahle: 'OC1183', fleetguard_donaldson: 'LF3691 / P550939' },
+          combustivel: { tecfil: 'PEC3039 (Refil)', mann: 'PU8021', wega: 'JFC509', mahle: 'KX495D', fleetguard_donaldson: 'FF5920 / P552002' },
+          ar: { tecfil: 'ARL4139', mann: 'C24011', wega: 'JFA0511', mahle: 'LX2616', fleetguard_donaldson: 'AF27912 / P902309' }
+        }
+      },
+      'Nissan Frontier 2.5': {
+        categoria: 'Utilitários',
+        motor: { tipo: '15W-40 (sem DPF) ou 5W-30 ACEA C3 (com DPF - Motor YD25)', qtd: '6,9 L (com filtro)', intervalo: '10.000 km' },
+        cambio: { tipo: 'Manual: 75W-85 GL-4 / Automático: Nissan Matic S (Transf.: Matic D)', qtd: 'Manual: ~3,8 L / Auto: ~9,5 L / Transf.: 2,0 L', intervalo: '40.000 - 60.000 km' },
+        diferencial: { tipo: 'Dianteiro (4x4): 80W-90 GL-5 / Traseiro: 80W-90 GL-5 (LSD se aplicável)', qtd: 'Diant.: 0,85 L / Tras.: 1,6 L (C200) a 2,0 L (M226)', intervalo: '40.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL158', mann: 'W610/3 (ou W811/80)', wega: 'JFO0104', mahle: 'OC217/6', fleetguard_donaldson: 'LF3874 / P550943' },
+          combustivel: { tecfil: 'PSC993 (ou PSC497)', mann: 'WK920/6', wega: 'JFC105', mahle: 'KC236', fleetguard_donaldson: 'FF5683 / P550883' },
+          ar: { tecfil: 'ARL1655', mann: 'C27003', wega: 'JFA0137', mahle: 'LX1995', fleetguard_donaldson: 'AF27908 / P785373' }
+        }
+      },
+      'Nissan Frontier 2.3': {
+        categoria: 'Utilitários',
+        motor: { tipo: '5W-30 sintético (ACEA C3/C4 - Bi-Turbo YS23 com DPF)', qtd: '6,9 L a 7,3 L (com filtro)', intervalo: '10.000 km' },
+        cambio: { tipo: 'Manual: 75W-80 GL-4 / Automático (7M): Nissan Matic S (Transf.: Matic D)', qtd: 'Manual: ~3,5 L / Auto: ~9,2 L / Transf.: 1,5 L', intervalo: '40.000 - 60.000 km' },
+        diferencial: { tipo: 'Dianteiro (4x4): 80W-90 GL-5 / Traseiro: 75W-90 ou 80W-90 GL-5', qtd: 'Diant.: 0,85 L / Tras.: 1,6 L a 2,1 L', intervalo: '40.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PEL121 (Refil)', mann: 'HU6015z', wega: 'WOE715', mahle: 'OX968D', fleetguard_donaldson: 'LF17534 / P552006' },
+          combustivel: { tecfil: 'PC960 (ou PSC999)', mann: 'PU8014', wega: 'JFC112', mahle: 'KX387/1D', fleetguard_donaldson: 'FF5918 / P552008' },
+          ar: { tecfil: 'ARL1657', mann: 'C25040', wega: 'JFA0156', mahle: 'LX4233', fleetguard_donaldson: 'AF55814 / P954658' }
+        }
+      },
+      'Toyota Hilux 3.0': {
+        categoria: 'Utilitários',
+        motor: { tipo: '15W-40 ou 5W-30 (API CI-4/CJ-4 - 1KD-FTV)', qtd: '6,9 L (com filtro) / 7,4 L (seco)', intervalo: '10.000 km (5.000 km severo)' },
+        cambio: { tipo: 'Manual: 75W-90 GL-4 / Automático: ATF WS (Transf.: 75W-90 GL-4)', qtd: 'Manual: 2,2 L / Auto: ~10,0 L / Transf.: 1,0 L', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Dianteiro: 75W-90 GL-5 / Traseiro: 75W-90 ou 80W-90 GL-5 LSD', qtd: 'Diant.: 1,5 L / Tras.: 2,4 L a 3,4 L', intervalo: '40.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL127', mann: 'W712/83', wega: 'JFO0211', mahle: 'OC988', fleetguard_donaldson: 'LF3608 / P550335' },
+          combustivel: { tecfil: 'PEC3022 (até 11) / PEC3035 (12+)', mann: 'PU835x', wega: 'JFC208 / JFC216', mahle: 'KX265D / KX492D', fleetguard_donaldson: 'FF5764 / P550882' },
+          ar: { tecfil: 'ARS3002 (até 11) / ARS3004 (12+)', mann: 'C23107', wega: 'JFA0279 / JFA0294', mahle: 'LX1618', fleetguard_donaldson: 'AF27911 / P902308' }
+        }
+      },
+      'Toyota Hilux 2.8 - Nova': {
+        categoria: 'Utilitários',
+        motor: { tipo: '5W-30 sintético (ACEA C2/C3 - 1GD-FTV com DPF)', qtd: '7,5 L (com filtro) / 8,0 L (seco)', intervalo: '10.000 km (5.000 km severo)' },
+        cambio: { tipo: 'Automático (6M): ATF WS / Manual: 75W-90 GL-4 (Transf.: 75W-90 GL-4)', qtd: 'Auto: 9,3 L / Manual: 2,4 L / Transf.: 1,0 L', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Dianteiro: 75W-85 ou 75W-90 GL-5 / Traseiro: 75W-85 ou 75W-90 GL-5 LSD', qtd: 'Diant.: 1,4 L / Tras.: 3,0 L', intervalo: '30.000 - 40.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL127', mann: 'W712/83', wega: 'JFO0211', mahle: 'OC988', fleetguard_donaldson: 'LF3608 / P550335' },
+          combustivel: { tecfil: 'PEC3042 (Refil)', mann: 'PU8028', wega: 'JFC222', mahle: 'KX531D', fleetguard_donaldson: 'FF5925 / P552012' },
+          ar: { tecfil: 'ARL2205', mann: 'C32011', wega: 'JFA0299', mahle: 'LX4377', fleetguard_donaldson: 'AF55815 / P954660' }
+        }
+      },
+
+      // =======================================================================
+      // 3. CAMINHÕES (19 modelos)
+      // =======================================================================
+      'Ford Cargo 816': {
+        categoria: 'Caminhões',
+        motor: { tipo: '15W-40 (API CI-4/CK-4 - Cummins ISB 4.5)', qtd: '13,0 L (com filtro)', intervalo: '30.000 - 40.000 km (ou 15.000 km severo)' },
+        cambio: { tipo: 'Manual (Eaton FSO-4505): SAE 40 ou 50 sintético (Eaton PS-386) / 80W-90 GL-4', qtd: '4,5 L', intervalo: '100.000 km' },
+        diferencial: { tipo: 'Traseiro: 85W-140 API GL-5', qtd: '7,5 L a 9,0 L', intervalo: '40.000 a 60.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL283', mann: 'W950/26', wega: 'WO612', mahle: 'OC505', fleetguard_donaldson: 'LF16015 / P550520' },
+          combustivel: { tecfil: 'PSC493 + Sep. PSD950/1', mann: 'WK950/30 + WK950/27x', wega: 'FCD2073 + FCD0773', mahle: 'KC202 + KC295', fleetguard_donaldson: 'FF5421 + FS19732 / P550881' },
+          ar: { tecfil: 'AP7998 + AS800 (Sec.)', mann: 'C17308 + CF1000', wega: 'WAP183 + WAP183S', mahle: 'LX1054 + LXS44', fleetguard_donaldson: 'AF25551 + AF25552 / P827653' }
+        }
+      },
+      'Ford Cargo 2423': {
+        categoria: 'Caminhões',
+        motor: { tipo: '15W-40 (API CI-4/CK-4 - Cummins ISB 6.7)', qtd: '19,5 L (com filtro)', intervalo: '40.000 km (ou 20.000 km severo)' },
+        cambio: { tipo: 'Manual (Eaton FS-6406 / RT-8908LL): SAE 50 sintético (Eaton PS-386)', qtd: '9,0 L a 13,0 L (conforme caixa)', intervalo: '100.000 km' },
+        diferencial: { tipo: 'Traseiro (Meritor MS-23-245): 85W-140 API GL-5', qtd: '15,0 L a 18,0 L', intervalo: '40.000 a 60.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL283', mann: 'W950/26', wega: 'WO612', mahle: 'OC505', fleetguard_donaldson: 'LF16015 / P550520' },
+          combustivel: { tecfil: 'PSC493 + Sep. PSD950/1', mann: 'WK950/30 + WK950/27x', wega: 'FCD2073 + FCD0773', mahle: 'KC202 + KC295', fleetguard_donaldson: 'FF5421 + FS19732 / P550881' },
+          ar: { tecfil: 'ARS9839 + ASR839 (Sec.)', mann: 'C27830 + CF1600', wega: 'WAP115 + WAP115S', mahle: 'LX1047 + LXS251', fleetguard_donaldson: 'AF26114 + AF26115 / P780522' }
+        }
+      },
+      'Ford - 2629 Bau': {
+        categoria: 'Caminhões',
+        motor: { tipo: '15W-40 (API CI-4/CK-4 - Cummins ISB 6.7)', qtd: '19,5 L (com filtro)', intervalo: '40.000 km (ou 20.000 km severo)' },
+        cambio: { tipo: 'Manual (Eaton RT-8908LL / FS-6406): SAE 50 sintético (Eaton PS-386)', qtd: '11,0 L a 13,0 L', intervalo: '100.000 km' },
+        diferencial: { tipo: 'Traseiro (Tração 6x4 - 2 eixos): 85W-140 API GL-5', qtd: '1º Eixo: ~16,0 L / 2º Eixo: ~14,0 L', intervalo: '40.000 a 60.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL283', mann: 'W950/26', wega: 'WO612', mahle: 'OC505', fleetguard_donaldson: 'LF16015 / P550520' },
+          combustivel: { tecfil: 'PSC493 + Sep. PSD950/1', mann: 'WK950/30 + WK950/27x', wega: 'FCD2073 + FCD0773', mahle: 'KC202 + KC295', fleetguard_donaldson: 'FF5421 + FS19732 / P550881' },
+          ar: { tecfil: 'ARS9839 + ASR839 (Sec.)', mann: 'C27830 + CF1600', wega: 'WAP115 + WAP115S', mahle: 'LX1047 + LXS251', fleetguard_donaldson: 'AF26114 + AF26115 / P780522' }
+        }
+      },
+      'Ford - 2629 CTA e CTC': {
+        categoria: 'Caminhões',
+        motor: { tipo: '15W-40 (API CI-4/CK-4 - Cummins ISB 6.7)', qtd: '19,5 L (com filtro)', intervalo: '40.000 km (ou 20.000 km severo)' },
+        cambio: { tipo: 'Manual (Eaton RT-8908LL): SAE 50 sintético (Eaton PS-386)', qtd: '13,0 L', intervalo: '100.000 km' },
+        diferencial: { tipo: 'Traseiro (Tração 6x4 - 2 eixos): 85W-140 API GL-5', qtd: '1º Eixo: ~16,0 L / 2º Eixo: ~14,0 L', intervalo: '40.000 a 60.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL283', mann: 'W950/26', wega: 'WO612', mahle: 'OC505', fleetguard_donaldson: 'LF16015 / P550520' },
+          combustivel: { tecfil: 'PSC493 + Sep. PSD950/1', mann: 'WK950/30 + WK950/27x', wega: 'FCD2073 + FCD0773', mahle: 'KC202 + KC295', fleetguard_donaldson: 'FF5421 + FS19732 / P550881' },
+          ar: { tecfil: 'ARS9839 + ASR839 (Sec.)', mann: 'C27830 + CF1600', wega: 'WAP115 + WAP115S', mahle: 'LX1047 + LXS251', fleetguard_donaldson: 'AF26114 + AF26115 / P780522' }
+        }
+      },
+      'Ford 1933 Cav Mec': {
+        categoria: 'Caminhões',
+        motor: { tipo: '15W-40 (API CI-4/CK-4 - Cummins ISL 8.9)', qtd: '24,0 L a 26,0 L (com filtro)', intervalo: '40.000 km (ou 20.000 km severo)' },
+        cambio: { tipo: 'Manual (Eaton FTS-16108LL) / Automatizado (Torqshift): SAE 50 sintético', qtd: '13,0 L', intervalo: '100.000 km' },
+        diferencial: { tipo: 'Traseiro (Meritor MS-23-185): 85W-140 API GL-5', qtd: '18,0 L a 21,0 L', intervalo: '40.000 a 60.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL283 (ou PSL962)', mann: 'W950/26 / WP12300', wega: 'WO612 / WO615', mahle: 'OC505 / OC516', fleetguard_donaldson: 'LF16015 / LF9009 / P553000' },
+          combustivel: { tecfil: 'PSC493 + Sep. PSD950/1', mann: 'WK950/30 + WK950/27x', wega: 'FCD2073 + FCD0773', mahle: 'KC202 + KC295', fleetguard_donaldson: 'FF5421 + FS19732 / P550881' },
+          ar: { tecfil: 'ARS9839 + ASR839 (Sec.)', mann: 'C27830 + CF1600', wega: 'WAP115 + WAP115S', mahle: 'LX1047 + LXS251', fleetguard_donaldson: 'AF26114 + AF26115 / P780522' }
+        }
+      },
+      'Mercedes-Benz 2627': {
+        categoria: 'Caminhões',
+        motor: { tipo: '15W-40 (Norma MB 228.3 / 228.5 - OM-447 / OM-457)', qtd: '24,0 L a 28,0 L (com filtro)', intervalo: '30.000 - 40.000 km' },
+        cambio: { tipo: 'Manual (ZF / MB G-131): 80W ou 75W-80 API GL-4 (Norma MB 235.1 / 235.4)', qtd: '9,0 L a 13,0 L', intervalo: '100.000 km' },
+        diferencial: { tipo: 'Traseiro (6x4 com redução nos cubos): 85W-140 API GL-5 (Norma MB 235.0)', qtd: '1º Eixo: ~14,0 L / 2º Eixo: ~12,0 L (+ cubos)', intervalo: '40.000 a 60.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PEL2002 (447) / PEL2004 (457)', mann: 'HU12140x / HU12110x', wega: 'WOE802 / WOE804', mahle: 'OX153/7D / OX174D', fleetguard_donaldson: 'LF3827 / LF16046 / P550769' },
+          combustivel: { tecfil: 'PEC3021 + Sep. PSD980/1', mann: 'PU999/1x + WK1060/4', wega: 'FCD0780 + FCD0781', mahle: 'KX80D + KC128', fleetguard_donaldson: 'FF5380 + FS19914 / P550762' },
+          ar: { tecfil: 'AP9835 + AS835 (Sec.)', mann: 'C271340 + CF1651', wega: 'WAP177 + WAP177S', mahle: 'LX1038 + LXS255', fleetguard_donaldson: 'AF25667 + AF25668 / P777868' }
+        }
+      },
+      'Mercedes-Benz 915c': {
+        categoria: 'Caminhões',
+        motor: { tipo: '15W-40 (Norma MB 228.3 - OM-904 LA)', qtd: '15,8 L (com filtro)', intervalo: '30.000 - 40.000 km' },
+        cambio: { tipo: 'Manual (ZF S5-420 / MB G-60): 80W API GL-4 (Norma MB 235.1)', qtd: '3,4 L (ZF) a 9,0 L (MB)', intervalo: '100.000 km' },
+        diferencial: { tipo: 'Traseiro: 85W-140 API GL-5 (Norma MB 235.0)', qtd: '5,6 L a 8,5 L', intervalo: '40.000 a 60.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PEL2001 (Refil)', mann: 'HU931/5x', wega: 'WOE800', mahle: 'OX161D', fleetguard_donaldson: 'LF3914 / P550764' },
+          combustivel: { tecfil: 'PEC3013 + Sep. PSD980/1', mann: 'PU941x + WK1060/4', wega: 'FCD0785 + FCD0781', mahle: 'KX67/2D + KC128', fleetguard_donaldson: 'FF5380 + FS19914 / P550632' },
+          ar: { tecfil: 'AP9836 + AS836 (Sec.)', mann: 'C20500 + CF500', wega: 'WAP176 + WAP176S', mahle: 'LX1039 + LXS256', fleetguard_donaldson: 'AF25618 + AF25619 / P777638' }
+        }
+      },
+      'Mercedes-Benz 1418E': {
+        categoria: 'Caminhões',
+        motor: { tipo: '15W-40 (Norma MB 228.3 - OM-366 / OM-904 LA)', qtd: '15,5 L a 16,5 L (com filtro)', intervalo: '20.000 - 30.000 km' },
+        cambio: { tipo: 'Manual (MB G-60 / G-85): 80W API GL-4 (Norma MB 235.1)', qtd: '9,0 L', intervalo: '100.000 km' },
+        diferencial: { tipo: 'Traseiro: 85W-140 API GL-5 (Norma MB 235.0)', qtd: '10,0 L a 12,0 L', intervalo: '40.000 a 60.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PEL202 (366) / PEL2001 (904)', mann: 'H947/1x / HU931/5x', wega: 'WOE810 / WOE800', mahle: 'OX127 / OX161D', fleetguard_donaldson: 'LF4056 / LF3914 / P550764' },
+          combustivel: { tecfil: 'PC2/255 (366) / PEC3013 (904)', mann: 'P917x / PU941x', wega: 'FCD0705 / FCD0785', mahle: 'KX43 / KX67/2D', fleetguard_donaldson: 'FF147 / FF5380 / P550632' },
+          ar: { tecfil: 'AP9834 + AS820 (Sec.)', mann: 'C20325/2 + CF1000', wega: 'WAP174 + WAP174S', mahle: 'LX1040 + LXS44', fleetguard_donaldson: 'AF4060 + AF1840 / P181052' }
+        }
+      },
+      'Mercedes-Benz AXOR 3344': {
+        categoria: 'Caminhões',
+        motor: { tipo: '15W-40 (Norma MB 228.3 / 228.5 - OM-457 LA)', qtd: '38,0 L (com filtro)', intervalo: '40.000 km (20.000 km severo fora-de-estrada)' },
+        cambio: { tipo: 'Manual/Automatizado (MB G-240 / G-330): 75W-80 sintético (Norma MB 235.4 / 235.11)', qtd: '13,0 L a 15,0 L', intervalo: '100.000 km (ou 2 anos)' },
+        diferencial: { tipo: 'Traseiro (6x4 com redução nos cubos): 85W-140 API GL-5 (Norma MB 235.0)', qtd: '1º Eixo: 14,5 L / 2º Eixo: 12,5 L (+ 3,2 L por cubo)', intervalo: '40.000 - 60.000 km (uso severo)' },
+        filtros: {
+          oleo: { tecfil: 'PEL2004 (Refil)', mann: 'HU12110x', wega: 'WOE804', mahle: 'OX174D', fleetguard_donaldson: 'LF16046 / P550769' },
+          combustivel: { tecfil: 'PEC3021 + Sep. PSD980/1', mann: 'PU999/1x + WK1060/4', wega: 'FCD0780 + FCD0781', mahle: 'KX80D + KC128', fleetguard_donaldson: 'FF5405 + FS19914 / P550762' },
+          ar: { tecfil: 'AP9835 + AS835 (Sec.)', mann: 'C271340 + CF1651', wega: 'WAP177 + WAP177S', mahle: 'LX1038 + LXS255', fleetguard_donaldson: 'AF25667 + AF25668 / P777868' }
+        }
+      },
+      'Mercedes-Benz Atego 1725': {
+        categoria: 'Caminhões',
+        motor: { tipo: '15W-40 (Norma MB 228.3 - OM-906 LA)', qtd: '26,5 L (com filtro)', intervalo: '40.000 km' },
+        cambio: { tipo: 'Manual (MB G-85): 80W API GL-4 (Norma MB 235.1)', qtd: '9,0 L', intervalo: '100.000 km' },
+        diferencial: { tipo: 'Traseiro: 85W-140 API GL-5 (Norma MB 235.0)', qtd: '11,0 L a 12,0 L', intervalo: '40.000 a 60.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PEL2003 (Refil)', mann: 'HU945/2x', wega: 'WOE801', mahle: 'OX160D', fleetguard_donaldson: 'LF3828 / P550767' },
+          combustivel: { tecfil: 'PEC3014 + Sep. PSD980/1', mann: 'PU1046x + WK1060/4', wega: 'FCD0786 + FCD0781', mahle: 'KX67/1D + KC128', fleetguard_donaldson: 'FF5380 + FS19914 / P550633' },
+          ar: { tecfil: 'ARS9841 (Kit AP9496/1)', mann: 'C29010KIT', wega: 'WAP181K', mahle: 'LX1762', fleetguard_donaldson: 'AF26237 / P785390' }
+        }
+      },
+      'VW Work 815': {
+        categoria: 'Caminhões',
+        motor: { tipo: '15W-40 (API CI-4 - MWM 4.10 TCA / Cummins Interact 4.0)', qtd: '11,0 L a 13,0 L (com filtro)', intervalo: '20.000 - 30.000 km' },
+        cambio: { tipo: 'Manual (Eaton FS-4205A): SAE 40 ou 80W API GL-4', qtd: '4,5 L', intervalo: '80.000 - 100.000 km' },
+        diferencial: { tipo: 'Traseiro: 85W-140 API GL-5', qtd: '6,5 L a 8,0 L', intervalo: '40.000 - 60.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL335 (MWM) / PSL283 (Cummins)', mann: 'W950/18 / W950/26', wega: 'WO470 / WO612', mahle: 'OC413 / OC505', fleetguard_donaldson: 'LF3349 / LF16015 / P550520' },
+          combustivel: { tecfil: 'PSC72/2 (MWM) / PSC493 (Cummins)', mann: 'WK723 / WK950/30', wega: 'FCD2041 / FCD2073', mahle: 'KC18 / KC202', fleetguard_donaldson: 'FF5052 / FF5421 / P550881' },
+          ar: { tecfil: 'AP7998 + AS800 (Sec.)', mann: 'C17308 + CF1000', wega: 'WAP183 + WAP183S', mahle: 'LX1054 + LXS44', fleetguard_donaldson: 'AF25551 + AF25552 / P827653' }
+        }
+      },
+      'VW Work 5-Ton 15-180': {
+        categoria: 'Caminhões',
+        motor: { tipo: '15W-40 (API CI-4 - MWM 6.10 TCA)', qtd: '16,5 L (com filtro)', intervalo: '30.000 - 40.000 km' },
+        cambio: { tipo: 'Manual (Eaton FS-4205A / FS-5306A): SAE 40 ou 50 sintético / 80W GL-4', qtd: '4,5 L a 7,2 L', intervalo: '100.000 km' },
+        diferencial: { tipo: 'Traseiro (Meritor MS-23-145 / 23-240): 85W-140 API GL-5', qtd: '15,0 L', intervalo: '60.000 km (severo) ou 100.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL335 (ou PSL962)', mann: 'W950/18', wega: 'WO470', mahle: 'OC413', fleetguard_donaldson: 'LF3349 / P558615' },
+          combustivel: { tecfil: 'PSC72/2 + Sep. PSD460/1', mann: 'WK723 + WK940/24', wega: 'FCD2041 + FCD0761', mahle: 'KC18 + KC199', fleetguard_donaldson: 'FF5052 + FS1280 / P551329' },
+          ar: { tecfil: 'AP9834 + AS820 (Sec.)', mann: 'C20325/2 + CF1000', wega: 'WAP174 + WAP174S', mahle: 'LX1040 + LXS44', fleetguard_donaldson: 'AF4060 + AF1840 / P181052' }
+        }
+      },
+      'VW Work 7-Ton Comercial': {
+        categoria: 'Caminhões',
+        motor: { tipo: '15W-40 (API CI-4 - Cummins / MWM)', qtd: '16,5 L (com filtro)', intervalo: '30.000 - 40.000 km' },
+        cambio: { tipo: 'Manual (Eaton FS-5306A / FS-6306A): SAE 50 sintético ou 80W GL-4', qtd: '7,2 L a 9,0 L', intervalo: '100.000 km' },
+        diferencial: { tipo: 'Traseiro (Meritor MS-23-145): 85W-140 API GL-5', qtd: '15,0 L', intervalo: '60.000 km (severo) ou 100.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL283 (Cummins) / PSL335 (MWM)', mann: 'W950/26 / W950/18', wega: 'WO612 / WO470', mahle: 'OC505 / OC413', fleetguard_donaldson: 'LF16015 / P550520' },
+          combustivel: { tecfil: 'PSC493 + Sep. PSD960/1', mann: 'WK950/30 + WK950/21', wega: 'FCD2073 + FCD0766', mahle: 'KC202 + KC200', fleetguard_donaldson: 'FF5421 + FS1280 / P550881' },
+          ar: { tecfil: 'AP9834 + AS820 (Sec.)', mann: 'C20325/2 + CF1000', wega: 'WAP174 + WAP174S', mahle: 'LX1040 + LXS44', fleetguard_donaldson: 'AF4060 + AF1840 / P181052' }
+        }
+      },
+      'VW Work 24-220': {
+        categoria: 'Caminhões',
+        motor: { tipo: '15W-40 (API CI-4 - Cummins 6CTAA 8.3)', qtd: '20,0 L (com filtro)', intervalo: '30.000 - 40.000 km' },
+        cambio: { tipo: 'Manual (Eaton FS-6306A / RT-8908LL): SAE 50 sintético (Eaton PS-386)', qtd: '9,0 L a 13,0 L', intervalo: '100.000 km' },
+        diferencial: { tipo: 'Traseiro (Meritor MS-23-245): 85W-140 API GL-5', qtd: '15,0 L a 18,0 L', intervalo: '60.000 km (severo) ou 100.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL962', mann: 'WP12300', wega: 'WO615', mahle: 'OC516', fleetguard_donaldson: 'LF9009 / P553000' },
+          combustivel: { tecfil: 'PSC72/2 + Sep. PSD460/1', mann: 'WK940/7 + WK940/24', wega: 'FCD2041 + FCD0761', mahle: 'KC18 + KC199', fleetguard_donaldson: 'FF5052 + FS1280 / P551329' },
+          ar: { tecfil: 'ARS9839 + ASR839 (Sec.)', mann: 'C27830 + CF1600', wega: 'WAP115 + WAP115S', mahle: 'LX1047 + LXS251', fleetguard_donaldson: 'AF26114 + AF26115 / P780522' }
+        }
+      },
+      'VW Work 26-220': {
+        categoria: 'Caminhões',
+        motor: { tipo: '15W-40 (API CI-4 - Cummins 6CTAA 8.3)', qtd: '20,0 L (com filtro)', intervalo: '30.000 - 40.000 km' },
+        cambio: { tipo: 'Manual (Eaton RT-8908LL): SAE 50 sintético (Eaton PS-386)', qtd: '13,0 L', intervalo: '100.000 km' },
+        diferencial: { tipo: 'Traseiro (Tração 6x4 - Meritor MT-46-145): 85W-140 API GL-5', qtd: '1º Eixo: ~16,0 L / 2º Eixo: ~14,0 L', intervalo: '60.000 km (severo) ou 100.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL962', mann: 'WP12300', wega: 'WO615', mahle: 'OC516', fleetguard_donaldson: 'LF9009 / P553000' },
+          combustivel: { tecfil: 'PSC72/2 + Sep. PSD460/1', mann: 'WK940/7 + WK940/24', wega: 'FCD2041 + FCD0761', mahle: 'KC18 + KC199', fleetguard_donaldson: 'FF5052 + FS1280 / P551329' },
+          ar: { tecfil: 'ARS9839 + ASR839 (Sec.)', mann: 'C27830 + CF1600', wega: 'WAP115 + WAP115S', mahle: 'LX1047 + LXS251', fleetguard_donaldson: 'AF26114 + AF26115 / P780522' }
+        }
+      },
+      'VW Work 26-260E': {
+        categoria: 'Caminhões',
+        motor: { tipo: '15W-40 (API CI-4 - MWM 6.12 TCE)', qtd: '21,0 L (com filtro)', intervalo: '30.000 - 40.000 km' },
+        cambio: { tipo: 'Manual (Eaton RT-8908LL): SAE 50 sintético (Eaton PS-386)', qtd: '13,0 L', intervalo: '100.000 km' },
+        diferencial: { tipo: 'Traseiro (Tração 6x4 - Meritor MD/MR): 85W-140 API GL-5', qtd: '1º Eixo: ~16,0 L / 2º Eixo: ~14,0 L', intervalo: '60.000 km (severo) ou 100.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL283 (ou PSL339)', mann: 'W950/26', wega: 'WO612', mahle: 'OC505', fleetguard_donaldson: 'LF16015 / P550520' },
+          combustivel: { tecfil: 'PSC75 + Sep. PSD960/1', mann: 'WK950/22 + WK950/21', wega: 'FCD2075 + FCD0766', mahle: 'KC201 + KC200', fleetguard_donaldson: 'FF5485 + FS19732 / P550881' },
+          ar: { tecfil: 'ARS9839 + ASR839 (Sec.)', mann: 'C27830 + CF1600', wega: 'WAP115 + WAP115S', mahle: 'LX1047 + LXS251', fleetguard_donaldson: 'AF26114 + AF26115 / P780522' }
+        }
+      },
+      'VW Constellation 24-250': {
+        categoria: 'Caminhões',
+        motor: { tipo: '15W-40 (API CI-4 - Cummins ISBe 5.9)', qtd: '19,0 L (com filtro)', intervalo: '40.000 km (20.000 km severo)' },
+        cambio: { tipo: 'Manual (Eaton FS-6306B): SAE 50 sintético (Eaton PS-386)', qtd: '9,0 L', intervalo: '100.000 km' },
+        diferencial: { tipo: 'Traseiro (Meritor MS-23-245): 85W-140 API GL-5', qtd: '15,0 L a 18,0 L', intervalo: '60.000 km (severo) ou 100.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL283', mann: 'W950/26', wega: 'WO612', mahle: 'OC505', fleetguard_donaldson: 'LF16015 / P550520' },
+          combustivel: { tecfil: 'PSC493 + Sep. PSD960/1', mann: 'WK950/30 + WK950/21', wega: 'FCD2073 + FCD0766', mahle: 'KC202 + KC200', fleetguard_donaldson: 'FF5421 + FS19732 / P550881' },
+          ar: { tecfil: 'ARS9839 + ASR839 (Sec.)', mann: 'C27830 + CF1600', wega: 'WAP115 + WAP115S', mahle: 'LX1047 + LXS251', fleetguard_donaldson: 'AF26114 + AF26115 / P780522' }
+        }
+      },
+      'VW Constellation 26-280': {
+        categoria: 'Caminhões',
+        motor: { tipo: '15W-40 (API CI-4/CJ-4 - MAN D08 36 6 cil.)', qtd: '20,5 L (com filtro)', intervalo: '40.000 km (20.000 km severo)' },
+        cambio: { tipo: 'Manual (ZF 16S 1455 TD): 75W-80 ou 80W API GL-4 (ZF TE-ML 02)', qtd: '11,0 L', intervalo: '100.000 km' },
+        diferencial: { tipo: 'Traseiro (Tração 6x4 - Meritor MT-46-145): 85W-140 API GL-5', qtd: '1º Eixo: ~16,0 L / 2º Eixo: ~14,0 L', intervalo: '60.000 km (severo) ou 100.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PEL728 (Refil)', mann: 'HU9001x', wega: 'WOE625', mahle: 'OX438D', fleetguard_donaldson: 'LF17494 / P550949' },
+          combustivel: { tecfil: 'PEC3036 + Sep. PSD980/1', mann: 'PU9009z + WK1060/4', wega: 'FCD0790 + FCD0781', mahle: 'KX386D + KC128', fleetguard_donaldson: 'FF5853 + FS19914 / P550762' },
+          ar: { tecfil: 'ARS9839 + ASR839 (Sec.)', mann: 'C27830 + CF1600', wega: 'WAP115 + WAP115S', mahle: 'LX1047 + LXS251', fleetguard_donaldson: 'AF26114 + AF26115 / P780522' }
+        }
+      },
+      'VW Constellation 31-320': {
+        categoria: 'Caminhões',
+        motor: { tipo: '15W-40 (API CI-4 - Cummins ISC 8.3)', qtd: '23,5 L (com filtro)', intervalo: '40.000 km (20.000 km severo)' },
+        cambio: { tipo: 'Manual (ZF 16S 1585 TD): 75W-80 ou 80W API GL-4 (ZF TE-ML 02)', qtd: '11,0 L a 13,0 L', intervalo: '100.000 km' },
+        diferencial: { tipo: 'Traseiro (Tração 6x4 - Meritor MT-50-168): 85W-140 API GL-5', qtd: '1º Eixo: ~18,0 L / 2º Eixo: ~15,0 L', intervalo: '60.000 km (severo) ou 100.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL962', mann: 'WP12300', wega: 'WO615', mahle: 'OC516', fleetguard_donaldson: 'LF9009 / P553000' },
+          combustivel: { tecfil: 'PSC493 + Sep. PSD960/1', mann: 'WK950/30 + WK950/21', wega: 'FCD2073 + FCD0766', mahle: 'KC202 + KC200', fleetguard_donaldson: 'FF5421 + FS19732 / P550881' },
+          ar: { tecfil: 'ARS9839 + ASR839 (Sec.)', mann: 'C27830 + CF1600', wega: 'WAP115 + WAP115S', mahle: 'LX1047 + LXS251', fleetguard_donaldson: 'AF26114 + AF26115 / P780522' }
+        }
+      },
+
+      // =======================================================================
+      // 4. ÔNIBUS E VANS (3 modelos)
+      // =======================================================================
+      'Fiat Ducato 2.3 Multijet': {
+        categoria: 'Ônibus e Vans',
+        motor: { tipo: '5W-30 sintético (ACEA B4 / C2 - FPT F1A)', qtd: '6,0 L a 6,5 L (com filtro)', intervalo: '15.000 km (7.500 km severo)' },
+        cambio: { tipo: 'Manual (5 ou 6 marchas): 75W-80 API GL-4', qtd: '2,0 L a 2,7 L', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PSL657', mann: 'W920/48', wega: 'WO541', mahle: 'OC608', fleetguard_donaldson: 'LF16232 / P550934' },
+          combustivel: { tecfil: 'PEC3023 (até 17) / PEC3041 (18+)', mann: 'PU7010z / PU8016z', wega: 'FCD0770 / FCD0796', mahle: 'KX208D / KX520D', fleetguard_donaldson: 'FF5701 / P550936' },
+          ar: { tecfil: 'ARS1014 (até 13) / ARS1013 (14+)', mann: 'C17278', wega: 'WAP311 / WAP310', mahle: 'LX1751', fleetguard_donaldson: 'AF26243 / P782105' }
+        }
+      },
+      'Fiat Ducato 2.8': {
+        categoria: 'Ônibus e Vans',
+        motor: { tipo: '15W-40 semissintético ou 5W-40 sintético (API CI-4 / ACEA B4 - Sofim 8140)', qtd: '6,0 L (com filtro)', intervalo: '10.000 - 15.000 km' },
+        cambio: { tipo: 'Manual (5 marchas): 75W-80 API GL-4', qtd: '2,0 L a 2,7 L', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' },
+        filtros: {
+          oleo: { tecfil: 'PSL156 (ou PSL655)', mann: 'W940/18', wega: 'WO540', mahle: 'OC205', fleetguard_donaldson: 'LF3591 / P550342' },
+          combustivel: { tecfil: 'PSC496 (até 05) / PEC3023 (06+)', mann: 'WK854/1 / PU7010z', wega: 'FCD2065 / FCD0770', mahle: 'KC83 / KX208D', fleetguard_donaldson: 'FF5289 / FF5701' },
+          ar: { tecfil: 'ARS1013 (ou ARS1014)', mann: 'C17278', wega: 'WAP310 / WAP311', mahle: 'LX1751', fleetguard_donaldson: 'AF26243 / P782105' }
+        }
+      },
+      'Iveco - Daily 35S14': {
+        categoria: 'Ônibus e Vans',
+        motor: { tipo: '5W-30 sintético (ACEA C2/C3 - FPT F1C 3.0)', qtd: '6,6 L a 7,6 L (com filtro)', intervalo: '20.000 km (10.000 km severo)' },
+        cambio: { tipo: 'Manual (ZF 6S 400 / Eaton FSO): 75W-80 API GL-4', qtd: '2,0 L a 2,2 L', intervalo: '60.000 km' },
+        diferencial: { tipo: 'Traseiro: 80W-90 ou 85W-140 API GL-5', qtd: '1,35 L a 1,8 L', intervalo: '40.000 km' },
+        filtros: {
+          oleo: { tecfil: 'PSL655 (ou PSL657)', mann: 'W930/21', wega: 'WO540 / WO541', mahle: 'OC608', fleetguard_donaldson: 'LF16232 / P550934' },
+          combustivel: { tecfil: 'PEC3023 (ou PEC3041) + Sep. PSD460/1', mann: 'PU7010z + WK940/24', wega: 'FCD0770 + FCD0761', mahle: 'KX208D + KC199', fleetguard_donaldson: 'FF5701 + FS1280 / P550936' },
+          ar: { tecfil: 'ARS5132 (ou ARS1014)', mann: 'C17237/1', wega: 'WAP312', mahle: 'LX1751', fleetguard_donaldson: 'AF26243 / P782105' }
         }
       }
     };
 
-    // =====================================================================
-    // 2. BANCO DE DADOS DE FLUIDOS E ÓLEOS
-    // =====================================================================
-    const especificacoesOleos = {
-  // --- VEÍCULOS PASSEIO ---
-  'Chevrolet SPIN': {
-    motor: { tipo: '5W-30 sintético (dexos1 Gen 2/3)', qtd: '4,2 L (com filtro)', intervalo: '10.000 km ou 1 ano (5.000 km severo)' },
-    cambio: { tipo: 'Automático: Dexron VI / Manual: 75W-85 ou 75W-90 GL-4', qtd: 'Automático: ~8,5 L (total) / Manual: 1,8 L', intervalo: 'Automático: 60.000 - 80.000 km / Manual: 60.000 km' },
-    diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
-  'Chevrolet Agile': {
-    motor: { tipo: '10W-40 semissintético ou 5W-30 sintético (API SN)', qtd: '3,5 L (com filtro)', intervalo: '10.000 km ou 1 ano (5.000 km severo)' },
-    cambio: { tipo: 'Manual: 75W-85 ou 75W-90 GL-4', qtd: '1,6 L a 1,8 L', intervalo: '60.000 - 80.000 km' },
-    diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
-  'Chevrolet Montana': {
-    motor: { tipo: '5W-30 sintético (1.4 Econoflex) / 15W-40 ou 20W-50 (1.8 antigas)', qtd: '3,5 L (com filtro)', intervalo: '10.000 km (5.000 km severo)' },
-    cambio: { tipo: 'Manual: 75W-85 ou 75W-90 GL-4 (Easytronic: fluido específico + atuador)', qtd: '1,6 L a 1,8 L', intervalo: '60.000 - 80.000 km' },
-    diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
-  'Fiat Palio 1.4': {
-    motor: { tipo: '15W-40 semissintético (Fire) ou 5W-30 sintético (Fire Evo)', qtd: '2,7 L a 3,2 L (com filtro)', intervalo: '10.000 km (7.500 km severo)' },
-    cambio: { tipo: 'Manual: 75W-90 ou 80W API GL-4', qtd: '2,0 L', intervalo: '60.000 km' },
-    diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
-  'Fiat Doblo 1.8': {
-    motor: { tipo: '15W-40 semissintético (GM/E.torQ) ou 5W-30 sintético (E.torQ mais novos)', qtd: '3,5 L (GM) / 4,3 L (E.torQ)', intervalo: '10.000 km (7.500 km severo)' },
-    cambio: { tipo: 'Manual: 75W-90 API GL-4', qtd: '2,0 L', intervalo: '60.000 km' },
-    diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
-  'Fiat Doblo 1.4': {
-    motor: { tipo: '15W-40 semissintético (API SL/SN)', qtd: '2,7 L a 3,2 L (com filtro)', intervalo: '10.000 km (7.500 km severo)' },
-    cambio: { tipo: 'Manual: 75W-90 API GL-4', qtd: '2,0 L', intervalo: '60.000 km' },
-    diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
-  'Fiat Strada 1.4': {
-    motor: { tipo: '15W-40 semissintético (Fire) ou 5W-30 sintético (Fire Evo)', qtd: '2,7 L a 3,2 L (com filtro)', intervalo: '10.000 km (7.500 km severo)' },
-    cambio: { tipo: 'Manual: 75W-90 API GL-4', qtd: '1,8 L a 2,0 L', intervalo: '60.000 km' },
-    diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
-  'Ford Fiesta 1.0': {
-    motor: { tipo: '5W-30 sintético (Zetec Rocam - norma WSS-M2C913)', qtd: '4,1 L a 4,3 L (com filtro)', intervalo: '10.000 km ou 1 ano' },
-    cambio: { tipo: 'Manual: 75W-90 sintético API GL-4 (caixa IB5)', qtd: '2,1 L', intervalo: '60.000 km (uso severo)' },
-    diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
-  'Ford Fiesta 1.6': {
-    motor: { tipo: '5W-30 sintético (Zetec Rocam / Sigma - norma WSS-M2C913)', qtd: '4,1 L (com filtro)', intervalo: '10.000 km ou 1 ano' },
-    cambio: { tipo: 'Manual: 75W-90 sintético API GL-4 (Powershift: fluido DCT)', qtd: 'Manual: 2,1 L / Powershift: 1,75 L', intervalo: '60.000 km' },
-    diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
-  'Ford Focus 1.6': {
-    motor: { tipo: '5W-30 sintético (Zetec Rocam / Sigma)', qtd: '4,1 L (com filtro)', intervalo: '10.000 km ou 1 ano' },
-    cambio: { tipo: 'Manual: 75W-90 sintético API GL-4 (Powershift: fluido DCT)', qtd: 'Manual: 2,1 L / Powershift: 1,75 L', intervalo: '60.000 km' },
-    diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
-  'Ford Focus 2.0': {
-    motor: { tipo: '5W-30 sintético (Duratec)', qtd: '4,3 L (com filtro)', intervalo: '10.000 km ou 1 ano' },
-    cambio: { tipo: 'Manual: 75W-90 GL-4 / Automático 4F27E: Mercon LV / Powershift: DCT', qtd: 'Manual: 1,9 L / Auto: ~6,7 L / DCT: 1,75 L', intervalo: '60.000 km' },
-    diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
-  'Nissan Sentra': {
-    motor: { tipo: '5W-30 sintético (API SN/SP)', qtd: '4,4 L (com filtro)', intervalo: '10.000 km' },
-    cambio: { tipo: 'CVT: Fluido Nissan NS-2 (até 2013) ou NS-3 (2014+)', qtd: '~7,5 L a 8,2 L (total)', intervalo: '40.000 - 60.000 km' },
-    diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
-  'Nissan Versa 1.6': {
-    motor: { tipo: '5W-30 sintético (API SN/SP)', qtd: '4,0 L a 4,3 L (com filtro)', intervalo: '10.000 km' },
-    cambio: { tipo: 'CVT: Fluido Nissan NS-3 / Manual: 75W-80 ou 75W-85 GL-4', qtd: 'CVT: ~6,9 L / Manual: 2,3 L', intervalo: 'CVT: 40.000 - 60.000 km / Manual: 60.000 km' },
-    diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
-  'Peugeot 408 1.6 THP': {
-    motor: { tipo: '5W-30 ou 0W-30 sintético (norma PSA B71 2290 / 2312)', qtd: '4,25 L (com filtro)', intervalo: '10.000 km (7.500 km severo)' },
-    cambio: { tipo: 'Automático Aisin AT6 (6 marchas): Fluido ATF AW-1 / JWS 3324', qtd: '~7,0 L (total) / ~3,5 L (troca parcial)', intervalo: '60.000 km' },
-    diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
-  'Renault Logan - Sandero': {
-    motor: { tipo: '10W-40 semissintético ou 5W-30 sintético (norma RN0700/0710)', qtd: '1.6 8V: 3,3 L / 1.6 16V (K4M/SCe): 4,2 L a 4,8 L', intervalo: '10.000 km' },
-    cambio: { tipo: 'Manual: 75W-80 API GL-4+ (Elf Tranself NFJ/NFP)', qtd: '2,8 L a 3,1 L', intervalo: '60.000 km (verificação/troca)' },
-    diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
-  'VW Kombi 1.4': {
-    motor: { tipo: '5W-40 sintético ou 10W-40 semissintético (norma VW 502.00)', qtd: '4,0 L (com filtro)', intervalo: '10.000 km (5.000 km severo)' },
-    cambio: { tipo: 'Manual: 75W-90 API GL-4', qtd: '2,5 L', intervalo: '60.000 km' },
-    diferencial: { tipo: 'Não se aplica (Tração Traseira com transeixo integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
-  'VW Gol 1.6 G5': {
-    motor: { tipo: '5W-40 sintético (norma VW 502.00 - recomendado) ou 5W-30', qtd: '3,5 L (com filtro)', intervalo: '10.000 km (5.000 km severo)' },
-    cambio: { tipo: 'Manual: 75W-90 API GL-4 (norma VW G 052 512)', qtd: '1,9 L a 2,0 L', intervalo: '60.000 - 80.000 km' },
-    diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
-  'VW Gol 1.6 G6': {
-    motor: { tipo: '5W-40 sintético (norma VW 502.00) ou 5W-30 (VW 508.88)', qtd: '3,5 L (EA111) / 4,0 L (EA211 MSI)', intervalo: '10.000 km (5.000 km severo)' },
-    cambio: { tipo: 'Manual: 75W-90 API GL-4 (norma VW G 052 512)', qtd: '1,9 L a 2,0 L', intervalo: '60.000 - 80.000 km' },
-    diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
+    // =========================================================================
+    // ESTADO DA APLICAÇÃO E ELEMENTOS DO DOM
+    // =========================================================================
+    const categories = ['Todos', 'Passeio', 'Utilitários', 'Caminhões', 'Ônibus e Vans'];
+    let activeCategory = 'Todos';
+    let searchQuery = '';
+    const expandedVehicles = new Set(['Chevrolet SPIN']); // Primeiro item aberto por padrão
 
-  // --- VEÍCULOS UTILITÁRIOS ---
-  'Agrale Marruá - AM21': {
-    motor: { tipo: '15W-40 mineral/semissintético (API CI-4 / ACEA E7 - MWM Sprint / Cummins)', qtd: '5,5 L a 8,5 L (conforme motorização)', intervalo: '5.000 - 10.000 km (uso severo/militar)' },
-    cambio: { tipo: 'Manual (Eaton FS-2305 / FSO-2405): SAE 50 sintético ou 75W-90 GL-4', qtd: '3,2 L (Câmbio) + 1,5 L a 2,2 L (Caixa Transf. Agrale/BorgWarner)', intervalo: '20.000 - 40.000 km' },
-    diferencial: { tipo: '85W-140 ou 80W-90 API GL-5 (Eixos Dana 44 / 60 / 70)', qtd: 'Diant.: ~1,5 L / Tras.: ~2,2 L a 3,0 L', intervalo: '20.000 - 40.000 km' }
-  },
-  'Agrale Marruá - AM20': {
-    motor: { tipo: '15W-40 mineral/semissintético (API CI-4 / ACEA E7)', qtd: '5,5 L a 8,5 L (conforme motorização)', intervalo: '5.000 - 10.000 km (uso severo)' },
-    cambio: { tipo: 'Manual (Eaton FSO-2405): SAE 50 sintético ou 75W-90 GL-4', qtd: '3,2 L (Câmbio) + ~1,8 L (Caixa de Transferência)', intervalo: '20.000 - 40.000 km' },
-    diferencial: { tipo: '85W-140 ou 80W-90 API GL-5', qtd: 'Diant.: ~1,5 L / Tras.: ~2,5 L', intervalo: '20.000 - 40.000 km' }
-  },
-  'Agrale Marruá - AM22': {
-    motor: { tipo: '15W-40 mineral/semissintético (API CI-4 / ACEA E7)', qtd: '5,5 L a 8,5 L (conforme motorização)', intervalo: '5.000 - 10.000 km (uso severo)' },
-    cambio: { tipo: 'Manual (Eaton FSO-2405): SAE 50 sintético ou 75W-90 GL-4', qtd: '3,2 L (Câmbio) + ~1,8 L (Caixa de Transferência)', intervalo: '20.000 - 40.000 km' },
-    diferencial: { tipo: '85W-140 ou 80W-90 API GL-5', qtd: 'Diant.: ~1,5 L / Tras.: ~2,5 L', intervalo: '20.000 - 40.000 km' }
-  },
-  'Agrale Marruá - AM25': {
-    motor: { tipo: '15W-40 mineral/semissintético (API CI-4 / ACEA E7)', qtd: '8,5 L (MWM Sprint 4.07 / Cummins ISF)', intervalo: '5.000 - 10.000 km (uso severo)' },
-    cambio: { tipo: 'Manual (Eaton FSO-2405): SAE 50 sintético ou 75W-90 GL-4', qtd: '3,2 L (Câmbio) + ~1,8 L (Caixa de Transferência)', intervalo: '20.000 - 40.000 km' },
-    diferencial: { tipo: '85W-140 ou 80W-90 API GL-5', qtd: 'Diant.: ~1,5 L / Tras.: ~3,0 L', intervalo: '20.000 - 40.000 km' }
-  },
-  'Ford F-250 e F-350': {
-    motor: { tipo: '15W-40 (API CI-4/CJ-4 - MWM Sprint 6.07 / Cummins 3.9)', qtd: '8,5 L (MWM 6 cil.) / 11,0 L (Cummins)', intervalo: '10.000 km (5.000 km severo)' },
-    cambio: { tipo: 'Manual (ZF S5-420 / Eaton FSO-2405): ATF Mercon ou 75W-90 GL-4 / Auto: Mercon V', qtd: 'Manual: 3,2 L a 3,4 L / Automático: ~16,6 L', intervalo: 'Manual: 60.000 km / Auto: 50.000 km' },
-    diferencial: { tipo: 'Traseiro: 80W-90 ou 85W-140 API GL-5 (com aditivo LSD se blocante)', qtd: '3,3 L (Dana 60/70) / 4,0 L (Dana M80)', intervalo: '40.000 km' }
-  },
-  'Ford Ranger Power Stroke': {
-    motor: { tipo: '15W-40 (API CH-4/CI-4 - Motor International 2.8 Power Stroke)', qtd: '7,0 L (com filtro)', intervalo: '7.500 - 10.000 km' },
-    cambio: { tipo: 'Manual (Eaton FSO-2405): ATF Mercon / Caixa Transf. (4x4): ATF Mercon', qtd: 'Câmbio: 2,6 L / Caixa Transf.: 1,2 L', intervalo: '60.000 km' },
-    diferencial: { tipo: 'Dianteiro: 80W-90 GL-5 / Traseiro: 80W-90 ou 85W-140 GL-5 (Trac-Lok LSD)', qtd: 'Diant.: 1,3 L / Tras.: 2,6 L a 3,4 L', intervalo: '40.000 km' }
-  },
-  'Ford Ranger 3.0 NGD': {
-    motor: { tipo: '15W-40 (API CI-4 ou superior - MWM International 3.0)', qtd: '9,0 L (com filtro)', intervalo: '10.000 km (5.000 km severo)' },
-    cambio: { tipo: 'Manual (Eaton FSO-2405): ATF Mercon / Caixa Transf. (4x4): ATF Mercon', qtd: 'Câmbio: 2,8 L / Caixa Transf.: 1,2 L', intervalo: '50.000 km' },
-    diferencial: { tipo: 'Dianteiro: 80W-90 GL-5 / Traseiro: 80W-90 ou 85W-140 GL-5 (LSD)', qtd: 'Diant.: 1,4 L / Tras.: 2,6 L (Dana 44.3)', intervalo: '40.000 km' }
-  },
-  'Ford Ranger 2.2': {
-    motor: { tipo: '5W-30 sintético (norma WSS-M2C913-C/D - Duratorq TDCi)', qtd: '8,6 L (com filtro)', intervalo: '10.000 km' },
-    cambio: { tipo: 'Manual (MT82): 75W-90 GL-4 (WSS-M2C200-D2) / Auto (6R80): Mercon LV', qtd: 'Manual: 2,7 L / Auto: ~10,5 L (Transf. 4x4: 1,2 L)', intervalo: '60.000 km' },
-    diferencial: { tipo: 'Dianteiro: 80W-90 GL-5 / Traseiro: 75W-90 ou 80W-90 GL-5', qtd: 'Diant.: 1,2 L / Tras.: 2,9 L', intervalo: '40.000 km' }
-  },
-  'Ford Transit': {
-    motor: { tipo: '5W-30 sintético (norma WSS-M2C913-C/D - Duratorq 2.2 / 2.4)', qtd: '6,5 L a 9,8 L (conforme geração)', intervalo: '15.000 km (10.000 km severo)' },
-    cambio: { tipo: 'Manual (MT82 / VMT6): 75W-90 sintético API GL-4 (WSS-M2C200-D2)', qtd: '2,2 L a 3,7 L', intervalo: '60.000 km' },
-    diferencial: { tipo: 'Tração Traseira (modelos antigos): 75W-90 GL-5 / Dianteira (novos): integrado', qtd: 'Traseiro: ~2,2 L', intervalo: '60.000 km' }
-  },
-  'Mitsubishi L200 2.5': {
-    motor: { tipo: '15W-40 (API CI-4 - 4D56 HPE / Outdoor)', qtd: '6,5 L (com filtro)', intervalo: '7.500 - 10.000 km' },
-    cambio: { tipo: 'Manual: 75W-85 ou 75W-90 API GL-4 (Transf.: 75W-90 GL-4)', qtd: 'Câmbio: 2,3 L / Caixa Transf.: 2,2 L', intervalo: '40.000 km' },
-    diferencial: { tipo: 'Dianteiro: 80W-90 GL-5 / Traseiro: 80W-90 ou 75W-90 GL-5 LSD', qtd: 'Diant.: 1,2 L / Tras.: 2,1 L a 2,6 L', intervalo: '40.000 km' }
-  },
-  'Mitsubishi Triton 3.2': {
-    motor: { tipo: '15W-40 ou 5W-30 (API CI-4/CJ-4 - 4M41)', qtd: '7,5 L a 8,2 L (com filtro)', intervalo: '10.000 km' },
-    cambio: { tipo: 'Automático: ATF SP-III / Manual: 75W-85 GL-4 (Transf.: 75W-90 GL-4)', qtd: 'Auto: ~8,5 L / Manual: 2,5 L / Transf.: 2,3 L', intervalo: '60.000 km' },
-    diferencial: { tipo: 'Dianteiro: 80W-90 GL-5 / Traseiro: 80W-90 ou 75W-90 GL-5 LSD', qtd: 'Diant.: 1,2 L / Tras.: 2,3 L a 2,6 L', intervalo: '40.000 km' }
-  },
-  'Mitsubishi Triton 2.4': {
-    motor: { tipo: '5W-30 sintético (ACEA C2/C3 - MIVEC 4N15 com DPF)', qtd: '8,4 L (com filtro)', intervalo: '10.000 km' },
-    cambio: { tipo: 'Automático: ATF SP-III ou DiaQueen ATF-MA1 / Manual: 75W-80 GL-4', qtd: 'Auto: ~8,0 L / Manual: 2,5 L / Transf.: 2,5 L', intervalo: '60.000 km' },
-    diferencial: { tipo: 'Dianteiro: 80W-90 GL-5 / Traseiro: 80W-90 ou 75W-90 GL-5 LSD', qtd: 'Diant.: 1,2 L / Tras.: 2,3 L', intervalo: '40.000 km' }
-  },
-  'Nissan Frontier 2.5': {
-    motor: { tipo: '15W-40 (sem DPF) ou 5W-30 ACEA C3 (com DPF - Motor YD25)', qtd: '6,9 L (com filtro)', intervalo: '10.000 km' },
-    cambio: { tipo: 'Manual: 75W-85 GL-4 / Automático: Nissan Matic S (Transf.: Matic D)', qtd: 'Manual: ~3,8 L / Auto: ~9,5 L / Transf.: 2,0 L', intervalo: '40.000 - 60.000 km' },
-    diferencial: { tipo: 'Dianteiro (4x4): 80W-90 GL-5 / Traseiro: 80W-90 GL-5 (LSD se aplicável)', qtd: 'Diant.: 0,85 L / Tras.: 1,6 L (C200) a 2,0 L (M226)', intervalo: '40.000 km' }
-  },
-  'Nissan Frontier 2.3': {
-    motor: { tipo: '5W-30 sintético (ACEA C3/C4 - Bi-Turbo YS23 com DPF)', qtd: '6,9 L a 7,3 L (com filtro)', intervalo: '10.000 km' },
-    cambio: { tipo: 'Manual: 75W-80 GL-4 / Automático (7M): Nissan Matic S (Transf.: Matic D)', qtd: 'Manual: ~3,5 L / Auto: ~9,2 L / Transf.: 1,5 L', intervalo: '40.000 - 60.000 km' },
-    diferencial: { tipo: 'Dianteiro (4x4): 80W-90 GL-5 / Traseiro: 75W-90 ou 80W-90 GL-5', qtd: 'Diant.: 0,85 L / Tras.: 1,6 L a 2,1 L', intervalo: '40.000 km' }
-  },
-  'Toyota Hilux 3.0': {
-    motor: { tipo: '15W-40 ou 5W-30 (API CI-4/CJ-4 - 1KD-FTV)', qtd: '6,9 L (com filtro) / 7,4 L (seco)', intervalo: '10.000 km (5.000 km severo)' },
-    cambio: { tipo: 'Manual: 75W-90 GL-4 / Automático: ATF WS (Transf.: 75W-90 GL-4)', qtd: 'Manual: 2,2 L / Auto: ~10,0 L / Transf.: 1,0 L', intervalo: '60.000 km' },
-    diferencial: { tipo: 'Dianteiro: 75W-90 GL-5 / Traseiro: 75W-90 ou 80W-90 GL-5 LSD', qtd: 'Diant.: 1,5 L / Tras.: 2,4 L a 3,4 L', intervalo: '40.000 km' }
-  },
-  'Toyota Hilux 2.8 - Nova': {
-    motor: { tipo: '5W-30 sintético (ACEA C2/C3 - 1GD-FTV com DPF)', qtd: '7,5 L (com filtro) / 8,0 L (seco)', intervalo: '10.000 km (5.000 km severo)' },
-    cambio: { tipo: 'Automático (6M): ATF WS / Manual: 75W-90 GL-4 (Transf.: 75W-90 GL-4)', qtd: 'Auto: 9,3 L / Manual: 2,4 L / Transf.: 1,0 L', intervalo: '60.000 km' },
-    diferencial: { tipo: 'Dianteiro: 75W-85 ou 75W-90 GL-5 / Traseiro: 75W-85 ou 75W-90 GL-5 LSD', qtd: 'Diant.: 1,4 L / Tras.: 3,0 L', intervalo: '30.000 - 40.000 km' }
-  },
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+    const quickSelect = document.getElementById('quickSelect');
+    const categoryPills = document.getElementById('categoryPills');
+    const vehiclesContainer = document.getElementById('vehiclesContainer');
+    const resultsCounter = document.getElementById('resultsCounter');
+    const emptyState = document.getElementById('emptyState');
+    const resetFiltersBtn = document.getElementById('resetFiltersBtn');
+    const expandAllBtn = document.getElementById('expandAllBtn');
+    const collapseAllBtn = document.getElementById('collapseAllBtn');
 
-  // --- CAMINHÕES ---
-  'Ford Cargo 816': {
-    motor: { tipo: '15W-40 (API CI-4/CK-4 - Cummins ISB 4.5)', qtd: '13,0 L (com filtro)', intervalo: '30.000 - 40.000 km (ou 15.000 km severo)' },
-    cambio: { tipo: 'Manual (Eaton FSO-4505): SAE 40 ou 50 sintético (Eaton PS-386) / 80W-90 GL-4', qtd: '4,5 L', intervalo: '100.000 km' },
-    diferencial: { tipo: 'Traseiro: 85W-140 API GL-5', qtd: '7,5 L a 9,0 L', intervalo: '40.000 a 60.000 km' }
-  },
-  'Ford Cargo 2423': {
-    motor: { tipo: '15W-40 (API CI-4/CK-4 - Cummins ISB 6.7)', qtd: '19,5 L (com filtro)', intervalo: '40.000 km (ou 20.000 km severo)' },
-    cambio: { tipo: 'Manual (Eaton FS-6406 / RT-8908LL): SAE 50 sintético (Eaton PS-386)', qtd: '9,0 L a 13,0 L (conforme caixa)', intervalo: '100.000 km' },
-    diferencial: { tipo: 'Traseiro (Meritor MS-23-245): 85W-140 API GL-5', qtd: '15,0 L a 18,0 L', intervalo: '40.000 a 60.000 km' }
-  },
-  'Ford - 2629 Bau': {
-    motor: { tipo: '15W-40 (API CI-4/CK-4 - Cummins ISB 6.7)', qtd: '19,5 L (com filtro)', intervalo: '40.000 km (ou 20.000 km severo)' },
-    cambio: { tipo: 'Manual (Eaton RT-8908LL / FS-6406): SAE 50 sintético (Eaton PS-386)', qtd: '11,0 L a 13,0 L', intervalo: '100.000 km' },
-    diferencial: { tipo: 'Traseiro (Tração 6x4 - 2 eixos): 85W-140 API GL-5', qtd: '1º Eixo: ~16,0 L / 2º Eixo: ~14,0 L', intervalo: '40.000 a 60.000 km' }
-  },
-  'Ford - 2629 CTA e CTC': {
-    motor: { tipo: '15W-40 (API CI-4/CK-4 - Cummins ISB 6.7)', qtd: '19,5 L (com filtro)', intervalo: '40.000 km (ou 20.000 km severo)' },
-    cambio: { tipo: 'Manual (Eaton RT-8908LL): SAE 50 sintético (Eaton PS-386)', qtd: '13,0 L', intervalo: '100.000 km' },
-    diferencial: { tipo: 'Traseiro (Tração 6x4 - 2 eixos): 85W-140 API GL-5', qtd: '1º Eixo: ~16,0 L / 2º Eixo: ~14,0 L', intervalo: '40.000 a 60.000 km' }
-  },
-  'Ford 1933 Cav Mec': {
-    motor: { tipo: '15W-40 (API CI-4/CK-4 - Cummins ISL 8.9)', qtd: '24,0 L a 26,0 L (com filtro)', intervalo: '40.000 km (ou 20.000 km severo)' },
-    cambio: { tipo: 'Manual (Eaton FTS-16108LL) / Automatizado (Torqshift): SAE 50 sintético', qtd: '13,0 L', intervalo: '100.000 km' },
-    diferencial: { tipo: 'Traseiro (Meritor MS-23-185): 85W-140 API GL-5', qtd: '18,0 L a 21,0 L', intervalo: '40.000 a 60.000 km' }
-  },
-  'Mercedes-Benz 2627': {
-    motor: { tipo: '15W-40 (Norma MB 228.3 / 228.5 - OM-447 / OM-457)', qtd: '24,0 L a 28,0 L (com filtro)', intervalo: '30.000 - 40.000 km' },
-    cambio: { tipo: 'Manual (ZF / MB G-131): 80W ou 75W-80 API GL-4 (Norma MB 235.1 / 235.4)', qtd: '9,0 L a 13,0 L', intervalo: '100.000 km' },
-    diferencial: { tipo: 'Traseiro (6x4 com redução nos cubos): 85W-140 API GL-5 (Norma MB 235.0)', qtd: '1º Eixo: ~14,0 L / 2º Eixo: ~12,0 L (+ cubos)', intervalo: '40.000 a 60.000 km' }
-  },
-  'Mercedes-Benz 915c': {
-    motor: { tipo: '15W-40 (Norma MB 228.3 - OM-904 LA)', qtd: '15,8 L (com filtro)', intervalo: '30.000 - 40.000 km' },
-    cambio: { tipo: 'Manual (ZF S5-420 / MB G-60): 80W API GL-4 (Norma MB 235.1)', qtd: '3,4 L (ZF) a 9,0 L (MB)', intervalo: '100.000 km' },
-    diferencial: { tipo: 'Traseiro: 85W-140 API GL-5 (Norma MB 235.0)', qtd: '5,6 L a 8,5 L', intervalo: '40.000 a 60.000 km' }
-  },
-  'Mercedes-Benz 1418E': {
-    motor: { tipo: '15W-40 (Norma MB 228.3 - OM-366 / OM-904 LA)', qtd: '15,5 L a 16,5 L (com filtro)', intervalo: '20.000 - 30.000 km' },
-    cambio: { tipo: 'Manual (MB G-60 / G-85): 80W API GL-4 (Norma MB 235.1)', qtd: '9,0 L', intervalo: '100.000 km' },
-    diferencial: { tipo: 'Traseiro: 85W-140 API GL-5 (Norma MB 235.0)', qtd: '10,0 L a 12,0 L', intervalo: '40.000 a 60.000 km' }
-  },
-  'Mercedes-Benz AXOR 3344': {
-    motor: { tipo: '15W-40 (Norma MB 228.3 / 228.5 - OM-457 LA)', qtd: '38,0 L (com filtro)', intervalo: '40.000 km (20.000 km severo fora-de-estrada)' },
-    cambio: { tipo: 'Manual/Automatizado (MB G-240 / G-330): 75W-80 sintético (Norma MB 235.4 / 235.11)', qtd: '13,0 L a 15,0 L', intervalo: '100.000 km (ou 2 anos)' },
-    diferencial: { tipo: 'Traseiro (6x4 com redução nos cubos): 85W-140 API GL-5 (Norma MB 235.0)', qtd: '1º Eixo: 14,5 L / 2º Eixo: 12,5 L (+ 3,2 L por cubo)', intervalo: '40.000 - 60.000 km (uso severo)' }
-  },
-  'Mercedes-Benz Atego 1725': {
-    motor: { tipo: '15W-40 (Norma MB 228.3 - OM-906 LA)', qtd: '26,5 L (com filtro)', intervalo: '40.000 km' },
-    cambio: { tipo: 'Manual (MB G-85): 80W API GL-4 (Norma MB 235.1)', qtd: '9,0 L', intervalo: '100.000 km' },
-    diferencial: { tipo: 'Traseiro: 85W-140 API GL-5 (Norma MB 235.0)', qtd: '11,0 L a 12,0 L', intervalo: '40.000 a 60.000 km' }
-  },
-  'VW Work 815': {
-    motor: { tipo: '15W-40 (API CI-4 - MWM 4.10 TCA / Cummins Interact 4.0)', qtd: '11,0 L a 13,0 L (com filtro)', intervalo: '20.000 - 30.000 km' },
-    cambio: { tipo: 'Manual (Eaton FS-4205A): SAE 40 ou 80W API GL-4', qtd: '4,5 L', intervalo: '80.000 - 100.000 km' },
-    diferencial: { tipo: 'Traseiro: 85W-140 API GL-5', qtd: '6,5 L a 8,0 L', intervalo: '40.000 - 60.000 km' }
-  },
-  'VW Work 5-Ton 15-180': {
-    motor: { tipo: '15W-40 (API CI-4 - MWM 6.10 TCA)', qtd: '16,5 L (com filtro)', intervalo: '30.000 - 40.000 km' },
-    cambio: { tipo: 'Manual (Eaton FS-4205A / FS-5306A): SAE 40 ou 50 sintético / 80W GL-4', qtd: '4,5 L a 7,2 L', intervalo: '100.000 km' },
-    diferencial: { tipo: 'Traseiro (Meritor MS-23-145 / 23-240): 85W-140 API GL-5', qtd: '15,0 L', intervalo: '60.000 km (severo) ou 100.000 km' }
-  },
-  'VW Work 7-Ton Comercial': {
-    motor: { tipo: '15W-40 (API CI-4 - Cummins / MWM)', qtd: '16,5 L (com filtro)', intervalo: '30.000 - 40.000 km' },
-    cambio: { tipo: 'Manual (Eaton FS-5306A / FS-6306A): SAE 50 sintético ou 80W GL-4', qtd: '7,2 L a 9,0 L', intervalo: '100.000 km' },
-    diferencial: { tipo: 'Traseiro (Meritor MS-23-145): 85W-140 API GL-5', qtd: '15,0 L', intervalo: '60.000 km (severo) ou 100.000 km' }
-  },
-  'VW Work 24-220': {
-    motor: { tipo: '15W-40 (API CI-4 - Cummins 6CTAA 8.3)', qtd: '20,0 L (com filtro)', intervalo: '30.000 - 40.000 km' },
-    cambio: { tipo: 'Manual (Eaton FS-6306A / RT-8908LL): SAE 50 sintético (Eaton PS-386)', qtd: '9,0 L a 13,0 L', intervalo: '100.000 km' },
-    diferencial: { tipo: 'Traseiro (Meritor MS-23-245): 85W-140 API GL-5', qtd: '15,0 L a 18,0 L', intervalo: '60.000 km (severo) ou 100.000 km' }
-  },
-  'VW Work 26-220': {
-    motor: { tipo: '15W-40 (API CI-4 - Cummins 6CTAA 8.3)', qtd: '20,0 L (com filtro)', intervalo: '30.000 - 40.000 km' },
-    cambio: { tipo: 'Manual (Eaton RT-8908LL): SAE 50 sintético (Eaton PS-386)', qtd: '13,0 L', intervalo: '100.000 km' },
-    diferencial: { tipo: 'Traseiro (Tração 6x4 - Meritor MT-46-145): 85W-140 API GL-5', qtd: '1º Eixo: ~16,0 L / 2º Eixo: ~14,0 L', intervalo: '60.000 km (severo) ou 100.000 km' }
-  },
-  'VW Work 26-260E': {
-    motor: { tipo: '15W-40 (API CI-4 - MWM 6.12 TCE)', qtd: '21,0 L (com filtro)', intervalo: '30.000 - 40.000 km' },
-    cambio: { tipo: 'Manual (Eaton RT-8908LL): SAE 50 sintético (Eaton PS-386)', qtd: '13,0 L', intervalo: '100.000 km' },
-    diferencial: { tipo: 'Traseiro (Tração 6x4 - Meritor MD/MR): 85W-140 API GL-5', qtd: '1º Eixo: ~16,0 L / 2º Eixo: ~14,0 L', intervalo: '60.000 km (severo) ou 100.000 km' }
-  },
-  'VW Constellation 24-250': {
-    motor: { tipo: '15W-40 (API CI-4 - Cummins ISBe 5.9)', qtd: '19,0 L (com filtro)', intervalo: '40.000 km (20.000 km severo)' },
-    cambio: { tipo: 'Manual (Eaton FS-6306B): SAE 50 sintético (Eaton PS-386)', qtd: '9,0 L', intervalo: '100.000 km' },
-    diferencial: { tipo: 'Traseiro (Meritor MS-23-245): 85W-140 API GL-5', qtd: '15,0 L a 18,0 L', intervalo: '60.000 km (severo) ou 100.000 km' }
-  },
-  'VW Constellation 26-280': {
-    motor: { tipo: '15W-40 (API CI-4/CJ-4 - MAN D08 36 6 cil.)', qtd: '20,5 L (com filtro)', intervalo: '40.000 km (20.000 km severo)' },
-    cambio: { tipo: 'Manual (ZF 16S 1455 TD): 75W-80 ou 80W API GL-4 (ZF TE-ML 02)', qtd: '11,0 L', intervalo: '100.000 km' },
-    diferencial: { tipo: 'Traseiro (Tração 6x4 - Meritor MT-46-145): 85W-140 API GL-5', qtd: '1º Eixo: ~16,0 L / 2º Eixo: ~14,0 L', intervalo: '60.000 km (severo) ou 100.000 km' }
-  },
-  'VW Constellation 31-320': {
-    motor: { tipo: '15W-40 (API CI-4 - Cummins ISC 8.3)', qtd: '23,5 L (com filtro)', intervalo: '40.000 km (20.000 km severo)' },
-    cambio: { tipo: 'Manual (ZF 16S 1585 TD): 75W-80 ou 80W API GL-4 (ZF TE-ML 02)', qtd: '11,0 L a 13,0 L', intervalo: '100.000 km' },
-    diferencial: { tipo: 'Traseiro (Tração 6x4 - Meritor MT-50-168): 85W-140 API GL-5', qtd: '1º Eixo: ~18,0 L / 2º Eixo: ~15,0 L', intervalo: '60.000 km (severo) ou 100.000 km' }
-  },
-
-  // --- ÔNIBUS E VANS ---
-  'Fiat Ducato 2.3 Multijet': {
-    motor: { tipo: '5W-30 sintético (ACEA B4 / C2 - FPT F1A)', qtd: '6,0 L a 6,5 L (com filtro)', intervalo: '15.000 km (7.500 km severo)' },
-    cambio: { tipo: 'Manual (5 ou 6 marchas): 75W-80 API GL-4', qtd: '2,0 L a 2,7 L', intervalo: '60.000 km' },
-    diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
-  'Fiat Ducato 2.8': {
-    motor: { tipo: '15W-40 semissintético ou 5W-40 sintético (API CI-4 / ACEA B4 - Sofim 8140)', qtd: '6,0 L (com filtro)', intervalo: '10.000 - 15.000 km' },
-    cambio: { tipo: 'Manual (5 marchas): 75W-80 API GL-4', qtd: '2,0 L a 2,7 L', intervalo: '60.000 km' },
-    diferencial: { tipo: 'Não se aplica (Tração Dianteira - integrado ao câmbio)', qtd: '-', intervalo: '-' }
-  },
-  'Iveco - Daily 35S14': {
-    motor: { tipo: '5W-30 sintético (ACEA C2/C3 - FPT F1C 3.0)', qtd: '6,6 L a 7,6 L (com filtro)', intervalo: '20.000 km (10.000 km severo)' },
-    cambio: { tipo: 'Manual (ZF 6S 400 / Eaton FSO): 75W-80 API GL-4', qtd: '2,0 L a 2,2 L', intervalo: '60.000 km' },
-    diferencial: { tipo: 'Traseiro: 80W-90 ou 85W-140 API GL-5', qtd: '1,35 L a 1,8 L', intervalo: '40.000 km' }
-  }
-};
-
-    // =====================================================================
-    // 3. LÓGICA DE NAVEGAÇÃO E CRIAÇÃO DE CARDS
-    // =====================================================================
-    let categoriaAtualSlug = '';
-    let categoriaAtualTitulo = '';
-    let marcaAtual = '';
-    let modeloAtual = '';
-
-    function abrirCategoria(titulo, slug, icone, cor) {
-      categoriaAtualSlug = slug;
-      categoriaAtualTitulo = titulo;
-      marcaAtual = ''; 
-      
-      const tituloLista = document.getElementById('titulo-lista');
-      const gridLista = document.getElementById('grid-lista');
-      
-      tituloLista.innerHTML = `<i class="fa-solid ${icone}" style="color:${cor};"></i> ${titulo}`;
-      gridLista.innerHTML = '';
-      
-      const marcas = bancoDeDados[slug].marcas;
-      
-      for (const marca in marcas) {
-        const card = document.createElement('a');
-        card.className = 'c';
-        card.onclick = () => abrirMarca(marca);
-        card.innerHTML = `
-          <div class="c-header">
-            <div class="c-icone" style="color:${cor}; background: ${cor}15;"><i class="fa-solid fa-flag"></i></div>
-            <b>${marca}</b>
-          </div>
-          <span>${marcas[marca].length} modelos disponíveis</span>
-          <div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-        `;
-        gridLista.appendChild(card);
+    // =========================================================================
+    // CONTROLE DE TEMA (DARK / LIGHT MODE)
+    // =========================================================================
+    function initTheme() {
+      const savedTheme = localStorage.getItem('guia_frota_theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.classList.add('dark');
       }
-      mudarTela('lista');
     }
 
-    function abrirMarca(marca) {
-      marcaAtual = marca;
-      const tituloLista = document.getElementById('titulo-lista');
-      const gridLista = document.getElementById('grid-lista');
-      
-      tituloLista.innerHTML = `<i class="fa-solid fa-flag"></i> ${marca}`;
-      gridLista.innerHTML = '';
-      
-      const modelos = bancoDeDados[categoriaAtualSlug].marcas[marca];
-      
-      modelos.forEach(modelo => {
-        const card = document.createElement('a');
-        card.className = 'c';
-        card.onclick = () => abrirConteudo(modelo);
-        card.innerHTML = `
-          <div class="c-header">
-            <div class="c-icone"><i class="fa-solid fa-wrench"></i></div>
-            <b>${modelo}</b>
-          </div>
-          <span>Ver fluidos, manuais e esquemas.</span>
-          <div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-        `;
-        gridLista.appendChild(card);
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('guia_frota_theme', isDark ? 'dark' : 'light');
+    }
+
+    document.getElementById('themeToggleMobile').addEventListener('click', toggleTheme);
+    document.getElementById('themeToggleDesktop').addEventListener('click', toggleTheme);
+
+    // =========================================================================
+    // UTILITÁRIOS DE CÓPIA (CLIPBOARD COMPATÍVEL COM IFRAME) E TOAST
+    // =========================================================================
+    let toastTimeout;
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2600);
+    }
+
+    function copyTextToClipboard(text, successMsg) {
+      if (!text || text === '-') return;
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        showToast(successMsg || `Copiado: ${text}`);
+      } catch (err) {
+        showToast('Não foi possível copiar automaticamente.');
+      }
+      document.body.removeChild(textarea);
+    }
+
+    function copyFullVehicleSheet(vehicleName) {
+      const v = frotaDatabase[vehicleName];
+      if (!v) return;
+      const sheet = [
+        `🔧 *FICHA TÉCNICA DE MANUTENÇÃO*`,
+        `🚗 *Veículo:* ${vehicleName} (${v.categoria})`,
+        ``,
+        `🛢️ *ÓLEO DO MOTOR*`,
+        `• Especificação: ${v.motor.tipo}`,
+        `• Capacidade: ${v.motor.qtd}`,
+        `• Intervalo: ${v.motor.intervalo}`,
+        ``,
+        `⚙️ *CÂMBIO / TRANSF.*`,
+        `• Especificação: ${v.cambio.tipo}`,
+        `• Capacidade: ${v.cambio.qtd}`,
+        `• Intervalo: ${v.cambio.intervalo}`,
+        ``,
+        `🔩 *DIFERENCIAL*`,
+        `• Especificação: ${v.diferencial.tipo}`,
+        `• Capacidade: ${v.diferencial.qtd}`,
+        `• Intervalo: ${v.diferencial.intervalo}`,
+        ``,
+        `🧰 *FILTROS (REFERÊNCIA CRUZADA)*`,
+        `• Óleo: Tecfil ${v.filtros.oleo.tecfil} | Mann ${v.filtros.oleo.mann} | Wega ${v.filtros.oleo.wega} | Mahle ${v.filtros.oleo.mahle}${v.filtros.oleo.fleetguard_donaldson !== '-' ? ' | FG/Don ' + v.filtros.oleo.fleetguard_donaldson : ''}`,
+        `• Combustível: Tecfil ${v.filtros.combustivel.tecfil} | Mann ${v.filtros.combustivel.mann} | Wega ${v.filtros.combustivel.wega} | Mahle ${v.filtros.combustivel.mahle}${v.filtros.combustivel.fleetguard_donaldson !== '-' ? ' | FG/Don ' + v.filtros.combustivel.fleetguard_donaldson : ''}`,
+        `• Ar: Tecfil ${v.filtros.ar.tecfil} | Mann ${v.filtros.ar.mann} | Wega ${v.filtros.ar.wega} | Mahle ${v.filtros.ar.mahle}${v.filtros.ar.fleetguard_donaldson !== '-' ? ' | FG/Don ' + v.filtros.ar.fleetguard_donaldson : ''}`
+      ].join('\n');
+
+      copyTextToClipboard(sheet, `Ficha completa de "${vehicleName}" copiada!`);
+    }
+
+    // =========================================================================
+    // NORMALIZAÇÃO E FILTRAGEM
+    // =========================================================================
+    function normalizeText(str) {
+      return String(str || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+    }
+
+    function getFilteredVehicles() {
+      const q = normalizeText(searchQuery.trim());
+      return Object.entries(frotaDatabase).filter(([name, data]) => {
+        if (activeCategory !== 'Todos' && data.categoria !== activeCategory) {
+          return false;
+        }
+        if (!q) return true;
+
+        // Concatena todos os campos pesquisáveis (nome, óleos, filtros de todas as marcas)
+        const searchableBlob = normalizeText([
+          name,
+          data.categoria,
+          data.motor.tipo,
+          data.cambio.tipo,
+          data.diferencial.tipo,
+          ...Object.values(data.filtros.oleo),
+          ...Object.values(data.filtros.combustivel),
+          ...Object.values(data.filtros.ar)
+        ].join(' '));
+
+        return q.split(/\s+/).every(term => searchableBlob.includes(term));
       });
-      mudarTela('lista');
     }
 
-    // --- AQUI É ONDE A MÁGICA DA TABELA ACONTECE ---
-    function abrirConteudo(modelo) {
-      modeloAtual = modelo;
-      const tituloConteudo = document.getElementById('titulo-conteudo');
-      const containerConteudo = document.getElementById('conteudo-dinamico');
-      
-      tituloConteudo.textContent = modelo;
-      
-      // Verifica se temos os dados de óleo para este modelo (CORRIGIDO AQUI)
-      const spec = especificacoesOleos[modelo];
-      
-      if (spec) {
-        containerConteudo.innerHTML = `
-          <div class="card-construcao" style="padding: 20px;">
-            <p style="margin-top:0; color:#5b6275;">Confira abaixo as especificações de fluidos e intervalos de troca recomendados:</p>
-            <div class="tabela-container">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Componente</th>
-                    <th>Tipo de Óleo</th>
-                    <th>Quantidade</th>
-                    <th>Intervalo de Troca</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><b>Motor</b></td>
-                    <td>${spec.motor.tipo}</td>
-                    <td>${spec.motor.qtd}</td>
-                    <td>${spec.motor.intervalo}</td>
-                  </tr>
-                  <tr>
-                    <td><b>Câmbio</b></td>
-                    <td>${spec.cambio.tipo}</td>
-                    <td>${spec.cambio.qtd}</td>
-                    <td>${spec.cambio.intervalo}</td>
-                  </tr>
-                  <tr>
-                    <td><b>Diferencial</b></td>
-                    <td>${spec.diferencial.tipo}</td>
-                    <td>${spec.diferencial.qtd}</td>
-                    <td>${spec.diferencial.intervalo}</td>
-                  </tr>
-                </tbody>
-              </table>
+    // =========================================================================
+    // RENDERIZAÇÃO DE PÍLULAS E SELETOR RÁPIDO
+    // =========================================================================
+    function renderCategoryPills() {
+      const allEntries = Object.values(frotaDatabase);
+      categoryPills.innerHTML = categories.map(cat => {
+        const count = cat === 'Todos'
+          ? allEntries.length
+          : allEntries.filter(v => v.categoria === cat).length;
+        const isActive = activeCategory === cat;
+
+        return `
+          <button
+            type="button"
+            data-category="${cat}"
+            class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition flex items-center gap-2 border ${
+              isActive
+                ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-sm'
+                : 'bg-slate-800/80 text-slate-300 border-slate-700 hover:bg-slate-800 hover:text-white'
+            }"
+          >
+            <span>${cat}</span>
+            <span class="px-1.5 py-0.2 rounded-md text-[11px] font-bold ${
+              isActive ? 'bg-slate-950/20 text-slate-950' : 'bg-slate-700 text-slate-300'
+            }">${count}</span>
+          </button>
+        `;
+      }).join('');
+
+      categoryPills.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeCategory = btn.getAttribute('data-category');
+          renderCategoryPills();
+          renderVehicles();
+        });
+      });
+    }
+
+    function populateQuickSelect() {
+      const grouped = {};
+      Object.entries(frotaDatabase).forEach(([name, data]) => {
+        if (!grouped[data.categoria]) grouped[data.categoria] = [];
+        grouped[data.categoria].push(name);
+      });
+
+      let html = '<option value="">Ir direto para veículo...</option>';
+      Object.entries(grouped).forEach(([cat, names]) => {
+        html += `<optgroup label="${cat}">`;
+        names.forEach(name => {
+          html += `<option value="${name}">${name}</option>`;
+        });
+        html += '</optgroup>';
+      });
+      quickSelect.innerHTML = html;
+    }
+
+    // =========================================================================
+    // RENDERIZAÇÃO DOS CARDS DE VEÍCULOS
+    // =========================================================================
+    function getCategoryBadgeClasses(cat) {
+      switch (cat) {
+        case 'Passeio':
+          return 'bg-sky-500/15 text-sky-700 dark:text-sky-300 border-sky-500/30';
+        case 'Utilitários':
+          return 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30';
+        case 'Caminhões':
+          return 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30';
+        case 'Ônibus e Vans':
+          return 'bg-purple-500/15 text-purple-700 dark:text-purple-300 border-purple-500/30';
+        default:
+          return 'bg-slate-500/15 text-slate-700 dark:text-slate-300 border-slate-500/30';
+      }
+    }
+
+    function renderFilterCell(code, brandLabel) {
+      if (!code || code === '-') {
+        return `<span class="text-slate-400 dark:text-slate-600 font-mono text-xs">—</span>`;
+      }
+      const safeCode = code.replace(/"/g, '&quot;');
+      return `
+        <button
+          type="button"
+          onclick="copyTextToClipboard('${safeCode}', 'Código ${brandLabel} copiado: ${safeCode}')"
+          title="Clique para copiar ${safeCode}"
+          class="group inline-flex items-center gap-1.5 text-left font-mono text-xs font-semibold px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-amber-500/20 dark:bg-slate-800 dark:hover:bg-amber-500/20 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 hover:border-amber-500/50 transition cursor-pointer"
+        >
+          <span>${code}</span>
+          <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-amber-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+        </button>
+      `;
+    }
+
+    function renderVehicles() {
+      const filtered = getFilteredVehicles();
+      const total = Object.keys(frotaDatabase).length;
+
+      resultsCounter.innerHTML = `Exibindo <strong class="text-slate-900 dark:text-white">${filtered.length}</strong> de <strong>${total}</strong> veículos`;
+
+      if (filtered.length === 0) {
+        vehiclesContainer.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+
+      // Se houver busca ativa com poucos resultados, expande automaticamente para visualização rápida
+      const autoExpand = searchQuery.trim().length > 0 && filtered.length <= 6;
+
+      vehiclesContainer.innerHTML = filtered.map(([name, v]) => {
+        const isOpen = autoExpand || expandedVehicles.has(name);
+        const badgeClass = getCategoryBadgeClasses(v.categoria);
+        const safeName = name.replace(/'/g, "\\'");
+        const cardId = 'veh-' + normalizeText(name).replace(/[^a-z0-9]+/g, '-');
+
+        return `
+          <article id="${cardId}" class="print-card bg-white dark:bg-slate-900 rounded-2xl border ${isOpen ? 'border-amber-500/60 dark:border-amber-500/50 shadow-md' : 'border-slate-200 dark:border-slate-800 shadow-sm'} overflow-hidden transition-all">
+            <!-- Cabeçalho Clicável do Veículo -->
+            <div
+              onclick="toggleVehicleCard('${safeName}')"
+              role="button"
+              tabindex="0"
+              aria-expanded="${isOpen}"
+              class="p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition select-none"
+            >
+              <div class="flex items-start sm:items-center gap-3">
+                <span class="px-2.5 py-1 rounded-lg text-xs font-bold border shrink-0 ${badgeClass}">
+                  ${v.categoria}
+                </span>
+                <div>
+                  <h2 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white leading-snug">
+                    ${name}
+                  </h2>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                    Motor: <span class="font-semibold text-slate-700 dark:text-slate-300">${v.motor.tipo.split('(')[0].trim()}</span> •
+                    Cap.: <span class="font-semibold text-slate-700 dark:text-slate-300">${v.motor.qtd}</span> •
+                    Óleo Tecfil: <span class="font-mono font-semibold text-amber-600 dark:text-amber-400">${v.filtros.oleo.tecfil}</span>
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-end gap-2 self-end sm:self-center">
+                <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                  ${isOpen ? 'Recolher' : 'Ver ficha completa'}
+                </span>
+                <span class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 transition-transform duration-200 ${isOpen ? 'rotate-180 bg-amber-500/15 text-amber-600 dark:text-amber-400' : ''}">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
             </div>
-            <p style="font-size: 12px; color: #b45309; margin-top: 16px;">
-              <i class="fa-solid fa-triangle-exclamation"></i> <b>Atenção:</b> Sempre consulte o manual do proprietário para confirmar as especificações exatas, pois podem variar conforme o ano e a versão.
-            </p>
-          </div>
+
+            <!-- Conteúdo Detalhado Expandido -->
+            ${isOpen ? `
+              <div class="border-t border-slate-200 dark:border-slate-800 p-4 sm:p-6 bg-slate-50/60 dark:bg-slate-950/40 space-y-6">
+                
+                <!-- Barra de Ações da Ficha -->
+                <div class="flex flex-wrap items-center justify-between gap-2 no-print">
+                  <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    1. Especificações de Lubrificantes
+                  </span>
+                  <div class="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onclick="copyFullVehicleSheet('${safeName}')"
+                      class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition cursor-pointer"
+                    >
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                      Copiar Ficha (WhatsApp / OS)
+                    </button>
+                    <button
+                      type="button"
+                      onclick="window.print()"
+                      class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition cursor-pointer"
+                    >
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                      Imprimir / PDF
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Grid de 3 Cards de Lubrificantes -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <!-- Óleo do Motor -->
+                  <div class="bg-white dark:bg-slate-900 rounded-xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <div class="flex items-center gap-2 mb-3">
+                      <span class="w-7 h-7 rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-xs">
+                        M
+                      </span>
+                      <h3 class="text-sm font-extrabold text-slate-900 dark:text-white">Óleo do Motor</h3>
+                    </div>
+                    <dl class="space-y-2 text-xs">
+                      <div>
+                        <dt class="text-slate-500 dark:text-slate-400 font-medium">Especificação / Viscosidade</dt>
+                        <dd class="font-bold text-slate-900 dark:text-slate-100 mt-0.5">${v.motor.tipo}</dd>
+                      </div>
+                      <div class="pt-1.5 border-t border-slate-100 dark:border-slate-800 flex justify-between gap-2">
+                        <div>
+                          <dt class="text-slate-500 dark:text-slate-400 font-medium">Capacidade</dt>
+                          <dd class="font-bold text-amber-600 dark:text-amber-400 mt-0.5">${v.motor.qtd}</dd>
+                        </div>
+                        <div class="text-right">
+                          <dt class="text-slate-500 dark:text-slate-400 font-medium">Intervalo</dt>
+                          <dd class="font-semibold text-slate-800 dark:text-slate-200 mt-0.5">${v.motor.intervalo}</dd>
+                        </div>
+                      </div>
+                    </dl>
+                  </div>
+
+                  <!-- Câmbio / Caixa de Transferência -->
+                  <div class="bg-white dark:bg-slate-900 rounded-xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <div class="flex items-center gap-2 mb-3">
+                      <span class="w-7 h-7 rounded-lg bg-sky-500/15 text-sky-600 dark:text-sky-400 flex items-center justify-center font-bold text-xs">
+                        C
+                      </span>
+                      <h3 class="text-sm font-extrabold text-slate-900 dark:text-white">Câmbio / Transf.</h3>
+                    </div>
+                    <dl class="space-y-2 text-xs">
+                      <div>
+                        <dt class="text-slate-500 dark:text-slate-400 font-medium">Fluido / Norma</dt>
+                        <dd class="font-bold text-slate-900 dark:text-slate-100 mt-0.5">${v.cambio.tipo}</dd>
+                      </div>
+                      <div class="pt-1.5 border-t border-slate-100 dark:border-slate-800 flex justify-between gap-2">
+                        <div>
+                          <dt class="text-slate-500 dark:text-slate-400 font-medium">Capacidade</dt>
+                          <dd class="font-bold text-sky-600 dark:text-sky-400 mt-0.5">${v.cambio.qtd}</dd>
+                        </div>
+                        <div class="text-right">
+                          <dt class="text-slate-500 dark:text-slate-400 font-medium">Intervalo</dt>
+                          <dd class="font-semibold text-slate-800 dark:text-slate-200 mt-0.5">${v.cambio.intervalo}</dd>
+                        </div>
+                      </div>
+                    </dl>
+                  </div>
+
+                  <!-- Diferencial -->
+                  <div class="bg-white dark:bg-slate-900 rounded-xl p-4 border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <div class="flex items-center gap-2 mb-3">
+                      <span class="w-7 h-7 rounded-lg bg-purple-500/15 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold text-xs">
+                        D
+                      </span>
+                      <h3 class="text-sm font-extrabold text-slate-900 dark:text-white">Diferencial / Eixos</h3>
+                    </div>
+                    <dl class="space-y-2 text-xs">
+                      <div>
+                        <dt class="text-slate-500 dark:text-slate-400 font-medium">Lubrificante / Norma</dt>
+                        <dd class="font-bold text-slate-900 dark:text-slate-100 mt-0.5">${v.diferencial.tipo}</dd>
+                      </div>
+                      <div class="pt-1.5 border-t border-slate-100 dark:border-slate-800 flex justify-between gap-2">
+                        <div>
+                          <dt class="text-slate-500 dark:text-slate-400 font-medium">Capacidade</dt>
+                          <dd class="font-bold text-purple-600 dark:text-purple-400 mt-0.5">${v.diferencial.qtd}</dd>
+                        </div>
+                        <div class="text-right">
+                          <dt class="text-slate-500 dark:text-slate-400 font-medium">Intervalo</dt>
+                          <dd class="font-semibold text-slate-800 dark:text-slate-200 mt-0.5">${v.diferencial.intervalo}</dd>
+                        </div>
+                      </div>
+                    </dl>
+                  </div>
+                </div>
+
+                <!-- Seção 2: Tabela de Referência Cruzada de Filtros -->
+                <div>
+                  <div class="flex items-center justify-between mb-2.5">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                      2. Tabela de Referência Cruzada de Filtros
+                    </span>
+                  </div>
+
+                  <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-x-auto shadow-sm">
+                    <table class="w-full text-left border-collapse min-w-[720px]">
+                      <thead>
+                        <tr class="bg-slate-100 dark:bg-slate-800/90 border-b border-slate-200 dark:border-slate-700 text-[11px] font-extrabold uppercase tracking-wider text-slate-600 dark:text-slate-300">
+                          <th class="py-3 px-4 w-44">Aplicação</th>
+                          <th class="py-3 px-3">Tecfil</th>
+                          <th class="py-3 px-3">Mann-Filter</th>
+                          <th class="py-3 px-3">Wega</th>
+                          <th class="py-3 px-3">Mahle</th>
+                          <th class="py-3 px-3">Fleetguard / Donaldson</th>
+                        </tr>
+                      </thead>
+                      <tbody class="divide-y divide-slate-200 dark:divide-slate-800 text-xs">
+                        <!-- Linha Óleo -->
+                        <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/30">
+                          <td class="py-3 px-4 font-bold text-slate-900 dark:text-white">
+                            Filtro de Óleo
+                          </td>
+                          <td class="py-3 px-3">${renderFilterCell(v.filtros.oleo.tecfil, 'Tecfil')}</td>
+                          <td class="py-3 px-3">${renderFilterCell(v.filtros.oleo.mann, 'Mann')}</td>
+                          <td class="py-3 px-3">${renderFilterCell(v.filtros.oleo.wega, 'Wega')}</td>
+                          <td class="py-3 px-3">${renderFilterCell(v.filtros.oleo.mahle, 'Mahle')}</td>
+                          <td class="py-3 px-3">${renderFilterCell(v.filtros.oleo.fleetguard_donaldson, 'Fleetguard/Donaldson')}</td>
+                        </tr>
+                        <!-- Linha Combustível -->
+                        <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/30">
+                          <td class="py-3 px-4 font-bold text-slate-900 dark:text-white">
+                            Combustível / Sep.
+                          </td>
+                          <td class="py-3 px-3">${renderFilterCell(v.filtros.combustivel.tecfil, 'Tecfil')}</td>
+                          <td class="py-3 px-3">${renderFilterCell(v.filtros.combustivel.mann, 'Mann')}</td>
+                          <td class="py-3 px-3">${renderFilterCell(v.filtros.combustivel.wega, 'Wega')}</td>
+                          <td class="py-3 px-3">${renderFilterCell(v.filtros.combustivel.mahle, 'Mahle')}</td>
+                          <td class="py-3 px-3">${renderFilterCell(v.filtros.combustivel.fleetguard_donaldson, 'Fleetguard/Donaldson')}</td>
+                        </tr>
+                        <!-- Linha Ar -->
+                        <tr class="hover:bg-slate-50/80 dark:hover:bg-slate-800/30">
+                          <td class="py-3 px-4 font-bold text-slate-900 dark:text-white">
+                            Filtro de Ar (Prim./Sec.)
+                          </td>
+                          <td class="py-3 px-3">${renderFilterCell(v.filtros.ar.tecfil, 'Tecfil')}</td>
+                          <td class="py-3 px-3">${renderFilterCell(v.filtros.ar.mann, 'Mann')}</td>
+                          <td class="py-3 px-3">${renderFilterCell(v.filtros.ar.wega, 'Wega')}</td>
+                          <td class="py-3 px-3">${renderFilterCell(v.filtros.ar.mahle, 'Mahle')}</td>
+                          <td class="py-3 px-3">${renderFilterCell(v.filtros.ar.fleetguard_donaldson, 'Fleetguard/Donaldson')}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </div>
+            ` : ''}
+          </article>
         `;
+      }).join('');
+    }
+
+    // =========================================================================
+    // EVENTOS DE INTERAÇÃO (ABRIR/FECHAR, BUSCA, ATALHOS)
+    // =========================================================================
+    function toggleVehicleCard(name) {
+      if (expandedVehicles.has(name)) {
+        expandedVehicles.delete(name);
       } else {
-        // Se o veículo não estiver no banco de dados de óleos, mostra o card de construção padrão
-        containerConteudo.innerHTML = `
-          <div class="card-construcao" style="text-align: center;">
-            <i class="fa-solid fa-screwdriver-wrench"></i>
-            <b>Conteúdo em construção</b>
-            <span>Os manuais e especificações de fluidos para o <strong>${modelo}</strong> estarão disponíveis aqui em breve.</span>
-          </div>
-        `;
+        expandedVehicles.add(name);
       }
-      
-      mudarTela('conteudo');
+      renderVehicles();
     }
 
-    // =====================================================================
-    // 4. SISTEMA DE TROCA DE TELAS E BREADCRUMB
-    // =====================================================================
-    function mudarTela(idTela) {
-      const atual = document.querySelector('.tela.ativa');
-      const alvo = document.getElementById('tela-' + idTela);
-      
-      if (!alvo || atual === alvo) return;
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      clearSearchBtn.classList.toggle('hidden', searchQuery.length === 0);
+      renderVehicles();
+    });
 
-      if (atual) {
-        atual.classList.add('saindo');
-        setTimeout(() => {
-          atual.classList.remove('ativa', 'saindo');
-          alvo.classList.add('ativa');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-          gerarBreadcrumb(idTela);
-        }, 220);
-      } else {
-        alvo.classList.add('ativa');
-        gerarBreadcrumb(idTela);
+    clearSearchBtn.addEventListener('click', () => {
+      searchQuery = '';
+      searchInput.value = '';
+      clearSearchBtn.classList.add('hidden');
+      searchInput.focus();
+      renderVehicles();
+    });
+
+    resetFiltersBtn.addEventListener('click', () => {
+      searchQuery = '';
+      searchInput.value = '';
+      clearSearchBtn.classList.add('hidden');
+      activeCategory = 'Todos';
+      renderCategoryPills();
+      renderVehicles();
+    });
+
+    quickSelect.addEventListener('change', (e) => {
+      const selected = e.target.value;
+      if (!selected) return;
+      activeCategory = 'Todos';
+      searchQuery = '';
+      searchInput.value = '';
+      clearSearchBtn.classList.add('hidden');
+      expandedVehicles.add(selected);
+      renderCategoryPills();
+      renderVehicles();
+
+      const cardId = 'veh-' + normalizeText(selected).replace(/[^a-z0-9]+/g, '-');
+      const el = document.getElementById(cardId);
+      if (el) {
+        const yOffset = -135;
+        const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
       }
-    }
+      e.target.value = '';
+    });
 
-    function gerarBreadcrumb(telaAtivaId) {
-      const container = document.querySelector(`#tela-${telaAtivaId} .breadcrumb`);
-      if (!container) return;
+    expandAllBtn.addEventListener('click', () => {
+      getFilteredVehicles().forEach(([name]) => expandedVehicles.add(name));
+      renderVehicles();
+    });
 
-      let crumbs = [];
-      crumbs.push({ titulo: '🏠 Início', tela: 'principal' });
+    collapseAllBtn.addEventListener('click', () => {
+      expandedVehicles.clear();
+      renderVehicles();
+    });
 
-      if (telaAtivaId === 'lista' || telaAtivaId === 'conteudo') {
-        crumbs.push({ titulo: categoriaAtualTitulo, tela: 'lista', acao: () => abrirCategoria(categoriaAtualTitulo, categoriaAtualSlug, 'fa-car', '#4f46e5') });
-        
-        if (marcaAtual) {
-          crumbs.push({ titulo: marcaAtual, tela: 'lista', acao: () => abrirMarca(marcaAtual) });
-        }
-        
-        if (telaAtivaId === 'conteudo') {
-          crumbs.push({ titulo: modeloAtual, tela: 'conteudo' });
-        }
-      }
-
-      container.innerHTML = '';
-      crumbs.forEach((item, index) => {
-        const isUltimo = index === crumbs.length - 1;
-        const crumb = document.createElement('span');
-        crumb.className = 'crumb' + (isUltimo ? ' atual' : '');
-        crumb.innerHTML = item.titulo;
-        
-        if (!isUltimo) {
-          crumb.onclick = item.acao ? item.acao : () => mudarTela(item.tela);
-        }
-        container.appendChild(crumb);
-
-        if (!isUltimo) {
-          const sep = document.createElement('span');
-          sep.className = 'sep';
-          sep.textContent = '›';
-          container.appendChild(sep);
-        }
-      });
-    }
+    // Inicialização
+    initTheme();
+    renderCategoryPills();
+    populateQuickSelect();
+    renderVehicles();
   </script>
 </body>
 </html>
