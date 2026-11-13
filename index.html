@@ -48,81 +48,72 @@
     .card-construcao span { color: var(--text-light); font-size: 15px; }
 
     /* Tabelas Gerais (Filtros) */
-    .tabela-container { overflow-x: auto; margin-top: 16px; border-radius: 8px; border: 1px solid var(--border); }
-    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; background: #fff; }
-    th { background-color: #f0f2f5; color: #3730a3; padding: 12px; border-bottom: 2px solid var(--border); font-weight: 600; white-space: nowrap; }
-    td { padding: 12px; border-bottom: 1px solid var(--border); color: var(--text-dark); vertical-align: middle; }
-    tr:last-child td { border-bottom: none; }
-    tr:hover { background-color: #fafafa; }
+    .tabela-container { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); }
+    table.tabela-filtros { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; background: #fff; }
+    table.tabela-filtros th { background-color: #f0f2f5; color: #3730a3; padding: 12px; border-bottom: 2px solid var(--border); font-weight: 600; white-space: nowrap; }
+    table.tabela-filtros td { padding: 12px; border-bottom: 1px solid var(--border); color: var(--text-dark); vertical-align: middle; }
+    table.tabela-filtros tr:last-child td { border-bottom: none; }
+    table.tabela-filtros tr:hover { background-color: #fafafa; }
     
     /* Estilo para os códigos de filtros */
     .filtro-tag { display: inline-block; background: #eef2ff; color: #3730a3; border: 1px solid #c7d2fe; padding: 4px 8px; border-radius: 6px; font-family: monospace; font-weight: 600; font-size: 13px; }
 
-    /* NOVO ESTILO: Tabela de Especificações (Mobile-Friendly) */
-    .tabela-responsiva {
+    /* NOVO ESTILO: Cards individuais por componente (Mobile-Friendly) */
+    .card-sistema {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    }
+    .sistema-titulo {
+      background: #f8fafc;
+      color: #3730a3;
+      padding: 12px 16px;
+      font-weight: 700;
+      font-size: 15px;
+      border-bottom: 1px solid var(--border);
+    }
+    .tabela-card {
       width: 100%;
       border-collapse: collapse;
-      font-size: 13px;
+    }
+    .tabela-card th {
       background: #fff;
-    }
-    
-    .tabela-responsiva th, 
-    .tabela-responsiva td {
-      border: 1px solid var(--border);
-      padding: 10px;
-      vertical-align: top;
+      color: var(--text-light);
+      font-size: 11px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
       text-align: left;
-    }
-    
-    .tabela-responsiva th {
-      background-color: #f0f2f5;
-      color: #3730a3;
       font-weight: 600;
-      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-    
-    .tabela-responsiva .td-sistema b {
-      display: block;
+    .tabela-card td {
+      padding: 12px 16px;
       font-size: 14px;
+      color: var(--text-dark);
+      vertical-align: top;
+    }
+    .tabela-card td b {
       color: #1f2430;
-      margin-bottom: 4px;
     }
-    
-    .tabela-responsiva .td-sistema span {
-      font-size: 12px;
-      color: #5b6275;
-      display: block;
-    }
-
-    /* Linha da Norma/Observação */
-    .tabela-responsiva .tr-norma td {
-      background-color: #fafafa;
-      border-top: none; 
-      padding: 8px 10px;
-    }
-    
-    .tabela-responsiva .tr-norma-content {
+    .sistema-norma {
+      background: #f8fafc;
+      padding: 10px 16px;
+      font-size: 12.5px;
       color: #4b5563;
-      font-size: 12px;
-      line-height: 1.4;
+      border-top: 1px solid var(--border);
+      line-height: 1.5;
     }
 
     /* Ajustes finos para telas de celular muito pequenas */
     @media (max-width: 480px) {
-      .tabela-responsiva th, 
-      .tabela-responsiva td {
-        padding: 8px 6px;
-        font-size: 12px;
-      }
-      .tabela-responsiva .td-sistema b {
-        font-size: 13px;
-      }
-      .tabela-responsiva .td-sistema span {
-        font-size: 11px;
-      }
-      .tabela-responsiva .tr-norma-content {
-        font-size: 11px;
-      }
+      .tabela-card th { padding: 8px 10px; font-size: 10px; }
+      .tabela-card td { padding: 10px; font-size: 13px; }
+      .sistema-titulo { padding: 10px 12px; font-size: 14px; }
+      .sistema-norma { padding: 8px 12px; font-size: 12px; }
     }
   </style>
 </head>
@@ -210,12 +201,11 @@
     };
 
     // =====================================================================
-    // 2. BANCO DE DADOS DE FLUIDOS E FILTROS (NOVO FORMATO)
+    // 2. BANCO DE DADOS DE FLUIDOS E FILTROS
     // =====================================================================
     const especificacoesOleos = {
 
       // ==================== VEÍCULOS PASSEIO ====================
-
       'Chevrolet SPIN': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 5W-30 (dexos1 Gen 3)', norma: 'API SN/SP, ACEA A5/B5', capacidade: '4,2 L (com filtro)', intervalo: '10.000 km ou 1 ano' },
@@ -231,7 +221,6 @@
           combustivel: { original: '93316245', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
         }
       },
-
       'Chevrolet Agile': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 10W-40 semissintético', norma: 'API SL/SN', capacidade: '3,5 L', intervalo: '10.000 km' },
@@ -246,7 +235,6 @@
           combustivel: { original: '93316245', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
         }
       },
-
       'Chevrolet Montana': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 5W-30 sintético', norma: 'dexos1', capacidade: '3,5 L', intervalo: '10.000 km' },
@@ -261,7 +249,6 @@
           combustivel: { original: '93316245', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
         }
       },
-
       'Fiat Palio 1.4': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 15W-40 semissintético', norma: 'API SL', capacidade: '3,2 L', intervalo: '10.000 km' },
@@ -276,7 +263,6 @@
           combustivel: { original: '9947693', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
         }
       },
-
       'Fiat Doblo 1.8': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 15W-40 semissintético', norma: 'API SL', capacidade: '4,3 L', intervalo: '10.000 km' },
@@ -291,7 +277,6 @@
           combustivel: { original: '77363660', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
         }
       },
-
       'Fiat Doblo 1.4': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 15W-40 semissintético', norma: 'API SL', capacidade: '3,2 L', intervalo: '10.000 km' },
@@ -306,7 +291,6 @@
           combustivel: { original: '9947693', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
         }
       },
-
       'Fiat Strada 1.4': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 15W-40 semissintético', norma: 'API SL', capacidade: '3,2 L', intervalo: '10.000 km' },
@@ -321,7 +305,6 @@
           combustivel: { original: '9947693', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' }
         }
       },
-
       'Ford Fiesta 1.0': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 5W-30 sintético', norma: 'API SN', capacidade: '4,1 L', intervalo: '10.000 km' },
@@ -336,7 +319,6 @@
           combustivel: { original: '2N1U9155AA', tecfil: 'GI60/7', mann: 'WK613/3', mahle: 'KL476', wega: 'FCI-1695', fram: 'G9891F' }
         }
       },
-
       'Ford Fiesta 1.6': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 5W-30 sintético', norma: 'API SN', capacidade: '4,1 L', intervalo: '10.000 km' },
@@ -351,7 +333,6 @@
           combustivel: { original: '2N1U9155AA', tecfil: 'GI60/7', mann: 'WK613/3', mahle: 'KL476', wega: 'FCI-1695', fram: 'G9891F' }
         }
       },
-
       'Ford Focus 1.6': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 5W-30 sintético', norma: 'API SN', capacidade: '4,1 L', intervalo: '10.000 km' },
@@ -366,7 +347,6 @@
           combustivel: { original: '2N1U9155AA', tecfil: 'GI60/7', mann: 'WK613/3', mahle: 'KL476', wega: 'FCI-1695', fram: 'G9891F' }
         }
       },
-
       'Ford Focus 2.0': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 5W-30 sintético', norma: 'API SN', capacidade: '4,3 L', intervalo: '10.000 km' },
@@ -381,7 +361,6 @@
           combustivel: { original: '2N1U9155AA', tecfil: 'GI60/7', mann: 'WK613/3', mahle: 'KL476', wega: 'FCI-1695', fram: 'G9891F' }
         }
       },
-
       'Nissan Sentra': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 5W-30 sintético', norma: 'API SN', capacidade: '4,4 L', intervalo: '10.000 km' },
@@ -396,7 +375,6 @@
           combustivel: { original: '16400-1HC0A', tecfil: 'GI50/7', mann: 'WK58/3', mahle: 'KL583', wega: 'FCI-1630', fram: 'G1030' }
         }
       },
-
       'Nissan Versa 1.6': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 5W-30 sintético', norma: 'API SN', capacidade: '4,0 L', intervalo: '10.000 km' },
@@ -411,7 +389,6 @@
           combustivel: { original: '16400-1HC0A', tecfil: 'GI50/7', mann: 'WK58/3', mahle: 'KL583', wega: 'FCI-1630', fram: 'G1030' }
         }
       },
-
       'Peugeot 408 1.6 THP': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 5W-30 sintético', norma: 'PSA B71 2290', capacidade: '4,25 L', intervalo: '10.000 km' },
@@ -426,7 +403,6 @@
           combustivel: { original: '1901.96', tecfil: 'GI50/7', mann: 'WK58/3', mahle: 'KL583', wega: 'FCI-1630', fram: 'G1030' }
         }
       },
-
       'Renault Logan - Sandero': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 10W-40 semissintético', norma: 'API SL', capacidade: '3,3 L', intervalo: '10.000 km' },
@@ -441,7 +417,6 @@
           combustivel: { original: '164000930R', tecfil: 'GI50/7', mann: 'WK58/3', mahle: 'KL583', wega: 'FCI-1630', fram: 'G1030' }
         }
       },
-
       'VW Kombi 1.4': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 5W-40 sintético', norma: 'VW 502 00', capacidade: '4,0 L', intervalo: '10.000 km' },
@@ -456,7 +431,6 @@
           combustivel: { original: '6Q0201051C', tecfil: 'GI04/7', mann: 'WK58', mahle: 'KL582', wega: 'FCI-1600', fram: 'G1041' }
         }
       },
-
       'VW Gol 1.6 G5': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 5W-40 sintético', norma: 'VW 502 00', capacidade: '3,5 L', intervalo: '10.000 km' },
@@ -471,7 +445,6 @@
           combustivel: { original: '6Q0201051C', tecfil: 'GI50/7', mann: 'WK58/3', mahle: 'KL583', wega: 'FCI-1600', fram: 'G1030' }
         }
       },
-
       'VW Gol 1.6 G6': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 5W-40 sintético', norma: 'VW 502 00', capacidade: '3,5 L', intervalo: '10.000 km' },
@@ -488,7 +461,6 @@
       },
 
       // ==================== VEÍCULOS UTILITÁRIOS ====================
-
       'Agrale Marruá - AM21': {
         sistemas: [
           { sistema: 'Motor (MWM Sprint)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '5,5 L', intervalo: '10.000 km' },
@@ -504,7 +476,6 @@
           combustivel: { original: '6008.001.300.00.4', tecfil: 'PSC498', mann: 'WK842/2', mahle: 'KC119', wega: 'FCD-0766', fram: 'P550881' }
         }
       },
-
       'Agrale Marruá - AM20': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '5,5 L', intervalo: '10.000 km' },
@@ -520,7 +491,6 @@
           combustivel: { original: '6008.001.300.00.4', tecfil: 'PSC498', mann: 'WK842/2', mahle: 'KC119', wega: 'FCD-0766', fram: 'P550881' }
         }
       },
-
       'Agrale Marruá - AM22': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '5,5 L', intervalo: '10.000 km' },
@@ -536,7 +506,6 @@
           combustivel: { original: '6008.001.300.00.4', tecfil: 'PSC498', mann: 'WK842/2', mahle: 'KC119', wega: 'FCD-0766', fram: 'P550881' }
         }
       },
-
       'Agrale Marruá - AM25': {
         sistemas: [
           { sistema: 'Motor', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '8,5 L', intervalo: '10.000 km' },
@@ -552,7 +521,6 @@
           combustivel: { original: '6008.001.300.00.4', tecfil: 'PSC498', mann: 'WK842/2', mahle: 'KC119', wega: 'FCD-0766', fram: 'P550881' }
         }
       },
-
       'Ford F-250 e F-350': {
         sistemas: [
           { sistema: 'Motor (MWM/Cummins)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '8,5 L', intervalo: '10.000 km' },
@@ -568,7 +536,6 @@
           combustivel: { original: 'F81Z9155BA', tecfil: 'PSC72/2', mann: 'WK723', mahle: 'KC18', wega: 'FCD-2045', fram: 'P550440' }
         }
       },
-
       'Ford Ranger Power Stroke': {
         sistemas: [
           { sistema: 'Motor (International 2.8)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '7,0 L', intervalo: '10.000 km' },
@@ -584,7 +551,6 @@
           combustivel: { original: 'F87Z9155AA', tecfil: 'PSC498', mann: 'WK842/13', mahle: 'KC119', wega: 'FCD-2061', fram: 'P551433' }
         }
       },
-
       'Ford Ranger 3.0 NGD': {
         sistemas: [
           { sistema: 'Motor (MWM 3.0)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '9,0 L', intervalo: '10.000 km' },
@@ -600,7 +566,6 @@
           combustivel: { original: 'AB39 9155 BC', tecfil: 'PSC410/1', mann: 'WK842/22', mahle: 'KC249', wega: 'FCD-2075', fram: 'P551435' }
         }
       },
-
       'Ford Ranger 2.2': {
         sistemas: [
           { sistema: 'Motor (Duratorq)', especificacao: 'SAE 5W-30', norma: 'API SN', capacidade: '8,6 L', intervalo: '10.000 km' },
@@ -616,7 +581,6 @@
           combustivel: { original: 'AB39 9155 AA', tecfil: 'PC951', mann: 'PU835x', mahle: 'KX338/26D', wega: 'FCD-0796', fram: 'P551436' }
         }
       },
-
       'Ford Transit': {
         sistemas: [
           { sistema: 'Motor (Duratorq)', especificacao: 'SAE 5W-30', norma: 'WSS-M2C913-D', capacidade: '9,8 L', intervalo: '15.000 km' },
@@ -632,7 +596,6 @@
           combustivel: { original: '6C1Q 9155 AA', tecfil: 'PSC992', mann: 'WK8157', mahle: 'KC204', wega: 'FCD-0796', fram: 'P551434' }
         }
       },
-
       'Mitsubishi L200 2.5': {
         sistemas: [
           { sistema: 'Motor (4D56)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '6,5 L', intervalo: '10.000 km' },
@@ -648,7 +611,6 @@
           combustivel: { original: 'MR204495', tecfil: 'PSC498', mann: 'WK842/13', mahle: 'KC119', wega: 'FCD-2058', fram: 'P550390' }
         }
       },
-
       'Mitsubishi Triton 3.2': {
         sistemas: [
           { sistema: 'Motor (4M41)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '7,5 L', intervalo: '10.000 km' },
@@ -664,7 +626,6 @@
           combustivel: { original: '1770A053', tecfil: 'PEC3025', mann: 'PU835x', mahle: 'KX265D', wega: 'FCD-2058', fram: 'P550882' }
         }
       },
-
       'Mitsubishi Triton 2.4': {
         sistemas: [
           { sistema: 'Motor (4N15)', especificacao: 'SAE 5W-30', norma: 'API SN', capacidade: '8,4 L', intervalo: '10.000 km' },
@@ -680,7 +641,6 @@
           combustivel: { original: '1770A053', tecfil: 'PEC3039', mann: 'PU8021', mahle: 'KX495D', wega: 'FCD-0784', fram: 'P552002' }
         }
       },
-
       'Nissan Frontier 2.5': {
         sistemas: [
           { sistema: 'Motor (YD25)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '6,9 L', intervalo: '10.000 km' },
@@ -696,7 +656,6 @@
           combustivel: { original: '16400-EB70A', tecfil: 'PSC993', mann: 'WK920/6', mahle: 'KC236', wega: 'FCI-1630', fram: 'P550883' }
         }
       },
-
       'Nissan Frontier 2.3': {
         sistemas: [
           { sistema: 'Motor (YS23)', especificacao: 'SAE 5W-30', norma: 'API SN', capacidade: '7,3 L', intervalo: '10.000 km' },
@@ -712,7 +671,6 @@
           combustivel: { original: '16400-00Q0A', tecfil: 'PC960', mann: 'PU8014', mahle: 'KX387/1D', wega: 'FCD-0796', fram: 'P552008' }
         }
       },
-
       'Toyota Hilux 3.0': {
         sistemas: [
           { sistema: 'Motor (1KD-FTV)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '6,9 L', intervalo: '10.000 km' },
@@ -728,7 +686,6 @@
           combustivel: { original: '23390-0L010', tecfil: 'PEC3022', mann: 'PU835x', mahle: 'KX265D', wega: 'FCD-2066', fram: 'P550882' }
         }
       },
-
       'Toyota Hilux 2.8 - Nova': {
         sistemas: [
           { sistema: 'Motor 1GD-FTV', especificacao: 'SAE 5W-30', norma: 'ACEA C2 ou JASO DL-1 (uso severo: 5.000 km ou 3 meses)', capacidade: '7,5 L (com filtro) / 7,1 L (sem filtro)', intervalo: '10.000 km ou 6 meses' },
@@ -750,7 +707,6 @@
       },
 
       // ==================== CAMINHÕES ====================
-
       'Ford Cargo 816': {
         sistemas: [
           { sistema: 'Motor (Cummins ISB 4.5)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '13,0 L', intervalo: '30.000 km' },
@@ -766,7 +722,6 @@
           combustivel: { original: '4989106', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-2045', fram: 'P550881' }
         }
       },
-
       'Ford Cargo 2423': {
         sistemas: [
           { sistema: 'Motor (Cummins ISB 6.7)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '19,5 L', intervalo: '40.000 km' },
@@ -782,7 +737,6 @@
           combustivel: { original: 'FS19732', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-2045B', fram: 'P550881' }
         }
       },
-
       'Ford - 2629 Bau': {
         sistemas: [
           { sistema: 'Motor (Cummins ISB 6.7)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '19,5 L', intervalo: '40.000 km' },
@@ -798,7 +752,6 @@
           combustivel: { original: 'FS19732', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-2045B', fram: 'P550881' }
         }
       },
-
       'Ford - 2629 CTA e CTC': {
         sistemas: [
           { sistema: 'Motor (Cummins ISB 6.7)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '19,5 L', intervalo: '40.000 km' },
@@ -814,7 +767,6 @@
           combustivel: { original: 'FS19732', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-2045B', fram: 'P550881' }
         }
       },
-
       'Ford 1933 Cav Mec': {
         sistemas: [
           { sistema: 'Motor (Cummins ISL 8.9)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '25,0 L', intervalo: '40.000 km' },
@@ -830,7 +782,6 @@
           combustivel: { original: 'FS19732', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-2045B', fram: 'P550881' }
         }
       },
-
       'Mercedes-Benz 2627': {
         sistemas: [
           { sistema: 'Motor (OM-447)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '28,0 L', intervalo: '40.000 km' },
@@ -846,7 +797,6 @@
           combustivel: { original: 'A0000901651', tecfil: 'PEC3021', mann: 'PU999/1x', mahle: 'KX80D', wega: 'FCD-2058', fram: 'P550762' }
         }
       },
-
       'Mercedes-Benz 915c': {
         sistemas: [
           { sistema: 'Motor (OM-904)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '15,8 L', intervalo: '40.000 km' },
@@ -862,7 +812,6 @@
           combustivel: { original: 'A0000901651', tecfil: 'PEC3013', mann: 'PU941x', mahle: 'KX67/2D', wega: 'FCD-2058', fram: 'P550632' }
         }
       },
-
       'Mercedes-Benz 1418E': {
         sistemas: [
           { sistema: 'Motor (OM-366)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '16,5 L', intervalo: '30.000 km' },
@@ -878,7 +827,6 @@
           combustivel: { original: 'A0000901651', tecfil: 'PC2/255', mann: 'P917x', mahle: 'KX43', wega: 'FCD-2058', fram: 'P550632' }
         }
       },
-
       'Mercedes-Benz AXOR 3344': {
         sistemas: [
           { sistema: 'Motor (OM-457 LA)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '38,0 L', intervalo: '40.000 km' },
@@ -894,7 +842,6 @@
           combustivel: { original: 'A0000901651', tecfil: 'PEC3021', mann: 'PU999/1x', mahle: 'KX80D', wega: 'FCD-2058', fram: 'P550762' }
         }
       },
-
       'Mercedes-Benz Atego 1725': {
         sistemas: [
           { sistema: 'Motor (OM-906 LA)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '26,5 L', intervalo: '40.000 km' },
@@ -910,7 +857,6 @@
           combustivel: { original: 'A0000901651', tecfil: 'PEC3014', mann: 'PU1046x', mahle: 'KX67/1D', wega: 'FCD-2058', fram: 'P550633' }
         }
       },
-
       'VW Work 815': {
         sistemas: [
           { sistema: 'Motor (MWM 4.10 TCA)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '13,0 L', intervalo: '30.000 km' },
@@ -926,7 +872,6 @@
           combustivel: { original: '2T0 127 177 A', tecfil: 'PSC72/2', mann: 'WK723', mahle: 'KC18', wega: 'FCD-2045', fram: 'P550440' }
         }
       },
-
       'VW Work 5-Ton 15-180': {
         sistemas: [
           { sistema: 'Motor (MWM 6.10 TCA)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '16,5 L', intervalo: '40.000 km' },
@@ -942,7 +887,6 @@
           combustivel: { original: '2T0 127 177 A', tecfil: 'PSC72/2', mann: 'WK723', mahle: 'KC18', wega: 'FCD-2045', fram: 'P550440' }
         }
       },
-
       'VW Work 7-Ton Comercial': {
         sistemas: [
           { sistema: 'Motor (Cummins)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '16,5 L', intervalo: '40.000 km' },
@@ -958,7 +902,6 @@
           combustivel: { original: '2T0 127 177 A', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-2045', fram: 'P550881' }
         }
       },
-
       'VW Work 24-220': {
         sistemas: [
           { sistema: 'Motor (Cummins 6CTAA)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '20,0 L', intervalo: '40.000 km' },
@@ -974,7 +917,6 @@
           combustivel: { original: '2T0 127 177 A', tecfil: 'PSC72/2', mann: 'WK940/7', mahle: 'KC18', wega: 'FCD-2045', fram: 'P550881' }
         }
       },
-
       'VW Work 26-220': {
         sistemas: [
           { sistema: 'Motor (Cummins 6CTAA)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '20,0 L', intervalo: '40.000 km' },
@@ -990,7 +932,6 @@
           combustivel: { original: '2T0 127 177 A', tecfil: 'PSC72/2', mann: 'WK940/7', mahle: 'KC18', wega: 'FCD-2045', fram: 'P550881' }
         }
       },
-
       'VW Work 26-260E': {
         sistemas: [
           { sistema: 'Motor (MWM 6.12 TCE)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '21,0 L', intervalo: '40.000 km' },
@@ -1006,7 +947,6 @@
           combustivel: { original: '2T0 127 177 A', tecfil: 'PSC75', mann: 'WK950/22', mahle: 'KC201', wega: 'FCD-2045', fram: 'P550881' }
         }
       },
-
       'VW Constellation 24-250': {
         sistemas: [
           { sistema: 'Motor (Cummins ISBe)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '19,0 L', intervalo: '40.000 km' },
@@ -1022,7 +962,6 @@
           combustivel: { original: '2T0 127 177 A', tecfil: 'PSC493', mann: 'WK950/30', mahle: 'KC202', wega: 'FCD-30123', fram: 'P550881' }
         }
       },
-
       'VW Constellation 26-280': {
         sistemas: [
           { sistema: 'Motor (MAN D08)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '20,5 L', intervalo: '40.000 km' },
@@ -1038,7 +977,6 @@
           combustivel: { original: '2T0 127 177 A', tecfil: 'PEC3036', mann: 'PU9009z', mahle: 'KX386D', wega: 'FCD-30123', fram: 'P550762' }
         }
       },
-
       'VW Constellation 31-320': {
         sistemas: [
           { sistema: 'Motor (Cummins ISC)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '23,5 L', intervalo: '40.000 km' },
@@ -1056,7 +994,6 @@
       },
 
       // ==================== ÔNIBUS E VANS ====================
-
       'Fiat Ducato 2.3 Multijet': {
         sistemas: [
           { sistema: 'Motor (FPT F1A)', especificacao: 'SAE 5W-30', norma: 'API SN', capacidade: '6,0 L', intervalo: '15.000 km' },
@@ -1071,7 +1008,6 @@
           combustivel: { original: '1609428080', tecfil: 'PEC3023', mann: 'PU7010z', mahle: 'KX208D', wega: 'FCD-0771/1', fram: 'P550881' }
         }
       },
-
       'Fiat Ducato 2.8': {
         sistemas: [
           { sistema: 'Motor (Sofim)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '6,0 L', intervalo: '15.000 km' },
@@ -1086,7 +1022,6 @@
           combustivel: { original: '1609428080', tecfil: 'PSC496', mann: 'WK854/1', mahle: 'KC83', wega: 'FCD-0771/1', fram: 'P550881' }
         }
       },
-
       'Iveco - Daily 35S14': {
         sistemas: [
           { sistema: 'Motor (FPT F1C 3.0)', especificacao: 'SAE 5W-30', norma: 'API SN', capacidade: '7,6 L', intervalo: '20.000 km' },
@@ -1205,7 +1140,7 @@
       };
       return `
         <div class="tabela-container">
-          <table>
+          <table class="tabela-filtros">
             <thead>
               <tr>
                 <th>Aplicação</th>
@@ -1227,7 +1162,7 @@
       `;
     }
 
-    // --- ABRIR CONTEÚDO (NOVO LAYOUT MOBILE-FRIENDLY) ---
+    // --- ABRIR CONTEÚDO (NOVO LAYOUT EM CARDS PARA MOBILE) ---
     function abrirConteudo(modelo) {
       modeloAtual = modelo;
       const tituloConteudo = document.getElementById('titulo-conteudo');
@@ -1238,41 +1173,16 @@
       
       if (spec && spec.sistemas && spec.sistemas.length > 0) {
         
-        const linhas = spec.sistemas.map(s => {
+        const cards = spec.sistemas.map(s => {
           let normas = [];
-          if (s.norma && s.norma !== '-') {
-            normas.push(`<b>Norma / Observação:</b> ${s.norma}`);
-          }
-          if (s.observacao) {
-            normas.push(`<b>Obs:</b> ${s.observacao}`);
-          }
-          const normaHtml = normas.length > 0 ? normas.join('<br>') : '';
+          if (s.norma && s.norma !== '-') normas.push(s.norma);
+          if (s.observacao) normas.push(s.observacao);
+          const normaHtml = normas.length > 0 ? `<div class="sistema-norma"><b>Norma / Observação:</b> ${normas.join(' | ')}</div>` : '';
 
           return `
-            <tr>
-              <td class="td-sistema">
-                <b>${s.especificacao || '-'}</b>
-                <span>${s.sistema}</span>
-              </td>
-              <td>${s.capacidade || '-'}</td>
-              <td>${s.intervalo || '-'}</td>
-            </tr>
-            ${normaHtml ? `
-            <tr class="tr-norma">
-              <td colspan="3">
-                <div class="tr-norma-content">- ${normaHtml}</div>
-              </td>
-            </tr>
-            ` : ''}
-          `;
-        }).join('');
-
-        containerConteudo.innerHTML = `
-          <div class="card-construcao" style="padding: 16px;">
-            <p style="margin-top:0; color:#5b6275; font-size: 14px;">Confira abaixo as especificações de fluidos e os códigos de referência cruzada de filtros:</p>
-            
-            <div class="tabela-container" style="margin-top: 12px; border: none; overflow-x: hidden;">
-              <table class="tabela-responsiva">
+            <div class="card-sistema">
+              <div class="sistema-titulo">${s.sistema}</div>
+              <table class="tabela-card">
                 <thead>
                   <tr>
                     <th>Especificação / Viscosidade</th>
@@ -1281,15 +1191,32 @@
                   </tr>
                 </thead>
                 <tbody>
-                  ${linhas}
+                  <tr>
+                    <td><b>${s.especificacao || '-'}</b></td>
+                    <td>${s.capacidade || '-'}</td>
+                    <td>${s.intervalo || '-'}</td>
+                  </tr>
                 </tbody>
               </table>
+              ${normaHtml}
+            </div>
+          `;
+        }).join('');
+
+        containerConteudo.innerHTML = `
+          <div style="background: transparent; padding: 0;">
+            <p style="margin-top:0; margin-bottom: 16px; color:#5b6275; font-size: 14px;">Confira abaixo as especificações de fluidos e os códigos de referência cruzada de filtros:</p>
+            
+            <div class="cards-container">
+              ${cards}
             </div>
             
-            <h3 style="color: #3730a3; font-size: 18px; margin-top: 32px; margin-bottom: 8px;">
+            <h3 style="color: #3730a3; font-size: 18px; margin-top: 32px; margin-bottom: 12px;">
               <i class="fa-solid fa-filter"></i> Tabela de Referência de Filtros
             </h3>
-            ${criarTabelaFiltros(spec.filtros)}
+            <div style="background: #fff; border-radius: 12px; padding: 16px; border: 1px solid var(--border);">
+              ${criarTabelaFiltros(spec.filtros)}
+            </div>
             
             <p style="font-size: 12px; color: #b45309; margin-top: 16px;">
               <i class="fa-solid fa-triangle-exclamation"></i> <b>Atenção:</b> Os códigos originais e de marcas paralelas podem variar conforme o ano e a versão do motor. Sempre confirme a aplicação no momento da compra.
