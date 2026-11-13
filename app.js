@@ -11,7 +11,8 @@ const CATEGORIAS = [
   { slug: 'veiculos-passeio',     titulo: 'Veículos Passeio',     icone: 'fa-car',          cor: '#4f46e5', resumo: 'Chevrolet, Fiat, Ford, Nissan, VW...' },
   { slug: 'veiculos-utilitarios', titulo: 'Veículos Utilitários', icone: 'fa-truck-pickup', cor: '#0284c7', resumo: 'Agrale, Ford, Mitsubishi, Toyota...' },
   { slug: 'caminhoes',            titulo: 'Caminhões',            icone: 'fa-truck',        cor: '#065f46', resumo: 'Ford, Mercedes-Benz, Volkswagen...' },
-  { slug: 'onibus-e-vans',        titulo: 'Ônibus e Vans',        icone: 'fa-bus',          cor: '#1e1b4b', resumo: 'Agrale, Mercedes, Fiat, Iveco...' }
+  { slug: 'onibus-e-vans',        titulo: 'Ônibus e Vans',        icone: 'fa-bus',          cor: '#1e1b4b', resumo: 'Agrale, Mercedes, Fiat, Iveco...' },
+  { slug: 'nauticos',             titulo: 'Náuticos',             icone: 'fa-ship',         cor: '#0e7490', resumo: 'Motores marítimos' }
 ];
 
 const estado = { cat: null, marca: '', modelo: '' };
@@ -55,10 +56,12 @@ function normalizarBanco() {
     const spec = especificacoesOleos[modelo];
     if (Array.isArray(spec.sistemas)) continue;
     const lista = [];
-    const add = (nome, o) => lista.push({ sistema: nome, especificacao: o.tipo, norma: '-', capacidade: o.qtd || '-', intervalo: o.intervalo || '-' });
+    const add = (nome, o, obs) => lista.push({ sistema: nome, especificacao: o.tipo, norma: '-', capacidade: o.qtd || '-', intervalo: o.intervalo || '-', observacao: obs });
+    const dif = spec.diferencial;
+    const semDif = dif && /^não se aplica/i.test(dif.tipo || '');
     if (spec.motor && spec.motor.tipo) add('Motor', spec.motor);
-    if (spec.cambio && spec.cambio.tipo) add('Câmbio', spec.cambio);
-    if (spec.diferencial && spec.diferencial.tipo && spec.diferencial.tipo !== 'Não se aplica') add('Diferencial', spec.diferencial);
+    if (spec.cambio && spec.cambio.tipo) add('Câmbio', spec.cambio, semDif ? 'Diferencial: ' + dif.tipo : undefined);
+    if (dif && dif.tipo && !semDif) add('Diferencial', dif);
     spec.sistemas = lista;
   }
 }
@@ -171,8 +174,8 @@ function abrirConteudo(modelo) {
     alvo.innerHTML = `
       <p class="intro">Especificações de fluidos e referência cruzada de filtros:</p>
       ${spec.sistemas.map(fichaSistema).join('')}
-      <h3 class="secao-titulo"><i class="fa-solid fa-filter"></i> Tabela de Referência de Filtros</h3>
-      <div class="filtros-box">${tabelaFiltros(spec.filtros)}</div>
+      ${spec.filtros ? `<h3 class="secao-titulo"><i class="fa-solid fa-filter"></i> Tabela de Referência de Filtros</h3>
+      <div class="filtros-box">${tabelaFiltros(spec.filtros)}</div>` : ''}
       <p class="aviso"><i class="fa-solid fa-triangle-exclamation"></i><span><b>Atenção:</b> os códigos originais e de marcas paralelas podem variar conforme o ano e a versão do motor. Sempre confirme a aplicação no momento da compra.</span></p>`;
   } else {
     alvo.innerHTML = `
@@ -186,6 +189,6 @@ function abrirConteudo(modelo) {
 
 /* ---------- INÍCIO ---------- */
 normalizarBanco();
-CATEGORIAS.forEach(cat => $('grid-home').append(criarCard({
+CATEGORIAS.filter(cat => bancoDeDados[cat.slug]).forEach(cat => $('grid-home').append(criarCard({
   icone: cat.icone, cor: cat.cor, titulo: cat.titulo, texto: cat.resumo, aoClicar: () => abrirCategoria(cat)
 })));
