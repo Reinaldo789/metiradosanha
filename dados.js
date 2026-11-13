@@ -25,9 +25,17 @@ const bancoDeDados = {
   'caminhoes': {
     titulo: 'Caminhões',
     marcas: {
-      'Ford': ['Ford Cargo 816', 'Ford Cargo 2423', 'Ford - 2629 Bau', 'Ford - 2629 CTA e CTC', 'Ford 1933 Cav Mec'],
-      'Mercedes-Benz': ['Mercedes-Benz 2627', 'Mercedes-Benz 915c', 'Mercedes-Benz 1418E', 'Mercedes-Benz AXOR 3344', 'Mercedes-Benz Atego 1725'],
-      'Volkswagen': ['VW Work 815', 'VW Work 5-Ton 15-180', 'VW Work 7-Ton Comercial', 'VW Work 24-220', 'VW Work 26-220', 'VW Work 26-260E', 'VW Constellation 24-250', 'VW Constellation 26-280', 'VW Constellation 31-320']
+      'Agrale': ['Agrale 8500', 'Agrale 10000', 'Agrale 13000'],
+      'DAF': ['DAF XF', 'DAF CF', 'DAF XD'],
+      'Foton': ['Foton Aumark S 3.5', 'Foton Aumark S 5.5', 'Foton Auman ETX'],
+      'Ford': ['Ford Cargo 816', 'Ford Cargo 1317', 'Ford Cargo 1719', 'Ford Cargo 2429', 'Ford Cargo 2629', 'Ford Cargo 3131'],
+      'Iveco': ['Iveco Daily 30-130', 'Iveco Daily 35-150', 'Iveco Daily 55C', 'Iveco Tector', 'Iveco Stralis', 'Iveco S-Way'],
+      'JAC': ['JAC V260', 'JAC X200', 'JAC X300'],
+      'MAN': ['MAN TGX', 'MAN TGS'],
+      'Mercedes-Benz': ['Mercedes-Benz Accelo 1016', 'Mercedes-Benz Accelo 1017', 'Mercedes-Benz Atego 1719', 'Mercedes-Benz Atego 2426', 'Mercedes-Benz Atego 2730', 'Mercedes-Benz Axor 2536', 'Mercedes-Benz Axor 2644', 'Mercedes-Benz Axor 3344', 'Mercedes-Benz Actros 2651', 'Mercedes-Benz Actros 2657'],
+      'Scania': ['Scania P 250', 'Scania P 310', 'Scania G 410', 'Scania R 450', 'Scania R 540', 'Scania S 450', 'Scania S 540'],
+      'Volkswagen': ['VW Delivery 9.170', 'VW Delivery 11.180', 'VW Delivery 13.180', 'VW Worker 8.150', 'VW Worker 15.180', 'VW Worker 17.190', 'VW Worker 24.220', 'VW Worker 24.250', 'VW Worker 26.260', 'VW Worker 26.280', 'VW Constellation 17.190', 'VW Constellation 24.250', 'VW Constellation 24.280', 'VW Constellation 26.280', 'VW Constellation 31.320', 'VW Constellation 33.440'],
+      'Volvo': ['Volvo VM 23', 'Volvo VM 26', 'Volvo VM 30', 'Volvo FH 460', 'Volvo FH 540', 'Volvo FMX 460', 'Volvo FMX 540']
     }
   },
   'onibus-e-vans': {
