@@ -122,11 +122,8 @@
         </div>
 
         <div class="hidden lg:flex items-center gap-2 shrink-0">
-          <button id="expandAllBtn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
-            Expandir Todos
-          </button>
           <button id="collapseAllBtn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition">
-            Recolher Todos
+            Recolher Seleção
           </button>
         </div>
       </div>
@@ -844,7 +841,7 @@
     const categories = ['Todos', 'Passeio', 'Utilitários', 'Caminhões', 'Ônibus e Vans'];
     let activeCategory = 'Todos';
     let searchQuery = '';
-    const expandedVehicles = new Set(['Chevrolet SPIN']); // Primeiro item aberto por padrão
+    let activeVehicle = 'Chevrolet SPIN'; // Apenas 1 veículo aberto por vez (acordeão exclusivo)
 
     const searchInput = document.getElementById('searchInput');
     const clearSearchBtn = document.getElementById('clearSearchBtn');
@@ -854,50 +851,59 @@
     const resultsCounter = document.getElementById('resultsCounter');
     const emptyState = document.getElementById('emptyState');
     const resetFiltersBtn = document.getElementById('resetFiltersBtn');
-    const expandAllBtn = document.getElementById('expandAllBtn');
     const collapseAllBtn = document.getElementById('collapseAllBtn');
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
 
-    // =========================================================================
-    // CONTROLE DE TEMA (DARK / LIGHT MODE)
-    // =========================================================================
+    // Gerenciamento de Tema Claro/Escuro
     function initTheme() {
-      const savedTheme = localStorage.getItem('guia_frota_theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      const isDark = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) {
         document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
       }
     }
 
     function toggleTheme() {
       const isDark = document.documentElement.classList.toggle('dark');
-      localStorage.setItem('guia_frota_theme', isDark ? 'dark' : 'light');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
     }
 
     document.getElementById('themeToggleMobile').addEventListener('click', toggleTheme);
     document.getElementById('themeToggleDesktop').addEventListener('click', toggleTheme);
+    initTheme();
 
     // =========================================================================
-    // UTILITÁRIOS DE CÓPIA (CLIPBOARD COMPATÍVEL COM IFRAME) E TOAST
+    // FUNÇÕES DE UTILIDADE E CÓPIA
     // =========================================================================
-    let toastTimeout;
-    function showToast(message) {
-      const toast = document.getElementById('toast');
-      const toastMessage = document.getElementById('toastMessage');
-      toastMessage.textContent = message;
+    function showToast(msg) {
+      toastMessage.textContent = msg;
       toast.classList.remove('translate-y-20', 'opacity-0');
-      clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
         toast.classList.add('translate-y-20', 'opacity-0');
-      }, 2600);
+      }, 2400);
     }
 
-    function copyTextToClipboard(text, successMsg) {
+    function copyToClipboard(text, successMsg) {
       if (!text || text === '-') return;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast(successMsg || `Copiado: ${text}`);
+        }).catch(() => fallbackCopy(text, successMsg));
+      } else {
+        fallbackCopy(text, successMsg);
+      }
+    }
+
+    function fallbackCopy(text, successMsg) {
       const textarea = document.createElement('textarea');
       textarea.value = text;
       textarea.style.position = 'fixed';
-      textarea.style.opacity = '0';
       document.body.appendChild(textarea);
+      textarea.focus();
       textarea.select();
       try {
         document.execCommand('copy');
@@ -908,206 +914,164 @@
       document.body.removeChild(textarea);
     }
 
-    function copyFullVehicleSheet(vehicleName) {
-      const v = frotaDatabase[vehicleName];
-      if (!v) return;
-      const sheet = [
-        `🔧 *FICHA TÉCNICA DE MANUTENÇÃO*`,
-        `🚗 *Veículo:* ${vehicleName} (${v.categoria})`,
-        ``,
-        `🛢️ *ÓLEO DO MOTOR*`,
-        `• Especificação: ${v.motor.tipo}`,
-        `• Capacidade: ${v.motor.qtd}`,
-        `• Intervalo: ${v.motor.intervalo}`,
-        ``,
-        `⚙️ *CÂMBIO / TRANSF.*`,
-        `• Especificação: ${v.cambio.tipo}`,
-        `• Capacidade: ${v.cambio.qtd}`,
-        `• Intervalo: ${v.cambio.intervalo}`,
-        ``,
-        `🔩 *DIFERENCIAL*`,
-        `• Especificação: ${v.diferencial.tipo}`,
-        `• Capacidade: ${v.diferencial.qtd}`,
-        `• Intervalo: ${v.diferencial.intervalo}`,
-        ``,
-        `🧰 *FILTROS (REFERÊNCIA CRUZADA)*`,
-        `• Óleo: Tecfil ${v.filtros.oleo.tecfil} | Mann ${v.filtros.oleo.mann} | Wega ${v.filtros.oleo.wega} | Mahle ${v.filtros.oleo.mahle}${v.filtros.oleo.fleetguard_donaldson !== '-' ? ' | FG/Don ' + v.filtros.oleo.fleetguard_donaldson : ''}`,
-        `• Combustível: Tecfil ${v.filtros.combustivel.tecfil} | Mann ${v.filtros.combustivel.mann} | Wega ${v.filtros.combustivel.wega} | Mahle ${v.filtros.combustivel.mahle}${v.filtros.combustivel.fleetguard_donaldson !== '-' ? ' | FG/Don ' + v.filtros.combustivel.fleetguard_donaldson : ''}`,
-        `• Ar: Tecfil ${v.filtros.ar.tecfil} | Mann ${v.filtros.ar.mann} | Wega ${v.filtros.ar.wega} | Mahle ${v.filtros.ar.mahle}${v.filtros.ar.fleetguard_donaldson !== '-' ? ' | FG/Don ' + v.filtros.ar.fleetguard_donaldson : ''}`
-      ].join('\n');
-
-      copyTextToClipboard(sheet, `Ficha completa de "${vehicleName}" copiada!`);
-    }
-
     // =========================================================================
     // NORMALIZAÇÃO E FILTRAGEM
     // =========================================================================
     function normalizeText(str) {
-      return String(str || '')
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '');
+      return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
     }
 
     function getFilteredVehicles() {
       const q = normalizeText(searchQuery.trim());
-      return Object.entries(frotaDatabase).filter(([name, data]) => {
-        if (activeCategory !== 'Todos' && data.categoria !== activeCategory) {
-          return false;
-        }
+      return Object.entries(frotaDatabase).filter(([name, v]) => {
+        // Filtro por Categoria
+        const matchCat = activeCategory === 'Todos' || v.categoria === activeCategory;
+        if (!matchCat) return false;
+
         if (!q) return true;
 
-        // Concatena todos os campos pesquisáveis (nome, óleos, filtros de todas as marcas)
-        const searchableBlob = normalizeText([
-          name,
-          data.categoria,
-          data.motor.tipo,
-          data.cambio.tipo,
-          data.diferencial.tipo,
-          ...Object.values(data.filtros.oleo),
-          ...Object.values(data.filtros.combustivel),
-          ...Object.values(data.filtros.ar)
-        ].join(' '));
+        // Busca textual (Nome, Motor, Câmbio, Diferencial e Códigos de Filtros)
+        const nameNorm = normalizeText(name);
+        const motorNorm = normalizeText(v.motor.tipo + ' ' + v.motor.qtd);
+        const cambioNorm = normalizeText(v.cambio.tipo + ' ' + v.cambio.qtd);
+        const difNorm = normalizeText(v.diferencial.tipo);
 
-        return q.split(/\s+/).every(term => searchableBlob.includes(term));
-      });
-    }
-
-    // =========================================================================
-    // RENDERIZAÇÃO DE PÍLULAS E SELETOR RÁPIDO
-    // =========================================================================
-    function renderCategoryPills() {
-      const allEntries = Object.values(frotaDatabase);
-      categoryPills.innerHTML = categories.map(cat => {
-        const count = cat === 'Todos'
-          ? allEntries.length
-          : allEntries.filter(v => v.categoria === cat).length;
-        const isActive = activeCategory === cat;
-
-        return `
-          <button
-            type="button"
-            data-category="${cat}"
-            class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition flex items-center gap-2 border ${
-              isActive
-                ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-sm'
-                : 'bg-slate-800/80 text-slate-300 border-slate-700 hover:bg-slate-800 hover:text-white'
-            }"
-          >
-            <span>${cat}</span>
-            <span class="px-1.5 py-0.2 rounded-md text-[11px] font-bold ${
-              isActive ? 'bg-slate-950/20 text-slate-950' : 'bg-slate-700 text-slate-300'
-            }">${count}</span>
-          </button>
-        `;
-      }).join('');
-
-      categoryPills.querySelectorAll('button').forEach(btn => {
-        btn.addEventListener('click', () => {
-          activeCategory = btn.getAttribute('data-category');
-          renderCategoryPills();
-          renderVehicles();
+        // Varre todos os filtros e marcas
+        let filtersStr = '';
+        ['oleo', 'combustivel', 'ar'].forEach(fKey => {
+          const fObj = v.filtros[fKey];
+          Object.values(fObj).forEach(val => {
+            filtersStr += ' ' + val;
+          });
         });
+        const filtersNorm = normalizeText(filtersStr);
+
+        return nameNorm.includes(q) || motorNorm.includes(q) || cambioNorm.includes(q) || difNorm.includes(q) || filtersNorm.includes(q);
       });
     }
 
-    function populateQuickSelect() {
-      const grouped = {};
-      Object.entries(frotaDatabase).forEach(([name, data]) => {
-        if (!grouped[data.categoria]) grouped[data.categoria] = [];
-        grouped[data.categoria].push(name);
-      });
-
-      let html = '<option value="">Ir direto para veículo...</option>';
-      Object.entries(grouped).forEach(([cat, names]) => {
-        html += `<optgroup label="${cat}">`;
-        names.forEach(name => {
-          html += `<option value="${name}">${name}</option>`;
-        });
-        html += '</optgroup>';
-      });
-      quickSelect.innerHTML = html;
-    }
-
-    // =========================================================================
-    // RENDERIZAÇÃO DOS CARDS DE VEÍCULOS
-    // =========================================================================
     function getCategoryBadgeClasses(cat) {
       switch (cat) {
-        case 'Passeio':
-          return 'bg-sky-500/15 text-sky-700 dark:text-sky-300 border-sky-500/30';
-        case 'Utilitários':
-          return 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30';
-        case 'Caminhões':
-          return 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30';
-        case 'Ônibus e Vans':
-          return 'bg-purple-500/15 text-purple-700 dark:text-purple-300 border-purple-500/30';
-        default:
-          return 'bg-slate-500/15 text-slate-700 dark:text-slate-300 border-slate-500/30';
+        case 'Passeio': return 'bg-blue-500/10 text-blue-700 dark:text-blue-400 border-blue-500/30';
+        case 'Utilitários': return 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/30';
+        case 'Caminhões': return 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/30';
+        case 'Ônibus e Vans': return 'bg-purple-500/10 text-purple-700 dark:text-purple-400 border-purple-500/30';
+        default: return 'bg-slate-500/10 text-slate-700 dark:text-slate-400 border-slate-500/30';
       }
     }
 
-    function renderFilterCell(code, brandLabel) {
+    function renderFilterCell(code, brandName) {
       if (!code || code === '-') {
-        return `<span class="text-slate-400 dark:text-slate-600 font-mono text-xs">—</span>`;
+        return `<span class="text-slate-400 dark:text-slate-600 select-none">-</span>`;
       }
-      const safeCode = code.replace(/"/g, '&quot;');
+      const isMulti = code.includes('+') || code.includes('/') || code.includes('ou');
       return `
         <button
           type="button"
-          onclick="copyTextToClipboard('${safeCode}', 'Código ${brandLabel} copiado: ${safeCode}')"
-          title="Clique para copiar ${safeCode}"
-          class="group inline-flex items-center gap-1.5 text-left font-mono text-xs font-semibold px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-amber-500/20 dark:bg-slate-800 dark:hover:bg-amber-500/20 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 hover:border-amber-500/50 transition cursor-pointer"
+          onclick="copyToClipboard('${code}', '${brandName}: ${code}')"
+          title="Copiar código ${brandName}"
+          class="group inline-flex items-center gap-1.5 px-2 py-1 rounded-lg bg-slate-100 hover:bg-amber-500/20 dark:bg-slate-800 dark:hover:bg-amber-500/20 text-slate-800 dark:text-slate-200 hover:text-amber-700 dark:hover:text-amber-400 border border-slate-200 dark:border-slate-700 hover:border-amber-500/50 text-xs font-mono font-medium transition text-left"
         >
-          <span>${code}</span>
-          <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-amber-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-          </svg>
+          <span class="truncate max-w-[140px] sm:max-w-none">${code}</span>
+          <svg class="w-3.5 h-3.5 opacity-40 group-hover:opacity-100 shrink-0 text-amber-500 transition" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
         </button>
       `;
     }
 
+    // =========================================================================
+    // RENDERIZAÇÃO DA INTERFACE
+    // =========================================================================
+    function renderCategoryPills() {
+      categoryPills.innerHTML = categories.map(cat => {
+        const isActive = activeCategory === cat;
+        const count = cat === 'Todos' ? Object.keys(frotaDatabase).length : Object.values(frotaDatabase).filter(v => v.categoria === cat).length;
+        return `
+          <button
+            type="button"
+            onclick="setCategory('${cat}')"
+            class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center gap-1.5 ${isActive ? 'bg-amber-500 text-slate-950 shadow-md' : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700'}"
+          >
+            <span>${cat}</span>
+            <span class="px-1.5 py-0.2 rounded-md text-[10px] ${isActive ? 'bg-slate-950/20 text-slate-950' : 'bg-slate-900 text-slate-400'}">
+              ${count}
+            </span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function setCategory(cat) {
+      activeCategory = cat;
+      renderCategoryPills();
+      const filtered = getFilteredVehicles();
+      if (filtered.length > 0 && !filtered.some(([n]) => n === activeVehicle)) {
+        activeVehicle = filtered[0][0];
+      }
+      renderVehicles();
+    }
+
+    function populateQuickSelect() {
+      const sortedKeys = Object.keys(frotaDatabase).sort();
+      quickSelect.innerHTML = `<option value="">Ir para veículo (${sortedKeys.length})...</option>` + sortedKeys.map(name => {
+        return `<option value="${name}">${name} (${frotaDatabase[name].categoria})</option>`;
+      }).join('');
+    }
+
     function renderVehicles() {
       const filtered = getFilteredVehicles();
-      const total = Object.keys(frotaDatabase).length;
-
-      resultsCounter.innerHTML = `Exibindo <strong class="text-slate-900 dark:text-white">${filtered.length}</strong> de <strong>${total}</strong> veículos`;
+      resultsCounter.textContent = `Mostrando ${filtered.length} de ${Object.keys(frotaDatabase).length} veículos cadastrados`;
 
       if (filtered.length === 0) {
         vehiclesContainer.innerHTML = '';
         emptyState.classList.remove('hidden');
         return;
       }
-
       emptyState.classList.add('hidden');
 
-      // Se houver busca ativa com poucos resultados, expande automaticamente para visualização rápida
-      const autoExpand = searchQuery.trim().length > 0 && filtered.length <= 6;
+      // Verifica se existe algum item aberto entre os resultados visíveis para destacar o ativo e suavizar os recolhidos
+      const hasOpenItem = filtered.some(([name]) => activeVehicle === name);
 
       vehiclesContainer.innerHTML = filtered.map(([name, v]) => {
-        const isOpen = autoExpand || expandedVehicles.has(name);
+        const isOpen = activeVehicle === name;
         const badgeClass = getCategoryBadgeClasses(v.categoria);
         const safeName = name.replace(/'/g, "\\'");
         const cardId = 'veh-' + normalizeText(name).replace(/[^a-z0-9]+/g, '-');
 
+        // Classes de destaque forte para o cartão aberto vs. recolhidos
+        const cardStateClasses = isOpen
+          ? 'border-[3px] border-amber-500 ring-4 ring-amber-500/20 shadow-2xl shadow-slate-900/15 dark:shadow-black/60 scale-[1.005] z-10 relative'
+          : `border border-slate-200 dark:border-slate-800 shadow-sm ${hasOpenItem ? 'opacity-80 hover:opacity-100' : ''}`;
+
+        const headerStateClasses = isOpen
+          ? 'bg-gradient-to-r from-amber-500/15 via-amber-500/5 to-transparent dark:from-amber-500/20 dark:via-slate-900 dark:to-slate-900 border-b-2 border-amber-500/30'
+          : 'hover:bg-slate-50 dark:hover:bg-slate-800/50';
+
         return `
-          <article id="${cardId}" class="print-card bg-white dark:bg-slate-900 rounded-2xl border ${isOpen ? 'border-amber-500/60 dark:border-amber-500/50 shadow-md' : 'border-slate-200 dark:border-slate-800 shadow-sm'} overflow-hidden transition-all">
+          <article id="${cardId}" class="print-card bg-white dark:bg-slate-900 rounded-2xl overflow-hidden transition-all duration-200 ${cardStateClasses}">
             <!-- Cabeçalho Clicável do Veículo -->
             <div
               onclick="toggleVehicleCard('${safeName}')"
               role="button"
               tabindex="0"
               aria-expanded="${isOpen}"
-              class="p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition select-none"
+              class="p-4 sm:px-6 sm:py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer transition select-none ${headerStateClasses}"
             >
               <div class="flex items-start sm:items-center gap-3">
                 <span class="px-2.5 py-1 rounded-lg text-xs font-bold border shrink-0 ${badgeClass}">
                   ${v.categoria}
                 </span>
                 <div>
-                  <h2 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white leading-snug">
-                    ${name}
-                  </h2>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <h2 class="${isOpen ? 'text-lg sm:text-xl text-amber-700 dark:text-amber-400' : 'text-base sm:text-lg text-slate-900 dark:text-white'} font-extrabold leading-snug transition-colors">
+                      ${name}
+                    </h2>
+                    ${isOpen ? `
+                      <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-amber-500 text-slate-950 shadow-sm">
+                        <span class="w-1.5 h-1.5 rounded-full bg-slate-950 animate-pulse"></span>
+                        Aberto
+                      </span>
+                    ` : ''}
+                  </div>
                   <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                     Motor: <span class="font-semibold text-slate-700 dark:text-slate-300">${v.motor.tipo.split('(')[0].trim()}</span> •
                     Cap.: <span class="font-semibold text-slate-700 dark:text-slate-300">${v.motor.qtd}</span> •
@@ -1117,10 +1081,10 @@
               </div>
 
               <div class="flex items-center justify-end gap-2 self-end sm:self-center">
-                <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                <span class="text-xs font-bold ${isOpen ? 'text-amber-700 dark:text-amber-400' : 'text-slate-500 dark:text-slate-400'}">
                   ${isOpen ? 'Recolher' : 'Ver ficha completa'}
                 </span>
-                <span class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 transition-transform duration-200 ${isOpen ? 'rotate-180 bg-amber-500/15 text-amber-600 dark:text-amber-400' : ''}">
+                <span class="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200 ${isOpen ? 'rotate-180 bg-amber-500 text-slate-950 shadow-md' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
                 </span>
               </div>
@@ -1128,31 +1092,13 @@
 
             <!-- Conteúdo Detalhado Expandido -->
             ${isOpen ? `
-              <div class="border-t border-slate-200 dark:border-slate-800 p-4 sm:p-6 bg-slate-50/60 dark:bg-slate-950/40 space-y-6">
+              <div class="p-4 sm:p-6 bg-slate-50/80 dark:bg-slate-950/50 space-y-6">
                 
-                <!-- Barra de Ações da Ficha -->
-                <div class="flex flex-wrap items-center justify-between gap-2 no-print">
-                  <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                <!-- Título da Seção 1 -->
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-extrabold uppercase tracking-wider text-amber-700 dark:text-amber-400">
                     1. Especificações de Lubrificantes
                   </span>
-                  <div class="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onclick="copyFullVehicleSheet('${safeName}')"
-                      class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition cursor-pointer"
-                    >
-                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                      Copiar Ficha (WhatsApp / OS)
-                    </button>
-                    <button
-                      type="button"
-                      onclick="window.print()"
-                      class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition cursor-pointer"
-                    >
-                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-                      Imprimir / PDF
-                    </button>
-                  </div>
                 </div>
 
                 <!-- Grid de 3 Cards de Lubrificantes -->
@@ -1239,7 +1185,7 @@
                 <!-- Seção 2: Tabela de Referência Cruzada de Filtros -->
                 <div>
                   <div class="flex items-center justify-between mb-2.5">
-                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    <span class="text-xs font-extrabold uppercase tracking-wider text-amber-700 dark:text-amber-400">
                       2. Tabela de Referência Cruzada de Filtros
                     </span>
                   </div>
@@ -1305,18 +1251,32 @@
     // =========================================================================
     // EVENTOS DE INTERAÇÃO (ABRIR/FECHAR, BUSCA, ATALHOS)
     // =========================================================================
-    function toggleVehicleCard(name) {
-      if (expandedVehicles.has(name)) {
-        expandedVehicles.delete(name);
-      } else {
-        expandedVehicles.add(name);
+    function scrollToVehicleCard(name) {
+      const cardId = 'veh-' + normalizeText(name).replace(/[^a-z0-9]+/g, '-');
+      const el = document.getElementById(cardId);
+      if (el) {
+        const yOffset = -145;
+        const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
       }
+    }
+
+    function toggleVehicleCard(name) {
+      const willOpen = activeVehicle !== name;
+      activeVehicle = willOpen ? name : null;
       renderVehicles();
+      if (willOpen) {
+        requestAnimationFrame(() => scrollToVehicleCard(name));
+      }
     }
 
     searchInput.addEventListener('input', (e) => {
       searchQuery = e.target.value;
       clearSearchBtn.classList.toggle('hidden', searchQuery.length === 0);
+      const filtered = getFilteredVehicles();
+      if (searchQuery.trim().length > 0 && filtered.length > 0 && !filtered.some(([n]) => n === activeVehicle)) {
+        activeVehicle = filtered[0][0];
+      }
       renderVehicles();
     });
 
@@ -1324,7 +1284,6 @@
       searchQuery = '';
       searchInput.value = '';
       clearSearchBtn.classList.add('hidden');
-      searchInput.focus();
       renderVehicles();
     });
 
@@ -1344,32 +1303,19 @@
       searchQuery = '';
       searchInput.value = '';
       clearSearchBtn.classList.add('hidden');
-      expandedVehicles.add(selected);
+      activeVehicle = selected;
       renderCategoryPills();
       renderVehicles();
-
-      const cardId = 'veh-' + normalizeText(selected).replace(/[^a-z0-9]+/g, '-');
-      const el = document.getElementById(cardId);
-      if (el) {
-        const yOffset = -135;
-        const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }
+      requestAnimationFrame(() => scrollToVehicleCard(selected));
       e.target.value = '';
     });
 
-    expandAllBtn.addEventListener('click', () => {
-      getFilteredVehicles().forEach(([name]) => expandedVehicles.add(name));
-      renderVehicles();
-    });
-
     collapseAllBtn.addEventListener('click', () => {
-      expandedVehicles.clear();
+      activeVehicle = null;
       renderVehicles();
     });
 
-    // Inicialização
-    initTheme();
+    // Inicialização da Aplicação
     renderCategoryPills();
     populateQuickSelect();
     renderVehicles();
