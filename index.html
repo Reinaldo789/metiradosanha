@@ -165,7 +165,6 @@
 
     // =====================================================================
     // 2. BANCO DE DADOS DE FLUIDOS E ÓLEOS
-    // (Adicione os outros veículos aqui seguindo este modelo)
     // =====================================================================
     const especificacoesOleos = {
   // --- VEÍCULOS PASSEIO ---
@@ -530,8 +529,8 @@
       
       tituloConteudo.textContent = modelo;
       
-      // Verifica se temos os dados de óleo para este modelo
-      const spec = especificacoes[modelo];
+      // Verifica se temos os dados de óleo para este modelo (CORRIGIDO AQUI)
+      const spec = especificacoesOleos[modelo];
       
       if (spec) {
         containerConteudo.innerHTML = `
