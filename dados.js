@@ -1,6 +1,6 @@
 /* ==========================================================
-   DADOS DO MANUAL AUTOMOTIVO — dados.js 
-   Versão: Linha Leve (Catálogo MANN 21/22) + Linha Pesada
+   DADOS DO MANUAL AUTOMOTIVO — dados.js
+   Versão: Atualizada com Catálogo Tecfil e MANN (Leve e Pesada)
    ========================================================== */
 
 const bancoDeDados = {
@@ -49,7 +49,7 @@ const bancoDeDados = {
 
 const especificacoesOleos = {
 
-  // ==================== VEÍCULOS PASSEIO (LINHA LEVE) ====================
+  // ==================== VEÍCULOS PASSEIO ====================
   'Chevrolet SPIN': {
     sistemas: [
       { sistema: 'Motor', especificacao: 'SAE 5W-30 (dexos1)', norma: 'API SN', capacidade: '4,2 L', intervalo: '10.000 km' },
@@ -59,7 +59,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: '24588463', tecfil: 'PSL619', mann: 'W 712/22', mahle: 'OC90', wega: 'WO-150', fram: 'PH10907' },
-      ar: { original: '98550812', tecfil: 'ARL8829', mann: 'C 23 015', mahle: 'LX3547', wega: 'FAP-9267', fram: 'CA10330' },
+      ar: { original: '98550812', tecfil: 'ARL8829', mann: 'C 29 030', mahle: 'LX3547', wega: 'FAP-9267', fram: 'CA10330' },
       combustivel: { original: '93316245', tecfil: 'GI04/7', mann: 'WK 58/3', mahle: 'KL582', wega: 'FCI-1660', fram: 'G1041' },
       cabine: { original: '94747799', tecfil: 'ACP309', mann: 'CU 2433', mahle: 'LA 90', wega: 'AKX-1999', fram: 'CF11175' }
     }
@@ -100,8 +100,8 @@ const especificacoesOleos = {
       { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '5,0 L', intervalo: '60.000 km' }
     ],
     filtros: {
-      oleo: { original: '7085786', tecfil: 'PEL106', mann: 'W 713/16', mahle: 'OC506', wega: 'WO-130', fram: 'CH9642' },
-      ar: { original: '51775324', tecfil: 'ARL6085', mann: 'C 2585', mahle: 'LX1791', wega: 'FAP-4022', fram: 'CA9566' },
+      oleo: { original: '7085786', tecfil: 'PSL55', mann: 'W 713/16', mahle: 'OC506', wega: 'WO-130', fram: 'CH9642' },
+      ar: { original: '51775324', tecfil: 'ARL4150', mann: 'C 2585', mahle: 'LX1791', wega: 'FAP-4022', fram: 'CA9566' },
       combustivel: { original: '51778945', tecfil: 'GI04/7', mann: 'WK 58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G9193' },
       cabine: { original: '7088921', tecfil: 'ACP304', mann: 'CU 2629/1', mahle: 'LA 67', wega: 'AKX-3520', fram: 'CF9481' }
     }
@@ -114,8 +114,8 @@ const especificacoesOleos = {
       { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '6,0 L', intervalo: '60.000 km' }
     ],
     filtros: {
-      oleo: { original: '7085786', tecfil: 'PEL106', mann: 'W 713/16', mahle: 'OC506', wega: 'WO-130', fram: 'CH9642' },
-      ar: { original: '51794712', tecfil: 'ARL6086', mann: 'C 2585', mahle: 'LX1791', wega: 'FAP-4025', fram: 'CA10222' },
+      oleo: { original: '7085786', tecfil: 'PSL619', mann: 'W 713/16', mahle: 'OC506', wega: 'WO-130', fram: 'CH9642' },
+      ar: { original: '51794712', tecfil: 'ARL4148', mann: 'C 2585', mahle: 'LX1791', wega: 'FAP-4025', fram: 'CA10222' },
       combustivel: { original: '51778945', tecfil: 'GI04/7', mann: 'WK 58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G9193' },
       cabine: { original: '46723321', tecfil: 'ACP302', mann: 'CU 2629/1', mahle: 'LA 67', wega: 'AKX-1100', fram: 'CF1028' }
     }
@@ -128,8 +128,8 @@ const especificacoesOleos = {
       { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '5,5 L', intervalo: '60.000 km' }
     ],
     filtros: {
-      oleo: { original: '7085786', tecfil: 'PEL106', mann: 'W 713/16', mahle: 'OC506', wega: 'WO-130', fram: 'CH9642' },
-      ar: { original: '51775324', tecfil: 'ARL6085', mann: 'C 2585', mahle: 'LX1791', wega: 'FAP-4022', fram: 'CA9566' },
+      oleo: { original: '7085786', tecfil: 'PSL55', mann: 'W 713/16', mahle: 'OC506', wega: 'WO-130', fram: 'CH9642' },
+      ar: { original: '51775324', tecfil: 'ARL4148', mann: 'C 2585', mahle: 'LX1791', wega: 'FAP-4022', fram: 'CA9566' },
       combustivel: { original: '51778945', tecfil: 'GI04/7', mann: 'WK 58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G9193' },
       cabine: { original: '46723321', tecfil: 'ACP302', mann: 'CU 2629/1', mahle: 'LA 67', wega: 'AKX-1100', fram: 'CF1028' }
     }
@@ -142,8 +142,8 @@ const especificacoesOleos = {
       { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '5,5 L', intervalo: '60.000 km' }
     ],
     filtros: {
-      oleo: { original: '7085786', tecfil: 'PEL106', mann: 'W 713/16', mahle: 'OC506', wega: 'WO-130', fram: 'CH9642' },
-      ar: { original: '51775324', tecfil: 'ARL6085', mann: 'C 2585', mahle: 'LX1791', wega: 'FAP-4022', fram: 'CA9566' },
+      oleo: { original: '7085786', tecfil: 'PSL55', mann: 'W 713/16', mahle: 'OC506', wega: 'WO-130', fram: 'CH9642' },
+      ar: { original: '51775324', tecfil: 'ARL4150', mann: 'C 2585', mahle: 'LX1791', wega: 'FAP-4022', fram: 'CA9566' },
       combustivel: { original: '51778945', tecfil: 'GI04/7', mann: 'WK 58', mahle: 'KL582', wega: 'FCI-1660', fram: 'G9193' },
       cabine: { original: '7088921', tecfil: 'ACP304', mann: 'CU 2629/1', mahle: 'LA 67', wega: 'AKX-3520', fram: 'CF9481' }
     }
@@ -241,7 +241,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: '1109AY', tecfil: 'PEL674', mann: 'HU 711/51 x', mahle: 'OX339/2D', wega: 'WOE-710', fram: 'CH9641' },
-      ar: { original: '1444RJ', tecfil: 'ARL5047', mann: 'C 4292/2', mahle: 'LX2681', wega: 'FAP-9295', fram: 'CA11050' },
+      ar: { original: '1444RJ', tecfil: 'ARL5047', mann: 'C 42 010', mahle: 'LX2681', wega: 'FAP-9295', fram: 'CA11050' },
       combustivel: { original: '156794', tecfil: 'GI50/7', mann: 'WK 58/3', mahle: 'KL583', wega: 'FCI-1630', fram: 'G1030' },
       cabine: { original: '6447XF', tecfil: 'ACP305', mann: 'CU 2940', mahle: 'LA 56', wega: 'AKX-1991', fram: 'CF10549' }
     }
@@ -282,9 +282,9 @@ const especificacoesOleos = {
       { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '5,0 L', intervalo: '60.000 km' }
     ],
     filtros: {
-      oleo: { original: '030115561AN', tecfil: 'PSL55', mann: 'W 712/53', mahle: 'OC250', wega: 'WO-100', fram: 'PH5949' },
+      oleo: { original: '030115561AN', tecfil: 'PSL560', mann: 'W 712/53', mahle: 'OC250', wega: 'WO-100', fram: 'PH5949' },
       ar: { original: '032129620C', tecfil: 'ARL3280', mann: 'C 2295/2', mahle: 'LX1592', wega: 'FAP-3280', fram: 'CA8286' },
-      combustivel: { original: '6QE201511', tecfil: 'GI04/7', mann: 'WK 58/3', mahle: 'KL583', wega: 'FCI-1630', fram: 'G1025' },
+      combustivel: { original: '6QE201511', tecfil: 'GI50/7', mann: 'WK 58/3', mahle: 'KL583', wega: 'FCI-1630', fram: 'G1025' },
       cabine: { original: '5U0819653', tecfil: 'ACP309', mann: 'CU 3162', mahle: 'LA 74', wega: 'AKX-1122', fram: 'CF11175' }
     }
   },
@@ -296,14 +296,14 @@ const especificacoesOleos = {
       { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '5,0 L', intervalo: '60.000 km' }
     ],
     filtros: {
-      oleo: { original: '030115561AN', tecfil: 'PSL55', mann: 'W 712/53', mahle: 'OC250', wega: 'WO-100', fram: 'PH5949' },
+      oleo: { original: '030115561AN', tecfil: 'PSL560', mann: 'W 712/53', mahle: 'OC250', wega: 'WO-100', fram: 'PH5949' },
       ar: { original: '032129620C', tecfil: 'ARL3280', mann: 'C 2295/2', mahle: 'LX1592', wega: 'FAP-3280', fram: 'CA8286' },
-      combustivel: { original: '6QE201511', tecfil: 'GI04/7', mann: 'WK 58/3', mahle: 'KL583', wega: 'FCI-1630', fram: 'G1025' },
+      combustivel: { original: '6QE201511', tecfil: 'GI50/7', mann: 'WK 58/3', mahle: 'KL583', wega: 'FCI-1630', fram: 'G1025' },
       cabine: { original: '5U0819653', tecfil: 'ACP309', mann: 'CU 3162', mahle: 'LA 74', wega: 'AKX-1122', fram: 'CF11175' }
     }
   },
 
-  // ==================== VEÍCULOS UTILITÁRIOS (LINHA LEVE) ====================
+  // ==================== VEÍCULOS UTILITÁRIOS ====================
   'Agrale Marruá - AM21': {
     sistemas: [
       { sistema: 'Motor (MWM Sprint)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '5,5 L', intervalo: '10.000 km' },
@@ -694,7 +694,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: 'BH1X6714AA', tecfil: 'PEL106', mann: 'W 950/26', mahle: 'OC505', wega: 'WO-210', fram: 'PH8A' },
-      ar: { original: 'BH1X9601AA', tecfil: 'ARL8480', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: 'BH1X9601AA', tecfil: 'ARS9839', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: 'BH1X9155AA', tecfil: 'PSD980', mann: 'WK 954/2 x', mahle: 'KC202', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
@@ -707,7 +707,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: 'BH1X6714AA', tecfil: 'PEL106', mann: 'W 950/26', mahle: 'OC505', wega: 'WO-210', fram: 'PH8A' },
-      ar: { original: 'BH1X9601AA', tecfil: 'ARL8480', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: 'BH1X9601AA', tecfil: 'ARS9839', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: 'BH1X9155AA', tecfil: 'PSD980', mann: 'WK 954/2 x', mahle: 'KC202', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
@@ -720,7 +720,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: 'CC1Q6714AA', tecfil: 'PEL106', mann: 'W 950/26', mahle: 'OC516', wega: 'WO-210', fram: 'PH8A' },
-      ar: { original: 'CC1Z9601A', tecfil: 'ARL8480', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: 'CC1Z9601A', tecfil: 'ARS9839', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: 'CC1Q9155AA', tecfil: 'PSD980', mann: 'WK 1060 x', mahle: 'KC202', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
@@ -876,7 +876,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: 'A0001802609', tecfil: 'PEL108', mann: 'HU 934/2 x', mahle: 'OX153/7D', wega: 'WO-530', fram: 'CH9939' },
-      ar: { original: 'A0030944004', tecfil: 'ARL8480', mann: 'C 25 125', mahle: 'LX1038', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: 'A0030944004', tecfil: 'ARS9841', mann: 'C 25 125', mahle: 'LX1038', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: 'A0000903651', tecfil: 'PSD980', mann: 'PU 936/1 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: 'CU 3461', mahle: '-', wega: '-', fram: '-' }
     }
@@ -889,7 +889,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: 'A0001802609', tecfil: 'PEL108', mann: 'HU 934/2 x', mahle: 'OX153/7D', wega: 'WO-530', fram: 'CH9939' },
-      ar: { original: 'A0030944004', tecfil: 'ARL8480', mann: 'C 25 125', mahle: 'LX1038', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: 'A0030944004', tecfil: 'ARS9841', mann: 'C 25 125', mahle: 'LX1038', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: 'A0000903651', tecfil: 'PSD980', mann: 'PU 936/1 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: 'CU 3461', mahle: '-', wega: '-', fram: '-' }
     }
@@ -902,7 +902,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: 'A0001802609', tecfil: 'PEL108', mann: 'HU 934/2 x', mahle: 'OX153/7D', wega: 'WO-530', fram: 'CH9939' },
-      ar: { original: 'A0030944004', tecfil: 'ARL8480', mann: 'C 25 125', mahle: 'LX1038', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: 'A0030944004', tecfil: 'ARS9841', mann: 'C 25 125', mahle: 'LX1038', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: 'A0000903651', tecfil: 'PSD980', mann: 'PU 936/1 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: 'CU 3461', mahle: '-', wega: '-', fram: '-' }
     }
@@ -915,7 +915,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: 'A0001802609', tecfil: 'PEL108', mann: 'HU 934/2 x', mahle: 'OX153/7D', wega: 'WO-530', fram: 'CH9939' },
-      ar: { original: 'A0030944004', tecfil: 'ARL8480', mann: 'C 25 125', mahle: 'LX1038', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: 'A0030944004', tecfil: 'ARS9841', mann: 'C 25 125', mahle: 'LX1038', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: 'A0000903651', tecfil: 'PSD980', mann: 'PU 936/1 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: 'CU 3461', mahle: '-', wega: '-', fram: '-' }
     }
@@ -928,7 +928,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: 'A0001802609', tecfil: 'PEL108', mann: 'HU 934/2 x', mahle: 'OX153/7D', wega: 'WO-530', fram: 'CH9939' },
-      ar: { original: 'A0030944004', tecfil: 'ARL8480', mann: 'C 25 125', mahle: 'LX1038', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: 'A0030944004', tecfil: 'ARS9841', mann: 'C 25 125', mahle: 'LX1038', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: 'A0000903651', tecfil: 'PSD980', mann: 'PU 936/1 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: 'CU 3461', mahle: '-', wega: '-', fram: '-' }
     }
@@ -941,7 +941,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: 'A5411840225', tecfil: 'PEL108', mann: 'HU 12 103 x', mahle: 'OX174D', wega: 'WO-530', fram: 'CH9939' },
-      ar: { original: 'A0040943404', tecfil: 'ARL8480', mann: 'C 31 1295', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: 'A0040943404', tecfil: 'ARS9840', mann: 'C 31 1295', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: 'A0000904251', tecfil: 'PSD980', mann: 'PU 1040 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: 'CU 3461', mahle: '-', wega: '-', fram: '-' }
     }
@@ -954,7 +954,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: 'A5411840225', tecfil: 'PEL108', mann: 'HU 12 103 x', mahle: 'OX174D', wega: 'WO-530', fram: 'CH9939' },
-      ar: { original: 'A0040943404', tecfil: 'ARL8480', mann: 'C 31 1295', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: 'A0040943404', tecfil: 'ARS9840', mann: 'C 31 1295', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: 'A0000904251', tecfil: 'PSD980', mann: 'PU 1040 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: 'CU 3461', mahle: '-', wega: '-', fram: '-' }
     }
@@ -967,7 +967,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: 'A5411840225', tecfil: 'PEL108', mann: 'HU 12 103 x', mahle: 'OX174D', wega: 'WO-530', fram: 'CH9939' },
-      ar: { original: 'A0040943404', tecfil: 'ARL8480', mann: 'C 31 1295', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: 'A0040943404', tecfil: 'ARS9840', mann: 'C 31 1295', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: 'A0000904251', tecfil: 'PSD980', mann: 'PU 1040 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: 'CU 3461', mahle: '-', wega: '-', fram: '-' }
     }
@@ -980,7 +980,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: 'A5411840225', tecfil: 'PEL108', mann: 'HU 12 103 x', mahle: 'OX174D', wega: 'WO-530', fram: 'CH9939' },
-      ar: { original: 'A0040943404', tecfil: 'ARL8480', mann: 'C 31 1295', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: 'A0040943404', tecfil: 'ARS9840', mann: 'C 31 1295', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: 'A0000904251', tecfil: 'PSD980', mann: 'PU 1040 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: 'CU 3461', mahle: '-', wega: '-', fram: '-' }
     }
@@ -993,7 +993,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: 'A5411840225', tecfil: 'PEL108', mann: 'HU 12 103 x', mahle: 'OX174D', wega: 'WO-530', fram: 'CH9939' },
-      ar: { original: 'A0040943404', tecfil: 'ARL8480', mann: 'C 31 1295', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: 'A0040943404', tecfil: 'ARS9840', mann: 'C 31 1295', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: 'A0000904251', tecfil: 'PSD980', mann: 'PU 1040 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: 'CU 3461', mahle: '-', wega: '-', fram: '-' }
     }
@@ -1006,7 +1006,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: '1742032', tecfil: 'PEL108', mann: 'HU 1075 x', mahle: 'OX174D', wega: 'WO-530', fram: 'CH11430' },
-      ar: { original: '1523405', tecfil: 'ARL8480', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: '1523405', tecfil: 'ARS1183', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: '1740947', tecfil: 'PSD980', mann: 'WK 1060 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
@@ -1019,7 +1019,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: '1742032', tecfil: 'PEL108', mann: 'HU 1075 x', mahle: 'OX174D', wega: 'WO-530', fram: 'CH11430' },
-      ar: { original: '1523405', tecfil: 'ARL8480', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: '1523405', tecfil: 'ARS1183', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: '1740947', tecfil: 'PSD980', mann: 'WK 1060 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
@@ -1032,7 +1032,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: '1742032', tecfil: 'PEL108', mann: 'HU 1075 x', mahle: 'OX174D', wega: 'WO-530', fram: 'CH11430' },
-      ar: { original: '1523405', tecfil: 'ARL8480', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: '1523405', tecfil: 'ARS1183', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: '1740947', tecfil: 'PSD980', mann: 'WK 1060 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
@@ -1045,7 +1045,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: '1742032', tecfil: 'PEL108', mann: 'HU 1075 x', mahle: 'OX174D', wega: 'WO-530', fram: 'CH11430' },
-      ar: { original: '1523405', tecfil: 'ARL8480', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: '1523405', tecfil: 'ARS11841', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: '1740947', tecfil: 'PSD980', mann: 'WK 1060 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
@@ -1058,7 +1058,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: '1742032', tecfil: 'PEL108', mann: 'HU 1075 x', mahle: 'OX174D', wega: 'WO-530', fram: 'CH11430' },
-      ar: { original: '1523405', tecfil: 'ARL8480', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: '1523405', tecfil: 'ARS11841', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: '1740947', tecfil: 'PSD980', mann: 'WK 1060 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
@@ -1071,7 +1071,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: '1742032', tecfil: 'PEL108', mann: 'HU 1075 x', mahle: 'OX174D', wega: 'WO-530', fram: 'CH11430' },
-      ar: { original: '1523405', tecfil: 'ARL8480', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: '1523405', tecfil: 'ARS11841', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: '1740947', tecfil: 'PSD980', mann: 'WK 1060 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
@@ -1084,7 +1084,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: '1742032', tecfil: 'PEL108', mann: 'HU 1075 x', mahle: 'OX174D', wega: 'WO-530', fram: 'CH11430' },
-      ar: { original: '1523405', tecfil: 'ARL8480', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: '1523405', tecfil: 'ARS11841', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: '1740947', tecfil: 'PSD980', mann: 'WK 1060 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
@@ -1097,7 +1097,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W 950/26', mahle: 'OC505', wega: 'WO-210', fram: 'PH8A' },
-      ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C 17 308', mahle: 'LX1054', wega: 'FAP-4001', fram: 'CA8558' },
+      ar: { original: '2T0129620', tecfil: 'ARS5673', mann: 'C 17 308', mahle: 'LX1054', wega: 'FAP-4001', fram: 'CA8558' },
       combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK 950/21', mahle: 'KC202', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
@@ -1110,7 +1110,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W 950/26', mahle: 'OC505', wega: 'WO-210', fram: 'PH8A' },
-      ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C 17 308', mahle: 'LX1054', wega: 'FAP-4001', fram: 'CA8558' },
+      ar: { original: '2T0129620', tecfil: 'ARS5673', mann: 'C 17 308', mahle: 'LX1054', wega: 'FAP-4001', fram: 'CA8558' },
       combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK 950/21', mahle: 'KC202', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
@@ -1123,7 +1123,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W 950/26', mahle: 'OC505', wega: 'WO-210', fram: 'PH8A' },
-      ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C 17 308', mahle: 'LX1054', wega: 'FAP-4001', fram: 'CA8558' },
+      ar: { original: '2T0129620', tecfil: 'ARS5673', mann: 'C 17 308', mahle: 'LX1054', wega: 'FAP-4001', fram: 'CA8558' },
       combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK 950/21', mahle: 'KC202', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
@@ -1266,7 +1266,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: '2V0115561', tecfil: 'PEL108', mann: 'HU 934/2 x', mahle: 'OX174D', wega: 'WO-530', fram: 'CH9939' },
-      ar: { original: '2V0129620', tecfil: 'ARL8480', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: '2V0129620', tecfil: 'ARS5673', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: '2V0201511', tecfil: 'PSD980', mann: 'PU 936/1 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
@@ -1344,7 +1344,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: '21707132', tecfil: 'PEL108', mann: 'HU 1075 x', mahle: 'OX174D', wega: 'WO-530', fram: 'CH11430' },
-      ar: { original: '21715815', tecfil: 'ARL8480', mann: 'C 31 1500', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: '21715815', tecfil: 'ARS5574', mann: 'C 31 1500', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: '20998367', tecfil: 'PSD980', mann: 'WK 1060 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: 'CU 27 010', mahle: '-', wega: '-', fram: '-' }
     }
@@ -1357,7 +1357,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: '21707132', tecfil: 'PEL108', mann: 'HU 1075 x', mahle: 'OX174D', wega: 'WO-530', fram: 'CH11430' },
-      ar: { original: '21715815', tecfil: 'ARL8480', mann: 'C 31 1500', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: '21715815', tecfil: 'ARS5574', mann: 'C 31 1500', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: '20998367', tecfil: 'PSD980', mann: 'WK 1060 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: 'CU 27 010', mahle: '-', wega: '-', fram: '-' }
     }
@@ -1370,7 +1370,7 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: '21707132', tecfil: 'PEL108', mann: 'HU 1075 x', mahle: 'OX174D', wega: 'WO-530', fram: 'CH11430' },
-      ar: { original: '21715815', tecfil: 'ARL8480', mann: 'C 31 1500', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: '21715815', tecfil: 'ARS5574', mann: 'C 31 1500', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: '20998367', tecfil: 'PSD980', mann: 'WK 1060 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: 'CU 27 010', mahle: '-', wega: '-', fram: '-' }
     }
@@ -1383,13 +1383,13 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: '21707132', tecfil: 'PEL108', mann: 'HU 1075 x', mahle: 'OX174D', wega: 'WO-530', fram: 'CH11430' },
-      ar: { original: '21715815', tecfil: 'ARL8480', mann: 'C 31 1500', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      ar: { original: '21715815', tecfil: 'ARS5574', mann: 'C 31 1500', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: '20998367', tecfil: 'PSD980', mann: 'WK 1060 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: 'CU 27 010', mahle: '-', wega: '-', fram: '-' }
     }
   },
 
-  // ==================== ÔNIBUS E VANS (LINHA LEVE / PESADA) ====================
+  // ==================== ÔNIBUS E VANS ====================
   'Fiat Ducato 2.3 Multijet': {
     sistemas: [
       { sistema: 'Motor (FPT F1A)', especificacao: 'SAE 5W-30', norma: 'API SN', capacidade: '4,9 L', intervalo: '20.000 km' },
@@ -1411,8 +1411,8 @@ const especificacoesOleos = {
     ],
     filtros: {
       oleo: { original: '98401344', tecfil: 'PSL55', mann: 'W 940/25', mahle: 'OC205', wega: 'WO-200', fram: 'PH2870' },
-      ar: { original: '1318255080', tecfil: 'ARL4125', mann: 'C 28 132', mahle: 'LX1751', wega: 'FAP-2830', fram: 'CA9926' },
-      combustivel: { original: '98401345', tecfil: 'PSD470', mann: 'WK 842/2', mahle: 'KC83', wega: 'FCI-1620', fram: 'P4156' },
+      ar: { original: '1318255080', tecfil: 'ARL8480', mann: 'C 28 132', mahle: 'LX1751', wega: 'FAP-2830', fram: 'CA9926' },
+      combustivel: { original: '98401345', tecfil: 'PSD980', mann: 'WK 842/2', mahle: 'KC83', wega: 'FCI-1620', fram: 'P4156' },
       cabine: { original: '-', tecfil: '-', mann: 'CU 4442', mahle: '-', wega: '-', fram: '-' }
     }
   },
