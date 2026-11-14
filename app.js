@@ -164,7 +164,7 @@ function criarTabelaFiltros(filtros) {
         <td>${getVal('fram')}</td>
         <td>${getVal('bosch')}</td>
         <td>${getVal('vox')}</td>
-        <td>${getVal('autmix') || getVal('mwm')}</td>
+        <td>${getVal('authomix')}</td>
       </tr>
     `;
   };
@@ -183,7 +183,7 @@ function criarTabelaFiltros(filtros) {
             <th>Fram</th>
             <th>Bosch</th>
             <th>Vox</th>
-            <th>Automix/MWM</th>
+            <th>authomix</th>
           </tr>
         </thead>
         <tbody>
