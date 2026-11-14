@@ -1,35 +1,73 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <!-- O seu <head> atual com seus links de CSS, Bootstrap, FontAwesome, etc. -->
-    <meta charset="UTF-8">
-    <title>Manual Técnico - Frota</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guia Técnico de Lubrificantes & Filtros</title>
+
+  <!-- Ícones (Font Awesome) usados no app.js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Estilos base (fallback). O seu style.css, carregado depois, sobrescreve o que for igual. -->
+  <style>
+    :root {
+      --bg: #f1f5f9; --card: #ffffff; --texto: #0f172a; --suave: #64748b;
+      --borda: #e2e8f0; --primaria: #1d4ed8; --destaque: #b45309;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--texto); }
+    header { background: #0f172a; color: #fff; padding: 20px 16px; }
+    header h1 { margin: 0; font-size: 1.3rem; }
+    header p { margin: 4px 0 0; color: #cbd5e1; font-size: .9rem; }
+    main { max-width: 1000px; margin: 0 auto; padding: 16px; }
+    .seletor { background: var(--card); border: 1px solid var(--borda); border-radius: 12px; padding: 14px; margin-bottom: 20px; }
+    .seletor label { display: block; font-weight: 600; margin-bottom: 8px; font-size: .9rem; }
+    .seletor select { width: 100%; padding: 12px; font-size: 1rem; border: 1px solid var(--borda); border-radius: 8px; background: #fff; color: var(--texto); }
+    .titulo-modelo { margin: 0 0 12px; font-size: 1.5rem; }
+    .secao-titulo { margin: 24px 0 10px; font-size: 1.05rem; color: var(--primaria); }
+    .sis { background: var(--card); border: 1px solid var(--borda); border-left: 4px solid var(--primaria); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; }
+    .sis-titulo { font-weight: 700; margin-bottom: 8px; }
+    .sis-dados { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin: 0; }
+    .sis-dados dt { font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; color: var(--suave); }
+    .sis-dados dd { margin: 2px 0 0; font-size: .95rem; }
+    .sis-dados dd.destaque { color: var(--destaque); font-weight: 600; }
+    .filtros-box { background: var(--card); border: 1px solid var(--borda); border-radius: 10px; padding: 12px; }
+    .tabela-container { overflow-x: auto; }
+    .tabela-filtros { width: 100%; border-collapse: collapse; font-size: .85rem; white-space: nowrap; }
+    .tabela-filtros th, .tabela-filtros td { padding: 8px 10px; border-bottom: 1px solid var(--borda); text-align: left; }
+    .tabela-filtros th { background: #f8fafc; font-size: .75rem; text-transform: uppercase; color: var(--suave); }
+    .filtro-tag { display: inline-block; padding: 2px 8px; border: 1px solid #cbd5e1; border-radius: 6px; background: #f1f5f9; font-family: ui-monospace, monospace; }
+    .erro { color: #b91c1c; }
+    .vazio { text-align: center; color: var(--suave); padding: 40px 10px; }
+    footer { text-align: center; color: var(--suave); font-size: .8rem; padding: 20px; }
+  </style>
+
+  <!-- Seu CSS (se existir na mesma pasta) -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Seu menu e layout existente -->
-    <div id="wrapper">
-        <aside>
-            <!-- Seu menu lateral ou de categorias -->
-        </aside>
+  <header>
+    <h1><i class="fas fa-oil-can"></i> Guia Técnico de Lubrificantes & Filtros</h1>
+    <p>Frota & Oficina — fluidos, capacidades, intervalos e equivalência de filtros</p>
+  </header>
 
-        <section id="content">
-            <!-- Seu campo de busca ou select atual -->
-            <div class="busca-container">
-                <select id="select-veiculo">
-                    <option value="">Selecione o veículo...</option>
-                </select>
-            </div>
+  <main>
+    <section class="seletor">
+      <label for="select-veiculo">Veículo</label>
+      <select id="select-veiculo">
+        <option value="">Carregando veículos...</option>
+      </select>
+    </section>
 
-            <!-- ONDE O JAVASCRIPT VAI INJETAR OS DADOS DO VEÍCULO, FILTROS E NOTAS -->
-            <div id="resultado">
-                <!-- Conteúdo dinâmico entra aqui automaticamente -->
-            </div>
-        </section>
-    </div>
+    <section id="resultado">
+      <p class="vazio">Selecione um veículo acima para ver a ficha técnica.</p>
+    </section>
+  </main>
 
-    <!-- SCRIPT PRINCIPAL EXIGIDO PELA MODULARIZAÇÃO -->
-    <script type="module" src="js/app.js"></script>
+  <footer>Confirme sempre com o manual do fabricante antes de executar a manutenção.</footer>
+
+  <!-- app.js importa ./dados/index.js, então precisa ser carregado como módulo -->
+  <script type="module" src="app.js"></script>
 </body>
 </html>
