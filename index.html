@@ -9,31 +9,63 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- MENU SUPERIOR FIXO -->
+  <header class="top-nav">
+    <div class="top-nav-content">
+      <a href="#" class="logo" onclick="irParaHome(event)">
+        <i class="fa-solid fa-car-side"></i> Manual Automotivo
+      </a>
+      <div class="nav-links">
+        <a onclick="abrirCategoria('Veículos Passeio', 'veiculos-passeio', 'fa-car', '#4f46e5')">Passeio</a>
+        <a onclick="abrirCategoria('Veículos Utilitários', 'veiculos-utilitarios', 'fa-truck-pickup', '#0284c7')">Utilitários</a>
+        <a onclick="abrirCategoria('Caminhões', 'caminhoes', 'fa-truck', '#065f46')">Caminhões</a>
+        <a onclick="abrirCategoria('Ônibus e Vans', 'onibus-e-vans', 'fa-bus', '#1e1b4b')">Vans/Ônibus</a>
+      </div>
+      <!-- BARRA DE PESQUISA -->
+      <div class="search-box">
+        <i class="fa-solid fa-search"></i>
+        <input type="text" id="input-busca" placeholder="Buscar veículo (ex: Gol, Hilux...)" onkeyup="buscarVeiculo()">
+      </div>
+    </div>
+  </header>
+
   <div class="w">
 
+    <!-- TELA INICIAL -->
     <section id="tela-principal" class="tela ativa">
       <div class="home-header">
-        <h1>Tabela de Lubrificantes</h1>
-        <p>Selecione uma categoria para consultar lubrificantes e filtros.</p>
+        <h1>Selecione uma Categoria</h1>
+        <p>Consulte lubrificantes, capacidades e referências de filtros.</p>
       </div>
-      <div id="grid-home" class="g"></div>
+      <div id="grid-home" class="g">
+        <!-- O JS vai preencher aqui -->
+      </div>
     </section>
 
+    <!-- TELA DE BUSCA -->
+    <section id="tela-busca" class="tela">
+      <div class="topo-tela"><div class="breadcrumb"><span class="crumb atual" onclick="mudarTela('principal')">🏠 Início</span><span class="sep">›</span><span class="crumb atual">Resultados da Busca</span></div></div>
+      <h2 class="titulo-tela"><i class="fa-solid fa-search"></i> Resultados</h2>
+      <div id="grid-busca" class="g"></div>
+    </section>
+
+    <!-- TELA DE LISTA (MARCAS E MODELOS) -->
     <section id="tela-lista" class="tela">
-      <div class="topo-tela"><div class="breadcrumb"></div></div>
+      <div class="topo-tela"><div class="breadcrumb" id="breadcrumb-lista"></div></div>
       <h2 id="titulo-lista" class="titulo-tela"></h2>
       <div id="grid-lista" class="g"></div>
     </section>
 
+    <!-- TELA DE CONTEÚDO (FICHA DO CARRO) -->
     <section id="tela-conteudo" class="tela">
-      <div class="topo-tela"><div class="breadcrumb"></div></div>
+      <div class="topo-tela"><div class="breadcrumb" id="breadcrumb-conteudo"></div></div>
       <h1 id="titulo-conteudo" class="titulo-modelo"></h1>
       <div id="conteudo-dinamico"></div>
     </section>
 
   </div>
 
-  <!-- dados.js = veículos, fluidos e filtros (é o arquivo que você edita para cadastrar). app.js = lógica da página. -->
   <script src="dados.js"></script>
   <script src="app.js"></script>
 </body>
