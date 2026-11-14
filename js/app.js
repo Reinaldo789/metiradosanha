@@ -1,33 +1,23 @@
 import { bancoDeDadosGlobal } from './dados/index.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const selectVeiculo = document.getElementById('select-veiculo'); // Caso tenha um <select> no HTML
-  const inputBusca = document.getElementById('input-busca');       // Caso tenha um campo de texto/busca
-  const containerResultado = document.getElementById('resultado'); // Onde os dados serão injetados
-
-  // 1. Inicializar preenchendo opções se houver um select
+  const containerResultado = document.getElementById('resultado');
+  
+  // Exemplo: Se você tiver um seletor de veículos na sua página
+  const selectVeiculo = document.getElementById('select-veiculo');
   if (selectVeiculo) {
     preencherSelectVeiculos(selectVeiculo);
     selectVeiculo.addEventListener('change', (e) => {
-      exibirDadosVeiculo(e.target.value);
-    });
-  }
-
-  // Ou busca por digitação
-  if (inputBusca) {
-    inputBusca.addEventListener('input', (e) => {
-      const termo = e.target.value.trim();
-      if (termo.length > 2) {
-        // Exemplo simples de busca por aproximação
-        const encontrado = Object.keys(bancoDeDadosGlobal).find(v => v.toLowerCase().includes(termo.toLowerCase()));
-        if (encontrado) exibirDadosVeiculo(encontrado);
+      if (e.target.value) {
+        exibirDadosVeiculo(e.target.value);
+      } else {
+        containerResultado.innerHTML = '';
       }
     });
   }
 });
 
 function preencherSelectVeiculos(selectElement) {
-  // Limpa e adiciona opção padrão
   selectElement.innerHTML = '<option value="">Selecione um veículo...</option>';
   
   Object.keys(bancoDeDadosGlobal).forEach(nomeVeiculo => {
@@ -38,72 +28,80 @@ function preencherSelectVeiculos(selectElement) {
   });
 }
 
-function exibirDadosVeiculo(nomeVeiculo) {
+export function exibirDadosVeiculo(nomeVeiculo) {
   const container = document.getElementById('resultado');
   const dados = bancoDeDadosGlobal[nomeVeiculo];
 
   if (!dados) {
-    container.innerHTML = '<p class="erro">Veículo não encontrado na base de dados.</p>';
+    container.innerHTML = '<p class="erro">Veículo não encontrado.</p>';
     return;
   }
 
-  // 2. Montar a tabela de Sistemas (Motor, Câmbio, Arrefecimento, etc.)
-  let htmlSistemas = `
-    <h2>${nomeVeiculo}</h2>
-    <h3>Fluidos e Sistemas</h3>
-    <table class="tabela-tecnica">
-      <thead>
-        <tr>
-          <th>Sistema</th>
-          <th>Especificação / Norma</th>
-          <th>Capacidade</th>
-          <th>Intervalo / Troca</th>
-        </tr>
-      </thead>
-      <tbody>
-  `;
+  // 1. Título do Modelo (Seguindo o padrão .titulo-modelo do style.css)
+  let html = `<h2 class="titulo-modelo">${nomeVeiculo}</h2>`;
+
+  // 2. Seção de Sistemas e Fluidos (Usando os cartões .sis do seu CSS)
+  html += `<h3 class="secao-titulo"><i class="fas fa-oil-can"></i> Fluidos e Sistemas</h3>`;
 
   dados.sistemas.forEach(sis => {
-    htmlSistemas += `
-      <tr>
-        <td><strong>${sis.sistema}</strong></td>
-        <td>${sis.especificacao}</td>
-        <td>${sis.capacidade}</td>
-        <td>${sis.intervalo}</td>
-      </tr>
+    html += `
+      <div class="sis">
+        <div class="sis-titulo">
+          <i class="fas fa-cog"></i> <span>${sis.sistema}</span>
+        </div>
+        <dl class="sis-dados">
+          <div>
+            <dt>Especificação / Norma</dt>
+            <dd class="destaque">${sis.especificacao}</dd>
+          </div>
+          <div>
+            <dt>Capacidade</dt>
+            <dd>${sis.capacidade}</dd>
+          </div>
+          <div>
+            <dt>Intervalo / Troca</dt>
+            <dd>${sis.intervalo}</dd>
+          </div>
+        </dl>
+      </div>
     `;
   });
 
-  htmlSistemas += `</tbody></table>`;
-
-  // 3. Montar a tabela de Filtros (Cruzamento completo com Vox, Tecfil, Mann, etc.)
-  let htmlFiltros = `
-    <h3>Tabela de Equivalência de Filtros</h3>
-    <table class="tabela-filtros">
-      <thead>
-        <tr>
-          <th>Componente</th>
-          <th>Original / OE</th>
-          <th>Vox</th>
-          <th>Tecfil</th>
-          <th>Authomix</th>
-          <th>Mann</th>
-          <th>Mahle</th>
-          <th>Wega</th>
-          <th>Fram</th>
-        </tr>
-      </thead>
-      <tbody>
+  // 3. Seção de Filtros (Com a classe .filtros-box e .tabela-filtros do seu CSS)
+  html += `
+    <h3 class="secao-titulo"><i class="fas fa-filter"></i> Tabela de Equivalência de Filtros</h3>
+    <div class="filtros-box">
+      <div class="tabela-container">
+        <table class="tabela-filtros">
+          <thead>
+            <tr>
+              <th>Componente</th>
+              <th>Original / OE</th>
+              <th>Vox</th>
+              <th>Tecfil</th>
+              <th>Authomix</th>
+              <th>Mann</th>
+              <th>Mahle</th>
+              <th>Wega</th>
+              <th>Fram</th>
+            </tr>
+          </thead>
+          <tbody>
   `;
 
-  const labelsFiltros = { oleo: 'Óleo', ar: 'Ar do Motor', combustivel: 'Combustível', cabine: 'Cabine (A/C)' };
+  const labelsFiltros = { 
+    oleo: 'Óleo do Motor', 
+    ar: 'Ar do Motor', 
+    combustivel: 'Combustível', 
+    cabine: 'Cabine (A/C)' 
+  };
 
   for (const [tipo, f] of Object.entries(dados.filtros)) {
-    htmlFiltros += `
+    html += `
       <tr>
         <td><strong>${labelsFiltros[tipo] || tipo}</strong></td>
-        <td>${f.original || '-'}</td>
-        <td class="destaque-vox">${f.vox || '-'}</td>
+        <td><span class="filtro-tag">${f.original || '-'}</span></td>
+        <td><span class="filtro-tag" style="background:#e0e7ff; border-color:#818cf8;">${f.vox || '-'}</span></td>
         <td>${f.tecfil || '-'}</td>
         <td>${f.authomix || '-'}</td>
         <td>${f.mann || '-'}</td>
@@ -114,22 +112,25 @@ function exibirDadosVeiculo(nomeVeiculo) {
     `;
   }
 
-  htmlFiltros += `</tbody></table>`;
+  html += `
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
 
-  // 4. Montar as Notas Técnicas / Condições de Uso Numeradas (Estilo Rodapé)
-  let htmlNotas = '';
+  // 4. Notas Técnicas e Condições de Uso (Estilizado com as classes de nota)
   if (dados.notas && Object.keys(dados.notas).length > 0) {
-    htmlNotas = `
-      <div class="bloco-notas-tecnicas">
-        <h4>Notas Técnicas e Condições de Uso:</h4>
-        <ul>
+    html += `
+      <h3 class="secao-titulo"><i class="fas fa-info-circle"></i> Notas Técnicas e Condições de Uso</h3>
+      <div class="filtros-box" style="background:#f8fafc;">
+        <ul style="margin:0; padding-left:20px; line-height:1.6; font-size:14px;">
     `;
     for (const [num, texto] of Object.entries(dados.notas)) {
-      htmlNotas += `<li><strong>[${num}]</strong> ${texto}</li>`;
+      html += `<li style="margin-bottom:8px;"><strong>[${num}]</strong> ${texto}</li>`;
     }
-    htmlNotas += `</ul></div>`;
+    html += `</ul></div>`;
   }
 
-  // Injeta tudo na página
-  container.innerHTML = htmlSistemas + htmlFiltros + htmlNotas;
+  container.innerHTML = html;
 }
