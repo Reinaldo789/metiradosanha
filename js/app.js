@@ -1,33 +1,130 @@
 import { bancoDeDadosGlobal } from './dados/index.js';
+import { veiculosPasseio } from './dados/passeio.js';
+import { veiculosUtilitarios } from './dados/utilitarios.js';
+import { veiculosCaminhoes } from './dados/caminhoes.js';
+import { veiculosVans } from './dados/vans.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-  const containerResultado = document.getElementById('resultado');
-  
-  // Exemplo: Se você tiver um seletor de veículos na sua página
-  const selectVeiculo = document.getElementById('select-veiculo');
-  if (selectVeiculo) {
-    preencherSelectVeiculos(selectVeiculo);
-    selectVeiculo.addEventListener('change', (e) => {
-      if (e.target.value) {
-        exibirDadosVeiculo(e.target.value);
-      } else {
-        containerResultado.innerHTML = '';
-      }
-    });
-  }
+/* ---------- Categorias ---------- */
+const CATEGORIAS = [
+  { id: 'todos', nome: 'Todos', dados: bancoDeDadosGlobal },
+  { id: 'passeio', nome: 'Passeio', dados: veiculosPasseio },
+  { id: 'utilitarios', nome: 'Utilitários', dados: veiculosUtilitarios },
+  { id: 'caminhoes', nome: 'Caminhões', dados: veiculosCaminhoes },
+  { id: 'vans', nome: 'Vans', dados: veiculosVans }
+];
+
+// nome do veículo -> nome da categoria (para mostrar embaixo do botão)
+const categoriaDoVeiculo = {};
+CATEGORIAS.slice(1).forEach(cat => {
+  Object.keys(cat.dados).forEach(nome => { categoriaDoVeiculo[nome] = cat.nome; });
 });
 
-function preencherSelectVeiculos(selectElement) {
-  selectElement.innerHTML = '<option value="">Selecione um veículo...</option>';
-  
-  Object.keys(bancoDeDadosGlobal).forEach(nomeVeiculo => {
-    const option = document.createElement('option');
-    option.value = nomeVeiculo;
-    option.textContent = nomeVeiculo;
-    selectElement.appendChild(option);
+const estado = { busca: '', categoria: 'todos', selecionado: null };
+
+/* ---------- Utilidades ---------- */
+const normalizar = (txt) =>
+  txt.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+
+function veiculosFiltrados() {
+  const cat = CATEGORIAS.find(c => c.id === estado.categoria);
+  const termos = normalizar(estado.busca).split(/\s+/).filter(Boolean);
+  return Object.keys(cat.dados).filter(nome => {
+    const alvo = normalizar(nome);
+    return termos.every(t => alvo.includes(t));
   });
 }
 
+/* ---------- Interface de busca ---------- */
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('busca-veiculo');
+  const limpar = document.getElementById('limpar-busca');
+
+  montarCategorias();
+  renderizarLista();
+
+  input.addEventListener('input', () => {
+    estado.busca = input.value;
+    limpar.hidden = !input.value;
+    renderizarLista();
+  });
+
+  limpar.addEventListener('click', () => {
+    input.value = '';
+    estado.busca = '';
+    limpar.hidden = true;
+    renderizarLista();
+    input.focus();
+  });
+
+  // Enter abre o primeiro resultado
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const lista = veiculosFiltrados();
+      if (lista.length) selecionarVeiculo(lista[0]);
+    }
+  });
+
+  // Link direto: index.html#Toyota%20Hilux%203.0
+  const hash = decodeURIComponent(location.hash.slice(1));
+  if (hash && bancoDeDadosGlobal[hash]) selecionarVeiculo(hash, false);
+});
+
+function montarCategorias() {
+  const box = document.getElementById('categorias');
+  box.innerHTML = '';
+  CATEGORIAS.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'chip' + (cat.id === estado.categoria ? ' ativo' : '');
+    btn.innerHTML = `${cat.nome}<small>${Object.keys(cat.dados).length}</small>`;
+    btn.addEventListener('click', () => {
+      estado.categoria = cat.id;
+      montarCategorias();
+      renderizarLista();
+    });
+    box.appendChild(btn);
+  });
+}
+
+function renderizarLista() {
+  const lista = document.getElementById('lista-veiculos');
+  const contador = document.getElementById('contador');
+  const nomes = veiculosFiltrados();
+
+  contador.textContent = nomes.length === 1
+    ? '1 veículo encontrado'
+    : `${nomes.length} veículos encontrados`;
+
+  lista.innerHTML = '';
+
+  if (!nomes.length) {
+    lista.innerHTML = '<p class="sem-resultado">Nenhum veículo encontrado. Tente outro termo ou outra categoria.</p>';
+    return;
+  }
+
+  nomes.forEach(nome => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'veiculo-btn' + (nome === estado.selecionado ? ' ativo' : '');
+    const small = document.createElement('small');
+    small.textContent = categoriaDoVeiculo[nome] || '';
+    btn.append(document.createTextNode(nome), small);
+    btn.addEventListener('click', () => selecionarVeiculo(nome));
+    lista.appendChild(btn);
+  });
+}
+
+function selecionarVeiculo(nome, rolar = true) {
+  estado.selecionado = nome;
+  history.replaceState(null, '', '#' + encodeURIComponent(nome));
+  renderizarLista();
+  exibirDadosVeiculo(nome);
+  if (rolar) {
+    document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+/* ---------- Ficha do veículo ---------- */
 export function exibirDadosVeiculo(nomeVeiculo) {
   const container = document.getElementById('resultado');
   const dados = bancoDeDadosGlobal[nomeVeiculo];
@@ -37,10 +134,8 @@ export function exibirDadosVeiculo(nomeVeiculo) {
     return;
   }
 
-  // 1. Título do Modelo (Seguindo o padrão .titulo-modelo do style.css)
   let html = `<h2 class="titulo-modelo">${nomeVeiculo}</h2>`;
 
-  // 2. Seção de Sistemas e Fluidos (Usando os cartões .sis do seu CSS)
   html += `<h3 class="secao-titulo"><i class="fas fa-oil-can"></i> Fluidos e Sistemas</h3>`;
 
   dados.sistemas.forEach(sis => {
@@ -67,7 +162,6 @@ export function exibirDadosVeiculo(nomeVeiculo) {
     `;
   });
 
-  // 3. Seção de Filtros (Com a classe .filtros-box e .tabela-filtros do seu CSS)
   html += `
     <h3 class="secao-titulo"><i class="fas fa-filter"></i> Tabela de Equivalência de Filtros</h3>
     <div class="filtros-box">
@@ -89,25 +183,27 @@ export function exibirDadosVeiculo(nomeVeiculo) {
           <tbody>
   `;
 
-  const labelsFiltros = { 
-    oleo: 'Óleo do Motor', 
-    ar: 'Ar do Motor', 
-    combustivel: 'Combustível', 
-    cabine: 'Cabine (A/C)' 
+  const labelsFiltros = {
+    oleo: 'Óleo do Motor',
+    ar: 'Ar do Motor',
+    combustivel: 'Combustível',
+    cabine: 'Cabine (A/C)'
   };
+
+  const tag = (v) => `<td><span class="filtro-tag">${v || '-'}</span></td>`;
 
   for (const [tipo, f] of Object.entries(dados.filtros)) {
     html += `
       <tr>
         <td><strong>${labelsFiltros[tipo] || tipo}</strong></td>
-        <td><span class="filtro-tag">${f.original || '-'}</span></td>
-        <td><span class="filtro-tag" style="background:#e0e7ff; border-color:#818cf8;">${f.vox || '-'}</span></td>
-        <td>${f.tecfil || '-'}</td>
-        <td>${f.authomix || '-'}</td>
-        <td>${f.mann || '-'}</td>
-        <td>${f.mahle || '-'}</td>
-        <td>${f.wega || '-'}</td>
-        <td>${f.fram || '-'}</td>
+        ${tag(f.original)}
+        ${tag(f.vox)}
+        ${tag(f.tecfil)}
+        ${tag(f.authomix)}
+        ${tag(f.mann)}
+        ${tag(f.mahle)}
+        ${tag(f.wega)}
+        ${tag(f.fram)}
       </tr>
     `;
   }
@@ -119,7 +215,6 @@ export function exibirDadosVeiculo(nomeVeiculo) {
     </div>
   `;
 
-  // 4. Notas Técnicas e Condições de Uso (Estilizado com as classes de nota)
   if (dados.notas && Object.keys(dados.notas).length > 0) {
     html += `
       <h3 class="secao-titulo"><i class="fas fa-info-circle"></i> Notas Técnicas e Condições de Uso</h3>
