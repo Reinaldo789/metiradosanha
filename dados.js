@@ -1,6 +1,6 @@
 /* ==========================================================
    DADOS DO MANUAL AUTOMOTIVO — dados.js
-   Versão: Atualizada com Catálogo Tecfil e MANN (Leve e Pesada)
+   Versão: Revisão técnica conservadora — 12 aplicações parciais e 91 pendentes
    ========================================================== */
 
 const bancoDeDados = {
@@ -263,9 +263,7 @@ const especificacoesOleos = {
   'VW Kombi 1.4': {
     sistemas: [
       { sistema: 'Motor', especificacao: 'SAE 15W-40 ou 5W-40', norma: 'VW 502 00', capacidade: '3,3 L', intervalo: '10.000 km' },
-      { sistema: 'Câmbio Manual', especificacao: 'Transaxle', norma: 'API GL-4', capacidade: '3,0 L', intervalo: '40.000 km' },
-      { sistema: 'Direção Hidráulica', especificacao: 'VW G004000M2', norma: 'VW TL 52146', capacidade: '1,0 L', intervalo: 'Inspeção 10.000 km' },
-      { sistema: 'Arrefecimento', especificacao: 'Coolant OAT 50/50', norma: 'Aditivo orgânico', capacidade: '5,5 L', intervalo: '60.000 km' }
+      { sistema: 'Câmbio Manual', especificacao: 'Transaxle', norma: 'API GL-4 (especificação exata pendente)', capacidade: '3,0 L (confirmar código de câmbio)', intervalo: 'Pendente de confirmação' }
     ],
     filtros: {
       oleo: { original: '030115561AN', tecfil: 'PSL55', mann: 'W 712/22', mahle: 'OC250', wega: 'WO-100', fram: 'PH5949' },
@@ -306,7 +304,7 @@ const especificacoesOleos = {
   // ==================== VEÍCULOS UTILITÁRIOS ====================
   'Agrale Marruá - AM21': {
     sistemas: [
-      { sistema: 'Motor (MWM Sprint)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '5,5 L', intervalo: '10.000 km' },
+      { sistema: 'Motor (MWM 4.07 TCE Euro III)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '8,5 L', intervalo: '10.000 km' },
       { sistema: 'Câmbio Manual', especificacao: 'SAE 50', norma: 'API GL-4', capacidade: '3,2 L', intervalo: '40.000 km' },
       { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '2,5 L', intervalo: '40.000 km' },
       { sistema: 'Direção Hidráulica', especificacao: 'ATF Dexron II', norma: 'Dexron II', capacidade: '1,0 L', intervalo: 'Inspeção 10.000 km' }
@@ -320,7 +318,7 @@ const especificacoesOleos = {
   },
   'Agrale Marruá - AM20': {
     sistemas: [
-      { sistema: 'Motor', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '5,5 L', intervalo: '10.000 km' },
+      { sistema: 'Motor (MWM 4.07 TCA Euro II)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '8,5 L', intervalo: '10.000 km' },
       { sistema: 'Câmbio Manual', especificacao: 'SAE 50', norma: 'API GL-4', capacidade: '3,2 L', intervalo: '40.000 km' },
       { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '2,5 L', intervalo: '40.000 km' },
       { sistema: 'Direção Hidráulica', especificacao: 'ATF Dexron II', norma: 'Dexron II', capacidade: '1,0 L', intervalo: 'Inspeção 10.000 km' }
@@ -376,7 +374,7 @@ const especificacoesOleos = {
   },
   'Ford Ranger Power Stroke': {
     sistemas: [
-      { sistema: 'Motor (International)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '8,2 L', intervalo: '10.000 km' },
+      { sistema: 'Motor 3.0 Diesel Power Stroke', especificacao: 'SAE 15W-40 (acima de -10 °C); SAE 5W-30 (abaixo de -10 °C)', norma: 'API CH-4/CI-4; Ford WSS-M2C171-C ou WSS-M2C171-D (15W-40); Ford WSS-M2C913-B (5W-30)', capacidade: '8,2 L (quantidade a confirmar pela versão; manual consultado não informa este volume)', intervalo: '6 meses ou 10.000 km, o que ocorrer primeiro (manual 2011)' },
       { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-90', norma: 'API GL-4', capacidade: '2,8 L', intervalo: '40.000 km' },
       { sistema: 'Diferencial', especificacao: 'SAE 80W-90', norma: 'API GL-5', capacidade: '3,4 L', intervalo: '40.000 km' },
       { sistema: 'Direção Hidráulica', especificacao: 'ATF Mercon', norma: 'Mercon', capacidade: '1,0 L', intervalo: 'Inspeção 10.000 km' }
@@ -488,7 +486,7 @@ const especificacoesOleos = {
   },
   'Nissan Frontier 2.3': {
     sistemas: [
-      { sistema: 'Motor (YS23)', especificacao: 'SAE 5W-30', norma: 'API SN', capacidade: '7,4 L', intervalo: '10.000 km' },
+      { sistema: 'Motor (YS23DDT / YS23DDTT)', especificacao: 'SAE 5W-30', norma: 'ACEA C3', capacidade: '6,7 L (YS23DDT) / 6,3 L (YS23DDTT), com troca do filtro', intervalo: 'Confirmar intervalo pelo plano de manutenção do ano/modelo' },
       { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-80', norma: 'API GL-4', capacidade: '2,2 L', intervalo: '40.000 km' },
       { sistema: 'Diferencial', especificacao: 'SAE 75W-90', norma: 'API GL-5', capacidade: '2,1 L', intervalo: '40.000 km' },
       { sistema: 'Direção Hidráulica', especificacao: 'ATF Dexron III', norma: 'Dexron III', capacidade: '1,0 L', intervalo: 'Inspeção 10.000 km' }
@@ -667,9 +665,9 @@ const especificacoesOleos = {
       { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '8,0 L', intervalo: '40.000 km' }
     ],
     filtros: {
-      oleo: { original: 'BG1X6714AA', tecfil: 'PEL106', mann: 'W 950/26', mahle: 'OC505', wega: 'WO-210', fram: 'PH8A' },
-      ar: { original: 'BG1X9601BA', tecfil: 'ARL8480', mann: 'C 17 308', mahle: 'LX1054', wega: 'FAP-4001', fram: 'CA8558' },
-      combustivel: { original: 'BG1X9155AA', tecfil: 'PSD980', mann: 'WK 954/2 x', mahle: 'KC202', wega: 'FCI-1620', fram: 'PS10038' },
+      oleo: { original: 'BG1X6714AA', tecfil: 'PEL106', mann: 'PENDENTE — catálogo consultado é para 3.9 ISBE; confirmar 4.5 ISB', mahle: 'OC505', wega: 'WO-210', fram: 'PH8A' },
+      ar: { original: 'BG1X9601BA', tecfil: 'ARL8480', mann: 'PENDENTE — catálogo consultado é para 3.9 ISBE; confirmar 4.5 ISB', mahle: 'LX1054', wega: 'FAP-4001', fram: 'CA8558' },
+      combustivel: { original: 'BG1X9155AA', tecfil: 'PSD980', mann: 'PENDENTE — catálogo consultado é para 3.9 ISBE; confirmar 4.5 ISB', mahle: 'KC202', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
   },
@@ -727,9 +725,10 @@ const especificacoesOleos = {
   },
   'Iveco Daily 30-130': {
     sistemas: [
-      { sistema: 'Motor (FPT F1C)', especificacao: 'SAE 10W-40', norma: 'API CI-4', capacidade: '6,5 L', intervalo: '20.000 km' },
-      { sistema: 'Câmbio Manual', especificacao: 'SAE 75W-80', norma: 'API GL-4', capacidade: '2,2 L', intervalo: '60.000 km' },
-      { sistema: 'Diferencial', especificacao: 'SAE 80W-90', norma: 'API GL-5', capacidade: '2,5 L', intervalo: '50.000 km' }
+      { sistema: 'Motor (FPT F1C, Daily 30-130 conforme manual IVECO Ed. 10/2021)', especificacao: 'SAE 5W-30', norma: 'API CF / ACEA C2', capacidade: '4,9 L com troca do filtro (4,3 L sem troca do filtro)', intervalo: '15.000 km ou 400 h, conforme manual consultado' },
+      { sistema: 'Câmbio manual ZF 6S480 VO (Daily 30-130)', especificacao: 'SAE 75W-80', norma: 'ZF TE-ML 01E / 02E', capacidade: '2,4 L', intervalo: 'Conferir plano de manutenção aplicável' },
+      { sistema: 'Diferencial traseiro (Daily 30-130)', especificacao: 'SAE 75W-90', norma: 'API GL-5 / MT-1', capacidade: '1,35 L', intervalo: 'Conferir plano de manutenção aplicável' },
+      { sistema: 'Direção hidráulica', especificacao: 'ATF Dexron II', norma: 'Dexron II', capacidade: '1,30 L', intervalo: 'Inspecionar nível e vazamentos' }
     ],
     filtros: {
       oleo: { original: '5801382496', tecfil: 'PEL106', mann: 'WP 1144', mahle: 'OC608', wega: 'WOE-610', fram: 'CH9642' },
@@ -766,14 +765,14 @@ const especificacoesOleos = {
   },
   'Iveco Tector': {
     sistemas: [
-      { sistema: 'Motor (FPT NEF 6)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '13,0 L', intervalo: '30.000 km' },
+      { sistema: 'Motor (FPT NEF 6; referência específica Tector 240E28)', especificacao: 'SAE 15W-40 (confirmar aprovação pelo ano/emissões)', norma: 'API CI-4 (pendente de confirmação pelo manual da versão)', capacidade: '18 L sem filtro no Tector 240E28; volume com filtro e outras versões pendentes', intervalo: 'Confirmar plano de manutenção do ano/modelo' },
       { sistema: 'Câmbio ZF', especificacao: 'SAE 75W-90', norma: 'API GL-4', capacidade: '7,5 L', intervalo: '60.000 km' },
       { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '12,0 L', intervalo: '60.000 km' }
     ],
     filtros: {
       oleo: { original: '504091563', tecfil: 'PEL108', mann: 'W 950/26', mahle: 'OC505', wega: 'WO-530', fram: 'CH9939' },
-      ar: { original: '1372173080', tecfil: 'ARL8480', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
-      combustivel: { original: '1609428080', tecfil: 'PSD980', mann: 'WK 1060 x', mahle: 'KC202', wega: 'FCI-1620', fram: 'PS10038' },
+      ar: { original: '1372173080', tecfil: 'ARL8480', mann: 'C 27 902 (240E28 Euro 5, 01/2011 em diante)', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: '1609428080', tecfil: 'PSD980', mann: 'WK 950/21 (240E28 Euro 5, 01/2011 em diante)', mahle: 'KC202', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
   },
@@ -901,9 +900,9 @@ const especificacoesOleos = {
       { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '10,0 L', intervalo: '80.000 km' }
     ],
     filtros: {
-      oleo: { original: 'A0001802609', tecfil: 'PEL108', mann: 'HU 934/2 x', mahle: 'OX153/7D', wega: 'WO-530', fram: 'CH9939' },
-      ar: { original: 'A0030944004', tecfil: 'ARS9841', mann: 'C 25 125', mahle: 'LX1038', wega: 'FAP-2830', fram: 'CA10427' },
-      combustivel: { original: 'A0000903651', tecfil: 'PSD980', mann: 'PU 936/1 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
+      oleo: { original: 'A0001802609', tecfil: 'PEL108', mann: 'HU 931/5 x', mahle: 'OX153/7D', wega: 'WO-530', fram: 'CH9939' },
+      ar: { original: 'A0030944004', tecfil: 'ARS9841', mann: 'C 20 457', mahle: 'LX1038', wega: 'FAP-2830', fram: 'CA10427' },
+      combustivel: { original: 'A0000903651', tecfil: 'PSD980', mann: 'PU 1046 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: 'CU 3461', mahle: '-', wega: '-', fram: '-' }
     }
   },
@@ -1005,7 +1004,7 @@ const especificacoesOleos = {
       { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '12,0 L', intervalo: '90.000 km' }
     ],
     filtros: {
-      oleo: { original: '1742032', tecfil: 'PEL108', mann: 'HU 1075 x', mahle: 'OX174D', wega: 'WO-530', fram: 'CH11430' },
+      oleo: { original: '1742032', tecfil: 'PEL108', mann: 'HU 1077/2 z', mahle: 'OX174D', wega: 'WO-530', fram: 'CH11430' },
       ar: { original: '1523405', tecfil: 'ARS1183', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: '1740947', tecfil: 'PSD980', mann: 'WK 1060 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
@@ -1018,8 +1017,8 @@ const especificacoesOleos = {
       { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '14,0 L', intervalo: '100.000 km' }
     ],
     filtros: {
-      oleo: { original: '1742032', tecfil: 'PEL108', mann: 'HU 1075 x', mahle: 'OX174D', wega: 'WO-530', fram: 'CH11430' },
-      ar: { original: '1523405', tecfil: 'ARS1183', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
+      oleo: { original: '1742032', tecfil: 'PEL108', mann: 'W 11 102/18', mahle: 'OX174D', wega: 'WO-530', fram: 'CH11430' },
+      ar: { original: '1523405', tecfil: 'ARS1183', mann: 'C 27 1340', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
       combustivel: { original: '1740947', tecfil: 'PSD980', mann: 'WK 1060 x', mahle: 'KX80D', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
@@ -1156,7 +1155,7 @@ const especificacoesOleos = {
   },
   'VW Worker 17.190': {
     sistemas: [
-      { sistema: 'Motor (MWM 6.10)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '16,5 L', intervalo: '20.000 km' },
+      { sistema: 'Motor (MAN D08; aplicação Constellation 17.190, confirmar ano/modelo)', especificacao: 'SAE 15W-40 (aprovação e viscosidade dependem do ano/emissões)', norma: 'Pendente de confirmação no manual MAN/VW da versão', capacidade: '16,5 L (não validado; confirmar com filtro e cárter da versão)', intervalo: 'Pendente de confirmação no plano de manutenção' },
       { sistema: 'Câmbio Eaton', especificacao: 'SAE 50', norma: 'API GL-4', capacidade: '7,0 L', intervalo: '50.000 km' },
       { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '9,0 L', intervalo: '50.000 km' }
     ],
@@ -1258,7 +1257,7 @@ const especificacoesOleos = {
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
   },
-  'VW Constellation 26-280': {
+  'VW Constellation 26.280': {
     sistemas: [
       { sistema: 'Motor (MAN D08)', especificacao: 'SAE 15W-40 ou 10W-40', norma: 'API CI-4', capacidade: '27,5 L', intervalo: '30.000 km' },
       { sistema: 'Câmbio ZF 16S', especificacao: 'SAE 75W-90', norma: 'API GL-4', capacidade: '14,0 L', intervalo: '200.000 km' },
@@ -1271,16 +1270,16 @@ const especificacoesOleos = {
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
   },
-  'VW Constellation 31-320': {
+  'VW Constellation 31.320': {
     sistemas: [
       { sistema: 'Motor (Cummins ISC)', especificacao: 'SAE 15W-40', norma: 'API CI-4', capacidade: '18,0 L', intervalo: '20.000 km' },
       { sistema: 'Câmbio ZF', especificacao: 'SAE 75W-90', norma: 'API GL-4', capacidade: '11,0 L', intervalo: '40.000 km' },
       { sistema: 'Diferencial', especificacao: 'SAE 85W-140', norma: 'API GL-5', capacidade: '18,0 L', intervalo: '40.000 km' }
     ],
     filtros: {
-      oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'W 950/26', mahle: 'OC516', wega: 'WO-210', fram: 'PH8A' },
+      oleo: { original: '2R0115561', tecfil: 'PEL106', mann: 'WP 12 121', mahle: 'OC516', wega: 'WO-210', fram: 'PH8A' },
       ar: { original: '2T0129620', tecfil: 'ARL8480', mann: 'C 27 830', mahle: 'LX1047', wega: 'FAP-2830', fram: 'CA10427' },
-      combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK 950/21', mahle: 'KC202', wega: 'FCI-1620', fram: 'PS10038' },
+      combustivel: { original: '2R0201511', tecfil: 'PSD980', mann: 'WK 954/1 x', mahle: 'KC202', wega: 'FCI-1620', fram: 'PS10038' },
       cabine: { original: '-', tecfil: '-', mann: '-', mahle: '-', wega: '-', fram: '-' }
     }
   },
@@ -1432,3 +1431,118 @@ const especificacoesOleos = {
   }
 
 }; // fim de especificacoesOleos
+
+/* ==========================================================
+   AUDITORIA TÉCNICA DAS APLICAÇÕES
+   - status PARCIAL: somente a variante e os itens descritos na observação foram conferidos.
+   - status PENDENTE: não tratar os valores herdados como aplicação homologada.
+   - Sempre conferir ano, código do motor, transmissão e chassi antes de comprar/abastecer.
+   Esta estrutura é adicional e não altera a forma de leitura de bancoDeDados/especificacoesOleos.
+   ========================================================== */
+/* ATENÇÃO: não considerar toda a base homologada. Consulte auditoriaAplicacoes no final;
+   os registros PENDENTE não devem ser usados para compra/abastecimento sem validação. */
+const auditoriaAplicacoes = {
+  "Chevrolet SPIN": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Chevrolet Agile": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Chevrolet Montana": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Fiat Palio 1.4": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Fiat Doblo 1.8": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Fiat Doblo 1.4": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Fiat Strada 1.4": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Ford Fiesta 1.0": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Ford Fiesta 1.6": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Ford Focus 1.6": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Ford Focus 2.0": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Nissan Sentra": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Nissan Versa 1.6": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Peugeot 408 1.6 THP": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Renault Logan - Sandero": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "VW Kombi 1.4": { status: "PARCIAL", observacao: "Removidas as linhas incompatíveis com Kombi 1.4 original: direção hidráulica e arrefecimento líquido. Motor boxer arrefecido a ar. Filtros, capacidade e lubrificantes precisam de validação por ano/código do motor.", fontes: [] },
+  "VW Gol 1.6 G5": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "VW Gol 1.6 G6": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Agrale Marruá - AM21": { status: "PARCIAL", observacao: "Motor MWM 4.07 TCE Euro III e capacidade de óleo de 8,5 L conferidos em documentação técnica encontrada; filtros, transmissão e diferencial ainda precisam ser cruzados por ano/chassi.", fontes: ["https://pt.scribd.com/document/1055492376/Eb40-Mt-20-918-Mt-Agrale-Marrua-2022-Port-83-Colog"] },
+  "Agrale Marruá - AM20": { status: "PARCIAL", observacao: "Motor MWM 4.07 TCA Euro II e capacidade de óleo de 8,5 L identificados em manual técnico; demais aplicações precisam de confirmação por versão.", fontes: ["https://pt.scribd.com/document/584618309/Port-83-Colog-Mnl-Marrua-Eb40-Mt-20-918-Sobre-a-Marrua"] },
+  "Agrale Marruá - AM22": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Agrale Marruá - AM25": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Ford F-250 e F-350": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Ford Ranger Power Stroke": { status: "PARCIAL", observacao: "Manual Ford Ranger 2011 confirma SAE 15W-40 API CH-4/CI-4 e norma WSS-M2C171-C/D acima de -10 °C; abaixo disso, SAE 5W-30 WSS-M2C913-B. Troca em 6 meses ou 10.000 km. Capacidade 8,2 L não foi confirmada no trecho consultado.", fontes: ["https://www.ford.com.br/content/dam/Ford/website-assets/latam/br/servico-ao-cliente/manuais/2011/manuais-do-proprietario/Ranger_2011.pdf"] },
+  "Ford Ranger 3.0 NGD": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Ford Ranger 2.2": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Ford Transit": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Mitsubishi L200 2.5": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Mitsubishi Triton 3.2": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Mitsubishi Triton 2.4": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Nissan Frontier 2.5": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Nissan Frontier 2.3": { status: "PARCIAL", observacao: "Manual Nissan MY2024 informa SAE 5W-30 ACEA C3 e capacidades com filtro: 6,7 L para YS23DDT e 6,3 L para YS23DDTT. A entrada precisa ser segmentada por código de motor e ano.", fontes: ["https://www.nissan.com.br/content/dam/Nissan/br/site/servicos/manuais/frontier/2023/MP%20WEB%20FRONTIER%20%20my24-Maio%2023.pdf"] },
+  "Toyota Hilux 3.0": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Toyota Hilux 2.8 - Nova": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Agrale 8500": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Agrale 10000": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Agrale 13000": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "DAF XF": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "DAF CF": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "DAF XD": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Foton Aumark S 3.5": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Foton Aumark S 5.5": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Foton Auman ETX": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Ford Cargo 816": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Ford Cargo 1317": { status: "PENDENTE", observacao: "A base identifica motor Cummins ISB 4.5, mas o catálogo MANN consultado descreve Cargo 1317 E com Cummins ISBE 3.9. As referências MANN foram suspensas no registro até confirmar ano, código de motor e carcaça; não aplicar códigos do 3.9 ao 4.5.", fontes: ["https://www.mann-filter.com/content/dam/website/mann-filter/mann-filter-com/br-pt/documents/cat%C3%A1logo/catalogo_mann_filter_PESADA_2022_2023_web.pdf"] },
+  "Ford Cargo 1719": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Ford Cargo 2429": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Ford Cargo 2629": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Ford Cargo 3131": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Iveco Daily 30-130": { status: "PARCIAL", observacao: "Manual IVECO Daily edição 10/2021 confirma para 30-130: motor 4,9 L com filtro/4,3 L sem filtro, SAE 5W-30 API CF ACEA C2; câmbio ZF 6S480 VO 2,4 L com ZF TE-ML 01E/02E; diferencial 1,35 L SAE 75W-90 API GL-5/MT-1; direção 1,30 L ATF Dexron II; troca de óleo a cada 15.000 km ou 400 h. Aplicar somente à configuração abrangida pelo manual.", fontes: ["https://www.iveco.com/Brasil/servicos/Documents/Daily_Manual_Uso_Manutencao_Ed.010.pdf"] },
+  "Iveco Daily 35-150": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Iveco Daily 55C": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Iveco Tector": { status: "PARCIAL", observacao: "Ficha técnica oficial do Tector 240E28 6x2 com motor FPT NEF6 informa 18 L no cárter sem filtro. Para Tector 240E28 Euro 5 (01/2011 em diante), catálogo MANN lista C 27 902, CF 1550, W 950/26, WK 950/21 e separador WK 1040. Aplicar somente após confirmar ano, motor e arranjo de filtros.", fontes: ["https://www.iveco.com/Brasil/collections/technical_sheets/Documents/Iveco_Tector_240E28-bx.pdf"] },
+  "Iveco Stralis": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Iveco S-Way": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "JAC V260": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "JAC X200": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "JAC X300": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "MAN TGX": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "MAN TGS": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Mercedes-Benz Accelo 1016": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Mercedes-Benz Accelo 1017": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Mercedes-Benz Atego 1719": { status: "PARCIAL", observacao: "Para Atego 1719 BlueTec 5 com OM924 LA (a partir de 01/2012), catálogo MANN confirma HU 931/5 x e PU 1046 x; catálogo pesado MANN 2022 lista C 20 457 e separador PF 420. Não aplicar a Atego 1719 de outra geração.", fontes: ["https://www.mann-filter.com/br-pt/catalogo/resultados-da-pesquisa/produto.html/pu1046x_mann-filter.html", "https://www.mann-filter.com/content/dam/website/mann-filter/mann-filter-com/br-pt/documents/cat%C3%A1logo/catalogo_mann_filter_PESADA_2022_2023_web.pdf"] },
+  "Mercedes-Benz Atego 2426": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Mercedes-Benz Atego 2730": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Mercedes-Benz Axor 2536": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Mercedes-Benz Axor 2644": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Mercedes-Benz Axor 3344": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Mercedes-Benz Actros 2651": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Mercedes-Benz Actros 2657": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Scania P 250": { status: "PARCIAL", observacao: "A referência de óleo MANN HU 1077/2 z é compatível com P250 DC07 112 da nova geração (a partir de 02/2018); versões P250 anteriores usam motor e configuração de filtros diferentes. Ano e código do motor são obrigatórios.", fontes: ["https://www.mann-filter.com/br-pt/catalogo/resultados-da-pesquisa/produto.html/hu1077/2z_mann-filter.html"] },
+  "Scania P 310": { status: "PARCIAL", observacao: "Para P310 DC9-21/DC9-11, catálogo MANN indica W 11 102/18 para óleo e C 27 1340 para ar. O filtro de combustível depende do ano e do arranjo de separadores.", fontes: ["https://www.mann-filter.com/br-pt/catalogo/resultados-da-pesquisa/produto.html/w11102/18_mann-filter.html", "https://www.mann-filter.com/br-pt/catalogo/resultados-da-pesquisa/produto.suffix.html/c271340_mann-filter.html"] },
+  "Scania G 410": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Scania R 450": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Scania R 540": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Scania S 450": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Scania S 540": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "VW Delivery 9.170": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "VW Delivery 11.180": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "VW Delivery 13.180": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "VW Worker 8.150": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "VW Worker 15.180": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "VW Worker 17.190": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "VW Worker 24.220": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "VW Worker 24.250": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "VW Worker 26.260": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "VW Worker 26.280": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "VW Constellation 17.190": { status: "PARCIAL", observacao: "A aplicação Constellation 17.190 encontrada no catálogo MANN utiliza motor MAN D08; não confundir com Worker 17.190 ou outras gerações. Ano e código exato do D08 ainda precisam ser identificados.", fontes: ["https://www.mann-filter.com/content/dam/website/mann-filter/mann-filter-com/br-pt/documents/cat%C3%A1logo/catalogo_mann_filter_PESADA_2022_2023_web.pdf"] },
+  "VW Constellation 24.250": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "VW Constellation 24.280": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "VW Constellation 26.280": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "VW Constellation 31.320": { status: "PARCIAL", observacao: "Para 31.320 E Constellation com Cummins ISC (02/2007 a 12/2011), catálogo MANN confirma WP 12 121 (óleo), C 27 830 (ar) e WK 954/1 x (combustível). Não estender automaticamente a versões posteriores ou motores diferentes.", fontes: ["https://www.mann-filter.com/br-pt/catalogo/resultados-da-pesquisa/produto.html/wp12121_mann-filter.html", "https://www.mann-filter.com/br-pt/catalogo/resultados-da-pesquisa/produto.html/wk954/1x_mann-filter.html", "https://www.mann-filter.com/br-pt/catalogo/resultados-da-pesquisa/produto.html/c27830_mann-filter.html"] },
+  "VW Constellation 33.440": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Volvo VM 23": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Volvo VM 26": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Volvo VM 30": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Volvo FH 460": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Volvo FH 540": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Volvo FMX 460": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Volvo FMX 540": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Fiat Ducato 2.3 Multijet": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Fiat Ducato 2.8": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] },
+  "Iveco - Daily 35S14": { status: "PENDENTE", observacao: "Aplicação não validada integralmente. Faltam ano/modelo, código exato do motor e/ou transmissão; referências de filtros de cada fabricante e capacidades/intervalos precisam ser conferidos em catálogo ou manual específico antes de uso.", fontes: [] }
+};
