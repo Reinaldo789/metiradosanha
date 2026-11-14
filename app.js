@@ -1,215 +1,258 @@
-/* ==========================================================
-   MANUAL AUTOMOTIVO — app.js (Lógica da Página)
-   ========================================================== */
-
-const CATEGORIAS = [
-  { slug: 'veiculos-passeio',     titulo: 'Veículos Passeio',     icone: 'fa-car',          cor: '#4f46e5', resumo: 'Chevrolet, Fiat, Ford, Nissan, VW...' },
-  { slug: 'veiculos-utilitarios', titulo: 'Veículos Utilitários', icone: 'fa-truck-pickup', cor: '#0284c7', resumo: 'Agrale, Ford, Mitsubishi, Toyota...' },
-  { slug: 'caminhoes',            titulo: 'Caminhões',            icone: 'fa-truck',        cor: '#065f46', resumo: 'Ford, Mercedes-Benz, Volkswagen...' },
-  { slug: 'onibus-e-vans',        titulo: 'Ônibus e Vans',        icone: 'fa-bus',          cor: '#1e1b4b', resumo: 'Agrale, Mercedes, Fiat, Iveco...' }
-];
-
-const estado = { cat: null, marca: '', modelo: '' };
-const $ = id => document.getElementById(id);
-
-function criarCard({ icone, cor = '#4f46e5', titulo, texto, aoClicar }) {
-  const a = document.createElement('a');
-  a.className = 'c';
-  a.tabIndex = 0;
-  a.setAttribute('role', 'button');
-  a.innerHTML = `
-    <div class="c-header">
-      <div class="c-icone" style="color:${cor};background:${cor}15"><i class="fa-solid ${icone}"></i></div>
-      <b>${titulo}</b>
-    </div>
-    <span>${texto}</span>
-    <div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>`;
-  a.addEventListener('click', aoClicar);
-  a.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); aoClicar(); }
-  });
-  return a;
-}
-
-function iconeSistema(nome) {
-  const n = nome.toLowerCase();
-  if (n.includes('motor')) return 'fa-oil-can';
-  if (n.includes('câmbio') || n.includes('transmiss')) return 'fa-gears';
-  if (n.includes('transferência') || n.includes('tração')) return 'fa-random';
-  if (n.includes('diferencial')) return 'fa-gear';
-  return 'fa-droplet';
-}
-
-// Organiza os dados em sistemas para renderizar com o design padrão `.sis`
+// =====================================================================
+// COMPATIBILIDADE COM DADOS ANTIGOS (motor/cambio/diferencial)
+// =====================================================================
 function normalizarBanco() {
   for (const modelo in especificacoesOleos) {
     const spec = especificacoesOleos[modelo];
     if (Array.isArray(spec.sistemas)) continue;
-    const lista = [];
-    const add = (nome, o, obs) => lista.push({ sistema: nome, especificacao: o.tipo, norma: '-', capacidade: o.qtd || '-', intervalo: o.intervalo || '-', observacao: obs });
-    
-    const dif = spec.diferencial;
-    const semDif = dif && /^não se aplica/i.test(dif.tipo || '');
-
-    if (spec.motor && spec.motor.tipo) add('Motor', spec.motor);
-    if (spec.cambio && spec.cambio.tipo) add('Câmbio', spec.cambio, semDif ? 'Diferencial: ' + dif.tipo : undefined);
-    if (spec.transferencia && spec.transferencia.tipo) add('Caixa de Transferência / Tração', spec.transferencia);
-    if (dif && dif.tipo && !semDif) add('Diferencial', dif);
-    
-    spec.sistemas = lista;
+    const sistemas = [];
+    if (spec.motor && spec.motor.tipo) {
+      sistemas.push({ sistema: 'Motor', especificacao: spec.motor.tipo, norma: '-', capacidade: spec.motor.qtd || '-', intervalo: spec.motor.intervalo || '-' });
+    }
+    if (spec.cambio && spec.cambio.tipo) {
+      sistemas.push({ sistema: 'Câmbio', especificacao: spec.cambio.tipo, norma: '-', capacidade: spec.cambio.qtd || '-', intervalo: spec.cambio.intervalo || '-' });
+    }
+    if (spec.diferencial && spec.diferencial.tipo && spec.diferencial.tipo !== 'Não se aplica') {
+      sistemas.push({ sistema: 'Diferencial', especificacao: spec.diferencial.tipo, norma: '-', capacidade: spec.diferencial.qtd || '-', intervalo: spec.diferencial.intervalo || '-' });
+    }
+    spec.sistemas = sistemas;
   }
 }
+normalizarBanco();
 
-function mudarTela(id) {
-  const atual = document.querySelector('.tela.ativa');
-  const alvo = $('tela-' + id);
-  if (!alvo || atual === alvo) return;
-  const mostrar = () => {
-    if (atual) atual.classList.remove('ativa', 'saindo');
-    alvo.classList.add('ativa');
-    scrollTo({ top: 0, behavior: 'smooth' });
-    gerarBreadcrumb(id);
-  };
-  if (atual) { atual.classList.add('saindo'); setTimeout(mostrar, 220); } else mostrar();
-}
+// =====================================================================
+// LÓGICA DE NAVEGAÇÃO
+// =====================================================================
+let categoriaAtualSlug = '';
+let categoriaAtualTitulo = '';
+let marcaAtual = '';
+let modeloAtual = '';
 
-function gerarBreadcrumb(telaId) {
-  const container = document.querySelector(`#tela-${telaId} .breadcrumb`);
-  if (!container) return;
-  const crumbs = [{ titulo: '🏠 Início', acao: () => mudarTela('principal') }];
-  if (estado.cat) crumbs.push({ titulo: estado.cat.titulo, acao: () => abrirCategoria(estado.cat) });
-  if (estado.marca) crumbs.push({ titulo: estado.marca, acao: () => abrirMarca(estado.marca) });
-  if (telaId === 'conteudo') crumbs.push({ titulo: estado.modelo });
-
-  container.innerHTML = '';
-  crumbs.forEach((item, i) => {
-    const ultimo = i === crumbs.length - 1;
-    const el = document.createElement('span');
-    el.className = 'crumb' + (ultimo ? ' atual' : '');
-    el.textContent = item.titulo;
-    if (!ultimo) el.addEventListener('click', item.acao);
-    container.append(el);
-    if (!ultimo) { const s = document.createElement('span'); s.className = 'sep'; s.textContent = '›'; container.append(s); }
-  });
-}
-
-function abrirCategoria(cat) {
-  estado.cat = cat; estado.marca = ''; estado.modelo = '';
-  $('titulo-lista').innerHTML = `<i class="fa-solid ${cat.icone}" style="color:${cat.cor}"></i> ${cat.titulo}`;
-  const grid = $('grid-lista');
-  grid.innerHTML = '';
-  const marcas = bancoDeDados[cat.slug].marcas;
+function abrirCategoria(titulo, slug, icone, cor) {
+  categoriaAtualSlug = slug;
+  categoriaAtualTitulo = titulo;
+  marcaAtual = '';
+  const tituloLista = document.getElementById('titulo-lista');
+  const gridLista = document.getElementById('grid-lista');
+  tituloLista.innerHTML = `<i class="fa-solid ${icone}" style="color:${cor};"></i> ${titulo}`;
+  gridLista.innerHTML = '';
+  const marcas = bancoDeDados[slug].marcas;
   for (const marca in marcas) {
-    grid.append(criarCard({
-      icone: 'fa-flag', cor: cat.cor, titulo: marca,
-      texto: `${marcas[marca].length} modelos disponíveis`,
-      aoClicar: () => abrirMarca(marca)
-    }));
+    const card = document.createElement('a');
+    card.className = 'c';
+    card.onclick = () => abrirMarca(marca);
+    card.innerHTML = `
+      <div class="c-header">
+        <div class="c-icone" style="color:${cor}; background: ${cor}15;"><i class="fa-solid fa-flag"></i></div>
+        <b>${marca}</b>
+      </div>
+      <span>${marcas[marca].length} modelos disponíveis</span>
+      <div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+    `;
+    gridLista.appendChild(card);
   }
   mudarTela('lista');
 }
 
 function abrirMarca(marca) {
-  estado.marca = marca; estado.modelo = '';
-  $('titulo-lista').innerHTML = `<i class="fa-solid fa-flag" style="color:${estado.cat.cor}"></i> ${marca}`;
-  const grid = $('grid-lista');
-  grid.innerHTML = '';
-  bancoDeDados[estado.cat.slug].marcas[marca].forEach(modelo => {
-    grid.append(criarCard({
-      icone: 'fa-wrench', cor: estado.cat.cor, titulo: modelo,
-      texto: 'Ver fluidos e referências de filtros.',
-      aoClicar: () => abrirConteudo(modelo)
-    }));
+  marcaAtual = marca;
+  const tituloLista = document.getElementById('titulo-lista');
+  const gridLista = document.getElementById('grid-lista');
+  tituloLista.innerHTML = `<i class="fa-solid fa-flag"></i> ${marca}`;
+  gridLista.innerHTML = '';
+  const modelos = bancoDeDados[categoriaAtualSlug].marcas[marca];
+  modelos.forEach(modelo => {
+    const card = document.createElement('a');
+    card.className = 'c';
+    card.onclick = () => abrirConteudo(modelo);
+    card.innerHTML = `
+      <div class="c-header">
+        <div class="c-icone"><i class="fa-solid fa-wrench"></i></div>
+        <b>${modelo}</b>
+      </div>
+      <span>Ver fluidos e referências de filtros.</span>
+      <div class="c-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+    `;
+    gridLista.appendChild(card);
   });
   mudarTela('lista');
 }
 
-function fichaSistema(s) {
-  const norma = (s.norma && s.norma !== '-') ? `<div class="sis-nota"><span class="rotulo">Norma</span>${s.norma}</div>` : '';
-  const obs = s.observacao ? `<div class="sis-nota"><span class="rotulo obs">Obs.</span>${s.observacao}</div>` : '';
+// --- RENDERIZAÇÃO DA TABELA DE FILTROS ATUALIZADA ---
+function criarTabelaFiltros(filtros) {
+  if (!filtros) return '<p>Dados de filtros não cadastrados.</p>';
+  
+  const renderLinha = (nome, obj) => {
+    if (!obj) return '';
+    const getVal = (k) => (obj[k] && obj[k] !== '-') ? `<span class="filtro-tag">${obj[k]}</span>` : '-';
+    
+    return `
+      <tr>
+        <td><b>${nome}</b></td>
+        <td>${getVal('original')}</td>
+        <td>${getVal('tecfil')}</td>
+        <td>${getVal('mann')}</td>
+        <td>${getVal('mahle')}</td>
+        <td>${getVal('wega')}</td>
+        <td>${getVal('fram')}</td>
+        <td>${getVal('bosch')}</td>
+        <td>${getVal('vox')}</td>
+        <td>${getVal('mwm')}</td>
+      </tr>
+    `;
+  };
+  
   return `
-    <article class="sis">
-      <div class="sis-titulo"><i class="fa-solid ${iconeSistema(s.sistema)}"></i>${s.sistema}</div>
-      <dl class="sis-dados">
-        <div><dt>Especificação</dt><dd class="destaque">${s.especificacao || '-'}</dd></div>
-        <div><dt>Capacidade</dt><dd>${s.capacidade || '-'}</dd></div>
-        <div><dt>Intervalo de troca</dt><dd>${s.intervalo || '-'}</dd></div>
-      </dl>
-      ${norma}${obs}
-    </article>`;
-}
-
-function tabelaFiltros(filtros) {
-  if (!filtros) return '';
-  const marcas = [['tecfil', 'Tecfil'], ['mann', 'Mann'], ['wega', 'Wega'], ['fram', 'Fram']];
-  const tipos = [
-    { chave: 'oleo', nome: 'Óleo do Motor' },
-    { chave: 'ar', nome: 'Filtro de Ar' },
-    { chave: 'combustivel', nome: 'Combustível' },
-    { chave: 'cabine', nome: 'Cabine / Ar Cond.' }
-  ];
-
-  let linhasHtml = '';
-  tipos.forEach(t => {
-    if (filtros[t.chave]) {
-      const f = filtros[t.chave];
-      linhasHtml += `
-        <tr>
-          <td><b>${t.nome}</b></td>
-          ${marcas.map(([m]) => `<td>${f[m] ? `<span class="filtro-tag">${f[m]}</span>` : '-'}</td>`).join('')}
-        </tr>`;
-    }
-  });
-
-  if (!linhasHtml) return '';
-
-  return `
-    <div class="sis mb-3">
-      <div class="sis-titulo"><i class="fa-solid fa-filter"></i> Referência Cruzada de Filtros</div>
-      <div class="p-3">
-        <div class="table-responsive">
-          <table class="table tabela-filtros w-100">
-            <thead>
-              <tr>
-                <th>Aplicação</th>
-                ${marcas.map(([, nome]) => `<th>${nome}</th>`).join('')}
-              </tr>
-            </thead>
-            <tbody>
-              ${linhasHtml}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>`;
+    <div class="tabela-container">
+      <table class="tabela-filtros">
+        <thead>
+          <tr>
+            <th>Aplicação</th>
+            <th>Original (OEM)</th>
+            <th>Tecfil</th>
+            <th>Mann</th>
+            <th>Mahle</th>
+            <th>Wega</th>
+            <th>Fram</th>
+            <th>Bosch</th>
+            <th>Vox</th>
+            <th>MWM</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${renderLinha('Óleo do Motor', filtros.oleo)}
+          ${renderLinha('Filtro de Ar', filtros.ar)}
+          ${renderLinha('Combustível', filtros.combustivel)}
+          ${filtros.cabine ? renderLinha('Cabine / Ar Cond.', filtros.cabine) : ''}
+        </tbody>
+      </table>
+    </div>
+  `;
 }
 
 function abrirConteudo(modelo) {
-  estado.modelo = modelo;
-  $('titulo-conteudo').textContent = modelo;
+  modeloAtual = modelo;
+  const tituloConteudo = document.getElementById('titulo-conteudo');
+  const containerConteudo = document.getElementById('conteudo-dinamico');
+  
+  tituloConteudo.textContent = modelo;
   const spec = especificacoesOleos[modelo];
-  const alvo = $('conteudo-dinamico');
+  
+  if (spec && spec.sistemas && spec.sistemas.length > 0) {
+    
+    const cards = spec.sistemas.map(s => {
+      let normas = [];
+      if (s.norma && s.norma !== '-') normas.push(s.norma);
+      if (s.observacao) normas.push(s.observacao);
+      const normaHtml = normas.length > 0 ? `<div class="sistema-norma"><b>Norma / Observação:</b> ${normas.join(' | ')}</div>` : '';
 
-  if (!alvo) return;
+      return `
+        <div class="card-sistema">
+          <div class="sistema-titulo">${s.sistema}</div>
+          <table class="tabela-card">
+            <thead>
+              <tr>
+                <th>Especificação / Viscosidade</th>
+                <th>Capacidade</th>
+                <th>Intervalo de Troca</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>${s.especificacao || '-'}</b></td>
+                <td>${s.capacidade || '-'}</td>
+                <td>${s.intervalo || '-'}</td>
+              </tr>
+            </tbody>
+          </table>
+          ${normaHtml}
+        </div>
+      `;
+    }).join('');
 
-  if (spec && spec.sistemas && spec.sistemas.length) {
-    alvo.innerHTML = `
-      <p class="intro">Especificações de fluidos e referência cruzada de filtros:</p>
-      ${spec.sistemas.map(fichaSistema).join('')}
-      ${spec.filtros ? tabelaFiltros(spec.filtros) : ''}
-      <p class="aviso"><i class="fa-solid fa-triangle-exclamation"></i><span><b>Atenção:</b> os códigos originais e de marcas paralelas podem variar conforme o ano e a versão do motor. Sempre confirme a aplicação no momento da compra.</span></p>`;
+    containerConteudo.innerHTML = `
+      <div style="background: transparent; padding: 0;">
+        <p style="margin-top:0; margin-bottom: 16px; color:#5b6275; font-size: 14px;">Confira abaixo as especificações de fluidos e os códigos de referência cruzada de filtros:</p>
+        
+        <div class="cards-container">
+          ${cards}
+        </div>
+        
+        <h3 style="color: #3730a3; font-size: 18px; margin-top: 32px; margin-bottom: 12px;">
+          <i class="fa-solid fa-filter"></i> Tabela de Referência de Filtros
+        </h3>
+        <div style="background: #fff; border-radius: 12px; padding: 16px; border: 1px solid var(--border);">
+          ${criarTabelaFiltros(spec.filtros)}
+        </div>
+        
+        <p style="font-size: 12px; color: #b45309; margin-top: 16px;">
+          <i class="fa-solid fa-triangle-exclamation"></i> <b>Atenção:</b> Os códigos originais e de marcas paralelas podem variar conforme o ano e a versão do motor. Sempre confirme a aplicação no momento da compra.
+        </p>
+      </div>
+    `;
   } else {
-    alvo.innerHTML = `
-      <div class="card-construcao">
-        <i class="fa-solid fa-screwdriver-wrench"></i><b>Conteúdo em construção</b>
-        <span>As especificações para o <strong>${modelo}</strong> estarão disponíveis em breve.</span>
-      </div>`;
+    containerConteudo.innerHTML = `
+      <div class="card-construcao" style="text-align: center;">
+        <i class="fa-solid fa-screwdriver-wrench"></i>
+        <b>Conteúdo em construção</b>
+        <span>As especificações e filtros para o <strong>${modelo}</strong> estarão disponíveis aqui em breve.</span>
+      </div>
+    `;
   }
+  
   mudarTela('conteudo');
 }
 
-/* ---------- INÍCIO ---------- */
-normalizarBanco();
-CATEGORIAS.filter(cat => bancoDeDados[cat.slug]).forEach(cat => $('grid-home').append(criarCard({
-  icone: cat.icone, cor: cat.cor, titulo: cat.titulo, texto: cat.resumo, aoClicar: () => abrirCategoria(cat)
-})));
+// =====================================================================
+// TROCA DE TELAS E BREADCRUMB
+// =====================================================================
+function mudarTela(idTela) {
+  const atual = document.querySelector('.tela.ativa');
+  const alvo = document.getElementById('tela-' + idTela);
+  if (!alvo || atual === alvo) return;
+  if (atual) {
+    atual.classList.add('saindo');
+    setTimeout(() => {
+      atual.classList.remove('ativa', 'saindo');
+      alvo.classList.add('ativa');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      gerarBreadcrumb(idTela);
+    }, 220);
+  } else {
+    alvo.classList.add('ativa');
+    gerarBreadcrumb(idTela);
+  }
+}
+
+function gerarBreadcrumb(telaAtivaId) {
+  const container = document.querySelector(`#tela-${telaAtivaId} .breadcrumb`);
+  if (!container) return;
+  let crumbs = [];
+  crumbs.push({ titulo: '🏠 Início', tela: 'principal' });
+  if (telaAtivaId === 'lista' || telaAtivaId === 'conteudo') {
+    crumbs.push({ titulo: categoriaAtualTitulo, tela: 'lista', acao: () => abrirCategoria(categoriaAtualTitulo, categoriaAtualSlug, 'fa-car', '#4f46e5') });
+    if (marcaAtual) {
+      crumbs.push({ titulo: marcaAtual, tela: 'lista', acao: () => abrirMarca(marcaAtual) });
+    }
+    if (telaAtivaId === 'conteudo') {
+      crumbs.push({ titulo: modeloAtual, tela: 'conteudo' });
+    }
+  }
+  container.innerHTML = '';
+  crumbs.forEach((item, index) => {
+    const isUltimo = index === crumbs.length - 1;
+    const crumb = document.createElement('span');
+    crumb.className = 'crumb' + (isUltimo ? ' atual' : '');
+    crumb.innerHTML = item.titulo;
+    if (!isUltimo) {
+      crumb.onclick = item.acao ? item.acao : () => mudarTela(item.tela);
+    }
+    container.appendChild(crumb);
+    if (!isUltimo) {
+      const sep = document.createElement('span');
+      sep.className = 'sep';
+      sep.textContent = '›';
+      container.appendChild(sep);
+    }
+  });
+}
